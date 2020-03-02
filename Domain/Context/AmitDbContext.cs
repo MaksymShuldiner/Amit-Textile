@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace AmitTextile.Domain.Context
 {
-    public class AmitDbContext : DbContext
+    public class AmitDbContext : IdentityDbContext
     {
         public AmitDbContext(DbContextOptions options) :base(options)
         {
@@ -20,7 +21,7 @@ namespace AmitTextile.Domain.Context
             modelBuilder.Entity<ItemOrder>()
                 .HasOne(x => x.Order)
                 .WithMany(t => t.ItemOrders )
-                .HasForeignKey(x => x.Order);
+                .HasForeignKey(x => x.OrderId);
 
 
 
@@ -30,7 +31,31 @@ namespace AmitTextile.Domain.Context
 
         public DbSet<Charachteristic> Charachteristics { get; set; }
 
-        
+        public DbSet<CharachteristicValues> CharachteristicValues { get; set; }
+
+        public DbSet<CharachteristicVariants> CharachteristicVariants { get; set; }
+
+        public DbSet<ChildCategory> ChildCategories { get; set; }
+
+        public DbSet<ChildCommentQuestion> ChildCommentQuestions { get; set; }
+
+        public DbSet<ChildCommentReview> ChildCommentReviews { get; set; }
+
+        public DbSet<Image> Images { get; set; }
+
+        public DbSet<Item> Items { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<ParentCommentQuestion> ParentCommentQuestions { get; set; }
+
+        public DbSet<ParentCommentReview> ParentCommentReviews { get; set; }
+
+        public DbSet<Textile> Textiles { get; set; }
+
+        public DbSet<User> Users { get; set; }
+
+
 
     }
 }

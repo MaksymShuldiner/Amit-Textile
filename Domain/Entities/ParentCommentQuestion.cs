@@ -5,7 +5,7 @@ namespace AmitTextile.Domain
 {
     public class ParentCommentQuestion
     {
-        public Guid ParentCommentQuestonId { get; set; }
+        public Guid ParentCommentQuestionId { get; set; }
 
         public ICollection<ChildCommentQuestion> ChildComments { get; set; }
 

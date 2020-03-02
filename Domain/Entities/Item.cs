@@ -5,6 +5,7 @@ namespace AmitTextile.Domain
 {
     public class Item
     {
+        public Guid ItemId { get; set; }
         public Textile Textile { get; set; }
 
         public Guid TextileId { get; set; }
