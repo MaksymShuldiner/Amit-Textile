@@ -9,8 +9,9 @@ namespace AmitTextile.Domain
         public string Name { get; set; }
 
         public string Value { get; set; }
-        public Charachteristic Charachteristic { get; set; }
+        
+        public Textile Textile { get; set; }
 
-        public Guid CharachteristicId { get; set; }
+        public Guid TextileId { get; set; }
     }
 }

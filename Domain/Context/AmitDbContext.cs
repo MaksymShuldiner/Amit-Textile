@@ -25,6 +25,12 @@ namespace AmitTextile.Domain.Context
 
 
         }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Charachteristic> Charachteristics { get; set; }
+
+        
 
     }
 }

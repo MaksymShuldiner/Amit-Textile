@@ -13,6 +13,9 @@ namespace AmitTextile.Domain
 
         public int WarehouseAmount { get; set; }
 
+        public bool isOnDiscount { get; set; }
+
+        public double Discount { get; set; }
         public int Stars { get; set; }
 
         public Textile()
