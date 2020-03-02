@@ -260,15 +260,14 @@ namespace AmitTextile.Migrations
                 {
                     ParentCommentQuestionId = table.Column<Guid>(nullable: false),
                     Text = table.Column<string>(nullable: true),
-                    SenderId1 = table.Column<string>(nullable: true),
-                    SenderId = table.Column<Guid>(nullable: false)
+                    SenderId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ParentCommentQuestions", x => x.ParentCommentQuestionId);
                     table.ForeignKey(
-                        name: "FK_ParentCommentQuestions_AspNetUsers_SenderId1",
-                        column: x => x.SenderId1,
+                        name: "FK_ParentCommentQuestions_AspNetUsers_SenderId",
+                        column: x => x.SenderId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -280,16 +279,15 @@ namespace AmitTextile.Migrations
                 {
                     ParentCommentReviewId = table.Column<Guid>(nullable: false),
                     Text = table.Column<string>(nullable: true),
-                    SenderId1 = table.Column<string>(nullable: true),
-                    SenderId = table.Column<Guid>(nullable: false),
+                    SenderId = table.Column<string>(nullable: true),
                     Stars = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ParentCommentReviews", x => x.ParentCommentReviewId);
                     table.ForeignKey(
-                        name: "FK_ParentCommentReviews_AspNetUsers_SenderId1",
-                        column: x => x.SenderId1,
+                        name: "FK_ParentCommentReviews_AspNetUsers_SenderId",
+                        column: x => x.SenderId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -338,8 +336,7 @@ namespace AmitTextile.Migrations
                     ChildCommentQuestionId = table.Column<Guid>(nullable: false),
                     Text = table.Column<string>(nullable: true),
                     ParentCommentId = table.Column<Guid>(nullable: false),
-                    SenderId1 = table.Column<string>(nullable: true),
-                    SenderId = table.Column<Guid>(nullable: false)
+                    SenderId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -351,8 +348,8 @@ namespace AmitTextile.Migrations
                         principalColumn: "ParentCommentQuestionId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ChildCommentQuestions_AspNetUsers_SenderId1",
-                        column: x => x.SenderId1,
+                        name: "FK_ChildCommentQuestions_AspNetUsers_SenderId",
+                        column: x => x.SenderId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -365,8 +362,7 @@ namespace AmitTextile.Migrations
                     ChildCommentReviewId = table.Column<Guid>(nullable: false),
                     Text = table.Column<string>(nullable: true),
                     ParentCommentId = table.Column<Guid>(nullable: false),
-                    SenderId1 = table.Column<string>(nullable: true),
-                    SenderId = table.Column<Guid>(nullable: false)
+                    SenderId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -378,8 +374,8 @@ namespace AmitTextile.Migrations
                         principalColumn: "ParentCommentReviewId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ChildCommentReviews_AspNetUsers_SenderId1",
-                        column: x => x.SenderId1,
+                        name: "FK_ChildCommentReviews_AspNetUsers_SenderId",
+                        column: x => x.SenderId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -542,9 +538,9 @@ namespace AmitTextile.Migrations
                 column: "ParentCommentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ChildCommentQuestions_SenderId1",
+                name: "IX_ChildCommentQuestions_SenderId",
                 table: "ChildCommentQuestions",
-                column: "SenderId1");
+                column: "SenderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ChildCommentReviews_ParentCommentId",
@@ -552,9 +548,9 @@ namespace AmitTextile.Migrations
                 column: "ParentCommentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ChildCommentReviews_SenderId1",
+                name: "IX_ChildCommentReviews_SenderId",
                 table: "ChildCommentReviews",
-                column: "SenderId1");
+                column: "SenderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Images_TextileId",
@@ -577,14 +573,14 @@ namespace AmitTextile.Migrations
                 column: "TextileId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ParentCommentQuestions_SenderId1",
+                name: "IX_ParentCommentQuestions_SenderId",
                 table: "ParentCommentQuestions",
-                column: "SenderId1");
+                column: "SenderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ParentCommentReviews_SenderId1",
+                name: "IX_ParentCommentReviews_SenderId",
                 table: "ParentCommentReviews",
-                column: "SenderId1");
+                column: "SenderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Textiles_CategoryId",

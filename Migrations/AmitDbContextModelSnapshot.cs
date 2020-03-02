@@ -127,10 +127,7 @@ namespace AmitTextile.Migrations
                     b.Property<Guid>("ParentCommentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SenderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("SenderId1")
+                    b.Property<string>("SenderId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Text")
@@ -140,7 +137,7 @@ namespace AmitTextile.Migrations
 
                     b.HasIndex("ParentCommentId");
 
-                    b.HasIndex("SenderId1");
+                    b.HasIndex("SenderId");
 
                     b.ToTable("ChildCommentQuestions");
                 });
@@ -154,10 +151,7 @@ namespace AmitTextile.Migrations
                     b.Property<Guid>("ParentCommentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SenderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("SenderId1")
+                    b.Property<string>("SenderId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Text")
@@ -167,7 +161,7 @@ namespace AmitTextile.Migrations
 
                     b.HasIndex("ParentCommentId");
 
-                    b.HasIndex("SenderId1");
+                    b.HasIndex("SenderId");
 
                     b.ToTable("ChildCommentReviews");
                 });
@@ -274,10 +268,7 @@ namespace AmitTextile.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SenderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("SenderId1")
+                    b.Property<string>("SenderId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Text")
@@ -285,7 +276,7 @@ namespace AmitTextile.Migrations
 
                     b.HasKey("ParentCommentQuestionId");
 
-                    b.HasIndex("SenderId1");
+                    b.HasIndex("SenderId");
 
                     b.ToTable("ParentCommentQuestions");
                 });
@@ -296,10 +287,7 @@ namespace AmitTextile.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SenderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("SenderId1")
+                    b.Property<string>("SenderId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Stars")
@@ -310,7 +298,7 @@ namespace AmitTextile.Migrations
 
                     b.HasKey("ParentCommentReviewId");
 
-                    b.HasIndex("SenderId1");
+                    b.HasIndex("SenderId");
 
                     b.ToTable("ParentCommentReviews");
                 });
@@ -611,8 +599,8 @@ namespace AmitTextile.Migrations
                         .IsRequired();
 
                     b.HasOne("AmitTextile.Domain.User", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId1");
+                        .WithMany("ChildCommentQuestions")
+                        .HasForeignKey("SenderId");
                 });
 
             modelBuilder.Entity("AmitTextile.Domain.ChildCommentReview", b =>
@@ -624,8 +612,8 @@ namespace AmitTextile.Migrations
                         .IsRequired();
 
                     b.HasOne("AmitTextile.Domain.User", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId1");
+                        .WithMany("ChildCommentReviews")
+                        .HasForeignKey("SenderId");
                 });
 
             modelBuilder.Entity("AmitTextile.Domain.Image", b =>
@@ -668,15 +656,15 @@ namespace AmitTextile.Migrations
             modelBuilder.Entity("AmitTextile.Domain.ParentCommentQuestion", b =>
                 {
                     b.HasOne("AmitTextile.Domain.User", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId1");
+                        .WithMany("ParentCommentQuestions")
+                        .HasForeignKey("SenderId");
                 });
 
             modelBuilder.Entity("AmitTextile.Domain.ParentCommentReview", b =>
                 {
                     b.HasOne("AmitTextile.Domain.User", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId1");
+                        .WithMany("ParentCommentReviews")
+                        .HasForeignKey("SenderId");
                 });
 
             modelBuilder.Entity("AmitTextile.Domain.Textile", b =>

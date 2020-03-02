@@ -13,7 +13,7 @@ namespace AmitTextile.Domain
 
         public User Sender { get; set; }
 
-        public Guid SenderId { get; set; }
+        public string SenderId { get; set; }
 
         public int Stars { get; set; }
 
