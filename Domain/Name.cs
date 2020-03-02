@@ -1,11 +1,10 @@
 using System;
 
-namespace AmitTextile.Domain
+namespace AmitTextile.Models
 {
     public class Name
     {
         public string RequestId { get; set; }
-        
-
+       
     }
 }

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AmitTextile.Models;
-using AmitTextile.Domain;
+using AmitTextile.
+
 
 
 namespace AmitTextile.Controllers
@@ -18,8 +19,9 @@ namespace AmitTextile.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            Name dd = new Name();
-                
+            
+             
+             
            
         }
 
