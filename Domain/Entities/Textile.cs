@@ -13,11 +13,15 @@ namespace AmitTextile.Domain
 
         public int WarehouseAmount { get; set; }
 
-        public bool isOnDiscount { get; set; }
+        public bool IsOnDiscount { get; set; }
 
         public double Discount { get; set; }
         public int Stars { get; set; }
 
+        public DateTime DateWhenAdded { get; set; }
+
+        public int ViewsCounter { get; set; }
+        public bool IsPopular { get; set; }
         public Textile()
         {
             Charachteristics = new List<CharachteristicValues>();

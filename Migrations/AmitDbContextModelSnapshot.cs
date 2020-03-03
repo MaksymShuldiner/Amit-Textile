@@ -318,17 +318,26 @@ namespace AmitTextile.Migrations
                     b.Property<Guid?>("ChildCategoryId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("DateWhenAdded")
+                        .HasColumnType("datetime2");
+
                     b.Property<double>("Discount")
                         .HasColumnType("float");
+
+                    b.Property<bool>("IsOnDiscount")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPopular")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Stars")
                         .HasColumnType("int");
 
-                    b.Property<int>("WarehouseAmount")
+                    b.Property<int>("ViewsCounter")
                         .HasColumnType("int");
 
-                    b.Property<bool>("isOnDiscount")
-                        .HasColumnType("bit");
+                    b.Property<int>("WarehouseAmount")
+                        .HasColumnType("int");
 
                     b.HasKey("TextileId");
 
