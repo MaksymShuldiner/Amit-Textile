@@ -23,6 +23,7 @@ namespace AmitTextile.Controllers
         public async Task<IActionResult> Index()
         {
             List<Category> Categories = await _context.Categories.ToListAsync();
+
             return View(Categories);
         }
     }
