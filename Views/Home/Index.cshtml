@@ -45,28 +45,6 @@
                 }
             }
         });
-        $("#registerBtn").click(function(){
-        let name = document.getElementById('registerName');
-        let mail = document.getElementById('registerEmail');
-        let pass = document.getElementById('registerPass');
-        let confirmPass = document.getElementById('confirmPass');
-            $.ajax({
-                type: "POST";
-                url: @Url.Action("Register", "TextileApi"),
-                data: {
-                    Email : mail,
-                    Fio : name,
-                    Password : pass,
-                    PasswordConfirm: confirmPass
-                },
-                success: function (data) {
-                    console.log(1234);
-                },
-                error: function (error) {
-                    console.log(4321);
-                }
-            });
-        });
     </script>
 </head>
 <body>
@@ -284,6 +262,23 @@
             <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
         </form>
     </div>
+    <script type="text/javascript">
+        $("#registerBtn").click(function() {
+        let name = document.getElementById('registerName').value;
+        let mail = document.getElementById('registerEmail').value;
+        let pass = document.getElementById('registerPass').value;
+        let confirmPass = document.getElementById('confirmPass').value;
+            let x = {"Email" : "max.shuldiner777@gmail.com","Fio" : "erf","Password" : "gordei29","PasswordConfirm" : "gordei29"}
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Register", "TextileApi")',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(x)
+            }).done(function (data) {
+                console.log(1234);x
+            });
+        });
+    </script>
     <script type="text/javascript" src="~/js/slider.js"></script>
     <script type="text/javascript" src="libs/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
