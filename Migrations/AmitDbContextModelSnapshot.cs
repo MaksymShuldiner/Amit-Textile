@@ -124,6 +124,9 @@ namespace AmitTextile.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("DatePosted")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("ParentCommentId")
                         .HasColumnType("uniqueidentifier");
 
@@ -147,6 +150,9 @@ namespace AmitTextile.Migrations
                     b.Property<Guid>("ChildCommentReviewId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DatePosted")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("ParentCommentId")
                         .HasColumnType("uniqueidentifier");
@@ -268,6 +274,9 @@ namespace AmitTextile.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("DatePosted")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("SenderId")
                         .HasColumnType("nvarchar(450)");
 
@@ -286,6 +295,9 @@ namespace AmitTextile.Migrations
                     b.Property<Guid>("ParentCommentReviewId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DatePosted")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("SenderId")
                         .HasColumnType("nvarchar(450)");
