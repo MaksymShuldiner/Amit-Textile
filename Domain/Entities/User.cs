@@ -14,6 +14,8 @@ namespace AmitTextile.Domain
 
         public string Fio { get; set; }
 
+        public ICollection<UserChosenTextile> UserChosenTextiles { get; set; }
+
         public ICollection<ParentCommentReview> ParentCommentReviews { get; set; }
 
         public ICollection<ParentCommentQuestion> ParentCommentQuestions { get; set; }

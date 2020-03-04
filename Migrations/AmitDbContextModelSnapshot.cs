@@ -367,6 +367,9 @@ namespace AmitTextile.Migrations
                     b.Property<bool>("IsPopular")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Sold")
+                        .HasColumnType("int");
+
                     b.Property<int>("Stars")
                         .HasColumnType("int");
 
@@ -388,6 +391,21 @@ namespace AmitTextile.Migrations
                     b.HasIndex("ChildCategoryId");
 
                     b.ToTable("Textiles");
+                });
+
+            modelBuilder.Entity("AmitTextile.Domain.UserChosenTextile", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("TextileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "TextileId");
+
+                    b.HasIndex("TextileId");
+
+                    b.ToTable("UserChosenTextile");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -737,6 +755,21 @@ namespace AmitTextile.Migrations
                     b.HasOne("AmitTextile.Domain.ChildCategory", null)
                         .WithMany("TextilesOfThisChildCategory")
                         .HasForeignKey("ChildCategoryId");
+                });
+
+            modelBuilder.Entity("AmitTextile.Domain.UserChosenTextile", b =>
+                {
+                    b.HasOne("AmitTextile.Domain.Textile", "Textile")
+                        .WithMany("UserChosenTextiles")
+                        .HasForeignKey("TextileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AmitTextile.Domain.User", "User")
+                        .WithMany("UserChosenTextiles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

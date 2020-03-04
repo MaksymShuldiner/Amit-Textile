@@ -39,7 +39,7 @@ namespace AmitTextile.Controllers
                 return RedirectToAction("Index", "Home");
             }
             var result = _userManager.ConfirmEmailAsync(user, code);
-            if (result.IsCompletedSuccessfully)
+            if (result.Status == TaskStatus.WaitingForActivation)
             {
                 return RedirectToAction("Index", "Home");//тут должна быть страничка с галочкой типа регистрация успешна
             }
@@ -47,8 +47,6 @@ namespace AmitTextile.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            
-
         }
         
     }

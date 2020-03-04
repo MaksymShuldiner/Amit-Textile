@@ -52,9 +52,9 @@ namespace AmitTextile.Controllers
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     if (code != null)
                     {
-                        var callbackUrl = Url.Action("ConfirmEmail", "Auth", new { code = code, userId = user.Id });
-                        _emailService.Execute("for some reason", "maksym.shuldiner@nure.ua", "Hello bro");
-                        return Ok();
+                        var callbackUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{Url.Action("ConfirmEmail", "Auth" , new{code = code, userId = user.Id})}";
+                        _emailService.Execute("for some reason", "maksym.shuldiner@nure.ua", "Подтверди почту", $"<a href ='{callbackUrl}'>link</a>");
+                        return Ok("zdarova");
                     }
                 }
                 else
@@ -85,6 +85,7 @@ namespace AmitTextile.Controllers
             }
             return BadRequest(errorsList);
         }
+        
 
     }
 }

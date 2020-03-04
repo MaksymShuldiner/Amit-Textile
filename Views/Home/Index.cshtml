@@ -277,7 +277,6 @@
                 type: 'POST',
                 url: '@Url.Action("Register", "TextileApi")',
                 contentType: 'application/json; charset=utf-8',
-                dataType : 'json',
                 data: JSON.stringify(x),
                 error: function(error) {
                     errorArr = error.responseText.split('"');
@@ -293,9 +292,10 @@
                             $('#register').append('<span class="error">' + errorArr[i] + '<br><br></span>');
                         }
                     }
+                   
                 },
                 success: function (result) {
-
+                   
                 }
             });
         });
