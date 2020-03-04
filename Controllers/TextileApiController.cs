@@ -1,6 +1,9 @@
-﻿using System.Linq;
+﻿using AmitTextile.Domain;
 using AmitTextile.Domain.Context;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AmitTextile.Controllers
 {
@@ -16,10 +19,11 @@ namespace AmitTextile.Controllers
 
         [HttpGet]
         [Route("getCategories")]
-        public OkObjectResult GetCategories()
+        public async Task<OkObjectResult> GetCategories()
         {
-           return new OkObjectResult("s");
+            List<Category> Categories = await _context.Categories.ToListAsync();
+            return Ok(Categories);
         }
-        
+
     }
 }

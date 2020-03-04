@@ -155,9 +155,9 @@ header {
 
 #cats_hdn {
     position: relative;
-    top: 40px;
+    top: 20px;
     background: #777;
-    display: none;
+    z-index:10;
 }
 
 .hdn {
@@ -190,11 +190,6 @@ header {
             color: #008B8B;
             transition: 0.3s all ease;
         }
-
-.line {
-    height: 400px;
-}
-
 .item {
     padding: 20px;
     border: 1px solid #d3d3d3;
@@ -245,10 +240,9 @@ header {
     padding: 0;
 }
 
-.line {
-    padding-top: 30px;
+.tps{
+    margin-bottom:30px;
 }
-
 .item:hover {
 }
 
@@ -265,4 +259,49 @@ header {
 .notInStock {
     color: #797878;
     font-size: 14px;
+}
+.cats{
+    color:white;
+    font-size:19px;
+    border:1px solid #c0c0c0;
+    border-radius:100px;
+    padding:5px;
+    trasitition:0.3s all ease;
+}
+    .cats:hover {
+        color: #008B8B;
+        text-decoration: none;
+        background-color: white;
+        transition: 0.3s all ease;
+    }
+.r{
+    margin-right:300px;
+}
+.item:hover {
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+footer {
+    background-color: #777;
+}
+#scrollBtn {
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+    border-radius: 100%;
+    padding: 17px;
+    z-index: 20;
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    background-color: #FF00FF;
+    color: white;
+    transition: 0.3s all ease;
+    display:none;
+}
+    #scrollBtn:hover {
+        background-color: violet;
+        transition:0.3s all ease;
+    }
+#scrollBtn>svg{
+    font-size:22px;
 }
