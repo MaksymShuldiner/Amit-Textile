@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace AmitTextile.Controllers
 {
-    [ApiController]
+    
     [Route("api/textile")]
     public class TextileApiController : Controller
     {
@@ -39,6 +39,7 @@ namespace AmitTextile.Controllers
         [Route("Register")]
         public async Task<IActionResult> Register([FromBody]UserModel Model)
         {
+            
             List<string> errorsList = new List<string>();
             if (ModelState.IsValid)
             {
