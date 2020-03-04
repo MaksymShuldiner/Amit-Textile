@@ -15,7 +15,7 @@ namespace AmitTextile.Controllers
 {
     public class HomeController : Controller
     {
-        public AmitDbContext _context;
+        private AmitDbContext _context;
         public HomeController(AmitDbContext context)
         {
             _context = context;

@@ -9,7 +9,16 @@ namespace AmitTextile.Domain
 
         public ICollection<CharachteristicValues> Charachteristics { get; set; }
 
-        public ICollection<Image> Images { get; set; }
+        public double Cost { get; set; }
+
+        public double CostWithDiscount
+        {
+            get => Cost * Discount; set => CostWithDiscount = value;
+        }
+
+        public ICollection<Image> Images { get; set; }  
+
+        public string Status { get; set; }
 
         public int WarehouseAmount { get; set; }
 

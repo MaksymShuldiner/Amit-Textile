@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AmitTextile.ConfigureServices;
+using AmitTextile.Domain;
 using AmitTextile.Domain.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+
 
 namespace AmitTextile
 {
@@ -27,6 +30,21 @@ namespace AmitTextile
         public void ConfigureServices(IServiceCollection services)
         {
             services.DefaultConfigure(Configuration);
+
+            services.AddIdentity<User, IdentityRole>(options =>
+                {
+                    options.Password = new PasswordOptions()
+                    {
+                        RequireDigit = true,
+                        RequiredLength = 6,
+                        RequireLowercase = false,
+                        RequireUppercase = false,
+                        RequireNonAlphanumeric = false
+                    };
+                })
+                .AddEntityFrameworkStores<AmitDbContext>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
