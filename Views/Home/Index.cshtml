@@ -45,6 +45,28 @@
                 }
             }
         });
+        $("#registerBtn").click(function(){
+        let name = document.getElementById('registerName');
+        let mail = document.getElementById('registerEmail');
+        let pass = document.getElementById('registerPass');
+        let confirmPass = document.getElementById('confirmPass');
+            $.ajax({
+                type: "POST";
+                url: @Url.Action("Register", "TextileApi"),
+                data: {
+                    Email : mail,
+                    Fio : name,
+                    Password : pass,
+                    PasswordConfirm: confirmPass
+                },
+                success: function (data) {
+                    console.log(1234);
+                },
+                error: function (error) {
+                    console.log(4321);
+                }
+            });
+        });
     </script>
 </head>
 <body>
@@ -241,7 +263,7 @@
                 <font>Пароль</font><br><br>
                 <input type="password" name="UserPassword" required><br><br>
             </div>
-            <input type="submit" class="registerButton" value="Войти" name="login" required><br><br>
+            <input type="submit" id="loginButton" class="registerButton" value="Войти" name="login" required><br><br>
             <input type="checkbox" id="checkbox">  Запомнить меня<br><br>
             <a data-fancybox="helo" href="#register">Зарегистрироваться</a>
         </form>
@@ -250,16 +272,16 @@
         <form id="register" class="register">
             ФИО<br><br>
             <div class="inputFields">
-                <input type="text" name="UserName" required><br><br>
+                <input type="text" id="registerName" name="UserName" required><br><br>
                 Эл. почта<br><br>
-                <input type="email" name="UserEmail" required><br><br>
+                <input type="email" id="registerEmail" name="UserEmail" required><br><br>
                 Придумайте пароль<br><br>
-                <input type="password" name="UserPassword" required><br><br>
+                <input type="password" id="registerPass" name="UserPassword" required><br><br>
                 Подтвердите пароль<br><br>
-                <input type="password" required><br><br>
+                <input type="password" id="confirmPass"  required><br><br>
                 Пароль должен содержать не менее 6 символов<br><br>
             </div>
-            <input type="submit" class="registerButton" name="register" value="Зарегистрироваться">
+            <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
         </form>
     </div>
     <script type="text/javascript" src="~/js/slider.js"></script>
