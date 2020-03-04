@@ -349,6 +349,12 @@ namespace AmitTextile.Migrations
                     b.Property<Guid?>("ChildCategoryId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<double>("Cost")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CostWithDiscount")
+                        .HasColumnType("float");
+
                     b.Property<DateTime>("DateWhenAdded")
                         .HasColumnType("datetime2");
 
@@ -363,6 +369,9 @@ namespace AmitTextile.Migrations
 
                     b.Property<int>("Stars")
                         .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ViewsCounter")
                         .HasColumnType("int");
