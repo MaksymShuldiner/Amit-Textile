@@ -305,3 +305,8 @@ footer {
 #scrollBtn>svg{
     font-size:22px;
 }
+.error{
+    position:relative;
+    top:10px;
+    color:red;
+}

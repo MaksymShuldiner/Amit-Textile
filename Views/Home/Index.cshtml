@@ -234,7 +234,7 @@
 
     </footer>
     <div class="hidden">
-        <form id="login" action="#">
+        <form id="login">
             <font>Эл. почта</font><br><br>
             <div class="inputFields">
                 <input type="email" name="UserEmail" required><br><br>
@@ -247,7 +247,7 @@
         </form>
     </div>
     <div class="hidden">
-        <form id="register" class="register" action="">
+        <form id="register" class="register">
             
             ФИО<br><br>
             <div class="inputFields">
@@ -265,6 +265,7 @@
         </div>
     </div>
     <script type="text/javascript">
+        let errorArr = [];
         $("#registerBtn").click(function (e) {
         e.preventDefault();
         let name = document.getElementById('registerName').value;
@@ -279,9 +280,23 @@
                 dataType : 'json',
                 data: JSON.stringify(x),
                 error: function(error) {
-                    console.log(error.responseText);
-                }
+                    errorArr = error.responseText.split('"');
+                    let errors = document.getElementsByClassName("error");
+                    if (errors[0] != undefined) {
+                        for (let i = 0; i < errors.length; i++) {
+                            errors[i].remove();
+                            i--;
+                        }
+                    }
+                    for (let i = 1; i < errorArr.length-1; i++) {
+                        if (errorArr[i] != ",") {
+                            $('#register').append('<span class="error">' + errorArr[i] + '<br><br></span>');
+                        }
+                    }
+                },
+                success: function (result) {
 
+                }
             });
         });
     </script>
