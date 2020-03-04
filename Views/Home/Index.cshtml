@@ -277,7 +277,11 @@
                 url: '@Url.Action("Register", "TextileApi")',
                 contentType: 'application/json; charset=utf-8',
                 dataType : 'json',
-                data: JSON.stringify(x)
+                data: JSON.stringify(x),
+                error: function(error) {
+                    console.log(error.responseText);
+                }
+
             });
         });
     </script>
