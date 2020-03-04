@@ -18,7 +18,7 @@ namespace AmitTextile.Controllers
         [Route("getCategories")]
         public OkObjectResult GetCategories()
         {
-            return Ok(_context.Categories.ToList());
+           return new OkObjectResult("s");
         }
         
     }

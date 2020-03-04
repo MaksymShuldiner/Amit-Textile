@@ -184,10 +184,15 @@ namespace AmitTextile.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("SliderId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("TextileId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ImageId");
+
+                    b.HasIndex("SliderId");
 
                     b.HasIndex("TextileId");
 
@@ -313,6 +318,20 @@ namespace AmitTextile.Migrations
                     b.HasIndex("SenderId");
 
                     b.ToTable("ParentCommentReviews");
+                });
+
+            modelBuilder.Entity("AmitTextile.Domain.Slider", b =>
+                {
+                    b.Property<Guid>("SliderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SliderName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SliderId");
+
+                    b.ToTable("Slider");
                 });
 
             modelBuilder.Entity("AmitTextile.Domain.Textile", b =>
@@ -639,6 +658,12 @@ namespace AmitTextile.Migrations
 
             modelBuilder.Entity("AmitTextile.Domain.Image", b =>
                 {
+                    b.HasOne("AmitTextile.Domain.Slider", "Slider")
+                        .WithMany("Images")
+                        .HasForeignKey("SliderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AmitTextile.Domain.Textile", "Textile")
                         .WithMany("Images")
                         .HasForeignKey("TextileId")
