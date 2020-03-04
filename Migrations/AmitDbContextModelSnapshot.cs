@@ -205,7 +205,7 @@ namespace AmitTextile.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CartId")
+                    b.Property<Guid>("CartId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ItemsAmount")
@@ -682,9 +682,11 @@ namespace AmitTextile.Migrations
 
             modelBuilder.Entity("AmitTextile.Domain.Item", b =>
                 {
-                    b.HasOne("AmitTextile.Domain.Cart", null)
+                    b.HasOne("AmitTextile.Domain.Cart", "Cart")
                         .WithMany("Items")
-                        .HasForeignKey("CartId");
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AmitTextile.Domain.Textile", "Textile")
                         .WithMany()

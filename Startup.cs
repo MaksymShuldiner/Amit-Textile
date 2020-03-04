@@ -30,20 +30,8 @@ namespace AmitTextile
         public void ConfigureServices(IServiceCollection services)
         {
             services.DefaultConfigure(Configuration);
-
-            services.AddIdentity<User, IdentityRole>(options =>
-                {
-                    options.Password = new PasswordOptions()
-                    {
-                        RequireDigit = true,
-                        RequiredLength = 6,
-                        RequireLowercase = false,
-                        RequireUppercase = false,
-                        RequireNonAlphanumeric = false
-                    };
-                })
-                .AddEntityFrameworkStores<AmitDbContext>();
-
+            
+            
 
         }
 
@@ -62,9 +50,9 @@ namespace AmitTextile
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            
             app.UseRouting();
-
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
