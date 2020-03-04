@@ -247,7 +247,8 @@
         </form>
     </div>
     <div class="hidden">
-        <form id="register" class="register">
+        <form id="register" class="register" action="">
+            
             ФИО<br><br>
             <div class="inputFields">
                 <input type="text" id="registerName" name="UserName" required><br><br>
@@ -256,26 +257,27 @@
                 Придумайте пароль<br><br>
                 <input type="password" id="registerPass" name="UserPassword" required><br><br>
                 Подтвердите пароль<br><br>
-                <input type="password" id="confirmPass"  required><br><br>
+                <input type="password" id="confirmPass" required><br><br>
                 Пароль должен содержать не менее 6 символов<br><br>
-            </div>
+            
+            </form>
             <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
-        </form>
+        </div>
     </div>
     <script type="text/javascript">
-        $("#registerBtn").click(function() {
+        $("#registerBtn").click(function (e) {
+        e.preventDefault();
         let name = document.getElementById('registerName').value;
         let mail = document.getElementById('registerEmail').value;
         let pass = document.getElementById('registerPass').value;
         let confirmPass = document.getElementById('confirmPass').value;
-            let x = {"Email" : "max.shuldiner777@gmail.com","Fio" : "erf","Password" : "gordei29","PasswordConfirm" : "gordei29"}
+            let x = {"Email":mail,"Fio":name,"Password":pass,"PasswordConfirm":confirmPass}
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("Register", "TextileApi")',
                 contentType: 'application/json; charset=utf-8',
+                dataType : 'json',
                 data: JSON.stringify(x)
-            }).done(function (data) {
-                console.log(1234);x
             });
         });
     </script>
