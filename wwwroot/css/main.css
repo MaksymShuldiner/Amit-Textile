@@ -263,7 +263,6 @@ header {
 .cats{
     color:white;
     font-size:19px;
-    border:1px solid #c0c0c0;
     border-radius:100px;
     padding:5px;
     trasitition:0.3s all ease;
@@ -337,4 +336,17 @@ footer {
     }
     #register>.inputFields>span{
         color:red;
+    }
+.showBtn {
+    height: 35px;
+    color: coral;
+    background: none;
+    border: none;
+    text-shadow: none;
+    transition: 0.3s all ease;
+    width: 35px;
+}
+    .showBtn:hover {
+        background-color: #d3d3d3;
+        transition: 0.3s all ease;
     }
