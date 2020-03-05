@@ -31,6 +31,45 @@ $(document).ready(function () {
     $('#close').click(function () {
         $('#regS').fadeOut(400);
     });
+    let flg = false;
+    $('#showPassLogin').click(function () {
+        if (!flg) {
+            document.getElementById('loginPass').type="text";
+            flg = true;
+        }
+        else {
+            document.getElementById('loginPass').type="password";
+            flg = false;
+        }
+        $('.atv').toggleClass('hdn');
+
+    });
+    let fl = false;
+    $('#showPassRegister').click(function () {
+        if (!fl) {
+            document.getElementById('registerPass').type = "text";
+            fl = true;
+        }
+        else {
+            document.getElementById('registerPass').type = "password";
+            fl = false;
+        }
+        $('.atv1').toggleClass('hdn');
+
+    });
+    let fl1 = false;
+    $('#showPassConfirm').click(function () {
+        if (!fl1) {
+            document.getElementById('confirmPass').type = "text";
+            fl1 = true;
+        }
+        else {
+            document.getElementById('confirmPass').type = "password";
+            fl1 = false;
+        }
+        $('.atv2').toggleClass('hdn');
+
+    });
 });
 window.onscroll = function () { scrollFunction() };
 

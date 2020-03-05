@@ -238,13 +238,13 @@
         <form id="login">
             <font>Эл. почта</font><br><br>
             <div class="inputFields">
-                <input type="email" name="UserEmail" required><br><br>
+                <input type="email" id="loginName" name="UserEmail" required><br><br>
                 <font>Пароль</font><br><br>
-                <input type="password" name="UserPassword" required><br><br>
+                <input type="password" id="loginPass" name="UserPassword" required><button type="button" id="showPassLogin" class="showBtn"><div class="atv"><i class="fas fa-eye"></i></div><div class="atv hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
             </div>
             <input type="submit" id="loginButton" class="registerButton" value="Войти" name="login" required><br><br>
-            <input type="checkbox" id="checkbox">  Запомнить меня<br><br>
-            <a data-fancybox="helo" href="#register">Зарегистрироваться</a>
+            <input type="checkbox" id="checkbox" value="true">  Запомнить меня<br><br>
+            <a data-fancybox="helo" href="#register">Зарегистрироваться</a> <br>
         </form>
     </div>
     <div class="hidden">
@@ -256,9 +256,9 @@
                 Эл. почта <span>*</span><br><br>
                 <input type="email" id="registerEmail" name="UserEmail" required><br><br>
                 Придумайте пароль <span>*</span><br><br>
-                <input type="password" id="registerPass" name="UserPassword" required><br><br>
+                <input type="password" id="registerPass" name="UserPassword" required><button type="button" id="showPassRegister" class="showBtn"><div class="atv1"><i class="fas fa-eye"></i></div><div class="atv1 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
                 Подтвердите пароль <span>*</span><br><br>
-                <input type="password" id="confirmPass" required><br><br>
+                <input type="password" id="confirmPass" required><button type="button" id="showPassConfirm" class="showBtn"><div class="atv2"><i class="fas fa-eye"></i></div><div class="atv2 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
                 Пароль должен содержать не менее 6 символов<br><br>
             
             </form>
@@ -298,13 +298,54 @@
                             }
                         }
                     }
-                    console.log(321);
                 },
                 success: function (result) {
                     parent.jQuery.fancybox.getInstance().close();
                     parent.jQuery.fancybox.getInstance().close();
                     $('#regS').fadeIn(400);
                     setTimeout(tgl, 10000);
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $('#loginButton').click(function (e) {
+            e.preventDefault();
+            let mail = document.getElementById('loginName').value;
+            let pass = document.getElementById('loginPass').value;
+            let check = document.getElementById('checkbox');
+            let bool;
+            if (check.checked) {
+                bool = true;
+            }
+            else {
+                bool = false;
+            }
+            let x = { "Email": mail, "Password": pass, "Remember": bool };
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Login", "TextileApi")',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(x),
+                error: function (error) {
+                    errorArr = error.responseText.split('"');
+                    let errors = document.getElementsByClassName("error");
+                    if (errors[0] != undefined) {
+                        for (let i = 0; i < errors.length; i++) {
+                            errors[i].remove();
+                            i--;
+                        }
+                    }
+                    if (errorArr[0] != undefined) {
+                        for (let i = 1; i < errorArr.length - 1; i++) {
+                            if (errorArr[i] != ",") {
+                                $('#login').append('<span class="error">' + errorArr[i] + '<br><br></span>');
+                            }
+                        }
+                    }
+                },
+                success: function (result) {
+                    window.location.href = result;
                 }
             });
         });
