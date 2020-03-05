@@ -310,3 +310,28 @@ footer {
     top:10px;
     color:red;
 }
+#regS {
+    position: fixed;
+    height: 100px;
+    width: 100%;
+    z-index: 100;
+    background-color: #FFFAF0;
+    padding-top:40px;
+    display:none;
+}
+#regS>p{
+    text-align:center;
+}
+#close {
+    position: fixed;
+    right: 0px;
+    top: 5px;
+    background: none;
+    border: none;
+    font-size: 25px;
+    transition: 0.3s all ease;
+}
+    #close:hover {
+        color:#A9A9A9;
+        transition:0.3s all ease;
+    }

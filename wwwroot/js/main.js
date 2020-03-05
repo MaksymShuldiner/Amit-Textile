@@ -28,6 +28,9 @@ $(document).ready(function () {
             scrollTop: 0
         }, 800);
     });
+    $('#close').click(function () {
+        $('#regS').fadeOut(400);
+    });
 });
 window.onscroll = function () { scrollFunction() };
 
