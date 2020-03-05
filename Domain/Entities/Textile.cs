@@ -20,8 +20,10 @@ namespace AmitTextile.Domain
 
         public string Status { get; set; }
 
+        public ICollection<UserChosenTextile> UserChosenTextiles { get; set; }
         public int WarehouseAmount { get; set; }
 
+        public int Sold { get; set; }
         public bool IsOnDiscount { get; set; }
 
         public double Discount { get; set; }

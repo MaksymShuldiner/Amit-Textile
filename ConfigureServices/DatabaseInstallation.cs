@@ -24,6 +24,7 @@ namespace AmitTextile.ConfigureServices
                         RequireUppercase = false,
                         RequireNonAlphanumeric = false
                     };
+                    options.SignIn.RequireConfirmedEmail = false;
                 })
                 .AddEntityFrameworkStores<AmitDbContext>()
                 .AddDefaultTokenProviders();
