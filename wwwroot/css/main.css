@@ -108,8 +108,8 @@ header {
     }
 
 #checkbox {
-    width: 5px;
-    height: 5px;
+    width: 15px;
+    height: 15px;
     margin-right: 5px;
 }
 
@@ -275,7 +275,7 @@ header {
         transition: 0.3s all ease;
     }
 .r{
-    margin-right:300px;
+    margin-right:150px;
 }
 .item:hover {
     border: none;
@@ -334,4 +334,7 @@ footer {
     #close:hover {
         color:#A9A9A9;
         transition:0.3s all ease;
+    }
+    #register>.inputFields>span{
+        color:red;
     }
