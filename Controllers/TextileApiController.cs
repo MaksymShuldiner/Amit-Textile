@@ -96,7 +96,7 @@ namespace AmitTextile.Controllers
                     var result = await _signInManager.PasswordSignInAsync(user, Model.Password, Model.Remember, false);
                     if (result.Succeeded)
                     {
-                        return Ok();
+                        return Ok($"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}");
                     }
                     else
                     {
