@@ -53,7 +53,7 @@ namespace AmitTextile.Controllers
                     if (code != null)
                     {
                         var callbackUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{Url.Action("ConfirmEmail", "Auth" , new{code = code, userId = user.Id})}";
-                        _emailService.Execute("for some reason", "maksym.shuldiner@nure.ua", "Подтверди почту", $"<a href ='{callbackUrl}'>link</a>");
+                        await _emailService.Execute("for some reason", "maksym.shuldiner@nure.ua", "Подтверди почту", $"<a href ='{callbackUrl}'>link</a>");
                         return Ok("zdarova");
                     }
                 }
@@ -85,7 +85,42 @@ namespace AmitTextile.Controllers
             }
             return BadRequest(errorsList);
         }
-        
-
+        public async Task<IActionResult> Login([FromBody]LoginModel Model)
+        {
+            List<string> errors = new List<string>();
+            if (ModelState.IsValid)
+            {
+                User user = await _userManager.FindByEmailAsync(Model.Email);
+                if (user != null)
+                {
+                    var result = await _signInManager.PasswordSignInAsync(user, Model.Password, Model.Remember, false);
+                    if (result.Succeeded)
+                    {
+                        return Ok();
+                    }
+                    else
+                    {
+                        errors.Add("Возникла ошибка на сервере");
+                       
+                    }
+                }
+                else
+                {
+                    errors.Add("Пользователя с такой почтой и паролем не существует");
+                }
+                
+            }
+            else
+            {
+                List<string> errorsList2 = ModelState.Values
+                    .SelectMany(x => x.Errors)
+                    .Select(x => x.ErrorMessage).ToList();
+                foreach(var x in errorsList2)
+                {
+                    errors.Add(x);
+                }
+            }
+            return BadRequest(errors);
+        }
     }
 }

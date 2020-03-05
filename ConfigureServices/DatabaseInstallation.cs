@@ -28,6 +28,15 @@ namespace AmitTextile.ConfigureServices
                 })
                 .AddEntityFrameworkStores<AmitDbContext>()
                 .AddDefaultTokenProviders();
+            services.AddAuthentication().Services.ConfigureApplicationCookie(options =>
+            {
+                options.SlidingExpiration = true;
+                options.ExpireTimeSpan = TimeSpan.FromHours(24);
+            });
+            services.Configure<SecurityStampValidatorOptions>(options =>
+            {
+                options.ValidationInterval = TimeSpan.FromHours(12);
+            });
 
         }
     }
