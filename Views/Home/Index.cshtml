@@ -230,41 +230,40 @@
                     </div>
                 </div>
             </div>
-    </div>
-    <footer>
+        </div>
+        <div class="hidden">
+            <form id="login">
+                <font>Эл. почта</font><br><br>
+                <div class="inputFields">
+                    <input type="email" id="loginName" name="UserEmail" required><br><br>
+                    <font>Пароль</font><br><br>
+                    <input type="password" id="loginPass" name="UserPassword" required><button type="button" id="showPassLogin" class="showBtn"><div class="atv"><i class="fas fa-eye"></i></div><div class="atv hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                </div>
+                <input type="submit" id="loginButton" class="registerButton" value="Войти" name="login" required><br><br>
+                <input type="checkbox" id="checkbox" value="true">  Запомнить меня<br><br>
+                <a data-fancybox="helo" href="#register">Зарегистрироваться</a> <br>
+            </form>
+        </div>
+        <div class="hidden">
+            <form id="register" class="register">
 
-    </footer>
-    <div class="hidden">
-        <form id="login">
-            <font>Эл. почта</font><br><br>
-            <div class="inputFields">
-                <input type="email" id="loginName" name="UserEmail" required><br><br>
-                <font>Пароль</font><br><br>
-                <input type="password" id="loginPass" name="UserPassword" required><button type="button" id="showPassLogin" class="showBtn"><div class="atv"><i class="fas fa-eye"></i></div><div class="atv hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
-            </div>
-            <input type="submit" id="loginButton" class="registerButton" value="Войти" name="login" required><br><br>
-            <input type="checkbox" id="checkbox" value="true">  Запомнить меня<br><br>
-            <a data-fancybox="helo" href="#register">Зарегистрироваться</a> <br>
-        </form>
-    </div>
-    <div class="hidden">
-        <form id="register" class="register">
-            
-            ФИО <br><br>
-            <div class="inputFields">
-                <input type="text" id="registerName" name="UserName" required><br><br>
-                Эл. почта <span>*</span><br><br>
-                <input type="email" id="registerEmail" name="UserEmail" required><br><br>
-                Придумайте пароль <span>*</span><br><br>
-                <input type="password" id="registerPass" name="UserPassword" required><button type="button" id="showPassRegister" class="showBtn"><div class="atv1"><i class="fas fa-eye"></i></div><div class="atv1 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
-                Подтвердите пароль <span>*</span><br><br>
-                <input type="password" id="confirmPass" required><button type="button" id="showPassConfirm" class="showBtn"><div class="atv2"><i class="fas fa-eye"></i></div><div class="atv2 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
-                Пароль должен содержать не менее 6 символов<br><br>
-            
+                ФИО <br><br>
+                <div class="inputFields">
+                    <input type="text" id="registerName" name="UserName" required><br><br>
+                    Эл. почта <span>*</span><br><br>
+                    <input type="email" id="registerEmail" name="UserEmail" required><br><br>
+                    Придумайте пароль <span>*</span><br><br>
+                    <input type="password" id="registerPass" name="UserPassword" required><button type="button" id="showPassRegister" class="showBtn"><div class="atv1"><i class="fas fa-eye"></i></div><div class="atv1 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                    Подтвердите пароль <span>*</span><br><br>
+                    <input type="password" id="confirmPass" required><button type="button" id="showPassConfirm" class="showBtn"><div class="atv2"><i class="fas fa-eye"></i></div><div class="atv2 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                    Пароль должен содержать не менее 6 символов<br><br>
+                </div>
             </form>
             <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
         </div>
     </div>
+    <footer>
+    </footer>
     <script type="text/javascript">
         function tgl() {
             $('#regS').fadeOut(400);
