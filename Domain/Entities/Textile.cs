@@ -15,10 +15,12 @@ namespace AmitTextile.Domain
         {
             get => Cost * Discount; set => CostWithDiscount = value;
         }
-
+        public string Name { get; set; }
         public ICollection<Image> Images { get; set; }  
 
         public string Status { get; set; }
+
+        public decimal Price { get; set; }
 
         public ICollection<UserChosenTextile> UserChosenTextiles { get; set; }
         public int WarehouseAmount { get; set; }
@@ -27,7 +29,7 @@ namespace AmitTextile.Domain
         public bool IsOnDiscount { get; set; }
 
         public double Discount { get; set; }
-        public int Stars { get; set; }
+        public double Stars { get; set; }
 
         public DateTime DateWhenAdded { get; set; }
 
