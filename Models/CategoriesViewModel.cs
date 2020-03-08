@@ -12,9 +12,11 @@ namespace AmitTextile.Models
 
         public PageViewModel PageViewModel { get; set; }
 
-        public SortingParams SortingParams { get; set; }
+        public int SortingParams { get; set; }
 
-        public string CategoryName { get; set; }
+        public Category Category { get; set; }
+
+        public List<int> PagesCountList { get; set; }
 
     }
 }

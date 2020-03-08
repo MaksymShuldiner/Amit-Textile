@@ -32,9 +32,9 @@ namespace AmitTextile.Controllers
         {
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             List<Textile> Textiles = new List<Textile>();
-            int count = _context.Categories.FindAsync(Guid.Parse(CatId)).Result.TextilesOfThisCategory.Count();
+            int count = _context.Categories.Include(x => x.TextilesOfThisCategory).FirstOrDefaultAsync(x => x.CategoryId == Guid.Parse(CatId)).Result.TextilesOfThisCategory.Count();
             int textilesForPage = 9;
-            SortingParams param;
+            SortingParams param;    
             Enum.TryParse(EnumParam.ToString(), out param);
             if (param == 0)
             {
@@ -51,7 +51,7 @@ namespace AmitTextile.Controllers
                         .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                     break;
                 case SortingParams.LettersByDescending:
-                    Textiles = _context.Categories.FindAsync(CatId).Result.TextilesOfThisCategory.OrderByDescending(x => x.Name)
+                    Textiles = _context.Categories.FindAsync(Guid.Parse(CatId)).Result.TextilesOfThisCategory.OrderByDescending(x => x.Name)
                         .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                     break;
                 case SortingParams.PriceByAscending:
@@ -73,8 +73,15 @@ namespace AmitTextile.Controllers
             }
             List<ChildCategory> childCategories = _context.Categories.FindAsync(Guid.Parse(CatId)).Result.ChildCategories.ToList();
             PageViewModel pageViewModel = new PageViewModel(count, page, textilesForPage);
+            List<int> pagesCounterList = new List<int>();
+            int counterForPrevious = 3;
+            for (int i = 1; i <= pageViewModel.TotalPages; i++)
+            {
+                pagesCounterList.Add(i);
+            }
+            List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
             CategoriesViewModel model = new CategoriesViewModel()
-                {PageViewModel = pageViewModel, childCategories = childCategories, Textiles = Textiles, SortingParams = param, CategoryName = _context.Categories.FindAsync(Guid.Parse(CatId)).Result.Name};
+                {PageViewModel = pageViewModel, childCategories = childCategories, Textiles = Textiles, SortingParams = EnumParam, Category = _context.Categories.FindAsync(Guid.Parse(CatId)).Result, PagesCountList = newList.OrderBy(x => x).ToList()};
             return View(model);
         }
     }

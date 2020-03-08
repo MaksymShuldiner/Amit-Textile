@@ -1,4 +1,5 @@
 ﻿@model AmitTextile.Models.CategoriesViewModel
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -35,7 +36,7 @@
                     else {
                         $('#' + count).append('<a class="cats r" href="'+Url+'">' + arrCat[i].name + '</a><br>');
                     }
-                     if (arrCat.length - i <= 4) {
+                    if (arrCat.length - i <= 4) {
                         $('#' + count).append('<br>');
                     }
                     count++;
@@ -46,6 +47,7 @@
                 }
             }
         });
+       
     </script>
 </head>
 <body>
@@ -92,13 +94,13 @@
                 <div class="col-md-9">
                     <div class="nameHolder">
                         <h1 class="catName">
-                            @Model.CategoryName
+                            @Model.Category.Name
                         </h1>
                     </div>
                     <div class="categs">
                         <ul>
                             <div class="containr">
-                                @foreach(var x in Model.childCategories)
+                                @foreach (var x in Model.childCategories)
                                 {
                                     <li class="catItem">
                                         <div class="catItemImgHolder">
@@ -116,21 +118,24 @@
                         <span>Сортировка по</span>
                         <div class="select-wrapper">
                             <select id="sort">
-                                <option value="">Wdadaw</option>
-                                <option value="">asd</option>
-                                <option value="">zxc</option>
+                                <option class="sort" value="1">Без сортировки</option>
+                                <option class="sort" value="2">Цена(по возрастанию)</option>
+                                <option class="sort" value="3">Цена(по убыванию)</option>
+                                <option class="sort" value="4">По рейтингу</option>
+                                <option class="sort" value="5">По просмотрам</option>
+                                <option class="sort" value="6">От А до Я</option>
+                                <option class="sort" value="7">От Я до А</option>
                             </select>
                             <div class="select-arrow-3"></div>
                             <div class="select-arrow-3"></div>
                         </div>
-
                         <span class="viewButton"><i class="fas fa-th-list"></i><br>Список</span>
                         <span class="viewButton viewSelected"><i class="fas fa-th-large"></i><br>Сетка</span>
                         <span class="view">Вид:</span>
                     </div>
                     <div class="container-fluid r">
                         <div class="row item_cells">
-                            @foreach(var x in Model.Textiles)
+                            @foreach (var x in Model.Textiles)
                             {
                                 <div class="col-md-3">
                                     <div class="line">
@@ -173,9 +178,51 @@
                                             </div>
                                         </div>
                                     </div>
-                                    </div>
+                                </div>
                             }
                         </div>
+                    </div>
+                    <div class="navButtons">
+                        <ul>
+                            @if (Model.PageViewModel.HasPreviousPage)
+                            {
+                                <a class="zxc" href="@Url.Action("ShowCategory","Home", new {CatId = Model.Category.CategoryId, page = Model.PageViewModel.PageNumber-1, EnumParam = Model.SortingParams})">
+                                    <li class="pagButtons">
+                                        <span><i class="fas fa-chevron-left"></i>Назад</span>
+                                    </li>
+                                </a>
+                            }
+                            else
+                            {
+                                <li class="pagButtons disabled">
+                                    <span><i class="fas fa-chevron-left"></i> Назад</span>
+                                </li>
+                            }
+                            @foreach (var x in Model.PagesCountList)
+                            {
+                                <a class="zxc1" href="@Url.Action("ShowCategory","Home", new {CatId = Model.Category.CategoryId, page = x, EnumParam = Model.SortingParams})">
+                                    <li class="pagButtons number">
+                                        <span>@x</span>
+                                    </li>
+                                </a>
+                            }
+
+                            @if (Model.PageViewModel.HasNextPage)
+                            {
+                                <a class="zxc" href="@Url.Action("ShowCategory","Home", new {CatId = Model.Category.CategoryId, page = Model.PageViewModel.PageNumber+1, EnumParam = Model.SortingParams})">
+                                    <li class="pagButtons">
+                                        <span>Вперед <i class="fas fa-chevron-right"></i></span>
+                                    </li>
+                                </a>
+                            }
+                            else
+                            {
+                                <li class="pagButtons disabled">
+                                    <span> Вперед<i class="fas fa-chevron-right"></i></span>
+                                </li>
+                            }
+
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -219,11 +266,11 @@
         }
         let errorArr = [];
         $("#registerBtn").click(function (e) {
-        e.preventDefault();
-        let name = document.getElementById('registerName').value;
-        let mail = document.getElementById('registerEmail').value;
-        let pass = document.getElementById('registerPass').value;
-        let confirmPass = document.getElementById('confirmPass').value;
+            e.preventDefault();
+            let name = document.getElementById('registerName').value;
+            let mail = document.getElementById('registerEmail').value;
+            let pass = document.getElementById('registerPass').value;
+            let confirmPass = document.getElementById('confirmPass').value;
             let x = {"Email":mail,"Fio":name,"Password":pass,"PasswordConfirm":confirmPass}
             $.ajax({
                 type: 'POST',
@@ -257,46 +304,57 @@
         });
     </script>
     <script type="text/javascript">
-        $('#loginButton').click(function (e) {
-            e.preventDefault();
-            let mail = document.getElementById('loginName').value;
-            let pass = document.getElementById('loginPass').value;
-            let check = document.getElementById('checkbox');
-            let bool;
-            if (check.checked) {
-                bool = true;
-            }
-            else {
-                bool = false;
-            }
-            let x = { "Email": mail, "Password": pass, "Remember": bool };
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("Login", "TextileApi")',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(x),
-                error: function (error) {
-                    errorArr = error.responseText.split('"');
-                    let errors = document.getElementsByClassName("error");
-                    if (errors[0] != undefined) {
-                        for (let i = 0; i < errors.length; i++) {
-                            errors[i].remove();
-                            i--;
-                        }
+    $('#loginButton').click(function (e) {
+        e.preventDefault();
+        let mail = document.getElementById('loginName').value;
+        let pass = document.getElementById('loginPass').value;
+        let check = document.getElementById('checkbox');
+        let bool;
+        if (check.checked) {
+            bool = true;
+        }
+        else {
+            bool = false;
+        }
+        let x = { "Email": mail, "Password": pass, "Remember": bool };
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Login", "TextileApi")',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(x),
+            error: function (error) {
+                errorArr = error.responseText.split('"');
+                let errors = document.getElementsByClassName("error");
+                if (errors[0] != undefined) {
+                    for (let i = 0; i < errors.length; i++) {
+                        errors[i].remove();
+                        i--;
                     }
-                    if (errorArr[0] != undefined) {
-                        for (let i = 1; i < errorArr.length - 1; i++) {
-                            if (errorArr[i] != ",") {
-                                $('#login').append('<span class="error">' + errorArr[i] + '<br><br></span>');
-                            }
-                        }
-                    }
-                },
-                success: function (result) {
-                    window.location.href = result;
                 }
-            });
+                if (errorArr[0] != undefined) {
+                    for (let i = 1; i < errorArr.length - 1; i++) {
+                        if (errorArr[i] != ",") {
+                            $('#login').append('<span class="error">' + errorArr[i] + '<br><br></span>');
+                        }
+                    }
+                }
+            },
+            success: function (result) {
+                window.location.href = result;
+            }
         });
+    });
+    const select = document.querySelector('#sort').getElementsByTagName('option');
+    for (let i = 0; i < select.length; i++) {
+        if (select[i].value === @Model.SortingParams) select[i].selected = true;
+    }
+    </script>
+    <script type="text/javascript">
+    let Url = "@ViewBag.Url" + "?CatId=" + "@Model.Category.CategoryId";
+    $('#sort').change(function (e) {
+        window.location.href = Url + "&page=1&EnumParam=" + this.value;
+    });
+
     </script>
     <script type="text/javascript" src="~/js/slider.js"></script>
     <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>

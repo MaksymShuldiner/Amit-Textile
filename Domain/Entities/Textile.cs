@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AmitTextile.Domain
 {
@@ -9,11 +10,10 @@ namespace AmitTextile.Domain
 
         public ICollection<CharachteristicValues> Charachteristics { get; set; }
 
-        public double Cost { get; set; }
-
-        public double CostWithDiscount
+        [NotMapped]
+        public decimal CostWithDiscount
         {
-            get => Cost * Discount; set => CostWithDiscount = value;
+            get => Price * Convert.ToDecimal(Discount);
         }
         public string Name { get; set; }
         public ICollection<Image> Images { get; set; }  
@@ -35,6 +35,14 @@ namespace AmitTextile.Domain
 
         public int ViewsCounter { get; set; }
         public bool IsPopular { get; set; }
+
+        public Guid CategoryId { get; set; }
+
+        public Category Category { get; set; }
+
+        public Guid? ChildCategoryId { get; set; }
+
+        public ChildCategory ChildCategory { get; set; }
         public Textile()
         {
             Charachteristics = new List<CharachteristicValues>();

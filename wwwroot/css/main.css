@@ -587,3 +587,39 @@ footer {
 .r {
     padding-right: 90px;
 }
+.navButtons{
+    margin-top: 25px;
+}
+.navButtons>ul{
+    text-align: center;
+}
+.navButtons>ul>li{
+    display: inline-block;
+}
+.pagButtons{
+    border: 1px solid #696969;
+    padding: 8px;
+    cursor: pointer;
+}
+.pagButtons:hover{
+    background-color: #696969;
+    transition: 0.3s all ease;
+    color: white;
+}
+.number{
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.disabled{
+    color:#d3d3d3;
+    cursor:not-allowed;
+}
+.disabled:hover{
+    background-color: transparent;
+    color:#d3d3d3;
+}
+.current {
+    background-color: #696969;
+    transition: 0.3s all ease;
+    color: white;
+}

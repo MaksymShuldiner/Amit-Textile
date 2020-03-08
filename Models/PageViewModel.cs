@@ -12,20 +12,19 @@ namespace AmitTextile.Models
             PageNumber = pageNumber;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
         }
-        public bool HasPreviousPage
+        public bool HasPreviousPage => (PageNumber > 1);
+
+        public bool HasNextPage => (PageNumber < TotalPages);
+
+        public bool UniversalHasNextPage(int pagenumber)
         {
-            get
-            {
-                return (PageNumber > 1);
-            }
+            return pagenumber < TotalPages;
         }
 
-        public bool HasNextPage
+        public bool UniversalHasPreviousPage(int pagenumber)
         {
-            get
-            {
-                return (PageNumber < TotalPages);
-            }
+            return pagenumber > 1;
         }
+
     }
 }

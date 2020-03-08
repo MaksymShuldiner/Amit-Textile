@@ -340,7 +340,7 @@ namespace AmitTextile.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CategoryId")
+                    b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CharachteristicId")
@@ -348,12 +348,6 @@ namespace AmitTextile.Migrations
 
                     b.Property<Guid?>("ChildCategoryId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<double>("Cost")
-                        .HasColumnType("float");
-
-                    b.Property<double>("CostWithDiscount")
-                        .HasColumnType("float");
 
                     b.Property<DateTime>("DateWhenAdded")
                         .HasColumnType("datetime2");
@@ -750,15 +744,17 @@ namespace AmitTextile.Migrations
 
             modelBuilder.Entity("AmitTextile.Domain.Textile", b =>
                 {
-                    b.HasOne("AmitTextile.Domain.Category", null)
+                    b.HasOne("AmitTextile.Domain.Category", "Category")
                         .WithMany("TextilesOfThisCategory")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AmitTextile.Domain.Charachteristic", null)
                         .WithMany("Textiles")
                         .HasForeignKey("CharachteristicId");
 
-                    b.HasOne("AmitTextile.Domain.ChildCategory", null)
+                    b.HasOne("AmitTextile.Domain.ChildCategory", "ChildCategory")
                         .WithMany("TextilesOfThisChildCategory")
                         .HasForeignKey("ChildCategoryId");
                 });
