@@ -14,5 +14,7 @@ namespace AmitTextile.Models
 
         public SortingParams SortingParams { get; set; }
 
+        public string CategoryName { get; set; }
+
     }
 }

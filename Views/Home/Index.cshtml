@@ -1,5 +1,4 @@
-﻿@model List<AmitTextile.Domain.Category>;
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -26,13 +25,14 @@
             contentType: 'json',
             success: function (result) {
                 arrCat = result;
+                let Url;
                 for (let i = 0; i < arrCat.length; i++) {
-                   
+                    Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId;
                     if (line % 2 == 0) {
-                        $('#' + count).append('<a class="cats" href="#">' + arrCat[i].name + '</a><br>');
+                        $('#' + count).append('<a class="cats" href="'+Url+'">' + arrCat[i].name + '</a><br>');
                     }
                     else {
-                        $('#' + count).append('<a class="cats r" href="#">' + arrCat[i].name + '</a><br>');
+                        $('#' + count).append('<a class="cats r" href="'+Url+'">' + arrCat[i].name + '</a><br>');
                     }
                      if (arrCat.length - i <= 4) {
                         $('#' + count).append('<br>');
