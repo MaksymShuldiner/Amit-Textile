@@ -133,7 +133,7 @@
                         <span class="viewButton viewSelected"><i class="fas fa-th-large"></i><br>Сетка</span>
                         <span class="view">Вид:</span>
                     </div>
-                    <div class="container-fluid r">
+                    <div class="container-fluid l">
                         <div class="row item_cells">
                             @foreach (var x in Model.Textiles)
                             {
@@ -150,22 +150,25 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <span class="item_cost">
-                                                            @x.Price
+                                                            @(x.Price+" ₴")
                                                         </span>
                                                         <br>
-                                                        @if (x.WarehouseAmount > 30)
+                                                        @if (x.WarehouseAmount >= 30)
                                                         {
                                                             <span class="inStock">
+                                                                Есть в наличии
                                                             </span>
                                                         }
                                                         @if (x.WarehouseAmount < 30 && x.WarehouseAmount != 0)
                                                         {
                                                             <span class="lowAm">
+                                                                Заканчивается
                                                             </span>
                                                         }
                                                         @if (x.WarehouseAmount == 0)
                                                         {
                                                             <span class="notInStock">
+                                                                Нет в наличии
                                                             </span>
                                                         }
                                                     </div>
@@ -186,98 +189,128 @@
                         <ul>
                             @if (Model.PageViewModel.HasPreviousPage)
                             {
-                                <a class="zxc" href="@Url.Action("ShowCategory","Home", new {CatId = Model.Category.CategoryId, page = Model.PageViewModel.PageNumber-1, EnumParam = Model.SortingParams})">
-                                    <li class="pagButtons">
-                                        <span><i class="fas fa-chevron-left"></i>Назад</span>
-                                    </li>
-                                </a>
+                                <text><a class="zxc" href="@Url.Action("ShowCategory","Home", new {CatId = Model.Category.CategoryId, page = Model.PageViewModel.PageNumber-1, EnumParam = Model.SortingParams})"><li class="pagButtons"><span><i class="fas fa-chevron-left"></i>Назад</span></li></a></text>
                             }
                             else
                             {
-                                <li class="pagButtons disabled">
-                                    <span><i class="fas fa-chevron-left"></i> Назад</span>
-                                </li>
+                                <text><li class="pagButtons disabled"><span><i class="fas fa-chevron-left"></i> Назад</span></li></text>
                             }
                             @foreach (var x in Model.PagesCountList)
                             {
-                                <a class="zxc1" href="@Url.Action("ShowCategory","Home", new {CatId = Model.Category.CategoryId, page = x, EnumParam = Model.SortingParams})">
-                                    <li class="pagButtons number">
-                                        <span>@x</span>
-                                    </li>
-                                </a>
+                                <text><a class="zxc1" href="@Url.Action("ShowCategory","Home", new {CatId = Model.Category.CategoryId, page = x, EnumParam = Model.SortingParams})">
+                                    <li class="pagButtons number"><span>@x</span></li></a></text>
                             }
 
                             @if (Model.PageViewModel.HasNextPage)
                             {
-                                <a class="zxc" href="@Url.Action("ShowCategory","Home", new {CatId = Model.Category.CategoryId, page = Model.PageViewModel.PageNumber+1, EnumParam = Model.SortingParams})">
-                                    <li class="pagButtons">
-                                        <span>Вперед <i class="fas fa-chevron-right"></i></span>
-                                    </li>
-                                </a>
+                                <text><a class="zxc" href="@Url.Action("ShowCategory","Home", new {CatId = Model.Category.CategoryId, page = Model.PageViewModel.PageNumber+1, EnumParam = Model.SortingParams})"><li class="pagButtons"><span>Вперед <i class="fas fa-chevron-right"></i></span></li></a></text>
                             }
-                            else
-                            {
-                                <li class="pagButtons disabled">
-                                    <span> Вперед<i class="fas fa-chevron-right"></i></span>
-                                </li>
-                            }
+                                else
+                                {
+                                    <text><li class="pagButtons disabled"><span> Вперед<i class="fas fa-chevron-right"></i></span></li></text>
+                                }
 
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="hidden">
-            <form id="login">
-                <font>Эл. почта</font><br><br>
-                <div class="inputFields">
-                    <input type="email" id="loginName" name="UserEmail" required><br><br>
-                    <font>Пароль</font><br><br>
-                    <input type="password" id="loginPass" name="UserPassword" required><button type="button" id="showPassLogin" class="showBtn"><div class="atv"><i class="fas fa-eye"></i></div><div class="atv hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
-                </div>
-                <input type="submit" id="loginButton" class="registerButton" value="Войти" name="login" required><br><br>
-                <input type="checkbox" id="checkbox" value="true">  Запомнить меня<br><br>
-                <a data-fancybox="helo" href="#register">Зарегистрироваться</a> <br>
-            </form>
-        </div>
-        <div class="hidden">
-            <form id="register" class="register">
+            <div class="hidden">
+                <form id="login">
+                    <font>Эл. почта</font><br><br>
+                    <div class="inputFields">
+                        <input type="email" id="loginName" name="UserEmail" required><br><br>
+                        <font>Пароль</font><br><br>
+                        <input type="password" id="loginPass" name="UserPassword" required><button type="button" id="showPassLogin" class="showBtn"><div class="atv"><i class="fas fa-eye"></i></div><div class="atv hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                    </div>
+                    <input type="submit" id="loginButton" class="registerButton" value="Войти" name="login" required><br><br>
+                    <input type="checkbox" id="checkbox" value="true">  Запомнить меня<br><br>
+                    <a data-fancybox="helo" href="#register">Зарегистрироваться</a> <br>
+                </form>
+            </div>
+            <div class="hidden">
+                <form id="register" class="register">
 
-                ФИО <br><br>
-                <div class="inputFields">
-                    <input type="text" id="registerName" name="UserName" required><br><br>
-                    Эл. почта <span>*</span><br><br>
-                    <input type="email" id="registerEmail" name="UserEmail" required><br><br>
-                    Придумайте пароль <span>*</span><br><br>
-                    <input type="password" id="registerPass" name="UserPassword" required><button type="button" id="showPassRegister" class="showBtn"><div class="atv1"><i class="fas fa-eye"></i></div><div class="atv1 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
-                    Подтвердите пароль <span>*</span><br><br>
-                    <input type="password" id="confirmPass" required><button type="button" id="showPassConfirm" class="showBtn"><div class="atv2"><i class="fas fa-eye"></i></div><div class="atv2 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
-                    Пароль должен содержать не менее 6 символов<br><br>
-                </div>
-            </form>
-            <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
+                    ФИО <br><br>
+                    <div class="inputFields">
+                        <input type="text" id="registerName" name="UserName" required><br><br>
+                        Эл. почта <span>*</span><br><br>
+                        <input type="email" id="registerEmail" name="UserEmail" required><br><br>
+                        Придумайте пароль <span>*</span><br><br>
+                        <input type="password" id="registerPass" name="UserPassword" required><button type="button" id="showPassRegister" class="showBtn"><div class="atv1"><i class="fas fa-eye"></i></div><div class="atv1 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                        Подтвердите пароль <span>*</span><br><br>
+                        <input type="password" id="confirmPass" required><button type="button" id="showPassConfirm" class="showBtn"><div class="atv2"><i class="fas fa-eye"></i></div><div class="atv2 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                        Пароль должен содержать не менее 6 символов<br><br>
+                    </div>
+                </form>
+                <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
+            </div>
         </div>
-    </div>
-    <footer>
-    </footer>
-    <script type="text/javascript">
-        function tgl() {
-            $('#regS').fadeOut(400);
-        }
-        let errorArr = [];
-        $("#registerBtn").click(function (e) {
+        <footer>
+        </footer>
+        <script type="text/javascript">
+            function tgl() {
+                $('#regS').fadeOut(400);
+            }
+            let errorArr = [];
+            $("#registerBtn").click(function (e) {
+                e.preventDefault();
+                let name = document.getElementById('registerName').value;
+                let mail = document.getElementById('registerEmail').value;
+                let pass = document.getElementById('registerPass').value;
+                let confirmPass = document.getElementById('confirmPass').value;
+                let x = {"Email":mail,"Fio":name,"Password":pass,"PasswordConfirm":confirmPass}
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Register", "TextileApi")',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(x),
+                    error: function(error) {
+                        errorArr = error.responseText.split('"');
+                        let errors = document.getElementsByClassName("error");
+                        if (errors[0] != undefined) {
+                            for (let i = 0; i < errors.length; i++) {
+                                errors[i].remove();
+                                i--;
+                            }
+                        }
+                        if (errorArr[0] != undefined) {
+                            for (let i = 1; i < errorArr.length - 1; i++) {
+                                if (errorArr[i] != ",") {
+                                    $('#register').append('<span class="error">' + errorArr[i] + '<br><br></span>');
+                                }
+                            }
+                        }
+                    },
+                    success: function (result) {
+                        parent.jQuery.fancybox.getInstance().close();
+                        parent.jQuery.fancybox.getInstance().close();
+                        $('#regS').fadeIn(400);
+                        setTimeout(tgl, 10000);
+                    }
+                });
+            });
+        </script>
+        <script type="text/javascript">
+        $('#loginButton').click(function (e) {
             e.preventDefault();
-            let name = document.getElementById('registerName').value;
-            let mail = document.getElementById('registerEmail').value;
-            let pass = document.getElementById('registerPass').value;
-            let confirmPass = document.getElementById('confirmPass').value;
-            let x = {"Email":mail,"Fio":name,"Password":pass,"PasswordConfirm":confirmPass}
+            let mail = document.getElementById('loginName').value;
+            let pass = document.getElementById('loginPass').value;
+            let check = document.getElementById('checkbox');
+            let bool;
+            if (check.checked) {
+                bool = true;
+            }
+            else {
+                bool = false;
+            }
+            let x = { "Email": mail, "Password": pass, "Remember": bool };
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("Register", "TextileApi")',
+                url: '@Url.Action("Login", "TextileApi")',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(x),
-                error: function(error) {
+                error: function (error) {
                     errorArr = error.responseText.split('"');
                     let errors = document.getElementsByClassName("error");
                     if (errors[0] != undefined) {
@@ -289,79 +322,37 @@
                     if (errorArr[0] != undefined) {
                         for (let i = 1; i < errorArr.length - 1; i++) {
                             if (errorArr[i] != ",") {
-                                $('#register').append('<span class="error">' + errorArr[i] + '<br><br></span>');
+                                $('#login').append('<span class="error">' + errorArr[i] + '<br><br></span>');
                             }
                         }
                     }
                 },
                 success: function (result) {
-                    parent.jQuery.fancybox.getInstance().close();
-                    parent.jQuery.fancybox.getInstance().close();
-                    $('#regS').fadeIn(400);
-                    setTimeout(tgl, 10000);
+                    window.location.href = result;
                 }
             });
         });
-    </script>
-    <script type="text/javascript">
-    $('#loginButton').click(function (e) {
-        e.preventDefault();
-        let mail = document.getElementById('loginName').value;
-        let pass = document.getElementById('loginPass').value;
-        let check = document.getElementById('checkbox');
-        let bool;
-        if (check.checked) {
-            bool = true;
-        }
-        else {
-            bool = false;
-        }
-        let x = { "Email": mail, "Password": pass, "Remember": bool };
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("Login", "TextileApi")',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(x),
-            error: function (error) {
-                errorArr = error.responseText.split('"');
-                let errors = document.getElementsByClassName("error");
-                if (errors[0] != undefined) {
-                    for (let i = 0; i < errors.length; i++) {
-                        errors[i].remove();
-                        i--;
-                    }
-                }
-                if (errorArr[0] != undefined) {
-                    for (let i = 1; i < errorArr.length - 1; i++) {
-                        if (errorArr[i] != ",") {
-                            $('#login').append('<span class="error">' + errorArr[i] + '<br><br></span>');
-                        }
-                    }
-                }
-            },
-            success: function (result) {
-                window.location.href = result;
+        const select = document.querySelector('#sort').getElementsByTagName('option');
+        for (let i = 0; i < select.length; i++) {
+            if (select[i].value == @Model.SortingParams) {
+                select[i].selected = "true";
+                break;
             }
+        }
+        </script>
+        <script type="text/javascript">
+        let Url = "@ViewBag.Url" + "?CatId=" + "@Model.Category.CategoryId";
+        $('#sort').change(function (e) {
+            window.location.href = Url + "&page=1&EnumParam=" + this.value;
         });
-    });
-    const select = document.querySelector('#sort').getElementsByTagName('option');
-    for (let i = 0; i < select.length; i++) {
-        if (select[i].value === @Model.SortingParams) select[i].selected = true;
-    }
-    </script>
-    <script type="text/javascript">
-    let Url = "@ViewBag.Url" + "?CatId=" + "@Model.Category.CategoryId";
-    $('#sort').change(function (e) {
-        window.location.href = Url + "&page=1&EnumParam=" + this.value;
-    });
 
-    </script>
-    <script type="text/javascript" src="~/js/slider.js"></script>
-    <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="~/js/main.js"></script>
-    <script type="text/javascript" src="~/libs/FontAwesome/all.min.js"></script>
-    <script type="text/javascript" src="~/libs/OwlCarousel/owl.carousel.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-</body>
-</html>
+        </script>
+        <script type="text/javascript" src="~/js/slider.js"></script>
+        <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="~/js/main.js"></script>
+        <script type="text/javascript" src="~/libs/FontAwesome/all.min.js"></script>
+        <script type="text/javascript" src="~/libs/OwlCarousel/owl.carousel.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    </body>
+    </html>
 
