@@ -102,16 +102,18 @@
                             <div class="containr">
                                 @foreach (var x in Model.childCategories)
                                 {
-                                    <li class="catItem">
-                                        <div class="catItemImgHolder">
-                                            <img src="../images/img1.jpg" alt="CategoryImage">
-                                        </div>
-                                        <div class="catItemNameHolder">
-                                            <span>@x.Name</span>
-                                        </div>
-                                    </li>
-                                }
-                            </div>
+                                    <a href="@Url.Action("ShowChildCategory", "Home", new { ChildCatId = x.ChildCategoryId, page = Model.PageViewModel.PageNumber })">
+                                <li class="catItem">
+                                    <div class="catItemImgHolder">
+                                        <img src="../images/img1.jpg" alt="CategoryImage">
+                                    </div>
+                                    <div class="catItemNameHolder">
+                                        <span>@x.Name</span>
+                                    </div>
+                                </li>
+                                </a>
+                                        }
+                                </div>
                         </ul>
                     </div>
                     <div class="propButtons">
@@ -354,7 +356,6 @@
     $('#sort').change(function (e) {
         window.location.href = Url + "&page=1&EnumParam=" + this.value;
     });
-
     </script>
     <script type="text/javascript" src="~/js/slider.js"></script>
     <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>
