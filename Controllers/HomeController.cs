@@ -34,12 +34,12 @@ namespace AmitTextile.Controllers
         {
             if (!HttpContext.Request.Cookies.ContainsKey("Form"))
             {
-                HttpContext.Response.Cookies.Append("Form", CookieValue ,new CookieOptions(){Expires = new DateTime().Add(TimeSpan.FromDays(15)), IsEssential = true });
+                HttpContext.Response.Cookies.Append("Form", CookieValue ,new CookieOptions(){Expires = DateTime.Now.Add(TimeSpan.FromDays(15)), IsEssential = true });
             }
             else
             {
                 HttpContext.Response.Cookies.Delete("Form");
-                HttpContext.Response.Cookies.Append("Form", CookieValue, new CookieOptions() { Expires = new DateTime().Add(TimeSpan.FromDays(15)), IsEssential = true});
+                HttpContext.Response.Cookies.Append("Form", CookieValue, new CookieOptions() { Expires = DateTime.Now.Add(TimeSpan.FromDays(15)), IsEssential = true});
             }
             ViewBag.UrlChild = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowChildCategory";
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
@@ -92,8 +92,9 @@ namespace AmitTextile.Controllers
                 pagesCounterList.Add(i);
             }
             List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
+           
             CategoriesViewModel model = new CategoriesViewModel()
-            { PageViewModel = pageViewModel, childCategories = childCategories, Textiles = Textiles, SortingParams = EnumParam, Category = _context.Categories.FindAsync(Guid.Parse(CatId)).Result, PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = HttpContext.Request.Cookies["Form"] };
+                { PageViewModel = pageViewModel, childCategories = childCategories, Textiles = Textiles, SortingParams = EnumParam, Category = _context.Categories.FindAsync(Guid.Parse(CatId)).Result, PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = CookieValue };
             return View(model);
         }
         [HttpGet]
@@ -101,12 +102,12 @@ namespace AmitTextile.Controllers
         {
             if (!HttpContext.Request.Cookies.ContainsKey("Form"))
             {
-                HttpContext.Response.Cookies.Append("Form", CookieValue, new CookieOptions() { Expires = new DateTime().Add(TimeSpan.FromDays(15)), IsEssential = true });
+                HttpContext.Response.Cookies.Append("Form", CookieValue, new CookieOptions() { Expires = DateTime.Now.Add(TimeSpan.FromDays(15)), IsEssential = true });
             }
             else
             {
                 HttpContext.Response.Cookies.Delete("Form");
-                HttpContext.Response.Cookies.Append("Form", CookieValue, new CookieOptions() { Expires = new DateTime().Add(TimeSpan.FromDays(15)), IsEssential = true });
+                HttpContext.Response.Cookies.Append("Form", CookieValue, new CookieOptions() { Expires = DateTime.Now.Add(TimeSpan.FromDays(15)), IsEssential = true });
             }
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             ViewBag.UrlChild = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowChildCategory";
@@ -159,7 +160,7 @@ namespace AmitTextile.Controllers
             }
             List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
             ChildCategoriesViewModel model = new ChildCategoriesViewModel()
-            { PageViewModel = pageViewModel, Textiles = Textiles, SortingParams = EnumParam, Category = _context.ChildCategories.Include(x => x.Category).FirstOrDefault(x=> x.ChildCategoryId == Guid.Parse(ChildCatId)), PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = HttpContext.Request.Cookies["Form"]};
+            { PageViewModel = pageViewModel, Textiles = Textiles, SortingParams = EnumParam, Category = _context.ChildCategories.Include(x => x.Category).FirstOrDefault(x=> x.ChildCategoryId == Guid.Parse(ChildCatId)), PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = CookieValue};
             return View(model);
         }
     }

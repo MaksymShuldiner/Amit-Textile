@@ -131,13 +131,13 @@
                             <div class="select-arrow-3"></div>
                             <div class="select-arrow-3"></div>
                         </div>
-                        @if (@Model.CookieValue == "Grid")
+                        @if (Model.CookieValue == "Grid")
                         {
                             <span id="list" class="viewButton"><i class="fas fa-th-list"></i><br>Список</span>
                             <span id="grid" class="viewButton viewSelected"><i class="fas fa-th-large"></i><br>Сетка</span>
                             <span class="view">Вид:</span>
                         }
-                        else if(@Model.CookieValue == "List")
+                        else if(Model.CookieValue == "List")
                         {
                             <span id="list" class="viewButton viewSelected"><i class="fas fa-th-list"></i><br>Список</span>
                             <span id="grid" class="viewButton"><i class="fas fa-th-large"></i><br>Сетка</span>

@@ -262,7 +262,6 @@ header {
     color: #797878;
     font-size: 14px;
 }
-
 .cats {
     color: white;
     font-size: 19px;
@@ -452,10 +451,12 @@ footer {
 .containr li {
     display: inline-block;
 }
+
 .containr > a {
     display: inline-block;
     width: 10%;
 }
+
 .catItemImgHolder {
     width: 100%;
     height: 100px;
@@ -517,7 +518,6 @@ footer {
         background: transparent;
         cursor: pointer;
     }
-
     .select-wrapper:hover {
         border: none;
         box-shadow: 0 0 10px rgba(0,0,0,0.5);
@@ -589,59 +589,73 @@ footer {
 .l {
     padding-right: 90px;
 }
-.navButtons{
+
+.navButtons {
     margin-top: 25px;
 }
-.navButtons>ul{
-    text-align: center;
-}
-.navButtons>ul>li{
-    display: inline-block;
-}
-.pagButtons{
+
+    .navButtons > ul {
+        text-align: center;
+    }
+
+        .navButtons > ul > li {
+            display: inline-block;
+        }
+
+.pagButtons {
     border: 1px solid #696969;
     padding: 8px;
     cursor: pointer;
 }
-.pagButtons:hover{
-    background-color: #696969;
-    transition: 0.3s all ease;
-    color: white;
-}
-.number{
+
+    .pagButtons:hover {
+        background-color: #696969;
+        transition: 0.3s all ease;
+        color: white;
+    }
+
+.number {
     padding-left: 12px;
     padding-right: 12px;
 }
-.disabled{
-    color:#d3d3d3;
-    cursor:not-allowed;
+
+.disabled {
+    color: #d3d3d3;
+    cursor: not-allowed;
 }
-.disabled:hover{
-    background-color: transparent;
-    color:#d3d3d3;
-}
+
+    .disabled:hover {
+        background-color: transparent;
+        color: #d3d3d3;
+    }
+
 .current {
     background-color: #696969;
     transition: 0.3s all ease;
     color: white;
 }
+
 .navButtons a {
     color: #212529;
-    display:inline-block;
-    transition:0.3s all ease;
+    display: inline-block;
+    transition: 0.3s all ease;
 }
+
     .navButtons a:hover {
         background-color: #696969;
         transition: 0.3s all ease;
         color: white;
-        text-decoration:none;
+        text-decoration: none;
     }
-.navButtons ul{
-    font-size:0px;
+
+.navButtons ul {
+    font-size: 0px;
 }
-.navButtons ul li{
-    font-size:16px;
-}
+
+    .navButtons ul li {
+        font-size: 16px;
+    }
+
 .mrg {
     margin-bottom: 60px;
 }
