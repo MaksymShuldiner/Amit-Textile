@@ -352,15 +352,15 @@
         <script type="text/javascript">
             $('#list').click(function (e) {
                 e.preventDefault();
-                if (!$('#list').attr('class', 'disabled')) {
-                    window.location.href =
+                if (!$('#list').hasClass('disabled')) {
+                    window.location.href = '#'
                 }
 
             });
             $('#grid').click(function (e) {
                 e.preventDefault();
-                if (!$('#grid').attr('class', 'disabled')) {
-                    window.location.href =
+                if (!$('#grid').hasClass('disabled')) {
+                    window.location.href = '#'
                 }
             });
         </script>
