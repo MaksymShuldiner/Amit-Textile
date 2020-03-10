@@ -659,3 +659,42 @@ footer {
 .mrg {
     margin-bottom: 60px;
 }
+.listImgContainer > img {
+    width: 100%;
+}
+
+.itemNameList h2 {
+    font-size: 24px;
+}
+
+.itemNameList a {
+    color: #212529;
+    transition: 0.3s all ease;
+}
+
+.itemNameList {
+    margin-bottom: 20px;
+}
+
+    .itemNameList a:hover {
+        color: #008B8B;
+        text-decoration: none;
+        transition: 0.3s all ease;
+    }
+
+.listItems {
+    border: 1px solid #d3d3d3;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.itemPriceList {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.buttonsItemList {
+    margin-top: 10px;
+}
