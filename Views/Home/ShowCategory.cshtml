@@ -198,7 +198,8 @@
                                 }
                             }
                             else if(Model.CookieValue =="List"){
-                                @foreach(var x in Model.Textiles) { 
+                                int count = 1;
+                                @foreach(var x in Model.Textiles) {
                                 <div class="listItems">
                                     <div class="listItem">
                                         <div class="container-fluid">
@@ -251,11 +252,11 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="buttonsItemList">
-                                                                    <button class="fav">
-                                                                        <a href="#" class="toFavourite selected">
+                                                                    <button class="fav @(count)">
+                                                                        <p class="@(count)@(count) toFavourite selected">
                                                                             <i class="far fa-heart"></i>
-                                                                        </a>
-                                                                        <a href="#" class="toFavourite"><i class="fas fa-heart"></i></a>
+                                                                        </p>
+                                                                        <p class="@(count)@(count) toFavourite"><i class="fas fa-heart"></i></p>
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -266,6 +267,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                    count++;
                                 }
                             }
                         </div>
@@ -428,7 +430,7 @@
         <script type="text/javascript">
         let Url = "@ViewBag.Url" + "?CatId=" + "@Model.Category.CategoryId";
         $('#sort').change(function (e) {
-            window.location.href = Url + "&page=1&EnumParam=" + this.value;
+            window.location.href = Url + "&page=1&EnumParam=" + this.value + "&CookieValue="+"@Model.CookieValue";
         });
 
         </script>

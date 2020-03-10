@@ -70,6 +70,33 @@ $(document).ready(function () {
         $('.atv2').toggleClass('hdn');
 
     });
+    $('.1').click(function() {
+        $('.11').toggleClass('selected');
+    });
+    $('.2').click(function () {
+        $('.22').toggleClass('selected');
+    });
+    $('.3').click(function () {
+        $('.33').toggleClass('selected');
+    });
+    $('.4').click(function () {
+        $('.44').toggleClass('selected');
+    });
+    $('.5').click(function () {
+        $('.55').toggleClass('selected');
+    });
+    $('.6').click(function () {
+        $('.66').toggleClass('selected');
+    });
+    $('.7').click(function () {
+        $('.77').toggleClass('selected');
+    });
+    $('.8').click(function () {
+        $('.88').toggleClass('selected');
+    });
+    $('.9').click(function () {
+        $('.99').toggleClass('selected');
+    });
 });
 window.onscroll = function () { scrollFunction() };
 
