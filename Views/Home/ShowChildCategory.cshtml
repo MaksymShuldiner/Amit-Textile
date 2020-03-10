@@ -72,13 +72,31 @@
             </div>
         </div>
     </header>
-<div class="content">
+    <div class="categories">
+        <span id="cat">Категории <i id="arrowDown" class="fas fa-chevron-down"></i><i id="arrowUp" class="fas fa-chevron-up hdn"></i></span>
+        <div id="cats_hdn" class="hdn">
+            <div class="container">
+                <div class="row">
+                    <div id="1" class="col-md-3"></div>
+                    <div id="2" class="col-md-3"></div>
+                    <div id="3" class="col-md-3"></div>
+                    <div id="4" class="col-md-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">
 
                 </div>
                 <div class="col-md-9">
+                    <div class="nameHolder mrg">
+                        <h1 class="catName">
+                            @Model.Category.Name
+                        </h1>
+                    </div>
                     <div class="propButtons">
                         <span>Сортировка по</span>
                         <div class="select-wrapper">
@@ -98,7 +116,7 @@
                         <span class="viewButton viewSelected"><i class="fas fa-th-large"></i><br>Сетка</span>
                         <span class="view">Вид:</span>
                     </div>
-                    <div class="container-fluid r">
+                    <div class="container-fluid l">
                         <div class="row item_cells">
                             @foreach (var x in Model.Textiles)
                             {
@@ -115,22 +133,25 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <span class="item_cost">
-                                                            @x.Price
+                                                            @(x.Price+" ₴")
                                                         </span>
                                                         <br>
-                                                        @if (x.WarehouseAmount > 30)
+                                                        @if (x.WarehouseAmount >= 30)
                                                         {
                                                             <span class="inStock">
+                                                                В наличии
                                                             </span>
                                                         }
                                                         @if (x.WarehouseAmount < 30 && x.WarehouseAmount != 0)
                                                         {
                                                             <span class="lowAm">
+                                                                Заканчивается
                                                             </span>
                                                         }
                                                         @if (x.WarehouseAmount == 0)
                                                         {
                                                             <span class="notInStock">
+                                                                Нет в наличии
                                                             </span>
                                                         }
                                                     </div>
@@ -311,7 +332,10 @@
     });
     const select = document.querySelector('#sort').getElementsByTagName('option');
     for (let i = 0; i < select.length; i++) {
-        if (select[i].value === @Model.SortingParams) select[i].selected = true;
+        if (select[i].value == @Model.SortingParams) {
+            select[i].selected = 'true';
+            break;
+        }
     }
     </script>
     <script type="text/javascript">
