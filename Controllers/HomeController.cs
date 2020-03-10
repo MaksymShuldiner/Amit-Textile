@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using AmitTextile.Domain;
@@ -29,11 +30,16 @@ namespace AmitTextile.Controllers
             return View();
         }
         [HttpGet]   
-        public async Task<IActionResult> ShowCategory(string CatId, int page = 1, int EnumParam = 1)
+        public async Task<IActionResult> ShowCategory(string CatId, int page = 1, int EnumParam = 1, string CookieValue = "Grid")
         {
             if (!HttpContext.Request.Cookies.ContainsKey("Form"))
             {
-                HttpContext.Response.Cookies.Append("Form","Grid");
+                HttpContext.Response.Cookies.Append("Form", CookieValue ,new CookieOptions(){Expires = new DateTime().Add(TimeSpan.FromDays(15)), IsEssential = true });
+            }
+            else
+            {
+                HttpContext.Response.Cookies.Delete("Form");
+                HttpContext.Response.Cookies.Append("Form", CookieValue, new CookieOptions() { Expires = new DateTime().Add(TimeSpan.FromDays(15)), IsEssential = true});
             }
             ViewBag.UrlChild = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowChildCategory";
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
@@ -87,7 +93,7 @@ namespace AmitTextile.Controllers
             }
             List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
             CategoriesViewModel model = new CategoriesViewModel()
-                {PageViewModel = pageViewModel, childCategories = childCategories, Textiles = Textiles, SortingParams = EnumParam, Category = _context.Categories.FindAsync(Guid.Parse(CatId)).Result, PagesCountList = newList.OrderBy(x => x).ToList()};
+            { PageViewModel = pageViewModel, childCategories = childCategories, Textiles = Textiles, SortingParams = EnumParam, Category = _context.Categories.FindAsync(Guid.Parse(CatId)).Result, PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = HttpContext.Request.Cookies["Form"] };
             return View(model);
         }
         [HttpGet]
@@ -95,7 +101,12 @@ namespace AmitTextile.Controllers
         {
             if (!HttpContext.Request.Cookies.ContainsKey("Form"))
             {
-                HttpContext.Response.Cookies.Append("Form", "Grid");
+                HttpContext.Response.Cookies.Append("Form", CookieValue, new CookieOptions() { Expires = new DateTime().Add(TimeSpan.FromDays(15)), IsEssential = true });
+            }
+            else
+            {
+                HttpContext.Response.Cookies.Delete("Form");
+                HttpContext.Response.Cookies.Append("Form", CookieValue, new CookieOptions() { Expires = new DateTime().Add(TimeSpan.FromDays(15)), IsEssential = true });
             }
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             ViewBag.UrlChild = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowChildCategory";
@@ -148,7 +159,7 @@ namespace AmitTextile.Controllers
             }
             List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
             ChildCategoriesViewModel model = new ChildCategoriesViewModel()
-            { PageViewModel = pageViewModel, Textiles = Textiles, SortingParams = EnumParam, Category = _context.ChildCategories.Include(x => x.Category).FirstOrDefault(x=> x.ChildCategoryId == Guid.Parse(ChildCatId)), PagesCountList = newList.OrderBy(x => x).ToList() };
+            { PageViewModel = pageViewModel, Textiles = Textiles, SortingParams = EnumParam, Category = _context.ChildCategories.Include(x => x.Category).FirstOrDefault(x=> x.ChildCategoryId == Guid.Parse(ChildCatId)), PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = HttpContext.Request.Cookies["Form"]};
             return View(model);
         }
     }

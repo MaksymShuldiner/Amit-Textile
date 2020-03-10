@@ -353,14 +353,14 @@
             $('#list').click(function (e) {
                 e.preventDefault();
                 if (!$('#list').attr('class', 'disabled')) {
-                    window.location.href =
+                    window.location.href = "@ViewBag.Url" + "?CatId="+ "@Model.Category.CategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "List";
                 }
 
             });
             $('#grid').click(function (e) {
                 e.preventDefault();
                 if (!$('#grid').attr('class', 'disabled')) {
-                    window.location.href =
+                    window.location.href = "@ViewBag.Url" + "?CatId="+ "@Model.Category.CategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "Grid";
                 }
             });
         </script>
