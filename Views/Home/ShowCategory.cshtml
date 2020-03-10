@@ -352,15 +352,15 @@
         <script type="text/javascript">
             $('#list').click(function (e) {
                 e.preventDefault();
-                if (!$('#list').hasClass('disabled')) {
-                    window.location.href = '#'
+                if (!$('#list').attr('class', 'disabled')) {
+                    window.location.href = "@ViewBag.Url" + "?CatId="+ "@Model.Category.CategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "List";
                 }
 
             });
             $('#grid').click(function (e) {
                 e.preventDefault();
-                if (!$('#grid').hasClass('disabled')) {
-                    window.location.href = '#'
+                if (!$('#grid').attr('class', 'disabled')) {
+                    window.location.href = "@ViewBag.Url" + "?CatId="+ "@Model.Category.CategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "Grid";
                 }
             });
         </script>
