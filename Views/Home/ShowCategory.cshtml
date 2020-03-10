@@ -1,4 +1,5 @@
-﻿@model AmitTextile.Models.CategoriesViewModel
+﻿@using Microsoft.AspNetCore.Http
+@model AmitTextile.Models.CategoriesViewModel
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -102,18 +103,18 @@
                             <div class="containr">
                                 @foreach (var x in Model.childCategories)
                                 {
-                                    <a href="@Url.Action("ShowChildCategory", "Home", new { ChildCatId = x.ChildCategoryId, page = Model.PageViewModel.PageNumber })">
-                                <li class="catItem">
-                                    <div class="catItemImgHolder">
-                                        <img src="../images/img1.jpg" alt="CategoryImage">
-                                    </div>
-                                    <div class="catItemNameHolder">
-                                        <span>@x.Name</span>
-                                    </div>
-                                </li>
-                                </a>
-                                        }
-                                </div>
+                                    <a href="@Url.Action("ShowChildCategory", "Home", new {ChildCatId = x.ChildCategoryId, page = Model.PageViewModel.PageNumber})">
+                                        <li class="catItem">
+                                            <div class="catItemImgHolder">
+                                                <img src="../images/img1.jpg" alt="CategoryImage">
+                                            </div>
+                                            <div class="catItemNameHolder">
+                                                <span>@x.Name</span>
+                                            </div>
+                                        </li>   
+                                    </a>
+                                }
+                            </div>
                         </ul>
                     </div>
                     <div class="propButtons">

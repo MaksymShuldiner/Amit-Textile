@@ -10,6 +10,7 @@ using AmitTextile.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AmitTextile.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -27,9 +28,13 @@ namespace AmitTextile.Controllers
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             return View();
         }
-        [HttpGet]
+        [HttpGet]   
         public async Task<IActionResult> ShowCategory(string CatId, int page = 1, int EnumParam = 1)
         {
+            if (!HttpContext.Request.Cookies.ContainsKey("Form"))
+            {
+                HttpContext.Response.Cookies.Append("Form","Grid");
+            }
             ViewBag.UrlChild = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowChildCategory";
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             List<Textile> Textiles = new List<Textile>();
@@ -86,8 +91,12 @@ namespace AmitTextile.Controllers
             return View(model);
         }
         [HttpGet]
-        public async Task<IActionResult> ShowChildCategory(string ChildCatId, int page = 1, int EnumParam = 1)
+        public async Task<IActionResult> ShowChildCategory(string ChildCatId, int page = 1, int EnumParam = 1, string CookieValue = "Grid")
         {
+            if (!HttpContext.Request.Cookies.ContainsKey("Form"))
+            {
+                HttpContext.Response.Cookies.Append("Form", "Grid");
+            }
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             ViewBag.UrlChild = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowChildCategory";
             List<Textile> Textiles = new List<Textile>();
@@ -139,9 +148,8 @@ namespace AmitTextile.Controllers
             }
             List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
             ChildCategoriesViewModel model = new ChildCategoriesViewModel()
-            { PageViewModel = pageViewModel, Textiles = Textiles, SortingParams = EnumParam, Category = _context.ChildCategories.FindAsync(Guid.Parse(ChildCatId)).Result, PagesCountList = newList.OrderBy(x => x).ToList() };
+            { PageViewModel = pageViewModel, Textiles = Textiles, SortingParams = EnumParam, Category = _context.ChildCategories.Include(x => x.Category).FirstOrDefault(x=> x.ChildCategoryId == Guid.Parse(ChildCatId)), PagesCountList = newList.OrderBy(x => x).ToList() };
             return View(model);
         }
-
     }
 }
