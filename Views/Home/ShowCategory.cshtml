@@ -131,68 +131,142 @@
                             <div class="select-arrow-3"></div>
                             <div class="select-arrow-3"></div>
                         </div>
-                        @if (@Model.CookieValue == "Grid")
+                        @if (Model.CookieValue == "List")
+                        {
+                            <span id="list" class="viewButton  viewSelected"><i class="fas fa-th-list"></i><br>Список</span>
+                            <span id="grid" class="viewButton"><i class="fas fa-th-large"></i><br>Сетка</span>
+                            <span class="view">Вид:</span>
+                        }
+                        else if(Model.CookieValue=="Grid")
                         {
                             <span id="list" class="viewButton"><i class="fas fa-th-list"></i><br>Список</span>
                             <span id="grid" class="viewButton viewSelected"><i class="fas fa-th-large"></i><br>Сетка</span>
                             <span class="view">Вид:</span>
                         }
-                        else if(@Model.CookieValue == "List")
-                        {
-                            <span id="list" class="viewButton viewSelected"><i class="fas fa-th-list"></i><br>Список</span>
-                            <span id="grid" class="viewButton"><i class="fas fa-th-large"></i><br>Сетка</span>
-                            <span class="view">Вид:</span>
-                        }
                     </div>
                     <div class="container-fluid l">
                         <div class="row item_cells">
-                            @foreach (var x in Model.Textiles)
+                            @if (Model.CookieValue == "Grid")
                             {
-                                <div class="col-md-3 ln">
-                                    <div class="line">
-                                        <div class="item">
-                                            <div class="item_image">
-                                                <img src="../images/img1.jpg" alt="ItemImg">
-                                            </div>
-                                            <a href="../pages/item.html" class="item_name">
-                                                @x.Name
-                                            </a>
-                                            <div class="container-fluid itm_field">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <span class="item_cost">
-                                                            @(x.Price+" ₴")
-                                                        </span>
-                                                        <br>
-                                                        @if (x.WarehouseAmount >= 30)
-                                                        {
-                                                            <span class="inStock">
-                                                                Есть в наличии
+                                @foreach (var x in Model.Textiles)
+                                {
+                                    <div class="col-md-3 ln">
+                                        <div class="line">
+                                            <div class="item">
+                                                <div class="item_image">
+                                                    <img src="../images/img1.jpg" alt="ItemImg">
+                                                </div>
+                                                <a href="#" class="item_name">
+                                                    @x.Name
+                                                </a>
+                                                <div class="container-fluid itm_field">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <span class="item_cost">
+                                                                @(x.Price + " ₴")
                                                             </span>
-                                                        }
-                                                        @if (x.WarehouseAmount < 30 && x.WarehouseAmount != 0)
-                                                        {
-                                                            <span class="lowAm">
-                                                                Заканчивается
-                                                            </span>
-                                                        }
-                                                        @if (x.WarehouseAmount == 0)
-                                                        {
-                                                            <span class="notInStock">
-                                                                Нет в наличии
-                                                            </span>
-                                                        }
+                                                            <br>
+                                                            @if (x.WarehouseAmount >= 30)
+                                                            {
+                                                                <span class="inStock">
+                                                                    Есть в наличии
+                                                                </span>
+                                                            }
+                                                            @if (x.WarehouseAmount < 30 && x.WarehouseAmount != 0)
+                                                            {
+                                                                <span class="lowAm">
+                                                                    Заканчивается
+                                                                </span>
+                                                            }
+                                                            @if (x.WarehouseAmount == 0)
+                                                            {
+                                                                <span class="notInStock">
+                                                                    Нет в наличии
+                                                                </span>
+                                                            }
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <a href="#" class="buy_item">
+                                                                <i class="fas fa-shopping-cart"></i>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <a href="#" class="buy_item">
-                                                            <i class="fas fa-shopping-cart"></i>
-                                                        </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else{
+                                @foreach(var x in Model.Textiles) { 
+                                <div class="listItems">
+                                    <div class="listItem">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="listImgContainer">
+                                                                    <img src="../images/img1.jpg" alt="awd">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="itemDescriptionList">
+                                                                    <div class="itemNameList">
+                                                                        <a href="#">
+                                                                            <h2>@x.Name</h2>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="itemDescrList">
+                                                                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus veritatis, amet laboriosam maxime aliquam, accusamus sunt dignissimos corporis minima accusantium tempore ducimus eligendi architecto, inventore, error sint! Voluptatum, ab, harum.</span>
+                                                                    </div>
+                                                                    <div class="itemPriceList"><span>@(x.Price + " ₴")</span></div>
+                                                                    @if (x.WarehouseAmount >= 30)
+                                                                    {
+                                                                        <span class="inStock">
+                                                                            Есть в наличии
+                                                                        </span>
+                                                                    }
+                                                                    @if (x.WarehouseAmount < 30 && x.WarehouseAmount != 0)
+                                                                    {
+                                                                        <span class="lowAm">
+                                                                            Заканчивается
+                                                                        </span>
+                                                                    }
+                                                                    @if (x.WarehouseAmount == 0)
+                                                                    {
+                                                                        <span class="notInStock">
+                                                                            Нет в наличии
+                                                                        </span>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="buyItemList">
+                                                                    <button class="buyItem">
+                                                                        <a href="#">
+                                                                            <i class="fas fa-shopping-cart"></i> Купить
+                                                                        </a>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="buttonsItemList">
+                                                                    <button class="fav">
+                                                                        <a href="#" class="toFavourite selected">
+                                                                            <i class="far fa-heart"></i>
+                                                                        </a>
+                                                                        <a href="#" class="toFavourite"><i class="fas fa-heart"></i></a>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                }
                             }
                         </div>
                     </div>
