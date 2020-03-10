@@ -16,6 +16,8 @@ namespace AmitTextile.Domain
 
         public string SenderId { get; set; }
 
+        public DateTime DatePosted { get; set; }
+
 
 
     }

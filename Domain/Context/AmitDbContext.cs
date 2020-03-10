@@ -22,6 +22,16 @@ namespace AmitTextile.Domain.Context
                 .HasOne(x => x.Order)
                 .WithMany(t => t.ItemOrders )
                 .HasForeignKey(x => x.OrderId);
+            modelBuilder.Entity<UserChosenTextile>()
+                .HasKey(t => new {t.UserId, t.TextileId});
+            modelBuilder.Entity<UserChosenTextile>()
+                .HasOne(x => x.Textile)
+                .WithMany(x => x.UserChosenTextiles)
+                .HasForeignKey(x => x.TextileId);
+            modelBuilder.Entity<UserChosenTextile>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.UserChosenTextiles)
+                .HasForeignKey(x => x.UserId);
 
 
 

@@ -124,6 +124,9 @@ namespace AmitTextile.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("DatePosted")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("ParentCommentId")
                         .HasColumnType("uniqueidentifier");
 
@@ -147,6 +150,9 @@ namespace AmitTextile.Migrations
                     b.Property<Guid>("ChildCommentReviewId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DatePosted")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("ParentCommentId")
                         .HasColumnType("uniqueidentifier");
@@ -178,10 +184,15 @@ namespace AmitTextile.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("SliderId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("TextileId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ImageId");
+
+                    b.HasIndex("SliderId");
 
                     b.HasIndex("TextileId");
 
@@ -194,7 +205,7 @@ namespace AmitTextile.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CartId")
+                    b.Property<Guid>("CartId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ItemsAmount")
@@ -268,6 +279,9 @@ namespace AmitTextile.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("DatePosted")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("SenderId")
                         .HasColumnType("nvarchar(450)");
 
@@ -287,6 +301,9 @@ namespace AmitTextile.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("DatePosted")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("SenderId")
                         .HasColumnType("nvarchar(450)");
 
@@ -303,13 +320,27 @@ namespace AmitTextile.Migrations
                     b.ToTable("ParentCommentReviews");
                 });
 
+            modelBuilder.Entity("AmitTextile.Domain.Slider", b =>
+                {
+                    b.Property<Guid>("SliderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SliderName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SliderId");
+
+                    b.ToTable("Slider");
+                });
+
             modelBuilder.Entity("AmitTextile.Domain.Textile", b =>
                 {
                     b.Property<Guid>("TextileId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CategoryId")
+                    b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CharachteristicId")
@@ -318,17 +349,38 @@ namespace AmitTextile.Migrations
                     b.Property<Guid?>("ChildCategoryId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("DateWhenAdded")
+                        .HasColumnType("datetime2");
+
                     b.Property<double>("Discount")
                         .HasColumnType("float");
 
-                    b.Property<int>("Stars")
+                    b.Property<bool>("IsOnDiscount")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPopular")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Sold")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Stars")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ViewsCounter")
                         .HasColumnType("int");
 
                     b.Property<int>("WarehouseAmount")
                         .HasColumnType("int");
-
-                    b.Property<bool>("isOnDiscount")
-                        .HasColumnType("bit");
 
                     b.HasKey("TextileId");
 
@@ -339,6 +391,21 @@ namespace AmitTextile.Migrations
                     b.HasIndex("ChildCategoryId");
 
                     b.ToTable("Textiles");
+                });
+
+            modelBuilder.Entity("AmitTextile.Domain.UserChosenTextile", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("TextileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "TextileId");
+
+                    b.HasIndex("TextileId");
+
+                    b.ToTable("UserChosenTextile");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -618,6 +685,12 @@ namespace AmitTextile.Migrations
 
             modelBuilder.Entity("AmitTextile.Domain.Image", b =>
                 {
+                    b.HasOne("AmitTextile.Domain.Slider", "Slider")
+                        .WithMany("Images")
+                        .HasForeignKey("SliderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AmitTextile.Domain.Textile", "Textile")
                         .WithMany("Images")
                         .HasForeignKey("TextileId")
@@ -627,9 +700,11 @@ namespace AmitTextile.Migrations
 
             modelBuilder.Entity("AmitTextile.Domain.Item", b =>
                 {
-                    b.HasOne("AmitTextile.Domain.Cart", null)
+                    b.HasOne("AmitTextile.Domain.Cart", "Cart")
                         .WithMany("Items")
-                        .HasForeignKey("CartId");
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AmitTextile.Domain.Textile", "Textile")
                         .WithMany()
@@ -669,17 +744,34 @@ namespace AmitTextile.Migrations
 
             modelBuilder.Entity("AmitTextile.Domain.Textile", b =>
                 {
-                    b.HasOne("AmitTextile.Domain.Category", null)
+                    b.HasOne("AmitTextile.Domain.Category", "Category")
                         .WithMany("TextilesOfThisCategory")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AmitTextile.Domain.Charachteristic", null)
                         .WithMany("Textiles")
                         .HasForeignKey("CharachteristicId");
 
-                    b.HasOne("AmitTextile.Domain.ChildCategory", null)
+                    b.HasOne("AmitTextile.Domain.ChildCategory", "ChildCategory")
                         .WithMany("TextilesOfThisChildCategory")
                         .HasForeignKey("ChildCategoryId");
+                });
+
+            modelBuilder.Entity("AmitTextile.Domain.UserChosenTextile", b =>
+                {
+                    b.HasOne("AmitTextile.Domain.Textile", "Textile")
+                        .WithMany("UserChosenTextiles")
+                        .HasForeignKey("TextileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AmitTextile.Domain.User", "User")
+                        .WithMany("UserChosenTextiles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

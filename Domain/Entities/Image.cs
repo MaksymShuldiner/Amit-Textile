@@ -13,5 +13,9 @@ namespace AmitTextile.Domain
         public Guid TextileId { get; set; }
 
         public Textile Textile { get; set; }
+
+        public Slider Slider { get; set; }
+
+        public Guid SliderId { get; set; }
     }
 }

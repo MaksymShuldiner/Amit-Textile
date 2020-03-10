@@ -1,163 +1,700 @@
 body {
-	font-family: 'Ubuntu Condensed';
-	background-color: #FFFAF0;
-}
-button{
-	cursor: pointer;
-}
-header{
-	background-color: white;
-}
-.logo_container, .search_container, .cart_container{
-	margin-top: 27px;
-}
-.search_form input{
-	width: 76%;
-	height: 35px;
-	border: 1px solid #DCDCDC;
-	border-radius: 3px 0 0 3px;
-	padding: 10px;
-}
-.search_form{
-	font-family: 'Ubuntu Condensed';
-}
-.search_form button{
-	height: 35px;
-	border-radius: 0 3px 3px 0;
-	background-color: #FFB6C1;
-	border:1px solid #FFB6C1;
-	color: white;
-	transition: 0.3s all;
-	font-weight: bold;
-}
-.search_form button:hover{
-	background-color: #FFC0CB;
-	border: 1px solid #FFC0CB;
-	transition: 0.3s all;
-}
-.search_form a{
-	height: 35px;
-}
-.cart_container a>svg{
-	color: #FFB6C1;
-	font-size: 31px;
-	transition: 0.3s all;
-}
-.cart_container a>svg:hover{
-	color: #FFC0CB;
-	transition: 0.3s all;
-}
-.first{
-	margin-left: 55px;
-}
-.nFirst{
-	margin-left: 93px;
-}
-.cart_container span{
-	color:#696969;
-	font-weight: bold;
-	position: relative;
-	bottom: 20px;
-}
-.cart_container{
-	padding-left: 6%;
-}
-.login{
-	color:#696969;
-	font-weight: bold;
-	transition: 0.3s all;
-	position: relative;
-	left: 40px;
-	bottom: 36px;
-}
-.login:hover{
-	text-decoration: none;
-	color:#A9A9A9;
-	text-decoration: underline;
-	transition: 0.3s all;
-}
-.inputFields>input{
-	width: 300px;
-	height: 35px;
-}
-#login>a{
-	color: #212529;
-}
-#login>a:hover{
-	color: #696969;
-	text-decoration: underline;
-}
-#checkbox{
-	width: 0px;
-	height: 0px;
-	margin-right: 5px;
-}
-.registerButton{
-	cursor: pointer;
-	width: 300px;
-	height: 35px;
-	font-weight: bold;
-	color: white;
-	background-color: #FFB6C1;
-	border: 1px solid #FFB6C1;
-	transition: 0.3s all;
-}
-.registerButton:hover{
-	transition: 0.3s all;
-	background-color: #FFC0CB;
-	border:1px solid  #FFC0CB;
-}
-.hidden{
-	font-family: 'Ubuntu Condensed';
-	display: none;	
-}
-.categories>span>svg{
-	font-size: 15px;
-}
-.categories{
-	width: 100%;
-	background-color: #777;
-	text-align: center;
-	font-size: 30px;
-	color: white;
-	height: 70px;
-}
-.categories>span{
-	position: relative;
-	top: 20px;
-}
-#cats_hdn{
-	position: relative;
-	top: 40px;
-	background: #777;
-	display: none;
-}
-.hdn{
-	display: none;
-}
-#cat{
-	transition: 0.3s all ease;
-		cursor: pointer;
-}
-#cat:hover{
-	color:#C0C0C0;
-	transition: 0.3s all ease;
-}
-.tps{
-	font-family: 'Ubuntu Condensed';
-	text-align: center;
-	margin-top: 30px;
-}
-.tps span{
-	cursor: pointer;
-	margin-right: 50px;
-	transition: 0.3s all ease;
-}
-.tps span:hover{
-	color: #008B8B;
-	transition: 0.3s all ease;
-}
-.line{
-	height: 400px;
+    font-family: 'Ubuntu Condensed';
+    background-color: #FFFAF0;
 }
 
+button {
+    cursor: pointer;
+}
+
+header {
+    background-color: white;
+}
+
+.logo_container, .search_container, .cart_container {
+    margin-top: 27px;
+}
+
+.search_form input {
+    width: 76%;
+    height: 35px;
+    border: 1px solid #DCDCDC;
+    border-radius: 3px 0 0 3px;
+    padding: 10px;
+}
+
+.search_form {
+    font-family: 'Ubuntu Condensed';
+}
+
+    .search_form button {
+        height: 35px;
+        border-radius: 0 3px 3px 0;
+        background-color: #FFB6C1;
+        border: 1px solid #FFB6C1;
+        color: white;
+        transition: 0.3s all;
+        font-weight: bold;
+    }
+
+        .search_form button:hover {
+            background-color: #FFC0CB;
+            border: 1px solid #FFC0CB;
+            transition: 0.3s all;
+        }
+
+    .search_form a {
+        height: 35px;
+    }
+
+.cart_container a > svg {
+    color: #FFB6C1;
+    font-size: 31px;
+    transition: 0.3s all;
+}
+
+    .cart_container a > svg:hover {
+        color: #FFC0CB;
+        transition: 0.3s all;
+    }
+
+.first {
+    margin-left: 55px;
+}
+
+.nFirst {
+    margin-left: 93px;
+}
+
+.cart_container span {
+    color: #696969;
+    font-weight: bold;
+    position: relative;
+    bottom: 20px;
+}
+
+.cart_container {
+    padding-left: 6%;
+}
+
+.login {
+    color: #696969;
+    font-weight: bold;
+    transition: 0.3s all;
+    position: relative;
+    left: 40px;
+    bottom: 36px;
+}
+
+    .login:hover {
+        text-decoration: none;
+        color: #A9A9A9;
+        text-decoration: underline;
+        transition: 0.3s all;
+    }
+
+.inputFields > input {
+    width: 300px;
+    height: 35px;
+}
+
+#login > a {
+    color: #212529;
+}
+
+    #login > a:hover {
+        color: #696969;
+        text-decoration: underline;
+    }
+
+#checkbox {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+}
+
+.registerButton {
+    cursor: pointer;
+    width: 300px;
+    height: 35px;
+    font-weight: bold;
+    color: white;
+    background-color: #FFB6C1;
+    border: 1px solid #FFB6C1;
+    transition: 0.3s all;
+}
+
+    .registerButton:hover {
+        transition: 0.3s all;
+        background-color: #FFC0CB;
+        border: 1px solid #FFC0CB;
+    }
+
+.hidden {
+    font-family: 'Ubuntu Condensed';
+    display: none;
+}
+
+.categories > span > svg {
+    font-size: 15px;
+}
+
+.categories {
+    width: 100%;
+    background-color: #777;
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    height: 70px;
+}
+
+    .categories > span {
+        position: relative;
+        top: 20px;
+    }
+
+#cats_hdn {
+    position: relative;
+    top: 20px;
+    background: #777;
+    z-index: 10;
+}
+
+.hdn {
+    display: none;
+}
+
+#cat {
+    transition: 0.3s all ease;
+    cursor: pointer;
+}
+
+    #cat:hover {
+        color: #C0C0C0;
+        transition: 0.3s all ease;
+    }
+
+.tps {
+    font-family: 'Ubuntu Condensed';
+    text-align: center;
+    margin-top: 30px;
+}
+
+    .tps span {
+        cursor: pointer;
+        margin-right: 50px;
+        transition: 0.3s all ease;
+    }
+
+        .tps span:hover {
+            color: #008B8B;
+            transition: 0.3s all ease;
+        }
+
+.item {
+    padding: 20px;
+    border: 1px solid #d3d3d3;
+    width: 100%;
+    height: 300px;
+}
+
+.item_image > img {
+    width: 100%;
+    padding-bottom: 15px;
+    height: 160px;
+}
+
+.item_name {
+    font-size: 16px;
+    color: #212529;
+}
+
+    .item_name:hover {
+        color: #008B8B;
+        text-decoration: none;
+        transition: 0.3s all ease;
+    }
+
+.item_cost {
+    font-size: 24px;
+    color: #212529;
+}
+
+.buy_item {
+    color: #FFB6C1;
+    font-size: 24px;
+    float: right;
+    transition: 0.3s all ease;
+}
+
+    .buy_item:hover {
+        color: #FFC0CB;
+        transition: 0.3s all ease;
+    }
+
+.itm_field {
+    padding: 0;
+    padding-top: 25px;
+}
+
+.item_cells > .col-md-3 {
+    padding: 0;
+}
+
+.tps {
+    margin-bottom: 30px;
+}
+
+.item:hover {
+}
+
+.inStock {
+    color: #00a046;
+    font-size: 14px;
+}
+
+.lowAm {
+    color: #ff5c00;
+    font-size: 14px;
+}
+
+.notInStock {
+    color: #797878;
+    font-size: 14px;
+}
+.cats {
+    color: white;
+    font-size: 19px;
+    border-radius: 100px;
+    padding: 5px;
+    transition: 0.3s all ease;
+}
+
+    .cats:hover {
+        color: #008B8B;
+        text-decoration: none;
+        background-color: white;
+        transition: 0.3s all ease;
+    }
+
+.r {
+    margin-right: 150px;
+}
+
+.item:hover {
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+footer {
+    background-color: #777;
+}
+
+#scrollBtn {
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+    border-radius: 100%;
+    padding: 17px;
+    z-index: 20;
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    background-color: #FF00FF;
+    color: white;
+    transition: 0.3s all ease;
+    display: none;
+}
+
+    #scrollBtn:hover {
+        background-color: violet;
+        transition: 0.3s all ease;
+    }
+
+    #scrollBtn > svg {
+        font-size: 22px;
+    }
+
+.error {
+    position: relative;
+    top: 10px;
+    color: red;
+}
+
+#regS {
+    position: fixed;
+    height: 100px;
+    width: 100%;
+    z-index: 100;
+    background-color: #FFFAF0;
+    padding-top: 40px;
+    display: none;
+}
+
+    #regS > p {
+        text-align: center;
+    }
+
+#close {
+    position: fixed;
+    right: 0px;
+    top: 5px;
+    background: none;
+    border: none;
+    font-size: 25px;
+    transition: 0.3s all ease;
+}
+
+    #close:hover {
+        color: #A9A9A9;
+        transition: 0.3s all ease;
+    }
+
+#register > .inputFields > span {
+    color: red;
+}
+
+.showBtn {
+    height: 35px;
+    color: coral;
+    background: none;
+    border: none;
+    text-shadow: none;
+    transition: 0.3s all ease;
+    width: 35px;
+}
+
+    .showBtn:hover {
+        background-color: #d3d3d3;
+        transition: 0.3s all ease;
+    }
+
+.toFavourite {
+    font-size: 20px;
+    color: coral;
+    display: none;
+}
+
+    .toFavourite:hover {
+        color: coral;
+    }
+
+.fav:hover {
+    background: #d3d3d3;
+}
+
+.selected {
+    display: block;
+}
+
+.fav {
+    box-shadow: none;
+    border: none;
+    background: none;
+    padding: 10px;
+}
+
+.itemImgFull {
+    width: 100%;
+}
+
+.itemImageFull {
+    padding: 30px;
+    padding-right: 0;
+}
+
+.itemInfo {
+    padding: 30px;
+    padding-left: 0;
+}
+
+.buyItem {
+    padding: 10px;
+    background-color: #FFB6C1;
+}
+
+    .buyItem:hover {
+        background-color: pink;
+    }
+
+        .buyItem:hover > a {
+            color: white;
+            text-decoration: none;
+        }
+
+    .buyItem > a {
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+.nameHolder {
+    width: 95%;
+    padding-bottom: 40px;
+    border-bottom: 2px solid #d3d3d3;
+}
+
+.catName {
+    font-size: 30px;
+    padding-top: 40px;
+    color: #212529;
+}
+
+.categs {
+    padding-top: 50px;
+    padding-bottom: 60px;
+}
+
+.container {
+    width: 100%;
+}
+
+.containr li {
+    display: inline-block;
+}
+
+.containr > a {
+    display: inline-block;
+    width: 10%;
+}
+
+.catItemImgHolder {
+    width: 100%;
+    height: 100px;
+}
+
+.catItem {
+    cursor: pointer;
+    padding: 5px;
+    margin-right: 10px;
+    transition: 0.3s all ease;
+    border: 1px solid #d3d3d3;
+}
+
+    .catItem:hover {
+        transition: 0.3s all ease;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        border: none;
+    }
+
+.catItemImgHolder > img {
+    width: 100%;
+}
+
+.catItemNameHolder > span {
+    color: #A9A9A9;
+    transition: 0.3s all ease;
+}
+
+    .catItemNameHolder > span:hover {
+        color: #212529;
+        transition: 0.3s all ease;
+    }
+
+.propButtons {
+    width: 100%;
+    display: inline-block;
+    border-bottom: 1px solid #696969;
+    margin-bottom: 10px;
+    width: 95%;
+}
+
+.select-wrapper {
+    transition: 0.3s all ease;
+    width: 320px;
+    height: 28px;
+    position: relative;
+    left: 120px;
+    bottom: 21px;
+    border: 1px solid #d3d3d3;
+}
+
+    .select-wrapper > select {
+        border: none;
+        height: 28px;
+        width: 320px;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: transparent;
+        cursor: pointer;
+    }
+    .select-wrapper:hover {
+        border: none;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        transition: 0.3s all ease;
+    }
+
+.select-arrow-3 {
+    position: absolute;
+    z-index: -1000;
+    border: 8px solid transparent;
+    border-bottom: 0;
+    right: 6px;
+    top: 4px;
+    border-top-color: #FFFAF0;
+}
+
+    .select-arrow-3:nth-child(1) {
+        top: 11px;
+        border-top-color: #FFFAF0;
+        cursor: pointer;
+    }
+
+    .select-arrow-3:nth-child(2) {
+        top: 8px;
+        border-top-color: black;
+    }
+
+.viewButton > svg {
+    font-size: 28px;
+    color: #d3d3d3;
+    transition: 0.3s all ease;
+}
+
+.viewButton {
+    float: right;
+    font-size: 12px;
+    position: relative;
+    right: 80px;
+    bottom: 52px;
+    padding-left: 13px;
+}
+
+    .viewButton:nth-child(1) {
+        right: 20px;
+    }
+
+.view {
+    float: right;
+    font-size: 16px;
+    position: relative;
+    right: 80px;
+    bottom: 45px;
+    padding-left: 13px;
+}
+
+.viewButton:hover > svg {
+    color: #696969;
+    transition: 0.3s all ease;
+    cursor: pointer;
+}
+
+.viewSelected > svg {
+    color: #212529;
+}
+
+.viewSelected:hover > svg {
+}
+
+.l {
+    padding-right: 90px;
+}
+
+.navButtons {
+    margin-top: 25px;
+}
+
+    .navButtons > ul {
+        text-align: center;
+    }
+
+        .navButtons > ul > li {
+            display: inline-block;
+        }
+
+.pagButtons {
+    border: 1px solid #696969;
+    padding: 8px;
+    cursor: pointer;
+}
+
+    .pagButtons:hover {
+        background-color: #696969;
+        transition: 0.3s all ease;
+        color: white;
+    }
+
+.number {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.disabled {
+    color: #d3d3d3;
+    cursor: not-allowed;
+}
+
+    .disabled:hover {
+        background-color: transparent;
+        color: #d3d3d3;
+    }
+
+.current {
+    background-color: #696969;
+    transition: 0.3s all ease;
+    color: white;
+}
+
+.navButtons a {
+    color: #212529;
+    display: inline-block;
+    transition: 0.3s all ease;
+}
+
+    .navButtons a:hover {
+        background-color: #696969;
+        transition: 0.3s all ease;
+        color: white;
+        text-decoration: none;
+    }
+
+.navButtons ul {
+    font-size: 0px;
+}
+
+    .navButtons ul li {
+        font-size: 16px;
+    }
+
+.mrg {
+    margin-bottom: 60px;
+}
+.listImgContainer > img {
+    width: 100%;
+}
+
+.itemNameList h2 {
+    font-size: 24px;
+}
+
+.itemNameList a {
+    color: #212529;
+    transition: 0.3s all ease;
+}
+
+.itemNameList {
+    margin-bottom: 20px;
+}
+
+    .itemNameList a:hover {
+        color: #008B8B;
+        text-decoration: none;
+        transition: 0.3s all ease;
+    }
+
+.listItems {
+    border: 1px solid #d3d3d3;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.itemPriceList {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.buttonsItemList {
+    margin-top: 10px;
+}

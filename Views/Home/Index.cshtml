@@ -1,8 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -16,10 +12,44 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="libs/FontAwesome/all.min.css">
     <link rel="stylesheet" href="libs/OwlCarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/slider.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <script type="text/javascript" src="libs/jquery 3.4.1.min.js"></script>
+    <script type="text/javascript" defer>
+        let arrCat = [];
+        let count = 1;
+        let line = 1;
+        $.ajax({
+            type: 'GET',
+            url:'@Url.Action("GetCategories", "TextileApi")',
+            contentType: 'json',
+            success: function (result) {
+                arrCat = result;
+                let Url;
+                for (let i = 0; i < arrCat.length; i++) {
+                    Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId;
+                    if (line % 2 == 0) {
+                        $('#' + count).append('<a class="cats" href="'+Url+'">' + arrCat[i].name + '</a><br>');
+                    }
+                    else {
+                        $('#' + count).append('<a class="cats r" href="'+Url+'">' + arrCat[i].name + '</a><br>');
+                    }
+                     if (arrCat.length - i <= 4) {
+                        $('#' + count).append('<br>');
+                    }
+                    count++;
+                    if (count > 4) {
+                        count = 1;
+                        line++;
+                    }
+                }
+            }
+        });
+    </script>
 </head>
 <body>
+    <div id="regS"><p>Ваш аккаунт был успешно зарегистрирован, письмо для подтверждения уже было отправлено вам на почту.</p><button id="close"><i class="fas fa-times-circle"></i></button></div>
+    <button id="scrollBtn"><i class="fas fa-chevron-up"></i></button>
     <header>
         <div class="container-fluid">
             <div class="row">
@@ -41,11 +71,36 @@
     </header>
     <div class="categories">
         <span id="cat">Категории <i id="arrowDown" class="fas fa-chevron-down"></i><i id="arrowUp" class="fas fa-chevron-up hdn"></i></span>
-        <div id="cats_hdn">
-            <span>dwada</span>
+        <div id="cats_hdn" class="hdn">
+            <div class="container">
+                <div class="row">
+                    <div id="1" class="col-md-3"></div>
+                    <div id="2" class="col-md-3"></div>
+                    <div id="3" class="col-md-3"></div>
+                    <div id="4" class="col-md-3"></div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="content">
+        <div class="slider">
+            <div class="slider__wrapper">
+                <div class="slider__item">
+                    <div style="height: 250px; background: orange;">1</div>
+                </div>
+                <div class="slider__item">
+                    <div style="height: 250px; background: green;">2</div>
+                </div>
+                <div class="slider__item">
+                    <div style="height: 250px; background: violet;">3</div>
+                </div>
+                <div class="slider__item">
+                    <div style="height: 250px; background: coral;">4</div>
+                </div>
+            </div>
+            <a class="slider__control slider__control_left" href="#" role="button"></a>
+            <a class="slider__control slider__control_right" href="#" role="button"></a>
+        </div>
         <div class="tps">
             <span>Популярное</span>
             <span>Новые поступления</span>
@@ -53,60 +108,248 @@
             <span>Скидки</span>
         </div>
         <div class="container">
-            <div class="row">
+            <div class="row item_cells">
                 <div class="col-md-3">
                     <div class="line">
-
+                        <div class="item">
+                            <div class="item_image">
+                                <img src="images/img1.jpg" alt="ItemImg">
+                            </div>
+                            <a href="#" class="item_name">
+                                Ткань АЙывЦЙА для вля пошива платьев, брюк, рубашек.
+                            </a>
+                            <div class="container-fluid itm_field">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span class="item_cost">
+                                            1258 ₴
+                                        </span>
+                                        <br>
+                                        <span class="inStock">
+                                            Есть в наличии
+                                        </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="#" class="buy_item">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="line">
-
+                        <div class="item">
+                            <div class="item_image">
+                                <img src="images/talon_splash_0.jpg" alt="ItemImg">
+                            </div>
+                            <a href="#" class="item_name">
+                                Ткань АЙывЦЙА для вля пошива платьев, брюк, рубашек.
+                            </a>
+                            <div class="container-fluid itm_field">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span class="item_cost">
+                                            1258 ₴
+                                        </span>
+                                        <br>
+                                        <span class="lowAm">
+                                            Заканчивается
+                                        </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="#" class="buy_item">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="line">
-
+                        <div class="item">
+                            <div class="item_image">
+                                <img src="images/img2.jpg" alt="ItemImg">
+                            </div>
+                            <a href="#" class="item_name">
+                                Ткань АЙывЦЙА для вля пошива платьев, брюк, рубашек.
+                            </a>
+                            <div class="container-fluid itm_field">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span class="item_cost">
+                                            1258 ₴
+                                        </span>
+                                        <br>
+                                        <span class="notInStock">
+                                            Нет в наличии
+                                        </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="#" class="buy_item">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="line">
-
+                        <div class="item">
+                            <div class="item_image">
+                                <img src="images/img1.jpg" alt="ItemImg">
+                            </div>
+                            <a href="#" class="item_name">
+                                Ткань АЙывЦЙА для вля пошива платьев, брюк, рубашек.
+                            </a>
+                            <div class="container-fluid itm_field">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span class="item_cost">
+                                            1258 ₴
+                                        </span>
+                                        <br>
+                                        <span class="inStock">
+                                            Есть в наличии
+                                        </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="#" class="buy_item">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="hidden">
+            <form id="login">
+                <font>Эл. почта</font><br><br>
+                <div class="inputFields">
+                    <input type="email" id="loginName" name="UserEmail" required><br><br>
+                    <font>Пароль</font><br><br>
+                    <input type="password" id="loginPass" name="UserPassword" required><button type="button" id="showPassLogin" class="showBtn"><div class="atv"><i class="fas fa-eye"></i></div><div class="atv hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                </div>
+                <input type="submit" id="loginButton" class="registerButton" value="Войти" name="login" required><br><br>
+                <input type="checkbox" id="checkbox" value="true">  Запомнить меня<br><br>
+                <a data-fancybox="helo" href="#register">Зарегистрироваться</a> <br>
+            </form>
+        </div>
+        <div class="hidden">
+            <form id="register" class="register">
+
+                ФИО <br><br>
+                <div class="inputFields">
+                    <input type="text" id="registerName" name="UserName" required><br><br>
+                    Эл. почта <span>*</span><br><br>
+                    <input type="email" id="registerEmail" name="UserEmail" required><br><br>
+                    Придумайте пароль <span>*</span><br><br>
+                    <input type="password" id="registerPass" name="UserPassword" required><button type="button" id="showPassRegister" class="showBtn"><div class="atv1"><i class="fas fa-eye"></i></div><div class="atv1 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                    Подтвердите пароль <span>*</span><br><br>
+                    <input type="password" id="confirmPass" required><button type="button" id="showPassConfirm" class="showBtn"><div class="atv2"><i class="fas fa-eye"></i></div><div class="atv2 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                    Пароль должен содержать не менее 6 символов<br><br>
+                </div>
+            </form>
+            <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
+        </div>
     </div>
-    <footer></footer>
-    <div class="hidden">
-        <form id="login" action="#">
-            <font>Эл. почта</font><br><br>
-            <div class="inputFields">
-                <input type="email" name="UserEmail" required><br><br>
-                <font>Пароль</font><br><br>
-                <input type="password" name="UserPassword" required><br><br>
-            </div>
-            <input type="submit" class="registerButton" value="Войти" name="login" required><br><br>
-            <input type="checkbox" id="checkbox">  Запомнить меня<br><br>
-            <a data-fancybox="helo" href="#register">Зарегистрироваться</a>
-        </form>
-    </div>
-    <div class="hidden">
-        <form action="#" id="register" class="register">
-            Ваше имя<br><br>
-            <div class="inputFields">
-                <input type="text" name="UserName" required><br><br>
-                Эл. почта<br><br>
-                <input type="email" name="UserEmail" required><br><br>
-                Придумайте пароль<br><br>
-                <input type="password" name="UserPassword" required><br><br>
-                Подтвердите пароль<br><br>
-                <input type="password" required><br><br>
-                Пароль должен содержать не менее 6 символов<br><br>
-            </div>
-            <input type="submit" class="registerButton" name="register" value="Зарегистрироваться">
-        </form>
-    </div>
+    <footer>
+    </footer>
+    <script type="text/javascript">
+        function tgl() {
+            $('#regS').fadeOut(400);
+        }
+        let errorArr = [];
+        $("#registerBtn").click(function (e) {
+        e.preventDefault();
+        let name = document.getElementById('registerName').value;
+        let mail = document.getElementById('registerEmail').value;
+        let pass = document.getElementById('registerPass').value;
+        let confirmPass = document.getElementById('confirmPass').value;
+            let x = {"Email":mail,"Fio":name,"Password":pass,"PasswordConfirm":confirmPass}
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Register", "TextileApi")',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(x),
+                error: function(error) {
+                    errorArr = error.responseText.split('"');
+                    let errors = document.getElementsByClassName("error");
+                    if (errors[0] != undefined) {
+                        for (let i = 0; i < errors.length; i++) {
+                            errors[i].remove();
+                            i--;
+                        }
+                    }
+                    if (errorArr[0] != undefined) {
+                        for (let i = 1; i < errorArr.length - 1; i++) {
+                            if (errorArr[i] != ",") {
+                                $('#register').append('<span class="error">' + errorArr[i] + '<br><br></span>');
+                            }
+                        }
+                    }
+                },
+                success: function (result) {
+                    parent.jQuery.fancybox.getInstance().close();
+                    parent.jQuery.fancybox.getInstance().close();
+                    $('#regS').fadeIn(400);
+                    setTimeout(tgl, 10000);
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $('#loginButton').click(function (e) {
+            e.preventDefault();
+            let mail = document.getElementById('loginName').value;
+            let pass = document.getElementById('loginPass').value;
+            let check = document.getElementById('checkbox');
+            let bool;
+            if (check.checked) {
+                bool = true;
+            }
+            else {
+                bool = false;
+            }
+            let x = { "Email": mail, "Password": pass, "Remember": bool };
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Login", "TextileApi")',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(x),
+                error: function (error) {
+                    errorArr = error.responseText.split('"');
+                    let errors = document.getElementsByClassName("error");
+                    if (errors[0] != undefined) {
+                        for (let i = 0; i < errors.length; i++) {
+                            errors[i].remove();
+                            i--;
+                        }
+                    }
+                    if (errorArr[0] != undefined) {
+                        for (let i = 1; i < errorArr.length - 1; i++) {
+                            if (errorArr[i] != ",") {
+                                $('#login').append('<span class="error">' + errorArr[i] + '<br><br></span>');
+                            }
+                        }
+                    }
+                },
+                success: function (result) {
+                    window.location.href = result;
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript" src="~/js/slider.js"></script>
     <script type="text/javascript" src="libs/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="libs/FontAwesome/all.min.js"></script>

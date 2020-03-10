@@ -20,5 +20,6 @@ namespace AmitTextile.Domain
             ChildComments = new List<ChildCommentQuestion>();
         }
 
+        public DateTime DatePosted { get; set; }
     }
 }

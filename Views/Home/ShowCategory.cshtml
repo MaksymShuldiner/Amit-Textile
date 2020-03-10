@@ -1,0 +1,460 @@
+﻿@model AmitTextile.Models.CategoriesViewModel
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Интернет-магазин текстиля AmitTextile</title>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/adapt.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="~/css/main.css">
+    <link rel="stylesheet" href="~/libs/FontAwesome/all.min.css">
+    <link rel="stylesheet" href="~/libs/OwlCarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/slider.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script type="text/javascript" src="~/libs/jquery 3.4.1.min.js"></script>
+    <script type="text/javascript" defer>
+        let arrCat = [];
+        let count = 1;
+        let line = 1;
+        $.ajax({
+            type: 'GET',
+            url:'@Url.Action("GetCategories", "TextileApi")',
+            contentType: 'json',
+            success: function (result) {
+                arrCat = result;
+                let Url;
+                for (let i = 0; i < arrCat.length; i++) {
+                    Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId;
+                    if (line % 2 == 0) {
+                        $('#' + count).append('<a class="cats" href="'+Url+'">' + arrCat[i].name + '</a><br>');
+                    }
+                    else {
+                        $('#' + count).append('<a class="cats r" href="'+Url+'">' + arrCat[i].name + '</a><br>');
+                    }
+                    if (arrCat.length - i <= 4) {
+                        $('#' + count).append('<br>');
+                    }
+                    count++;
+                    if (count > 4) {
+                        count = 1;
+                        line++;
+                    }
+                }
+            }
+        });
+       
+    </script>
+</head>
+<body>
+    <div id="regS"><p>Ваш аккаунт был успешно зарегистрирован, письмо для подтверждения уже было отправлено вам на почту.</p><button id="close"><i class="fas fa-times-circle"></i></button></div>
+    <button id="scrollBtn"><i class="fas fa-chevron-up"></i></button>
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 logo_container">
+
+                </div>
+                <div class="col-md-4 search_container">
+                    <form class="search_form" action="#">
+                        <input type="search" name="search" placeholder="Я ищу..."><a href="#"><button type="button">Поиск</button></a>
+                    </form>
+                </div>
+                <div class="col-md-5 cart_container">
+                    <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                    <span class="first">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span>
+                    <a href="#login" class="login" data-fancybox="pp">Войти</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="categories">
+        <span id="cat">Категории <i id="arrowDown" class="fas fa-chevron-down"></i><i id="arrowUp" class="fas fa-chevron-up hdn"></i></span>
+        <div id="cats_hdn" class="hdn">
+            <div class="container">
+                <div class="row">
+                    <div id="1" class="col-md-3"></div>
+                    <div id="2" class="col-md-3"></div>
+                    <div id="3" class="col-md-3"></div>
+                    <div id="4" class="col-md-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-md-9">
+                    <div class="nameHolder">
+                        <h1 class="catName">
+                            @Model.Category.Name
+                        </h1>
+                    </div>
+                    <div class="categs">
+                        <ul>
+                            <div class="containr">
+                                @foreach (var x in Model.childCategories)
+                                {
+                                    <a href="@Url.Action("ShowChildCategory", "Home", new { ChildCatId = x.ChildCategoryId, page = Model.PageViewModel.PageNumber })">
+                                        <li class="catItem">
+                                            <div class="catItemImgHolder">
+                                                <img src="../images/img1.jpg" alt="CategoryImage">
+                                            </div>
+                                            <div class="catItemNameHolder">
+                                                <span>@x.Name</span>
+                                            </div>
+                                        </li>
+                                    </a>
+                                 }
+                                </div>
+                        </ul>
+                    </div>
+                    <div class="propButtons">
+                        <span>Сортировка по</span>
+                        <div class="select-wrapper">
+                            <select id="sort">
+                                <option class="sort" value="1">Без сортировки</option>
+                                <option class="sort" value="2">Цена(по возрастанию)</option>
+                                <option class="sort" value="3">Цена(по убыванию)</option>
+                                <option class="sort" value="4">По рейтингу</option>
+                                <option class="sort" value="5">По просмотрам</option>
+                                <option class="sort" value="6">От А до Я</option>
+                                <option class="sort" value="7">От Я до А</option>
+                            </select>
+                            <div class="select-arrow-3"></div>
+                            <div class="select-arrow-3"></div>
+                        </div>
+                        @if (Model.CookieValue == "List")
+                        {
+                            <span id="list" class="viewButton  viewSelected"><i class="fas fa-th-list"></i><br>Список</span>
+                            <span id="grid" class="viewButton"><i class="fas fa-th-large"></i><br>Сетка</span>
+                            <span class="view">Вид:</span>
+                        }
+                        else if(Model.CookieValue=="Grid")
+                        {
+                            <span id="list" class="viewButton"><i class="fas fa-th-list"></i><br>Список</span>
+                            <span id="grid" class="viewButton viewSelected"><i class="fas fa-th-large"></i><br>Сетка</span>
+                            <span class="view">Вид:</span>
+                        }
+                    </div>
+                    <div class="container-fluid l">
+                        <div class="row item_cells">
+                            @if (Model.CookieValue == "Grid")
+                            {
+                                @foreach (var x in Model.Textiles)
+                                {
+                                    <div class="col-md-3 ln">
+                                        <div class="line">
+                                            <div class="item">
+                                                <div class="item_image">
+                                                    <img src="../images/img1.jpg" alt="ItemImg">
+                                                </div>
+                                                <a href="#" class="item_name">
+                                                    @x.Name
+                                                </a>
+                                                <div class="container-fluid itm_field">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <span class="item_cost">
+                                                                @(x.Price + " ₴")
+                                                            </span>
+                                                            <br>
+                                                            @if (x.WarehouseAmount >= 30)
+                                                            {
+                                                                <span class="inStock">
+                                                                    Есть в наличии
+                                                                </span>
+                                                            }
+                                                            @if (x.WarehouseAmount < 30 && x.WarehouseAmount != 0)
+                                                            {
+                                                                <span class="lowAm">
+                                                                    Заканчивается
+                                                                </span>
+                                                            }
+                                                            @if (x.WarehouseAmount == 0)
+                                                            {
+                                                                <span class="notInStock">
+                                                                    Нет в наличии
+                                                                </span>
+                                                            }
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <a href="#" class="buy_item">
+                                                                <i class="fas fa-shopping-cart"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else if(Model.CookieValue =="List"){
+                                int count = 1;
+                                @foreach(var x in Model.Textiles) {
+                                <div class="listItems">
+                                    <div class="listItem">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="listImgContainer">
+                                                                    <img src="../images/img1.jpg" alt="awd">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="itemDescriptionList">
+                                                                    <div class="itemNameList">
+                                                                        <a href="#">
+                                                                            <h2>@x.Name</h2>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="itemDescrList">
+                                                                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus veritatis, amet laboriosam maxime aliquam, accusamus sunt dignissimos corporis minima accusantium tempore ducimus eligendi architecto, inventore, error sint! Voluptatum, ab, harum.</span>
+                                                                    </div>
+                                                                    <div class="itemPriceList"><span>@(x.Price + " ₴")</span></div>
+                                                                    @if (x.WarehouseAmount >= 30)
+                                                                    {
+                                                                        <span class="inStock">
+                                                                            Есть в наличии
+                                                                        </span>
+                                                                    }
+                                                                    @if (x.WarehouseAmount < 30 && x.WarehouseAmount != 0)
+                                                                    {
+                                                                        <span class="lowAm">
+                                                                            Заканчивается
+                                                                        </span>
+                                                                    }
+                                                                    @if (x.WarehouseAmount == 0)
+                                                                    {
+                                                                        <span class="notInStock">
+                                                                            Нет в наличии
+                                                                        </span>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="buyItemList">
+                                                                    <button class="buyItem">
+                                                                        <a href="#">
+                                                                            <i class="fas fa-shopping-cart"></i> Купить
+                                                                        </a>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="buttonsItemList">
+                                                                    <button class="fav @(count)">
+                                                                        <p class="@(count)@(count) toFavourite selected">
+                                                                            <i class="far fa-heart"></i>
+                                                                        </p>
+                                                                        <p class="@(count)@(count) toFavourite"><i class="fas fa-heart"></i></p>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    count++;
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="navButtons">
+                        <ul>
+                            @if (Model.PageViewModel.HasPreviousPage)
+                            {
+                                <text><a class="zxc" href="@Url.Action("ShowCategory","Home", new {CatId = Model.Category.CategoryId, page = Model.PageViewModel.PageNumber-1, EnumParam = Model.SortingParams})"><li class="pagButtons"><span><i class="fas fa-chevron-left"></i>Назад</span></li></a></text>
+                            }
+                            else
+                            {
+                                <text><li class="pagButtons disabled"><span><i class="fas fa-chevron-left"></i> Назад</span></li></text>
+                            }
+                            @foreach (var x in Model.PagesCountList)
+                            {
+                                <text><a class="zxc1" href="@Url.Action("ShowCategory","Home", new {CatId = Model.Category.CategoryId, page = x, EnumParam = Model.SortingParams})">
+                                    <li class="pagButtons number"><span>@x</span></li></a></text>
+                            }
+
+                            @if (Model.PageViewModel.HasNextPage)
+                            {
+                                <text><a class="zxc" href="@Url.Action("ShowCategory","Home", new {CatId = Model.Category.CategoryId, page = Model.PageViewModel.PageNumber+1, EnumParam = Model.SortingParams})"><li class="pagButtons"><span>Вперед <i class="fas fa-chevron-right"></i></span></li></a></text>
+                            }
+                                else
+                                {
+                                    <text><li class="pagButtons disabled"><span> Вперед<i class="fas fa-chevron-right"></i></span></li></text>
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden">
+                <form id="login">
+                    <font>Эл. почта</font><br><br>
+                    <div class="inputFields">
+                        <input type="email" id="loginName" name="UserEmail" required><br><br>
+                        <font>Пароль</font><br><br>
+                        <input type="password" id="loginPass" name="UserPassword" required><button type="button" id="showPassLogin" class="showBtn"><div class="atv"><i class="fas fa-eye"></i></div><div class="atv hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                    </div>
+                    <input type="submit" id="loginButton" class="registerButton" value="Войти" name="login" required><br><br>
+                    <input type="checkbox" id="checkbox" value="true">  Запомнить меня<br><br>
+                    <a data-fancybox="helo" href="#register">Зарегистрироваться</a> <br>
+                </form>
+            </div>
+            <div class="hidden">
+                <form id="register" class="register">
+
+                    ФИО <br><br>
+                    <div class="inputFields">
+                        <input type="text" id="registerName" name="UserName" required><br><br>
+                        Эл. почта <span>*</span><br><br>
+                        <input type="email" id="registerEmail" name="UserEmail" required><br><br>
+                        Придумайте пароль <span>*</span><br><br>
+                        <input type="password" id="registerPass" name="UserPassword" required><button type="button" id="showPassRegister" class="showBtn"><div class="atv1"><i class="fas fa-eye"></i></div><div class="atv1 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                        Подтвердите пароль <span>*</span><br><br>
+                        <input type="password" id="confirmPass" required><button type="button" id="showPassConfirm" class="showBtn"><div class="atv2"><i class="fas fa-eye"></i></div><div class="atv2 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                        Пароль должен содержать не менее 6 символов<br><br>
+                    </div>
+                </form>
+                <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
+            </div>
+        </div>
+        <footer>
+        </footer>
+        <script type="text/javascript">
+            function tgl() {
+                $('#regS').fadeOut(400);
+            }
+            let errorArr = [];
+            $("#registerBtn").click(function (e) {
+                e.preventDefault();
+                let name = document.getElementById('registerName').value;
+                let mail = document.getElementById('registerEmail').value;
+                let pass = document.getElementById('registerPass').value;
+                let confirmPass = document.getElementById('confirmPass').value;
+                let x = {"Email":mail,"Fio":name,"Password":pass,"PasswordConfirm":confirmPass}
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Register", "TextileApi")',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(x),
+                    error: function(error) {
+                        errorArr = error.responseText.split('"');
+                        let errors = document.getElementsByClassName("error");
+                        if (errors[0] != undefined) {
+                            for (let i = 0; i < errors.length; i++) {
+                                errors[i].remove();
+                                i--;
+                            }
+                        }
+                        if (errorArr[0] != undefined) {
+                            for (let i = 1; i < errorArr.length - 1; i++) {
+                                if (errorArr[i] != ",") {
+                                    $('#register').append('<span class="error">' + errorArr[i] + '<br><br></span>');
+                                }
+                            }
+                        }
+                    },
+                    success: function (result) {
+                        parent.jQuery.fancybox.getInstance().close();
+                        parent.jQuery.fancybox.getInstance().close();
+                        $('#regS').fadeIn(400);
+                        setTimeout(tgl, 10000);
+                    }
+                });
+            });
+        </script>
+        <script type="text/javascript">
+        $('#loginButton').click(function (e) {
+            e.preventDefault();
+            let mail = document.getElementById('loginName').value;
+            let pass = document.getElementById('loginPass').value;
+            let check = document.getElementById('checkbox');
+            let bool;
+            if (check.checked) {
+                bool = true;
+            }
+            else {
+                bool = false;
+            }
+            let x = { "Email": mail, "Password": pass, "Remember": bool };
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Login", "TextileApi")',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(x),
+                error: function (error) {
+                    errorArr = error.responseText.split('"');
+                    let errors = document.getElementsByClassName("error");
+                    if (errors[0] != undefined) {
+                        for (let i = 0; i < errors.length; i++) {
+                            errors[i].remove();
+                            i--;
+                        }
+                    }
+                    if (errorArr[0] != undefined) {
+                        for (let i = 1; i < errorArr.length - 1; i++) {
+                            if (errorArr[i] != ",") {
+                                $('#login').append('<span class="error">' + errorArr[i] + '<br><br></span>');
+                            }
+                        }
+                    }
+                },
+                success: function (result) {
+                    window.location.href = result;
+                }
+            });
+        });
+        const select = document.querySelector('#sort').getElementsByTagName('option');
+        for (let i = 0; i < select.length; i++) {
+            if (select[i].value == @Model.SortingParams) {
+                select[i].selected = "true";
+                break;
+            }
+        }
+        </script>
+        <script type="text/javascript">
+        let Url = "@ViewBag.Url" + "?CatId=" + "@Model.Category.CategoryId";
+        $('#sort').change(function (e) {
+            window.location.href = Url + "&page=1&EnumParam=" + this.value + "&CookieValue="+"@Model.CookieValue";
+        });
+
+        </script>
+        <script type="text/javascript">
+            $('#list').click(function (e) {
+                e.preventDefault();
+                if (!$('#list').hasClass('viewSelected')) {
+                    window.location.href = "@ViewBag.Url" + "?CatId="+ "@Model.Category.CategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "List";
+                }
+
+            });
+            $('#grid').click(function (e) {
+                e.preventDefault();
+                if (!$('#grid').hasClass('viewSelected')) {
+                    window.location.href = "@ViewBag.Url" + "?CatId=" + "@Model.Category.CategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "Grid";
+                }
+            });
+        </script>
+        <script type="text/javascript" src="~/js/slider.js"></script>
+        <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="~/js/main.js"></script>
+        <script type="text/javascript" src="~/libs/FontAwesome/all.min.js"></script>
+        <script type="text/javascript" src="~/libs/OwlCarousel/owl.carousel.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    </body>
+    </html>
+

@@ -14,6 +14,10 @@ namespace AmitTextile.Domain
 
         public ICollection<ItemOrder> ItemOrders { get; set; }
 
+        public Guid CartId { get; set; }
+
+        public Cart Cart { get; set; }
+
         public Item()
         {
             ItemOrders = new List<ItemOrder>();
