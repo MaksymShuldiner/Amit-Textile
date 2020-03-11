@@ -112,7 +112,7 @@ namespace AmitTextile.Controllers
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             ViewBag.UrlChild = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowChildCategory";
             List<Textile> Textiles = new List<Textile>();
-            int count = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).FirstOrDefaultAsync(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.Count();
+                int count = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).FirstOrDefaultAsync(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.Count();
             int textilesForPage = 12;
             SortingParams param;
             Enum.TryParse(EnumParam.ToString(), out param);

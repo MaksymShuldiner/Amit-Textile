@@ -427,14 +427,14 @@
             $('#list').click(function (e) {
                 e.preventDefault();
                 if (!$('#list').hasClass('viewSelected')) {
-                    window.location.href = "@ViewBag.Url" + "?CatId="+ "@Model.Category.CategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "List";
+                    window.location.href = "@ViewBag.ChildUrl" + "?ChildCatId="+ "@Model.Category.ChildCategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "List";
                 }
 
             });
             $('#grid').click(function (e) {
                 e.preventDefault();
                 if (!$('#grid').hasClass('viewSelected')) {
-                    window.location.href = "@ViewBag.Url" + "?CatId=" + "@Model.Category.CategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "Grid";
+                    window.location.href = "@ViewBag.ChildUrl" + "?ChildCatId=" + "@Model.Category.ChildCategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "Grid";
                 }
             });
     </script>
