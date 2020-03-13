@@ -102,16 +102,25 @@
                                         {
                                             if (Model.FilterDictionary != null)
                                             {
-                                                if (Model.FilterDictionary[x.Name].Contains(y.Value))
+                                                if (Model.FilterDictionary.ContainsKey(x.Name))
                                                 {
-                                                    <li class="option">
-                                                        <input type="checkbox" value="@y.Value" checked="checked" /><span>@y.Value</span>
-                                                    </li>
+                                                    if (Model.FilterDictionary[x.Name].Contains(y.Value))
+                                                    {
+                                                        <li class="option">
+                                                            <input type="checkbox" value="@y.Value" checked="checked"/><span>@y.Value</span>
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li class="option">
+                                                            <input type="checkbox" value="@y.Value"/><span>@y.Value</span>
+                                                        </li>
+                                                    }
                                                 }
                                                 else
                                                 {
                                                     <li class="option">
-                                                        <input type="checkbox" value="@y.Value" /><span>@y.Value</span>
+                                                        <input type="checkbox" value="@y.Value"/><span>@y.Value</span>
                                                     </li>
                                                 }
                                             }
@@ -516,7 +525,7 @@
                 }
                 arr = [];
             }
-            window.location.href = "@ViewBag.ChildUrl" + "?ChildCatId=" + "@Model.Category.ChildCategoryId" + "&Filter=" + str + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + @Model.CookieValue;
+            window.location.href = "@ViewBag.ChildUrl" + "?ChildCatId=" + "@Model.Category.ChildCategoryId" + "&Filter=" + str + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "@Model.CookieValue";
         });
     </script>
     <script type="text/javascript" src="~/js/slider.js"></script>
