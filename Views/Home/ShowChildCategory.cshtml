@@ -85,11 +85,60 @@
             </div>
         </div>
     </div>
-    <div class="content">
+    <div class="content contentM">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">
-
+                    <div class="filterFieldContainer">
+                        <div class="filterField">
+                            <div class="filterName">
+                                <i class="fas fa-chevron-right"></i><span>FilterOptionName</span>
+                            </div>
+                            <div class="filterOptions">
+                                <ul>
+                                    <li class="option">
+                                        <input type="checkbox" /> <span>Option1</span>
+                                    </li>
+                                    <li class="option">
+                                        <input type="checkbox" /> <span>Option2</span>
+                                    </li>
+                                    <li class="option">
+                                        <input type="checkbox" /> <span>Option3</span>
+                                    </li>
+                                    <li class="option">
+                                        <input type="checkbox" /> <span>Option4</span>
+                                    </li>
+                                    <li class="option">
+                                        <input type="checkbox" /> <span>Option5</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="filterField">
+                            <div class="filterName">
+                                <i class="fas fa-chevron-right"></i><span>FilterOptionName</span>
+                            </div>
+                            <div class="filterOptions">
+                                <ul>
+                                    <li class="option">
+                                        <input type="checkbox" /> <span>Option1</span>
+                                    </li>
+                                    <li class="option">
+                                        <input type="checkbox" /> <span>Option2</span>
+                                    </li>
+                                    <li class="option">
+                                        <input type="checkbox" /> <span>Option3</span>
+                                    </li>
+                                    <li class="option">
+                                        <input type="checkbox" /> <span>Option4</span>
+                                    </li>
+                                    <li class="option">
+                                        <input type="checkbox" /> <span>Option5</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-9">
                     <div class="nameHolder mrg">
@@ -112,9 +161,18 @@
                             <div class="select-arrow-3"></div>
                             <div class="select-arrow-3"></div>
                         </div>
-                        <span id="list" class="viewButton"><i class="fas fa-th-list"></i><br>Список</span>
-                        <span id="grid" class="viewButton viewSelected"><i class="fas fa-th-large"></i><br>Сетка</span>
-                        <span class="view">Вид:</span>
+                        @if (Model.CookieValue == "Grid")
+                        {
+                            <span id="list" class="viewButton"><i class="fas fa-th-list"></i><br>Список</span>
+                            <span id="grid" class="viewButton viewSelected"><i class="fas fa-th-large"></i><br>Сетка</span>
+                            <span class="view">Вид:</span>
+                        }
+                        @if (Model.CookieValue == "List")
+                        {
+                            <span id="list" class="viewButton viewSelected"><i class="fas fa-th-list"></i><br>Список</span>
+                            <span id="grid" class="viewButton"><i class="fas fa-th-large"></i><br>Сетка</span>
+                            <span class="view">Вид:</span>
+                        }
                     </div>
                     <div class="container-fluid l">
                         <div class="row item_cells">

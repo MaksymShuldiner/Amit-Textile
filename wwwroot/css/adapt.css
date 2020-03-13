@@ -1,0 +1,29 @@
+@media only screen and (max-width:991px) {
+    .f{
+        padding-left:30px;
+        padding-right:30px;
+        max-width:991px;
+        width:100%;
+    }
+    .item_image>img{
+        height:125px;
+    }
+    .item_cost{
+        font-size:20px;
+    }
+}
+@media only screen and (max-width:793px){
+    .cart_container{
+        padding-left:3%;
+    }
+    .search_container{
+        padding:0px;
+    }
+}
+@media only screen and (max-width:767px){
+    .search_form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

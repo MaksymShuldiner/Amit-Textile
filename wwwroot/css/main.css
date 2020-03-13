@@ -82,7 +82,7 @@ header {
     font-weight: bold;
     transition: 0.3s all;
     position: relative;
-    left: 40px;
+    left: 10%;
     bottom: 36px;
 }
 
@@ -697,4 +697,57 @@ footer {
 
 .buttonsItemList {
     margin-top: 10px;
+}
+.filterField {
+    max-height: 320px;
+    overflow: auto;
+    border-top:1px solid #d3d3d3;
+    border-bottom: 1px solid #d3d3d3;
+    margin-top:20px;
+    padding-top:20px;
+    padding-bottom:20px;
+    margin-left:40%;
+    
+}
+.filterName>span{
+   font-weight:bold;
+}
+.filterName{
+    cursor:pointer;
+}
+.filterName:hover{
+    text-decoration:underline;
+    color:#696969;
+}
+.filterName>svg{
+    font-size:13px;
+    margin-right:10px;
+    margin-bottom:2px;
+    color:#696969;
+}
+.filterOptions{ 
+    padding-top:10px;
+}
+.filterOptions>ul>li>input{
+    margin-right:5px;
+    margin-top:10px;
+}
+.filterOptions > ul > li > span{
+}
+.contentM{
+    margin-left:10%;
+    margin-right:10%;
+}
+.filterFieldContainer{
+    margin-top:257px;
+}
+.rotate0{
+    -webkit-transform:rotate(0deg);
+    -moz-transform:rotate(0deg);
+    -ms-transform:rotate(0deg);
+}
+.rotate90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
 }
