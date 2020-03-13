@@ -703,9 +703,11 @@ namespace AmitTextile.Controllers
             {
                 pagesCounterList.Add(i);
             }
+
+            List<Charachteristic> charachteristics = _context.Charachteristics.Include(x => x.Values).OrderBy(x => x.Name).ToList();
             List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
             ChildCategoriesViewModel model = new ChildCategoriesViewModel()
-            { PageViewModel = pageViewModel, Textiles = Textiles, SortingParams = EnumParam, Category = _context.ChildCategories.Include(x => x.Category).FirstOrDefault(x=> x.ChildCategoryId == Guid.Parse(ChildCatId)), PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = CookieValue};
+            { PageViewModel = pageViewModel, Textiles = Textiles, SortingParams = EnumParam, Category = _context.ChildCategories.Include(x => x.Category).FirstOrDefault(x=> x.ChildCategoryId == Guid.Parse(ChildCatId)), PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = CookieValue, FilterDictionary = Filter, Charachteristic = charachteristics};
             return View(model);
         }
     }

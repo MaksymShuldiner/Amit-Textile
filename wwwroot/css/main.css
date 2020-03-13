@@ -760,7 +760,7 @@ footer {
     font-weight: bold;
     transition: 0.3s all ease;
 }
-    .submitFilters:hover {
-        transition: 0.3s all ease;
-        background-color: #EE82EE;  
-    }
+.submitFilters:hover {
+    transition: 0.3s all ease;
+    background-color: #EE82EE;
+}

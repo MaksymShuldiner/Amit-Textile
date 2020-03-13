@@ -16,5 +16,9 @@ namespace AmitTextile.Models
         public List<int> PagesCountList { get; set; }
 
         public string CookieValue { get; set; }
+
+        public Dictionary<string, List<string>> FilterDictionary { get; set; }
+
+        public List<Charachteristic> Charachteristic { get; set; }
     }
 }

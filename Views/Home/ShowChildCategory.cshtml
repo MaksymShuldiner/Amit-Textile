@@ -90,56 +90,44 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="filterFieldContainer">
-                        <div class="filterField">
-                            <div class="filterName">
-                                <i class="fas fa-chevron-right"></i><span>FilterOptionName</span>
+                        @foreach (var x in Model.Charachteristic)
+                        {
+                            <div class="filterField">
+                                <div class="filterName">
+                                    <i class="fas fa-chevron-right"></i><span>@x.Name</span>
+                                </div>
+                                <div class="filterOptions">
+                                    <ul>
+                                        @foreach (var y in x.Values)
+                                        {
+                                            if (Model.FilterDictionary != null)
+                                            {
+                                                if (Model.FilterDictionary[x.Name].Contains(y.Value))
+                                                {
+                                                    <li class="option">
+                                                        <input type="checkbox" value="@y.Value" checked="checked" /><span>@y.Value</span>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="option">
+                                                        <input type="checkbox" value="@y.Value" /><span>@y.Value</span>
+                                                    </li>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <li class="option">
+                                                    <input type="checkbox" value="@y.Value" /><span>@y.Value</span>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="filterOptions">
-                                <ul>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option1</span>
-                                    </li>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option2</span>
-                                    </li>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option3</span>
-                                    </li>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option4</span>
-                                    </li>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option5</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="filterField">
-                            <div class="filterName">
-                                <i class="fas fa-chevron-right"></i><span>FilterOptionName</span>
-                            </div>
-                            <div class="filterOptions">
-                                <ul>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option1</span>
-                                    </li>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option2</span>
-                                    </li>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option3</span>
-                                    </li>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option4</span>
-                                    </li>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option5</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <button class="submitFilters">Применить фильтры</button>
+                        }
                     </div>
+                    <button class="submitFilters">Применить фильтры</button>
                 </div>
                 <div class="col-md-9">
                     <div class="nameHolder mrg">
@@ -496,41 +484,6 @@
                     window.location.href = "@ViewBag.ChildUrl" + "?ChildCatId=" + "@Model.Category.ChildCategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "Grid";
                 }
             });
-    </script>
-    <script type="text/javascript">
-        $('.submitFilters').click(function () {
-            let filterList = document.getElementsByClassName('filterField');
-            let str = "";
-            let arr = [];
-            let options;
-            let input;
-            for (let i = 0; i < filterList.length; i++) {
-                str += $(filterList[i]).find('.filterName').find('span').html() + ":";
-                options = $(filterList[i]).find('.filterOptions').find('ul').find('li');
-                for (let j = 0; j < options.length; j++) {
-                    input = $(options[j]).find('input');
-                    if ($(input).prop('checked')) {
-                        arr.push($(options[j]).find('span').html());
-                    }
-                }
-                for (let j = 0; j < arr.length; j++) {
-                    if (j != arr.length - 1) {
-                        str += arr[j] + ';';
-                    }
-                    else {
-                        if (i != filterList.length - 1) {
-                            str += arr[j] + ',';
-                        }
-                        else {
-                            str += arr[j];
-                        }
-                    }
-                }
-                arr = [];
-            }
-            alert(str);
-            window.location.href = "@ViewBag.ChildUrl" + "?ChildCatId=" + "@Model.Category.ChildCategoryId" + "&Filter=" + str + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + @Model.CookieValue;
-        });
     </script>
     <script type="text/javascript" src="~/js/slider.js"></script>
     <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>
