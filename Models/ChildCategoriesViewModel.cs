@@ -19,6 +19,8 @@ namespace AmitTextile.Models
 
         public Dictionary<string, List<string>> FilterDictionary { get; set; }
 
+        public string FilterQuery { get; set; }
+
         public List<Charachteristic> Charachteristic { get; set; }
     }
 }
