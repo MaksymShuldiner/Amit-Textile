@@ -20,5 +20,7 @@ namespace AmitTextile.Models
 
         public string CookieValue { get; set; }
 
+        public Dictionary<string,List<string>> FilterDictionary { get; set; }
+
     }
 }

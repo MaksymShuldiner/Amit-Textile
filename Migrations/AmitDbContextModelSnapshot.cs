@@ -172,6 +172,23 @@ namespace AmitTextile.Migrations
                     b.ToTable("ChildCommentReviews");
                 });
 
+            modelBuilder.Entity("AmitTextile.Domain.FilterCharachteristics", b =>
+                {
+                    b.Property<Guid>("FilterCharachteristicsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CharachteristicId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("FilterCharachteristicsId");
+
+                    b.HasIndex("CharachteristicId")
+                        .IsUnique();
+
+                    b.ToTable("FilterCharachteristicses");
+                });
+
             modelBuilder.Entity("AmitTextile.Domain.Image", b =>
                 {
                     b.Property<Guid>("ImageId")
@@ -676,6 +693,15 @@ namespace AmitTextile.Migrations
                     b.HasOne("AmitTextile.Domain.User", "Sender")
                         .WithMany("ChildCommentReviews")
                         .HasForeignKey("SenderId");
+                });
+
+            modelBuilder.Entity("AmitTextile.Domain.FilterCharachteristics", b =>
+                {
+                    b.HasOne("AmitTextile.Domain.Charachteristic", "Charachteristic")
+                        .WithOne("FilterCharachteristics")
+                        .HasForeignKey("AmitTextile.Domain.FilterCharachteristics", "CharachteristicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AmitTextile.Domain.Image", b =>

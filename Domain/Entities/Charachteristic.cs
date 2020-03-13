@@ -11,7 +11,7 @@ namespace AmitTextile.Domain
 
         public ICollection<CharachteristicVariants> Values { get; set; }
 
-        
+        public FilterCharachteristics FilterCharachteristics { get; set; }
 
         public Charachteristic()
         {
