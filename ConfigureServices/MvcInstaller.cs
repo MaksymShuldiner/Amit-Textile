@@ -1,4 +1,5 @@
-﻿ using Microsoft.Extensions.Configuration;
+﻿ using AmitTextile.Infrastructure;
+ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AmitTextile.ConfigureServices
@@ -7,7 +8,10 @@ namespace AmitTextile.ConfigureServices
     {
         public void Configure(IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(opts =>
+            {
+                opts.ModelBinderProviders.Insert(0, new CustomDictionaryModelBinderProvider());
+            });
             
         }
     }
