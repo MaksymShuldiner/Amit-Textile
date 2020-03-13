@@ -502,13 +502,16 @@
             let options;
             let input;
             for (let i = 0; i < filterList.length; i++) {
-                str += $(filterList[i]).find('.filterName').find('span').html() + ":";
+                
                 options = $(filterList[i]).find('.filterOptions').find('ul').find('li');
                 for (let j = 0; j < options.length; j++) {
                     input = $(options[j]).find('input');
                     if ($(input).prop('checked')) {
                         arr.push($(options[j]).find('span').html());
                     }
+                }
+                if (arr.length != 0) {
+                    str += $(filterList[i]).find('.filterName').find('span').html() + ":";
                 }
                 for (let j = 0; j < arr.length; j++) {
                     if (j != arr.length - 1) {
@@ -524,6 +527,11 @@
                     }
                 }
                 arr = [];
+            }
+            if (str[str.length - 1] == ",") {
+                arr = str.split('');
+                arr.splice(arr.length - 1, 1);
+                str = arr.join("");
             }
             window.location.href = "@ViewBag.ChildUrl" + "?ChildCatId=" + "@Model.Category.ChildCategoryId" + "&Filter=" + str + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "@Model.CookieValue";
         });
