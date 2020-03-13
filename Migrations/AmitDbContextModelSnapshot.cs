@@ -343,9 +343,6 @@ namespace AmitTextile.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CharachteristicId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("ChildCategoryId")
                         .HasColumnType("uniqueidentifier");
 
@@ -385,8 +382,6 @@ namespace AmitTextile.Migrations
                     b.HasKey("TextileId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("CharachteristicId");
 
                     b.HasIndex("ChildCategoryId");
 
@@ -749,10 +744,6 @@ namespace AmitTextile.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("AmitTextile.Domain.Charachteristic", null)
-                        .WithMany("Textiles")
-                        .HasForeignKey("CharachteristicId");
 
                     b.HasOne("AmitTextile.Domain.ChildCategory", "ChildCategory")
                         .WithMany("TextilesOfThisChildCategory")
