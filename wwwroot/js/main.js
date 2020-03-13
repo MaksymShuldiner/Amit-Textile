@@ -97,6 +97,24 @@ $(document).ready(function () {
     $('.9').click(function () {
         $('.99').toggleClass('selected');
     });
+    $('.filterName').click(function () {
+        let hide = $(this).next();
+        let arrow = $(this).find('svg');
+        if ($(hide).hasClass('hidden')) {
+           /*$(arrow).animate({
+                '-webkit-transform':'rotate(0deg)'
+            }, 100);*/
+            $(arrow).toggleClass('rotate90');
+            $(arrow).toggleClass('rotate0');
+        }
+        else {
+            $(arrow).toggleClass('rotate90');
+            if ($(arrow).hasClass('rotate0')) {
+                $(arrow).toggleClass('rotate0');
+            }
+        }
+        $(hide).toggleClass('hidden');
+    });
 });
 window.onscroll = function () { scrollFunction() };
 
