@@ -101,9 +101,6 @@ $(document).ready(function () {
         let hide = $(this).next();
         let arrow = $(this).find('svg');
         if ($(hide).hasClass('hidden')) {
-           /*$(arrow).animate({
-                '-webkit-transform':'rotate(0deg)'
-            }, 100);*/
             $(arrow).toggleClass('rotate90');
             $(arrow).toggleClass('rotate0');
         }
