@@ -485,6 +485,40 @@
                 }
             });
     </script>
+    <script type="text/javascript">
+        $('.submitFilters').click(function () {
+            let filterList = document.getElementsByClassName('filterField');
+            let str = "";
+            let arr = [];
+            let options;
+            let input;
+            for (let i = 0; i < filterList.length; i++) {
+                str += $(filterList[i]).find('.filterName').find('span').html() + ":";
+                options = $(filterList[i]).find('.filterOptions').find('ul').find('li');
+                for (let j = 0; j < options.length; j++) {
+                    input = $(options[j]).find('input');
+                    if ($(input).prop('checked')) {
+                        arr.push($(options[j]).find('span').html());
+                    }
+                }
+                for (let j = 0; j < arr.length; j++) {
+                    if (j != arr.length - 1) {
+                        str += arr[j] + ';';
+                    }
+                    else {
+                        if (i != filterList.length - 1) {
+                            str += arr[j] + ',';
+                        }
+                        else {
+                            str += arr[j];
+                        }
+                    }
+                }
+                arr = [];
+            }
+            window.location.href = "@ViewBag.ChildUrl" + "?ChildCatId=" + "@Model.Category.ChildCategoryId" + "&Filter=" + str + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + @Model.CookieValue;
+        });
+    </script>
     <script type="text/javascript" src="~/js/slider.js"></script>
     <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="~/js/main.js"></script>
