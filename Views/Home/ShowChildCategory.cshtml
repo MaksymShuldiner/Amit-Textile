@@ -90,55 +90,44 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="filterFieldContainer">
-                        <div class="filterField">
-                            <div class="filterName">
-                                <i class="fas fa-chevron-right"></i><span>FilterOptionName</span>
+                        @foreach (var x in Model.Charachteristic)
+                        {
+                            <div class="filterField">
+                                <div class="filterName">
+                                    <i class="fas fa-chevron-right"></i><span>@x.Name</span>
+                                </div>
+                                <div class="filterOptions">
+                                    <ul>
+                                        @foreach (var y in x.Values)
+                                        {
+                                            if (Model.FilterDictionary != null)
+                                            {
+                                                if (Model.FilterDictionary[x.Name].Contains(y.Value))
+                                                {
+                                                    <li class="option">
+                                                        <input type="checkbox" value="@y.Value" checked="checked" /><span>@y.Value</span>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="option">
+                                                        <input type="checkbox" value="@y.Value" /><span>@y.Value</span>
+                                                    </li>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <li class="option">
+                                                    <input type="checkbox" value="@y.Value" /><span>@y.Value</span>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="filterOptions">
-                                <ul>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option1</span>
-                                    </li>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option2</span>
-                                    </li>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option3</span>
-                                    </li>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option4</span>
-                                    </li>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option5</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="filterField">
-                            <div class="filterName">
-                                <i class="fas fa-chevron-right"></i><span>FilterOptionName</span>
-                            </div>
-                            <div class="filterOptions">
-                                <ul>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option1</span>
-                                    </li>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option2</span>
-                                    </li>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option3</span>
-                                    </li>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option4</span>
-                                    </li>
-                                    <li class="option">
-                                        <input type="checkbox" /> <span>Option5</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        }
                     </div>
+                    <button class="submitFilters">Применить фильтры</button>
                 </div>
                 <div class="col-md-9">
                     <div class="nameHolder mrg">

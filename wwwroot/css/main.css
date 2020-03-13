@@ -751,3 +751,16 @@ footer {
     -moz-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
 }
+.submitFilters {
+    margin-top: 30px;
+    margin-left: 140px;
+    height: 35px;
+    background-color: #FF00FF;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s all ease;
+}
+.submitFilters:hover {
+    transition: 0.3s all ease;
+    background-color: #EE82EE;
+}
