@@ -263,7 +263,7 @@ namespace AmitTextile.Controllers
                                 }
                             }).ToList();
                             count = Textile4.Count();
-                            Textiles = Textile4.Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
+                            Textiles = Textile4.OrderBy(x => x.Price).Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                         break;
                     case SortingParams.PriceByDescending:
                         List<Textile> Textile5 = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory
