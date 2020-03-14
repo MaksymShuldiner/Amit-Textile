@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Интернет-магазин текстиля AmitTextile</title>
     <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="~/css/adapt.css">
     <link rel="stylesheet" href="~/css/animate.css">
     <link rel="stylesheet" href="~/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/reset.css">
@@ -16,6 +15,7 @@
     <link rel="stylesheet" href="~/libs/OwlCarousel/owl.carousel.min.css">
     <link rel="stylesheet" href="~/css/slider.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="~/css/adapt.css">
     <script type="text/javascript" src="~/libs/jquery 3.4.1.min.js"></script>
     <script type="text/javascript" defer>
         let arrCat = [];
@@ -522,45 +522,50 @@
 
     </script>
     <script type="text/javascript">
-            let filterList = document.getElementsByClassName('filterField');
-            let str = "";
-            let arr = [];
-            let options;
-            let input;
-            for (let i = 0; i < filterList.length; i++) {
+            function getStr() {
+                let filterList = document.getElementsByClassName('filterField');
+                let str = "";
+                let arr = [];
+                let options;
+                let input;
+                for (let i = 0; i < filterList.length; i++) {
 
-                options = $(filterList[i]).find('.filterOptions').find('ul').find('li');
-                for (let j = 0; j < options.length; j++) {
-                    input = $(options[j]).find('input');
-                    if ($(input).prop('checked')) {
-                        arr.push($(options[j]).find('span').html());
+                    options = $(filterList[i]).find('.filterOptions').find('ul').find('li');
+                    for (let j = 0; j < options.length; j++) {
+                        input = $(options[j]).find('input');
+                        if ($(input).prop('checked')) {
+                            arr.push($(options[j]).find('span').html());
+                        }
                     }
-                }
-                if (arr.length != 0) {
-                    str += $(filterList[i]).find('.filterName').find('span').html() + ":";
-                }
-                for (let j = 0; j < arr.length; j++) {
-                    if (j != arr.length - 1) {
-                        str += arr[j] + ';';
+                    if (arr.length != 0) {
+                        str += $(filterList[i]).find('.filterName').find('span').html() + ":";
                     }
-                    else {
-                        if (i != filterList.length - 1) {
-                            str += arr[j] + ',';
+                    for (let j = 0; j < arr.length; j++) {
+                        if (j != arr.length - 1) {
+                            str += arr[j] + ';';
                         }
                         else {
-                            str += arr[j];
+                            if (i != filterList.length - 1) {
+                                str += arr[j] + ',';
+                            }
+                            else {
+                                str += arr[j];
+                            }
                         }
                     }
+                    arr = [];
                 }
-                arr = [];
+                if (str[str.length - 1] == ",") {
+                    arr = str.split('');
+                    arr.splice(arr.length - 1, 1);
+                    str = arr.join("");
+                }
+                return str;
             }
-            if (str[str.length - 1] == ",") {
-                arr = str.split('');
-                arr.splice(arr.length - 1, 1);
-                str = arr.join("");
-            }
+            let str;
             $('#list').click(function (e) {
                 e.preventDefault();
+                str = getStr();
                 if (str == "") {
                     if (!$('#list').hasClass('viewSelected')) {
                         window.location.href = "@ViewBag.ChildUrl" + "?ChildCatId=" + "@Model.Category.ChildCategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "List";
@@ -574,12 +579,14 @@
             });
             $('#grid').click(function (e) {
                 e.preventDefault();
-                if (str = '') {
+                str = getStr();
+                if (str = "") {
                     if (!$('#grid').hasClass('viewSelected')) {
                         window.location.href = "@ViewBag.ChildUrl" + "?ChildCatId=" + "@Model.Category.ChildCategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "Grid";
                     }
                 }
                 else {
+                    str = getStr();
                     if (!$('#grid').hasClass('viewSelected')) {
                         window.location.href = "@ViewBag.ChildUrl" + "?ChildCatId=" + "@Model.Category.ChildCategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&Filter=" + str + "&CookieValue=" + "Grid";
                     }
@@ -625,7 +632,7 @@
             arr.splice(arr.length - 1, 1);
             str = arr.join("");
         }
-        window.location.href = "@ViewBag.ChildUrl" + "?ChildCatId=" + "@Model.Category.ChildCategoryId" + "&Filter=" + str + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "@Model.CookieValue";
+        window.location.href = "@ViewBag.ChildUrl" + "?ChildCatId=" + "@Model.Category.ChildCategoryId" + "&Filter=" + str + "&page=" + "1" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "@Model.CookieValue";
     });
 </script>
     <script type="text/javascript" src="~/js/slider.js"></script>
