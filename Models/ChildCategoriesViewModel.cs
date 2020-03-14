@@ -21,6 +21,6 @@ namespace AmitTextile.Models
 
         public string FilterQuery { get; set; }
 
-        public List<Charachteristic> Charachteristic { get; set; }
+        public List<FilterCharachteristics> Charachteristic { get; set; }
     }
 }

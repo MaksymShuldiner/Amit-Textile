@@ -21,6 +21,7 @@ namespace AmitTextile.Models
         public string CookieValue { get; set; }
         public string FilterQuery { get; set; }
 
+        public List<FilterCharachteristics> Charachteristic { get; set; }
         public Dictionary<string,List<string>> FilterDictionary { get; set; }
 
     }

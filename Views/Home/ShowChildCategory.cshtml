@@ -94,17 +94,17 @@
                         {
                             <div class="filterField">
                                 <div class="filterName">
-                                    <i class="fas fa-chevron-right"></i><span>@x.Name</span>
+                                    <i class="fas fa-chevron-right"></i><span>@x.Charachteristic.Name</span>
                                 </div>
                                 <div class="filterOptions">
                                     <ul>
-                                        @foreach (var y in x.Values)
+                                        @foreach (var y in x.Charachteristic.Values)
                                         {
                                             if (Model.FilterDictionary != null)
                                             {
-                                                if (Model.FilterDictionary.ContainsKey(x.Name))
+                                                if (Model.FilterDictionary.ContainsKey(x.Charachteristic.Name))
                                                 {
-                                                    if (Model.FilterDictionary[x.Name].Contains(y.Value))
+                                                    if (Model.FilterDictionary[x.Charachteristic.Name].Contains(y.Value))
                                                     {
                                                         <li class="option">
                                                             <input type="checkbox" value="@y.Value" checked="checked"/><span>@y.Value</span>

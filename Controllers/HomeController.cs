@@ -396,11 +396,12 @@ namespace AmitTextile.Controllers
             {
                 pagesCounterList.Add(i);
             }
+            List<FilterCharachteristics> charachteristics = _context.FilterCharachteristicses.Include(x => x.Charachteristic).ThenInclude(x => x.Values).OrderBy(x => x.Charachteristic.Name).ToList();
             List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
             List<FilterCharachteristics> filters = await _context.FilterCharachteristicses.Include(x => x.Charachteristic)
                 .ThenInclude(x => x.Values).ToListAsync();
             CategoriesViewModel model = new CategoriesViewModel()
-                { PageViewModel = pageViewModel, childCategories = childCategories, Textiles = Textiles, SortingParams = EnumParam,FilterQuery = FilterQuery, Category = _context.Categories.FindAsync(Guid.Parse(CatId)).Result, PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = CookieValue, FilterDictionary = Filter};
+                { PageViewModel = pageViewModel, childCategories = childCategories, Textiles = Textiles, SortingParams = EnumParam,FilterQuery = FilterQuery, Category = _context.Categories.FindAsync(Guid.Parse(CatId)).Result, PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = CookieValue, FilterDictionary = Filter, Charachteristic = charachteristics };
             return View(model);
         }
         [HttpGet]
@@ -771,7 +772,7 @@ namespace AmitTextile.Controllers
                 pagesCounterList.Add(i);
             }
 
-            List<Charachteristic> charachteristics = _context.Charachteristics.Include(x => x.Values).OrderBy(x => x.Name).ToList();
+            List<FilterCharachteristics> charachteristics = _context.FilterCharachteristicses.Include(x => x.Charachteristic).ThenInclude(x=> x.Values).OrderBy(x => x.Charachteristic.Name).ToList();
             List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
             ChildCategoriesViewModel model = new ChildCategoriesViewModel()
             { PageViewModel = pageViewModel, Textiles = Textiles, SortingParams = EnumParam, Category = _context.ChildCategories.Include(x => x.Category).FirstOrDefault(x=> x.ChildCategoryId == Guid.Parse(ChildCatId)), PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = CookieValue, FilterDictionary = Filter, Charachteristic = charachteristics, FilterQuery = FilterQuery};
