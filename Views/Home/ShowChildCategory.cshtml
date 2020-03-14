@@ -306,7 +306,7 @@
                         <ul>
                             @if (Model.PageViewModel.HasPreviousPage)
                             {
-                                <a class="zxc" href="@Url.Action("ShowChildCategory","Home", new {CatId = Model.Category.CategoryId, page = Model.PageViewModel.PageNumber-1, EnumParam = Model.SortingParams})">
+                                <a class="zxc" href="@ViewBag.ChildUrl?ChildCatId=@Model.Category.ChildCategoryId&page=@(Model.PageViewModel.PageNumber-1)&EnumParam=@Model.SortingParams&CookieValue=@Model.CookieValue&Filter=@Model.FilterQuery">
                                     <li class="pagButtons">
                                         <span><i class="fas fa-chevron-left"></i>Назад</span>
                                     </li>
@@ -320,7 +320,7 @@
                             }
                             @foreach (var x in Model.PagesCountList)
                             {
-                                <a class="zxc1" href="@Url.Action("ShowChildCategory","Home", new {CatId = Model.Category.CategoryId, page = x, EnumParam = Model.SortingParams})">
+                                <a class="zxc1" href="@ViewBag.ChildUrl?ChildCatId=@Model.Category.ChildCategoryId&page=@x&EnumParam=@Model.SortingParams&CookieValue=@Model.CookieValue&Filter=@Model.FilterQuery">
                                     <li class="pagButtons number">
                                         <span>@x</span>
                                     </li>
@@ -329,7 +329,7 @@
 
                             @if (Model.PageViewModel.HasNextPage)
                             {
-                                <a class="zxc" href="@Url.Action("ShowChildCategory","Home", new {CatId = Model.Category.CategoryId, page = Model.PageViewModel.PageNumber+1, EnumParam = Model.SortingParams})">
+                                <a class="zxc" href="@ViewBag.ChildUrl?ChildCatId=@Model.Category.ChildCategoryId&page=@(Model.PageViewModel.PageNumber+1)&EnumParam=@Model.SortingParams&CookieValue=@Model.CookieValue&Filter=@Model.FilterQuery">
                                     <li class="pagButtons">
                                         <span>Вперед <i class="fas fa-chevron-right"></i></span>
                                     </li>
@@ -474,50 +474,8 @@
     </script>
     <script type="text/javascript">
     let Url = "@ViewBag.UrlChild" + "?ChildCatId=" + "@Model.Category.ChildCategoryId";
-        $('#sort').change(function (e) {
-        let filterList = document.getElementsByClassName('filterField');
-            let str = "";
-            let arr = [];
-            let options;
-            let input;
-            for (let i = 0; i < filterList.length; i++) {
-                
-                options = $(filterList[i]).find('.filterOptions').find('ul').find('li');
-                for (let j = 0; j < options.length; j++) {
-                    input = $(options[j]).find('input');
-                    if ($(input).prop('checked')) {
-                        arr.push($(options[j]).find('span').html());
-                    }
-                }
-                if (arr.length != 0) {
-                    str += $(filterList[i]).find('.filterName').find('span').html() + ":";
-                }
-                for (let j = 0; j < arr.length; j++) {
-                    if (j != arr.length - 1) {
-                        str += arr[j] + ';';
-                    }
-                    else {
-                        if (i != filterList.length - 1) {
-                            str += arr[j] + ',';
-                        }
-                        else {
-                            str += arr[j];
-                        }
-                    }
-                }
-                arr = [];
-            }
-            if (str[str.length - 1] == ",") {
-                arr = str.split('');
-                arr.splice(arr.length - 1, 1);
-                str = arr.join("");
-            }
-            if (str == "") {
-                window.location.href = Url + "&page=1&EnumParam=" + this.value + "&CookieValue=" + "@Model.CookieValue";
-            }
-            else {
-            
-}
+    $('#sort').change(function (e) {
+        window.location.href = Url + "&page=1&EnumParam=" + this.value+ "&CookieValue="+"@Model.CookieValue";
     });
 
     </script>
@@ -527,7 +485,6 @@
                 if (!$('#list').hasClass('viewSelected')) {
                     window.location.href = "@ViewBag.ChildUrl" + "?ChildCatId="+ "@Model.Category.ChildCategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "List";
                 }
-
             });
             $('#grid').click(function (e) {
                 e.preventDefault();
@@ -536,48 +493,49 @@
                 }
             });
     </script>
-    <script type="text/javascript">
-        $('.submitFilters').click(function () {
-            let filterList = document.getElementsByClassName('filterField');
-            let str = "";
-            let arr = [];
-            let options;
-            let input;
-            for (let i = 0; i < filterList.length; i++) {
-                
-                options = $(filterList[i]).find('.filterOptions').find('ul').find('li');
-                for (let j = 0; j < options.length; j++) {
-                    input = $(options[j]).find('input');
-                    if ($(input).prop('checked')) {
-                        arr.push($(options[j]).find('span').html());
-                    }
+<script type="text/javascript">
+    $('.submitFilters').click(function () {
+        let filterList = document.getElementsByClassName('filterField');
+        let str = "";
+        let arr = [];
+        let options;
+        let input;
+        for (let i = 0; i < filterList.length; i++) {
+
+            options = $(filterList[i]).find('.filterOptions').find('ul').find('li');
+            for (let j = 0; j < options.length; j++) {
+                input = $(options[j]).find('input');
+                if ($(input).prop('checked')) {
+                    arr.push($(options[j]).find('span').html());
                 }
-                if (arr.length != 0) {
-                    str += $(filterList[i]).find('.filterName').find('span').html() + ":";
+            }
+            if (arr.length != 0) {
+                str += $(filterList[i]).find('.filterName').find('span').html() + ":";
+            }
+            for (let j = 0; j < arr.length; j++) {
+                if (j != arr.length - 1) {
+                    str += arr[j] + ';';
                 }
-                for (let j = 0; j < arr.length; j++) {
-                    if (j != arr.length - 1) {
-                        str += arr[j] + ';';
+                else {
+                    if (i != filterList.length - 1) {
+                        str += arr[j] + ',';
                     }
                     else {
-                        if (i != filterList.length - 1) {
-                            str += arr[j] + ',';
-                        }
-                        else {
-                            str += arr[j];
-                        }
+                        str += arr[j];
                     }
                 }
-                arr = [];
             }
-            if (str[str.length - 1] == ",") {
-                arr = str.split('');
-                arr.splice(arr.length - 1, 1);
-                str = arr.join("");
-            }
-            window.location.href = "@ViewBag.ChildUrl" + "?ChildCatId=" + "@Model.Category.ChildCategoryId" + "&Filter=" + str + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "@Model.CookieValue";
-        });
-    </script>
+            arr = [];
+        }
+        if (str[str.length - 1] == ",") {
+            arr = str.split('');
+            arr.splice(arr.length - 1, 1);
+            str = arr.join("");
+        }
+       
+        window.location.href = "@ViewBag.ChildUrl" + "?ChildCatId=" + "@Model.Category.ChildCategoryId" + "&Filter=" + str + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "@Model.CookieValue";
+    });
+</script>
     <script type="text/javascript" src="~/js/slider.js"></script>
     <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="~/js/main.js"></script>
