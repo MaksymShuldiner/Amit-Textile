@@ -326,7 +326,7 @@
                             @if (Model.PageViewModel.HasPreviousPage)
                             {
                                 <text>
-                                    <a class="zxc" href="@Url.Action("ShowCategory","Home", new {CatId = Model.Category.CategoryId, page = Model.PageViewModel.PageNumber-1, EnumParam = Model.SortingParams})"><li class="pagButtons"><span><i class="fas fa-chevron-left"></i>Назад</span></li></a>
+                                    <a class="zxc" href="@ViewBag.Url?CatId=@Model.Category.CategoryId&page=@(Model.PageViewModel.PageNumber-1)&EnumParam=@Model.SortingParams&CookieValue=@Model.CookieValue&Filter=@Model.FilterQuery"><li class="pagButtons"><span><i class="fas fa-chevron-left"></i>Назад</span></li></a>
                                 </text>
                             }
                             else
@@ -338,7 +338,7 @@
                             @foreach (var x in Model.PagesCountList)
                             {
                                 <text>
-                                    <a class="zxc1" href="@Url.Action("ShowCategory","Home", new {CatId = Model.Category.CategoryId, page = x, EnumParam = Model.SortingParams})">
+                                    <a class="zxc1" href="@ViewBag.Url?CatId=@Model.Category.CategoryId&page=@x&EnumParam=@Model.SortingParams&CookieValue=@Model.CookieValue&Filter=@Model.FilterQuery">
                                         <li class="pagButtons number"><span>@x</span></li>
                                     </a>
                                 </text>
@@ -347,7 +347,7 @@
                             @if (Model.PageViewModel.HasNextPage)
                             {
                                 <text>
-                                    <a class="zxc" href="@Url.Action("ShowCategory","Home", new {CatId = Model.Category.CategoryId, page = Model.PageViewModel.PageNumber+1, EnumParam = Model.SortingParams})"><li class="pagButtons"><span>Вперед <i class="fas fa-chevron-right"></i></span></li></a>
+                                    <a class="zxc" href="@ViewBag.Url?CatId=@Model.Category.CategoryId&page=@(Model.PageViewModel.PageNumber+1)&EnumParam=@Model.SortingParams&CookieValue=@Model.CookieValue&Filter=@Model.FilterQuery"><li class="pagButtons"><span>Вперед <i class="fas fa-chevron-right"></i></span></li></a>
                                 </text>
                             }
                             else
