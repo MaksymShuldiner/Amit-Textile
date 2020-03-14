@@ -15,6 +15,9 @@ namespace AmitTextile.Domain
 
         public string SenderId { get; set; }
 
+        public Textile Textile { get; set; }
+
+        public Guid TextileId { get; set; }
         public ParentCommentQuestion()
         {
             ChildComments = new List<ChildCommentQuestion>();

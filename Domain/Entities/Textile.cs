@@ -42,10 +42,16 @@ namespace AmitTextile.Domain
 
         public Guid? ChildCategoryId { get; set; }
 
+        public ICollection<ChildCommentQuestion> ChildCommentQuestions { get; set; }
+        public ICollection<ParentCommentReview> ParentCommentReviews { get; set; }
+        public ICollection<ParentCommentQuestion> ParentCommentQuestions { get; set; }
         public ChildCategory ChildCategory { get; set; }
         public Textile()
         {
             Charachteristics = new List<CharachteristicValues>();
+            ChildCommentQuestions = new List<ChildCommentQuestion>();
+            ParentCommentQuestions = new List<ParentCommentQuestion>();
+            ParentCommentReviews = new List<ParentCommentReview>();
             Images = new List<Image>();
         }
     }

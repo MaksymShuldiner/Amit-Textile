@@ -778,5 +778,9 @@ namespace AmitTextile.Controllers
             { PageViewModel = pageViewModel, Textiles = Textiles, SortingParams = EnumParam, Category = _context.ChildCategories.Include(x => x.Category).FirstOrDefault(x=> x.ChildCategoryId == Guid.Parse(ChildCatId)), PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = CookieValue, FilterDictionary = Filter, Charachteristic = charachteristics, FilterQuery = FilterQuery};
             return View(model);
         }
+        public async Task<IActionResult> ShowBook(string TextileId, int page = 1, string Section = "Charachteristics" )
+        {
+            return View();
+        }
     }
 }

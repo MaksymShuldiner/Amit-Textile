@@ -18,6 +18,9 @@ namespace AmitTextile.Domain
 
         public DateTime DatePosted { get; set; }
 
+        public Textile Textile { get; set; }
+
+        public Guid TextileId { get; set; }
 
 
     }
