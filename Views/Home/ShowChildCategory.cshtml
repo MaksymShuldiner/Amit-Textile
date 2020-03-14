@@ -474,8 +474,50 @@
     </script>
     <script type="text/javascript">
     let Url = "@ViewBag.UrlChild" + "?ChildCatId=" + "@Model.Category.ChildCategoryId";
-    $('#sort').change(function (e) {
-        window.location.href = Url + "&page=1&EnumParam=" + this.value+ "&CookieValue="+"@Model.CookieValue";
+        $('#sort').change(function (e) {
+        let filterList = document.getElementsByClassName('filterField');
+            let str = "";
+            let arr = [];
+            let options;
+            let input;
+            for (let i = 0; i < filterList.length; i++) {
+                
+                options = $(filterList[i]).find('.filterOptions').find('ul').find('li');
+                for (let j = 0; j < options.length; j++) {
+                    input = $(options[j]).find('input');
+                    if ($(input).prop('checked')) {
+                        arr.push($(options[j]).find('span').html());
+                    }
+                }
+                if (arr.length != 0) {
+                    str += $(filterList[i]).find('.filterName').find('span').html() + ":";
+                }
+                for (let j = 0; j < arr.length; j++) {
+                    if (j != arr.length - 1) {
+                        str += arr[j] + ';';
+                    }
+                    else {
+                        if (i != filterList.length - 1) {
+                            str += arr[j] + ',';
+                        }
+                        else {
+                            str += arr[j];
+                        }
+                    }
+                }
+                arr = [];
+            }
+            if (str[str.length - 1] == ",") {
+                arr = str.split('');
+                arr.splice(arr.length - 1, 1);
+                str = arr.join("");
+            }
+            if (str == "") {
+                window.location.href = Url + "&page=1&EnumParam=" + this.value + "&CookieValue=" + "@Model.CookieValue";
+            }
+            else {
+            
+}
     });
 
     </script>
