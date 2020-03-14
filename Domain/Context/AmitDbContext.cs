@@ -50,8 +50,6 @@ namespace AmitTextile.Domain.Context
 
         public DbSet<ChildCommentQuestion> ChildCommentQuestions { get; set; }
 
-        public DbSet<ChildCommentReview> ChildCommentReviews { get; set; }
-
         public DbSet<Image> Images { get; set; }
 
         public DbSet<Item> Items { get; set; }

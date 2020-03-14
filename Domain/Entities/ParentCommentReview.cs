@@ -7,8 +7,6 @@ namespace AmitTextile.Domain
     {
         public Guid ParentCommentReviewId { get; set; }
 
-        public ICollection<ChildCommentReview> ChildComments { get; set; }
-
         public string Text { get; set; }
 
         public User Sender { get; set; }
@@ -16,12 +14,16 @@ namespace AmitTextile.Domain
         public string SenderId { get; set; }
 
         public int Stars { get; set; }
+        
+        public Textile Textile { get; set; }
 
+        public Guid TextileId { get; set; }
         public ParentCommentReview()
         {
-            ChildComments= new List<ChildCommentReview>();
+            
         }
         public DateTime DatePosted { get; set; }
+
 
     }
 }
