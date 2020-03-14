@@ -490,23 +490,121 @@
     <script type="text/javascript">
         let Url = "@ViewBag.Url" + "?CatId=" + "@Model.Category.CategoryId";
         $('#sort').change(function (e) {
-            window.location.href = Url + "&page=1&EnumParam=" + this.value + "&CookieValue="+"@Model.CookieValue";
+            let filterList = document.getElementsByClassName('filterField');
+            let str = "";
+            let arr = [];
+            let options;
+            let input;
+            for (let i = 0; i < filterList.length; i++) {
+
+                options = $(filterList[i]).find('.filterOptions').find('ul').find('li');
+                for (let j = 0; j < options.length; j++) {
+                    input = $(options[j]).find('input');
+                    if ($(input).prop('checked')) {
+                        arr.push($(options[j]).find('span').html());
+                    }
+                }
+                if (arr.length != 0) {
+                    str += $(filterList[i]).find('.filterName').find('span').html() + ":";
+                }
+                for (let j = 0; j < arr.length; j++) {
+                    if (j != arr.length - 1) {
+                        str += arr[j] + ';';
+                    }
+                    else {
+                        if (i != filterList.length - 1) {
+                            str += arr[j] + ',';
+                        }
+                        else {
+                            str += arr[j];
+                        }
+                    }
+                }
+                arr = [];
+            }
+            if (str[str.length - 1] == ",") {
+                arr = str.split('');
+                arr.splice(arr.length - 1, 1);
+                str = arr.join("");
+            }
+            if (str == "") {
+                window.location.href = Url + "&page=1&EnumParam=" + this.value + "&CookieValue=" + "@Model.CookieValue";
+            }
+            else {
+                window.location.href = Url + "&page=1&EnumParam=" + this.value+ "&Filter=" + str + "&CookieValue=" + "@Model.CookieValue";
+            }
         });
 
     </script>
     <script type="text/javascript">
-            $('#list').click(function (e) {
+        function getStr() {
+            let filterList = document.getElementsByClassName('filterField');
+            let str = "";
+            let arr = [];
+            let options;
+            let input;
+            for (let i = 0; i < filterList.length; i++) {
+
+                options = $(filterList[i]).find('.filterOptions').find('ul').find('li');
+                for (let j = 0; j < options.length; j++) {
+                    input = $(options[j]).find('input');
+                    if ($(input).prop('checked')) {
+                        arr.push($(options[j]).find('span').html());
+                    }
+                }
+                if (arr.length != 0) {
+                    str += $(filterList[i]).find('.filterName').find('span').html() + ":";
+                }
+                for (let j = 0; j < arr.length; j++) {
+                    if (j != arr.length - 1) {
+                        str += arr[j] + ';';
+                    }
+                    else {
+                        if (i != filterList.length - 1) {
+                            str += arr[j] + ',';
+                        }
+                        else {
+                            str += arr[j];
+                        }
+                    }
+                }
+                arr = [];
+        }
+            if (str[str.length - 1] == ",") {
+                arr = str.split('');
+                arr.splice(arr.length - 1, 1);
+                str = arr.join("");
+            }
+            return str;
+        }
+        let str;
+        $('#list').click(function (e) {
+            str = getStr();
+            if (str == "") {
                 e.preventDefault();
                 if (!$('#list').hasClass('viewSelected')) {
-                    window.location.href = "@ViewBag.Url" + "?CatId="+ "@Model.Category.CategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "List";
+                    window.location.href = "@ViewBag.Url" + "?CatId=" + "@Model.Category.CategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "List";
                 }
-
+            }
+            else {
+                if (!$('#list').hasClass('viewSelected')) {
+                    window.location.href = "@ViewBag.Url" + "?CatId=" + "@Model.Category.CategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams"+"&Filter=" + str + "&CookieValue=" + "List";
+                }
+            }
             });
-            $('#grid').click(function (e) {
-                e.preventDefault();
+        $('#grid').click(function (e) {
+            str = getStr();
+            e.preventDefault();
+            if (str == "") {
                 if (!$('#grid').hasClass('viewSelected')) {
                     window.location.href = "@ViewBag.Url" + "?CatId=" + "@Model.Category.CategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "Grid";
                 }
+            }
+            else {
+                if (!$('#grid').hasClass('viewSelected')) {
+                    window.location.href = "@ViewBag.Url" + "?CatId=" + "@Model.Category.CategoryId" + "&page=" + "@Model.PageViewModel.PageNumber" + "&EnumParam=" + "@Model.SortingParams"+ "&Filter=" + str + "&CookieValue=" + "Grid";
+                }
+            }
             });
     </script>
     <script type="text/javascript">
