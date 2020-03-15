@@ -409,7 +409,7 @@
                         <span class="commentUserName">
                             @x.Fio
                         </span>
-                        <a href="#popupReplyForm" data-fancybox="popupReplyForm" class="replyButton" data="@x.ParentCommentQuestionId"><i class="fas fa-reply"></i> Ответить</a>
+                        <a href="#popupReplyForm" data-fancybox="popupReplyForm" class="replyButton" parentId="@x.ParentCommentQuestionId"><i class="fas fa-reply"></i> Ответить</a>
                         <span class="commentDate">
                             @x.DatePosted.ToString();
                         </span>
@@ -564,15 +564,14 @@
             </script>
             <script type="text/javascript">
                 $(document).ready(function () {
-                    let qId = $('#popupReplyForm').attr('data').value;
-                    alert(qId);
-                    /*$('#popupReplyForm').fancybox({
+                    let qId = $('.replyButton').attr('parentId');
+                    $('#popupReplyForm').fancybox({
                         'afterClose': function () {
-
+                            $('#popupReplyForm').find('#qId').remove();
                         }
-                    });*/
+                    });
                     $('.replyButton').click(function () {
-                        $('#popupReplyForm').append('<input value='+ +'type="hidden"/>')
+                        $('#popupReplyForm').append('<input id="qId" value='+qId+'type="hidden"/>')
                     });
                 });
             </script>
