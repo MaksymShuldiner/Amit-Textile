@@ -1238,3 +1238,7 @@ textarea {
 .commentTextContainer {
     border-bottom: 1px solid #d3d3d3;
 }
+.navBcomments{
+    width:60%;
+    text-align:center;
+}

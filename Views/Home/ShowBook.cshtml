@@ -249,8 +249,8 @@
                                                 <span>@x.Value</span>
                                             </td>
                                         }
-                                        
-                                        
+
+
                                     </tr>
                                 </table>
                             </div>
@@ -426,7 +426,7 @@
                         {
                             <a href="#popupReplyForm" data-fancybox="@(Guid.NewGuid())" class="replyButton" parentId="@x.ParentCommentQuestionId"><i class="fas fa-reply"></i> Ответить</a>
                         }
-                       
+
                         <span class="commentDate">
                             @x.DatePosted.ToString()
                         </span>
@@ -460,9 +460,51 @@
                         </div>
                     }
                 </div>
-               
+
             }
         }
+        <div class="navButtons navBcomments">
+            <ul>
+                @if (Model.PageViewModel.HasPreviousPage)
+                {
+                    <a class="zxc" href="@ViewBag.ChildUrl?ChildCatId=@Model.Category.ChildCategoryId&page=@(Model.PageViewModel.PageNumber-1)&EnumParam=@Model.SortingParams&CookieValue=@Model.CookieValue&Filter=@Model.FilterQuery">
+                        <li class="pagButtons">
+                            <span><i class="fas fa-chevron-left"></i>Назад</span>
+                        </li>
+                    </a>
+                }
+                else
+                {
+                    <li class="pagButtons disabled">
+                        <span><i class="fas fa-chevron-left"></i> Назад</span>
+                    </li>
+                }
+                @foreach (var x in Model.PagesCountList)
+                {
+                    <a class="zxc1" href="@ViewBag.ChildUrl?ChildCatId=@Model.Category.ChildCategoryId&page=@x&EnumParam=@Model.SortingParams&CookieValue=@Model.CookieValue&Filter=@Model.FilterQuery">
+                        <li class="pagButtons number">
+                            <span>@x</span>
+                        </li>
+                    </a>
+                }
+
+                @if (Model.PageViewModel.HasNextPage)
+                {
+                    <a class="zxc" href="@ViewBag.ChildUrl?ChildCatId=@Model.Category.ChildCategoryId&page=@(Model.PageViewModel.PageNumber+1)&EnumParam=@Model.SortingParams&CookieValue=@Model.CookieValue&Filter=@Model.FilterQuery">
+                        <li class="pagButtons">
+                            <span>Вперед <i class="fas fa-chevron-right"></i></span>
+                        </li>
+                    </a>
+                }
+                else
+                {
+                    <li class="pagButtons disabled">
+                        <span> Вперед<i class="fas fa-chevron-right"></i></span>
+                    </li>
+                }
+
+            </ul>
+        </div>
         <div class="hidden">
             <form id="login">
                 <font>Эл. почта</font><br><br>
@@ -492,7 +534,7 @@
                 <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
                 <br />
             </form>
-          
+
         </div>
     </div>
             <footer>
@@ -585,12 +627,9 @@
             <script type="text/javascript">
                 $(document).ready(function () {
                     let qId = $('.replyButton').attr('parentId');
-                    $('#popupReplyForm').fancybox({
-                        'afterClose': function () {
-                            $('#popupReplyForm').find('#qId').remove();
-                        }
-                    });
                     $('.replyButton').click(function () {
+                        let q = $('#popupReplyForm').find('#qId');
+                        if (q.length != 0) { q[0].remove() };
                         $('#popupReplyForm').append('<input id="qId" value='+qId+' type="hidden"/>')
                     });
                 });
