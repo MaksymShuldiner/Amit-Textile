@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AmitTextile.Domain
 {
@@ -11,7 +12,7 @@ namespace AmitTextile.Domain
         public ParentCommentQuestion ParentComment { get; set; }
 
         public Guid ParentCommentId { get; set; }
-
+        [ForeignKey("SenderId")]
         public User Sender { get; set; }
 
         public string SenderId { get; set; }
