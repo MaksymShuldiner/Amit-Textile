@@ -11,6 +11,7 @@ using AmitTextile.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AmitTextile.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -785,10 +786,13 @@ namespace AmitTextile.Controllers
             { PageViewModel = pageViewModel, Textiles = Textiles, SortingParams = EnumParam, Category = _context.ChildCategories.Include(x => x.Category).FirstOrDefault(x=> x.ChildCategoryId == Guid.Parse(ChildCatId)), PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = CookieValue, FilterDictionary = Filter, Charachteristic = charachteristics, FilterQuery = FilterQuery};
             return View(model);
         }
+       
         public async Task<IActionResult> ShowBook(string TextileId, int page = 1, string Section = "AboutItem" )
         {
+            ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
             string Fio = _context.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name)?.Result?.Fio;
             int commentscount = 6;
+            bool x = User.Identity.IsAuthenticated;
             Textile textile = new Textile();
             List<ParentCommentReview> parentCommentReviews = new List<ParentCommentReview>();
             List<ParentCommentQuestion> parentCommentQuestions = new List<ParentCommentQuestion>();
@@ -823,13 +827,27 @@ namespace AmitTextile.Controllers
             }
             else if(Section=="CommentsReviews")
             {
+                PageViewModel model = new PageViewModel(parentCommentReviews.Count, page, commentscount);
+                List<int> pagesCounterList = new List<int>();
+                for (int i = 1; i <= model.TotalPages; i++)
+                {
+                    pagesCounterList.Add(i);
+                }
+                List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
                 return View(new TextileViewModel()
-                    { parentCommentReviews = parentCommentReviews, Section = "CommentsReviews",Fio = Fio, PageViewModel = new PageViewModel(parentCommentReviews.Count, page ,commentscount), Textile = textile});
+                    { parentCommentReviews = parentCommentReviews, Section = "CommentsReviews",Fio = Fio, PageViewModel = new PageViewModel(parentCommentReviews.Count, page ,commentscount), Textile = textile, PagesCount = newList });
             }
             else
             {
+                PageViewModel model = new PageViewModel(parentCommentQuestions.Count, page, commentscount);
+                List<int> pagesCounterList = new List<int>();
+                for (int i = 1; i <= model.TotalPages; i++)
+                {
+                    pagesCounterList.Add(i);
+                }
+                List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
                 return View(new TextileViewModel()
-                    { parentCommentQuestions = parentCommentQuestions, Section = "CommentsQuestions",Fio = Fio, PageViewModel  = new PageViewModel(parentCommentQuestions.Count, page, commentscount) , Textile = textile});
+                    { parentCommentQuestions = parentCommentQuestions, Section = "CommentsQuestions",Fio = Fio, PageViewModel  = new PageViewModel(parentCommentQuestions.Count, page, commentscount) , Textile = textile, PagesCount = newList});
             }
         }
 
@@ -839,18 +857,21 @@ namespace AmitTextile.Controllers
             DateTime datetime = DateTime.Parse(Datetime);
             Guid Id = Guid.Parse(TextileId);
             await _context.ParentCommentReviews.AddAsync(new ParentCommentReview(){DatePosted = datetime, TextileId = Id, ParentCommentReviewId = Guid.NewGuid(), Stars = Stars , SenderId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id, Text = Message, Advantages = Advantages, DrawBacks = Drawbacks,Fio = Fio});
-            return RedirectToAction(Url.Action("ShowBook", "Home",
-                new {TextileId = TextileId, page = 1, Section = "CommentsReviews"}));
+            await _context.SaveChangesAsync();
+            string Url2 = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook?TextileId={Id}&page=1&Section=CommentsReviews";
+            return Redirect(Url2);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ReplyToComment(string Datetime, string Message, string TextileId, int page, string ParentId, string Fio)
+        public async Task<IActionResult> ReplyToComment(string Datetime, string Message, string TextileId, int page, string Fio, string ParentId = "1")
         {
             DateTime datetime = DateTime.Parse(Datetime);
             Guid Id = Guid.Parse(TextileId);
             await _context.ChildCommentQuestions.AddAsync(new ChildCommentQuestion(){ChildCommentQuestionId = Guid.NewGuid(), TextileId = Guid.Parse(TextileId), DatePosted = datetime, ParentCommentId = Guid.Parse(ParentId), SenderId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id, Text = Message,Fio = Fio});
-            return RedirectToAction(Url.Action("ShowBook", "Home",
-                new { TextileId = TextileId, page = page, Section = "CommentsReviews" }));
+            await _context.SaveChangesAsync();
+           
+            string Url1 = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook?TextileId={Id}&page=1&Section=CommentsQuestions"; ;
+            return Redirect(Url1);
         }
         [HttpPost]
         public async Task<IActionResult> PostCommentQuestion(string Datetime, string Message, string TextileId, string Fio)
@@ -858,8 +879,11 @@ namespace AmitTextile.Controllers
             DateTime datetime = DateTime.Parse(Datetime);
             Guid Id = Guid.Parse(TextileId);
             await _context.ParentCommentQuestions.AddAsync(new ParentCommentQuestion(){DatePosted = datetime, TextileId = Guid.Parse(TextileId), SenderId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id, Text = Message, ParentCommentQuestionId = Guid.NewGuid(), Fio = Fio});
-            return RedirectToAction(Url.Action("ShowBook", "Home",
-                new { TextileId = TextileId, page = 1, Section = "CommentsReviews" }));
+            await _context.SaveChangesAsync();
+            string Url1 = Url.Action("ShowBook", "Home",
+                new {TextileId = TextileId, page = 1, Section = "CommentsReviews"});
+            string Url2 = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook?TextileId={Id}&page=1&Section=CommentsQuestions";
+            return Redirect(Url2);
         }
     }
 }

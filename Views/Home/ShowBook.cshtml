@@ -1,4 +1,5 @@
-﻿@model AmitTextile.Models.TextileViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@model AmitTextile.Models.TextileViewModel
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -105,7 +106,7 @@
             @if (Model.Section == "AboutItem")
             {
                 <div class="button buttonSelected">
-                    <a href="#">
+                    <a href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=AboutItem">
                         О товаре
                     </a>
                 </div>
@@ -113,7 +114,7 @@
             else
             {
                 <div class="button">
-                    <a href="#">
+                    <a href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=AboutItem">
                         О товаре
                     </a>
                 </div>
@@ -121,7 +122,7 @@
             @if (Model.Section == "Charachteristics")
             {
                 <div class="button buttonSelected">
-                    <a href="#">
+                    <a href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=Charachteristics">
                         Характеристики
                     </a>
                 </div>
@@ -129,7 +130,7 @@
             else
             {
                 <div class="button">
-                    <a href="#">
+                    <a href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=Charachteristics">
                         Характеристики
                     </a>
                 </div>
@@ -137,7 +138,7 @@
             @if (Model.Section == "CommentsReviews")
             {
                 <div class="button buttonSelected">
-                    <a href="#">
+                    <a href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=CommentsReviews">
                         Отзывы
                     </a>
                 </div>
@@ -145,7 +146,7 @@
             else
             {
                 <div class="button">
-                    <a href="#">
+                    <a href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=CommentsReviews">
                         Отзывы
                     </a>
                 </div>
@@ -153,7 +154,7 @@
             @if (Model.Section == "CommentsQuestions")
             {
                 <div class="button buttonSelected">
-                    <a href="#">
+                    <a href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=CommentsQuestions">
                         Вопросы
                     </a>
                 </div>
@@ -161,7 +162,7 @@
             else
             {
                 <div class="button">
-                    <a href="#">
+                    <a href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=CommentsQuestions">
                         Вопросы
                     </a>
                 </div>
@@ -239,12 +240,17 @@
                             <div class="characteristics">
                                 <table>
                                     <tr>
-                                        <td class="characteristicName">
-                                            <span>Characteristic Name</span>
-                                        </td>
-                                        <td class="characteristicValue">
-                                            <span>Characteristic Value</span>
-                                        </td>
+                                        @foreach (var x in Model.Textile.Charachteristics)
+                                        {
+                                            <td class="characteristicName">
+                                                <span>@x.Name</span>
+                                            </td>
+                                            <td class="characteristicValue">
+                                                <span>@x.Value</span>
+                                            </td>
+                                        }
+                                        
+                                        
                                     </tr>
                                 </table>
                             </div>
@@ -320,9 +326,12 @@
         }
         @if (Model.Section == "CommentsReviews")
         {
-            <a href="#popupCommentForm" data-fancybox="popupCommentForm">dawdfdaw</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="#popupCommentForm" data-fancybox="popupCommentForm">dawdfdaw</a>
+            }
             <div class="comment hidden">
-                <form id="popupCommentForm" action="#">
+                <form id="popupCommentForm" action="@Url.Action("PostCommentReview", "Home")" method="post">
                     <h1 class="formName">Написать отзыв</h1>
                     <label for="ratingComment"></label>
                     <input id="ratingComment" name="Stars">
@@ -331,11 +340,11 @@
                     <label for="cons">Недостатки</label><br>
                     <input class="cons" type="text" name="Drawbacks"><br>
                     <label for="commentText">Ваш комментарий</label><br>
-                    <input type="hidden" name="TextileId" value="@Model.Textile.TextileId/" />
+                    <input type="hidden" name="TextileId" value="@Model.Textile.TextileId" />
                     <textarea name="Message"></textarea> <br>
                     <label for="userNameField">Ваше имя и фамилия</label><br>
                     <input type="text" class="userNameField" name="Fio" value="@Model.Fio"><br><br>
-                    <input type="hidden" name="Datetime" value="@DateTime.Now.ToString()"/>
+                    <input type="hidden" name="Datetime" value="@DateTime.Now.ToString()" />
                     <input type="button" class="declineComment" value="Отменить">
                     <input type="submit" class="sendComment" value="Оставить отзыв!">
                 </form>
@@ -374,44 +383,52 @@
         }
         @if (Model.Section == "CommentsQuestions")
         {
-            <a href="#popupQuestionForm" data-fancybox="popupQuestionForm">dawdfdaw</a>
+            if (User.Identity.IsAuthenticated)
+            {
+                <a href="#popupQuestionForm" data-fancybox="popupQuestionForm">dffdfff</a>
+            }
             <div class="comment hidden">
-                <form id="popupQuestionForm" action="@Url.Action("PostCommentQuestion", "Home")">
+                <form id="popupQuestionForm" action="@Url.Action("PostCommentQuestion", "Home")" method="post">
                     <h1 class="formName">Задать вопрос</h1>
                     <label for="commentText">Ваш вопрос</label><br>
-                    <input type="hidden" name="TextileId" value="@Model.Textile.TextileId/"/>
+                    <input type="hidden" name="TextileId" value="@Model.Textile.TextileId" />
                     <textarea name="Message"></textarea><br><br>
                     <label for="userNameField">Ваше имя и фамилия</label><br>
                     <input type="text" class="userNameField" value="@Model.Fio" name="Fio"><br><br>
                     <input type="button" class="declineComment" value="Отменить">
-                    <input type="hidden" name="Datetime" value="@DateTime.Now.ToString()"/>
+                    <input type="hidden" name="Datetime" value="@DateTime.Now.ToString()" />
                     <input type="submit" class="sendComment" value="Задать вопрос!">
                 </form>
             </div>
             <div class="comment hidden">
-                <form id="popupReplyForm" action="@Url.Action("ReplyToComment", "Home")">
+                <form id="popupReplyForm" action="@Url.Action("ReplyToComment", "Home")" method="post">
                     <h1 class="formName">Ответить на вопрос</h1>
                     <label for="commentText">Ваш ответ</label><br>
-                    <input type="hidden" name="TextileId" value="@Model.Textile.TextileId/"/>
-                    <input type="hidden" value="@Model.PageViewModel.PageNumber" name="page"/>
+                    <input type="hidden" name="TextileId" value="@Model.Textile.TextileId" />
+                    <input type="hidden" value="@Model.PageViewModel.PageNumber" name="page" />
                     <textarea name="Message"></textarea><br><br>
                     <label for="userNameField" value="@Model.Fio" name="Fio">Ваше имя и фамилия</label><br>
                     <input type="text" class="userNameField"><br><br>
-                    <input type="hidden" name="Datetime" value="@DateTime.Now.ToString()"/>
+                    <input type="hidden" name="Datetime" value="@DateTime.Now.ToString()" />
                     <input type="button" class="declineComment" value="Отменить">
                     <input type="submit" class="sendComment" value="Ответить">
                 </form>
             </div>
             @foreach (var x in Model.parentCommentQuestions)
             {
+                int count = 0;
                 <div class="commentPosted questionPosted">
                     <div class="commentInfo">
                         <span class="commentUserName">
                             @x.Fio
                         </span>
-                        <a href="#popupReplyForm" data-fancybox="popupReplyForm" class="replyButton" parentId="@x.ParentCommentQuestionId"><i class="fas fa-reply"></i> Ответить</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a href="#popupReplyForm" data-fancybox="@(Guid.NewGuid())" class="replyButton" parentId="@x.ParentCommentQuestionId"><i class="fas fa-reply"></i> Ответить</a>
+                        }
+                       
                         <span class="commentDate">
-                            @x.DatePosted.ToString();
+                            @x.DatePosted.ToString()
                         </span>
                     </div>
                     <div class="commentTextContainer">
@@ -430,7 +447,7 @@
                                     </span>
                                     <a href="#popupReplyForm" data-fancybox="popupReplyForm" class="replyButton"><i class="fas fa-reply"></i> Ответить</a>
                                     <span class="commentDate">
-                                        @y.DatePosted.ToString();
+                                        @y.DatePosted.ToString()
                                     </span>
                                 </div>
                                 <div class="replyText">
@@ -443,38 +460,41 @@
                         </div>
                     }
                 </div>
+               
             }
         }
-    <div class="hidden">
-                    <form id="login">
-                        <font>Эл. почта</font><br><br>
-                        <div class="inputFields">
-                            <input type="email" id="loginName" name="UserEmail" required><br><br>
-                            <font>Пароль</font><br><br>
-                            <input type="password" id="loginPass" name="UserPassword" required><button type="button" id="showPassLogin" class="showBtn"><div class="atv"><i class="fas fa-eye"></i></div><div class="atv hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
-                        </div>
-                        <input type="submit" id="loginButton" class="registerButton" value="Войти" name="login" required><br><br>
-                        <input type="checkbox" id="checkbox" value="true">  Запомнить меня<br><br>
-                        <a data-fancybox="helo" href="#register">Зарегистрироваться</a> <br>
-                    </form>
+        <div class="hidden">
+            <form id="login">
+                <font>Эл. почта</font><br><br>
+                <div class="inputFields">
+                    <input type="email" id="loginName" name="UserEmail" required><br><br>
+                    <font>Пароль</font><br><br>
+                    <input type="password" id="loginPass" name="UserPassword" required><button type="button" id="showPassLogin" class="showBtn"><div class="atv"><i class="fas fa-eye"></i></div><div class="atv hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
                 </div>
-                <div class="hidden">
-                    <form id="register" class="register">
-                        ФИО <br><br>
-                        <div class="inputFields">
-                            <input type="text" id="registerName" name="UserName" required><br><br>
-                            Эл. почта <span>*</span><br><br>
-                            <input type="email" id="registerEmail" name="UserEmail" required><br><br>
-                            Придумайте пароль <span>*</span><br><br>
-                            <input type="password" id="registerPass" name="UserPassword" required><button type="button" id="showPassRegister" class="showBtn"><div class="atv1"><i class="fas fa-eye"></i></div><div class="atv1 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
-                            Подтвердите пароль <span>*</span><br><br>
-                            <input type="password" id="confirmPass" required><button type="button" id="showPassConfirm" class="showBtn"><div class="atv2"><i class="fas fa-eye"></i></div><div class="atv2 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
-                            Пароль должен содержать не менее 6 символов<br><br>
-                        </div>
-                        <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
-                    </form>
+                <input type="submit" id="loginButton" class="registerButton" value="Войти" name="login" required><br><br>
+                <input type="checkbox" id="checkbox" value="true">  Запомнить меня<br><br>
+                <a data-fancybox="helo" href="#register">Зарегистрироваться</a> <br>
+            </form>
+        </div>
+        <div class="hidden">
+            <form id="register" class="register">
+                ФИО <br><br>
+                <div class="inputFields">
+                    <input type="text" id="registerName" name="UserName" required><br><br>
+                    Эл. почта <span>*</span><br><br>
+                    <input type="email" id="registerEmail" name="UserEmail" required><br><br>
+                    Придумайте пароль <span>*</span><br><br>
+                    <input type="password" id="registerPass" name="UserPassword" required><button type="button" id="showPassRegister" class="showBtn"><div class="atv1"><i class="fas fa-eye"></i></div><div class="atv1 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                    Подтвердите пароль <span>*</span><br><br>
+                    <input type="password" id="confirmPass" required><button type="button" id="showPassConfirm" class="showBtn"><div class="atv2"><i class="fas fa-eye"></i></div><div class="atv2 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                    Пароль должен содержать не менее 6 символов<br><br>
                 </div>
-            </div>
+                <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
+                <br />
+            </form>
+          
+        </div>
+    </div>
             <footer>
             </footer>
             <script type="text/javascript">
