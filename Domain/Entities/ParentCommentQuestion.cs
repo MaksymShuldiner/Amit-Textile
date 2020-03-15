@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AmitTextile.Domain
 {
@@ -10,7 +11,7 @@ namespace AmitTextile.Domain
         public ICollection<ChildCommentQuestion> ChildComments { get; set; }
 
         public string Text { get; set; }
-
+        [ForeignKey("SenderId")]
         public User Sender { get; set; }
 
         public string SenderId { get; set; }

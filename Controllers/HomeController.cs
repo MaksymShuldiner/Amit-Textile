@@ -802,11 +802,13 @@ namespace AmitTextile.Controllers
             }
             else if (Section == "CommentsReviews")
             {
+                textile = await _context.Textiles.Include(x => x.Charachteristics).FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId));
                 parentCommentReviews = await _context.ParentCommentReviews.Include(x => x.Sender)
                     .Where(x => x.TextileId == Guid.Parse(TextileId)).OrderBy(x=> x.DatePosted).Skip((page-1)*commentscount).Take(commentscount).ToListAsync();
             }
             else if (Section == "CommentsQuestions")
             {
+                textile = await _context.Textiles.Include(x => x.Charachteristics).FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId));
                 parentCommentQuestions = await _context.ParentCommentQuestions.Include(x=>x.Sender).Include(x => x.ChildComments).ThenInclude(x=>x.Sender)
                     .Where(x => x.TextileId == Guid.Parse(TextileId)).OrderBy(x => x.DatePosted).Skip((page - 1) * commentscount).Take(commentscount).ToListAsync();
             }
@@ -822,12 +824,12 @@ namespace AmitTextile.Controllers
             else if(Section=="CommentsReviews")
             {
                 return View(new TextileViewModel()
-                    { parentCommentReviews = parentCommentReviews, Section = "CommentsReviews",Fio = Fio, PageViewModel = new PageViewModel(parentCommentReviews.Count, page ,commentscount)});
+                    { parentCommentReviews = parentCommentReviews, Section = "CommentsReviews",Fio = Fio, PageViewModel = new PageViewModel(parentCommentReviews.Count, page ,commentscount), Textile = textile});
             }
             else
             {
                 return View(new TextileViewModel()
-                    { parentCommentQuestions = parentCommentQuestions, Section = "CommentsQuestions",Fio = Fio, PageViewModel  = new PageViewModel(parentCommentQuestions.Count, page, commentscount) });
+                    { parentCommentQuestions = parentCommentQuestions, Section = "CommentsQuestions",Fio = Fio, PageViewModel  = new PageViewModel(parentCommentQuestions.Count, page, commentscount) , Textile = textile});
             }
         }
 

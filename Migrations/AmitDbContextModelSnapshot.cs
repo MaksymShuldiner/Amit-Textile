@@ -130,6 +130,9 @@ namespace AmitTextile.Migrations
                     b.Property<DateTime>("DatePosted")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Fio")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("ParentCommentId")
                         .HasColumnType("uniqueidentifier");
 
@@ -280,6 +283,9 @@ namespace AmitTextile.Migrations
                     b.Property<DateTime>("DatePosted")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Fio")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SenderId")
                         .HasColumnType("nvarchar(450)");
 
@@ -311,6 +317,9 @@ namespace AmitTextile.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DrawBacks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Fio")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SenderId")
