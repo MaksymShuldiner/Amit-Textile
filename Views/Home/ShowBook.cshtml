@@ -87,7 +87,7 @@
     </div>
     <div class="content">
         <div class="name">
-            <h1>Ткань АЙывЦЙА для вля пошива платьев, брюк, рубашек.</h1>
+            <h1>@Model.Textile.Name</h1>
         </div>
         <div class="ratingContainer">
             <table>
@@ -96,287 +96,388 @@
                         <label for="rating"></label>
                     </td>
                     <td>
-                        <input id="rating" name="rating" value="3.22">
+                        <input id="rating" name="rating" value="@Model.Textile.Stars">
                     </td>
                 </tr>
             </table>
         </div>
         <div class="buttonBar">
-            <div class="button buttonSelected">
-                <a href="#">
-                    О товаре
-                </a>
-            </div>
-            <div class="button">
-                <a href="#">
-                    Характеристики
-                </a>
-            </div>
-            <div class="button">
-                <a href="#">
-                    Отзывы
-                </a>
-            </div>
-            <div class="button">
-                <a href="#">
-                    Вопросы
-                </a>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="itemImageFull">
-                        <ul class="imgMiniContainer">
-                            <li class="imgMini"><img class="imgMiniimg" src="../images/img1.jpg" alt="imgMini"></li>
-                            <li class="imgMini"><img class="imgMiniimg" src="../images/img2.jpg" alt="imgMini"></li>
-                            <li class="imgMini"><img class="imgMiniimg" src="../images/img3.jpg" alt="imgMini"></li>
-                            <li class="imgMini"><img class="imgMiniimg" src="../images/talon_splash_0.jpg" alt="imgMini"></li>
-                        </ul>
-                        <img src="../images/talon_splash_0.jpg" alt="imgFull" id="imgFull">
-                    </div>
+            @if (Model.Section == "AboutItem")
+            {
+                <div class="button buttonSelected">
+                    <a href="#">
+                        О товаре
+                    </a>
                 </div>
-                <div class="col-md-6">
-                    <div class="itemInfo">
-                        <h2 class="inStock">
-                            <i class="fas fa-check-circle"></i> В наличии
-                        </h2><br>
-                        <h2 class="lowAm">
-                            <i class="far fa-clock"></i> Заканчивается
-                        </h2><br>
-                        <h2 class="notInStock">
-                            <i class="fas fa-minus-circle"></i> Нет в наличии
-                            <h2>
-                                <br>
-                                <span class="itemCost">
-                                    125 ₴
-                                </span>
-                                <button class="buyItem">
-                                    <a href="#">
-                                        <i class="fas fa-shopping-cart"></i> Купить
-                                    </a>
-                                </button>
-                                <button class="fav">
-                                    <a href="#" class="toFavourite selected">
-                                        <i class="far fa-heart"></i>
-                                    </a>
-                                    <a href="#" class="toFavourite"><i class="fas fa-heart"></i></a>
-                                </button>
-                    </div>
-                    <div class="itemDescription">
-                        <h2>
-                            О товаре
-                        </h2>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam fugiat, rerum maiores voluptatum quo perspiciatis autem praesentium maxime molestias eius, odio, sapiente aliquam. Quae deserunt voluptas unde, veniam magnam, animi! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam soluta deleniti tempore eaque odit, repellendus ipsam voluptate, magnam, placeat reiciendis exercitationem modi sunt impedit error. Soluta blanditiis fuga ea eos voluptatem officia, doloribus temporibus magni dignissimos quibusdam doloremque corrupti aliquam veniam mollitia at nemo modi voluptas adipisci. Aspernatur reiciendis, maiores accusamus consectetur. Quasi voluptates asperiores, ipsam unde reiciendis vero aut ipsa iste voluptatum, quos similique consequuntur hic nemo sint culpa aspernatur officiis expedita quaerat amet optio iure labore? Est esse officia deleniti nam soluta distinctio consectetur, repellendus nesciunt amet commodi, non itaque unde laudantium inventore mollitia, quaerat, quae earum possimus!</span>
-                    </div>
+            }
+            else
+            {
+                <div class="button">
+                    <a href="#">
+                        О товаре
+                    </a>
                 </div>
-
-            </div>
+            }
+            @if (Model.Section == "Charachteristics")
+            {
+                <div class="button buttonSelected">
+                    <a href="#">
+                        Характеристики
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="button">
+                    <a href="#">
+                        Характеристики
+                    </a>
+                </div>
+            }
+            @if (Model.Section == "CommentsReviews")
+            {
+                <div class="button buttonSelected">
+                    <a href="#">
+                        Отзывы
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="button">
+                    <a href="#">
+                        Отзывы
+                    </a>
+                </div>
+            }
+            @if (Model.Section == "CommentsQuestions")
+            {
+                <div class="button buttonSelected">
+                    <a href="#">
+                        Вопросы
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="button">
+                    <a href="#">
+                        Вопросы
+                    </a>
+                </div>
+            }
         </div>
-        <div class="charact">
+        @if (Model.Section == "AboutItem")
+        {
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-8">
-                        <div class="characteristics">
-                            <table>
-                                <tr>
-                                    <td class="characteristicName">
-                                        <span>Characteristic Name</span>
-                                    </td>
-                                    <td class="characteristicValue">
-                                        <span>Characteristic Value</span>
-                                    </td>
-                                </tr>
-                            </table>
+                    <div class="col-md-6">
+                        <div class="itemImageFull">
+                            <ul class="imgMiniContainer">
+                                <li class="imgMini"><img class="imgMiniimg" src="../images/img1.jpg" alt="imgMini"></li>
+                                <li class="imgMini"><img class="imgMiniimg" src="../images/img2.jpg" alt="imgMini"></li>
+                                <li class="imgMini"><img class="imgMiniimg" src="../images/img3.jpg" alt="imgMini"></li>
+                                <li class="imgMini"><img class="imgMiniimg" src="../images/talon_splash_0.jpg" alt="imgMini"></li>
+                            </ul>
+                            <img src="../images/talon_splash_0.jpg" alt="imgFull" id="imgFull">
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="itemMini">
-                            <div class="itemInfoMini">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <div class="itemMiniImgContainer">
-                                                <img src="../images/img1.jpg" alt="awdwadwadawd">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-7">
-                                            <div class="itemMiniName">
-                                                <span>
-                                                    Ткань АЙывЦЙА для вля пошива платьев, брюк, рубашек.
-                                                </span>
-                                                <span class="fixCost">ItemFixCost</span>
-                                                <button class="buyItem fixed">
-                                                    <a href="#">
-                                                        <i class="fas fa-shopping-cart"></i> Купить
-                                                    </a>
-                                                </button>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="itemInfo">
+                    <div class="col-md-6">
+                        <div class="itemInfo">
+                            @if (Model.Textile.WarehouseAmount >= 30)
+                            {
                                 <h2 class="inStock">
                                     <i class="fas fa-check-circle"></i> В наличии
-                                </h2><br>
-                                <span class="itemCost">
-                                    125 ₴
-                                </span>
-                                <button class="fav">
-                                    <a href="#" class="toFavourite selected">
-                                        <i class="far fa-heart"></i>
-                                    </a>
-                                    <a href="#" class="toFavourite"><i class="fas fa-heart"></i></a>
-                                </button>
-                            </div>
+                                </h2>
+                                <br />
+                            }
+                            else if (Model.Textile.WarehouseAmount < 30 && Model.Textile.WarehouseAmount > 0)
+                            {
+                                <h2 class="lowAm">
+                                    <i class="far fa-clock"></i> Заканчивается
+                                </h2>
+                                <br />
+                            }
+                            else
+                            {
+                                <h2 class="notInStock">
+                                    <i class="fas fa-minus-circle"></i> Нет в наличии
+                                </h2>
+                            }
+                            <br />
+                            <span class="itemCost">
+                                @Model.Textile.Price
+                            </span>
                             <button class="buyItem">
                                 <a href="#">
                                     <i class="fas fa-shopping-cart"></i> Купить
                                 </a>
                             </button>
+                            <button class="fav">
+                                <a href="#" class="toFavourite selected">
+                                    <i class="far fa-heart"></i>
+                                </a>
+                                <a href="#" class="toFavourite"><i class="fas fa-heart"></i></a>
+                            </button>
+                        </div>
+                        <div class="itemDescription">
+                            <h2>
+                                О товаре
+                            </h2>
+                            <span>@Model.Textile.Description</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <a href="#popupCommentForm" data-fancybox="popupCommentForm">dawdfdaw</a>
-        <a href="#popupQuestionForm" data-fancybox="popupQuestionForm">dawdfdaw</a>
-        <div class="comment hidden">
-            <form id="popupCommentForm" action="#">
-                <h1 class="formName">Написать отзыв</h1>
-                <label for="ratingComment"></label>
-                <input id="ratingComment" name="ratingComment">
-                <label for="pros">Достоинства</label><br>
-                <input class="pros" type="text" name="pros"><br>
-                <label for="cons">Недостатки</label><br>
-                <input class="cons" type="text" name="cons"><br>
-                <label for="commentText">Ваш комментарий</label><br>
-                <textarea name="commentText"></textarea> <br>
-                <label for="userNameField">Ваше имя и фамилия</label><br>
-                <input type="text" class="userNameField"><br><br>
-                <input type="button" class="declineComment" value="Отменить">
-                <input type="submit" class="sendComment" value="Оставить отзыв!">
-            </form>
-        </div>
-        <div class="comment hidden">
-            <form id="popupQuestionForm" action="#">
-                <h1 class="formName">Задать вопрос</h1>
-                <label for="commentText">Ваш вопрос</label><br>
-                <textarea name="commentText"></textarea><br><br>
-                <label for="userNameField">Ваше имя и фамилия</label><br>
-                <input type="text" class="userNameField"><br><br>
-                <input type="button" class="declineComment" value="Отменить">
-                <input type="submit" class="sendComment" value="Задать вопрос!">
-            </form>
-        </div>
-        <div class="comment hidden">
-            <form id="popupReplyForm" action="#">
-                <h1 class="formName">Ответить на вопрос</h1>
-                <label for="commentText">Ваш ответ</label><br>
-                <textarea name="commentText"></textarea><br><br>
-                <label for="userNameField">Ваше имя и фамилия</label><br>
-                <input type="text" class="userNameField"><br><br>
-                <input type="button" class="declineComment" value="Отменить">
-                <input type="submit" class="sendComment" value="Ответить">
-            </form>
-        </div>
-        <div class="commentPosted">
-            <div class="commentInfo">
-                <span class="commentUserName">
-                    UserName
-                </span>
-                <span class="commentDate">
-                    12.01.2020
-                </span>
-            </div>
-            <div class="commentTextContainer">
-                <input class="postedCommentRating" name="postedCommentRating" value="3">
-                <br><span class="commentText">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique rem minus accusantium in doloribus voluptatum, delectus iusto ratione eum facilis, repudiandae animi debitis incidunt? Voluptatibus reprehenderit rem minus, iusto amet.
-                </span>
-                <br><br><label for="pros">Достоинства:</label><br>
-                <div class="pros">
-                    <span>
-                        достоинства
-                    </span>
+        }
+        @if (Model.Section == "Charachteristics")
+        {
+            <div class="charact">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="characteristics">
+                                <table>
+                                    <tr>
+                                        <td class="characteristicName">
+                                            <span>Characteristic Name</span>
+                                        </td>
+                                        <td class="characteristicValue">
+                                            <span>Characteristic Value</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="itemMini">
+                                <div class="itemInfoMini">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="itemMiniImgContainer">
+                                                    <img src="../images/img1.jpg" alt="awdwadwadawd">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <div class="itemMiniName">
+                                                    <span>
+                                                        @Model.Textile.Name
+                                                    </span>
+                                                    <span class="fixCost">ItemFixCost</span>
+                                                    <button class="buyItem fixed">
+                                                        <a href="#">
+                                                            <i class="fas fa-shopping-cart"></i> Купить
+                                                        </a>
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="itemInfo">
+                                    @if (Model.Textile.WarehouseAmount >= 30)
+                                    {
+                                        <h2 class="inStock">
+                                            <i class="fas fa-check-circle"></i> В наличии
+                                        </h2>
+                                        <br />
+                                    }
+                                    else if (Model.Textile.WarehouseAmount < 30 && Model.Textile.WarehouseAmount > 0)
+                                    {
+                                        <h2 class="lowAm">
+                                            <i class="far fa-clock"></i> Заканчивается
+                                        </h2>
+                                        <br />
+                                    }
+                                    else
+                                    {
+                                        <h2 class="notInStock">
+                                            <i class="fas fa-minus-circle"></i> Нет в наличии
+                                        </h2>
+                                    }
+                                    <span class="itemCost">
+                                        @Model.Textile.Price
+                                    </span>
+                                    <button class="fav">
+                                        <a href="#" class="toFavourite selected">
+                                            <i class="far fa-heart"></i>
+                                        </a>
+                                        <a href="#" class="toFavourite"><i class="fas fa-heart"></i></a>
+                                    </button>
+                                </div>
+                                <button class="buyItem">
+                                    <a href="#">
+                                        <i class="fas fa-shopping-cart"></i> Купить
+                                    </a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <label for="cons">Недостатки:</label>
-                <div class="cons">
-                    <span>
-                        недостатки
-                    </span>
-                </div>
             </div>
-        </div>
-        <div class="commentPosted questionPosted">
-            <div class="commentInfo">
-                <span class="commentUserName">
-                    UserName
-                </span>
-                <a href="#popupReplyForm" data-fancybox="popupReplyForm" class="replyButton"><i class="fas fa-reply"></i> Ответить</a>
-                <span class="commentDate">
-                    12.01.2020
-                </span>
+        }
+        @if (Model.Section == "CommentsReviews")
+        {
+            <a href="#popupCommentForm" data-fancybox="popupCommentForm">dawdfdaw</a>
+            <div class="comment hidden">
+                <form id="popupCommentForm" action="#">
+                    <h1 class="formName">Написать отзыв</h1>
+                    <label for="ratingComment"></label>
+                    <input id="ratingComment" name="Stars">
+                    <label for="pros">Достоинства</label><br>
+                    <input class="pros" type="text" name="Advantages"><br>
+                    <label for="cons">Недостатки</label><br>
+                    <input class="cons" type="text" name="Drawbacks"><br>
+                    <label for="commentText">Ваш комментарий</label><br>
+                    <input type="hidden" name="TextileId" value="@Model.Textile.TextileId/" />
+                    <textarea name="Message"></textarea> <br>
+                    <label for="userNameField">Ваше имя и фамилия</label><br>
+                    <input type="text" class="userNameField" name="Fio" value="@Model.Fio"><br><br>
+                    <input type="hidden" name="Datetime" value="@DateTime.Now.ToString()"/>
+                    <input type="button" class="declineComment" value="Отменить">
+                    <input type="submit" class="sendComment" value="Оставить отзыв!">
+                </form>
             </div>
-            <div class="commentTextContainer">
-                <br><span class="commentText">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique rem minus accusantium in doloribus voluptatum, delectus iusto ratione eum facilis, repudiandae animi debitis incidunt? Voluptatibus reprehenderit rem minus, iusto amet.
-                </span>
-            </div>
-            <div class="replyToQuestion">
-                <div class="reply">
-                    <div class="replyInfo">
+            @foreach (var x in Model.parentCommentReviews)
+            {
+                <div class="commentPosted">
+                    <div class="commentInfo">
                         <span class="commentUserName">
-                            UserName
                         </span>
-                        <a href="#popupReplyForm" data-fancybox="popupReplyForm" class="replyButton"><i class="fas fa-reply"></i> Ответить</a>
                         <span class="commentDate">
-                            12.01.2020
+                            @x.DatePosted.ToString();
                         </span>
                     </div>
-                    <div class="replyText">
-                        <br><span class="commentText">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique rem minus accusantium in doloribus voluptatum, delectus iusto ratione eum facilis, repudiandae animi debitis incidunt? Voluptatibus reprehenderit rem minus, iusto amet.
+                    <div class="commentTextContainer">
+                        <input class="postedCommentRating" name="postedCommentRating" value="3">
+                        <br>
+                        <span class="commentText">
+                            @x.Text
+                        </span>
+                        <br><br><label for="pros">Достоинства:</label><br>
+                        <div class="pros">
+                            <span>
+                                @x.Advantages
+                            </span>
+                        </div>
+                        <label for="cons">Недостатки:</label>
+                        <div class="cons">
+                            <span>
+                                @x.DrawBacks
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        @if (Model.Section == "CommentsQuestions")
+        {
+            <a href="#popupQuestionForm" data-fancybox="popupQuestionForm">dawdfdaw</a>
+            <div class="comment hidden">
+                <form id="popupQuestionForm" action="@Url.Action("PostCommentQuestion", "Home")">
+                    <h1 class="formName">Задать вопрос</h1>
+                    <label for="commentText">Ваш вопрос</label><br>
+                    <input type="hidden" name="TextileId" value="@Model.Textile.TextileId/"/>
+                    <textarea name="Message"></textarea><br><br>
+                    <label for="userNameField">Ваше имя и фамилия</label><br>
+                    <input type="text" class="userNameField" value="@Model.Fio" name="Fio"><br><br>
+                    <input type="button" class="declineComment" value="Отменить">
+                    <input type="hidden" name="Datetime" value="@DateTime.Now.ToString()"/>
+                    <input type="submit" class="sendComment" value="Задать вопрос!">
+                </form>
+            </div>
+            <div class="comment hidden">
+                <form id="popupReplyForm" action="@Url.Action("ReplyToComment", "Home")">
+                    <h1 class="formName">Ответить на вопрос</h1>
+                    <label for="commentText">Ваш ответ</label><br>
+                    <input type="hidden" name="TextileId" value="@Model.Textile.TextileId/"/>
+                    <input type="hidden" value="@Model.PageViewModel.PageNumber" name="page"/>
+                    <textarea name="Message"></textarea><br><br>
+                    <label for="userNameField" value="@Model.Fio" name="Fio">Ваше имя и фамилия</label><br>
+                    <input type="text" class="userNameField"><br><br>
+                    <input type="hidden" name="Datetime" value="@DateTime.Now.ToString()"/>
+                    <input type="button" class="declineComment" value="Отменить">
+                    <input type="submit" class="sendComment" value="Ответить">
+                </form>
+            </div>
+            @foreach (var x in Model.parentCommentQuestions)
+            {
+                <div class="commentPosted questionPosted">
+                    <div class="commentInfo">
+                        <span class="commentUserName">
+                            @x.Fio
+                        </span>
+                        <a href="#popupReplyForm" data-fancybox="popupReplyForm" class="replyButton" data="@x.ParentCommentQuestionId"><i class="fas fa-reply"></i> Ответить</a>
+                        <span class="commentDate">
+                            @x.DatePosted.ToString();
                         </span>
                     </div>
+                    <div class="commentTextContainer">
+                        <br>
+                        <span class="commentText">
+                            @x.Text
+                        </span>
+                    </div>
+                    @foreach (var y in x.ChildComments)
+                    {
+                        <div class="replyToQuestion">
+                            <div class="reply">
+                                <div class="replyInfo">
+                                    <span class="commentUserName">
+                                        @y.Fio
+                                    </span>
+                                    <a href="#popupReplyForm" data-fancybox="popupReplyForm" class="replyButton"><i class="fas fa-reply"></i> Ответить</a>
+                                    <span class="commentDate">
+                                        @y.DatePosted.ToString();
+                                    </span>
+                                </div>
+                                <div class="replyText">
+                                    <br>
+                                    <span class="commentText">
+                                        @y.Text
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        }
+    <div class="hidden">
+                    <form id="login">
+                        <font>Эл. почта</font><br><br>
+                        <div class="inputFields">
+                            <input type="email" id="loginName" name="UserEmail" required><br><br>
+                            <font>Пароль</font><br><br>
+                            <input type="password" id="loginPass" name="UserPassword" required><button type="button" id="showPassLogin" class="showBtn"><div class="atv"><i class="fas fa-eye"></i></div><div class="atv hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                        </div>
+                        <input type="submit" id="loginButton" class="registerButton" value="Войти" name="login" required><br><br>
+                        <input type="checkbox" id="checkbox" value="true">  Запомнить меня<br><br>
+                        <a data-fancybox="helo" href="#register">Зарегистрироваться</a> <br>
+                    </form>
+                </div>
+                <div class="hidden">
+                    <form id="register" class="register">
+                        ФИО <br><br>
+                        <div class="inputFields">
+                            <input type="text" id="registerName" name="UserName" required><br><br>
+                            Эл. почта <span>*</span><br><br>
+                            <input type="email" id="registerEmail" name="UserEmail" required><br><br>
+                            Придумайте пароль <span>*</span><br><br>
+                            <input type="password" id="registerPass" name="UserPassword" required><button type="button" id="showPassRegister" class="showBtn"><div class="atv1"><i class="fas fa-eye"></i></div><div class="atv1 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                            Подтвердите пароль <span>*</span><br><br>
+                            <input type="password" id="confirmPass" required><button type="button" id="showPassConfirm" class="showBtn"><div class="atv2"><i class="fas fa-eye"></i></div><div class="atv2 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                            Пароль должен содержать не менее 6 символов<br><br>
+                        </div>
+                    </form>
+                    <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
                 </div>
             </div>
-        </div>
-        <div class="hidden">
-            <form id="login">
-                <font>Эл. почта</font><br><br>
-                <div class="inputFields">
-                    <input type="email" id="loginName" name="UserEmail" required><br><br>
-                    <font>Пароль</font><br><br>
-                    <input type="password" id="loginPass" name="UserPassword" required><button type="button" id="showPassLogin" class="showBtn"><div class="atv"><i class="fas fa-eye"></i></div><div class="atv hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
-                </div>
-                <input type="submit" id="loginButton" class="registerButton" value="Войти" name="login" required><br><br>
-                <input type="checkbox" id="checkbox" value="true">  Запомнить меня<br><br>
-                <a data-fancybox="helo" href="#register">Зарегистрироваться</a> <br>
-            </form>
-        </div>
-        <div class="hidden">
-            <form id="register" class="register">
-                ФИО <br><br>
-                <div class="inputFields">
-                    <input type="text" id="registerName" name="UserName" required><br><br>
-                    Эл. почта <span>*</span><br><br>
-                    <input type="email" id="registerEmail" name="UserEmail" required><br><br>
-                    Придумайте пароль <span>*</span><br><br>
-                    <input type="password" id="registerPass" name="UserPassword" required><button type="button" id="showPassRegister" class="showBtn"><div class="atv1"><i class="fas fa-eye"></i></div><div class="atv1 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
-                    Подтвердите пароль <span>*</span><br><br>
-                    <input type="password" id="confirmPass" required><button type="button" id="showPassConfirm" class="showBtn"><div class="atv2"><i class="fas fa-eye"></i></div><div class="atv2 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
-                    Пароль должен содержать не менее 6 символов<br><br>
-                </div>
-            </form>
-            <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
-        </div>
-    </div>
-    <footer>
-    </footer>
-    <script type="text/javascript">
+            <footer>
+            </footer>
+            <script type="text/javascript">
             function tgl() {
                 $('#regS').fadeOut(400);
             }
@@ -418,8 +519,8 @@
                     }
                 });
             });
-    </script>
-    <script type="text/javascript">
+            </script>
+            <script type="text/javascript">
         $('#loginButton').click(function (e) {
             e.preventDefault();
             let mail = document.getElementById('loginName').value;
@@ -460,14 +561,14 @@
                 }
             });
         });
-    </script>
-    <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
-    <script type="text/javascript" src="~/js/star-rating.js"></script>
-    <script type="text/javascript" src="~/js/ru.js"></script>
-    <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="~/js/main.js"></script>
-    <script type="text/javascript" src="~/libs/FontAwesome/all.min.js"></script>
-    <script type="text/javascript" src="~/libs/OwlCarousel/owl.carousel.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+            </script>
+            <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
+            <script type="text/javascript" src="~/js/star-rating.js"></script>
+            <script type="text/javascript" src="~/js/ru.js"></script>
+            <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>
+            <script type="text/javascript" src="~/js/main.js"></script>
+            <script type="text/javascript" src="~/libs/FontAwesome/all.min.js"></script>
+            <script type="text/javascript" src="~/libs/OwlCarousel/owl.carousel.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 </body>
 </html>

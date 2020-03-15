@@ -785,12 +785,17 @@ namespace AmitTextile.Controllers
             { PageViewModel = pageViewModel, Textiles = Textiles, SortingParams = EnumParam, Category = _context.ChildCategories.Include(x => x.Category).FirstOrDefault(x=> x.ChildCategoryId == Guid.Parse(ChildCatId)), PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = CookieValue, FilterDictionary = Filter, Charachteristic = charachteristics, FilterQuery = FilterQuery};
             return View(model);
         }
-        public async Task<IActionResult> ShowBook(string TextileId, int page = 1, string Section = "Charachteristics" )
+        public async Task<IActionResult> ShowBook(string TextileId, int page = 1, string Section = "AboutItem" )
         {
+            string Fio = _context.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result.Fio;
             int commentscount = 6;
             Textile textile = new Textile();
             List<ParentCommentReview> parentCommentReviews = new List<ParentCommentReview>();
             List<ParentCommentQuestion> parentCommentQuestions = new List<ParentCommentQuestion>();
+            if (Section == "AboutItem")
+            {
+                textile = await _context.Textiles.Include(x => x.Charachteristics).FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId));
+            }
             if (Section == "Charachteristics")
             {
                 textile = await _context.Textiles.Include(x => x.Charachteristics).FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId));
@@ -798,54 +803,59 @@ namespace AmitTextile.Controllers
             else if (Section == "CommentsReviews")
             {
                 parentCommentReviews = await _context.ParentCommentReviews.Include(x => x.Sender)
-                    .Where(x => x.TextileId == Guid.Parse(TextileId)).OrderBy(x=> x.DatePosted).ToListAsync();
+                    .Where(x => x.TextileId == Guid.Parse(TextileId)).OrderBy(x=> x.DatePosted).Skip((page-1)*commentscount).Take(commentscount).ToListAsync();
             }
             else if (Section == "CommentsQuestions")
             {
                 parentCommentQuestions = await _context.ParentCommentQuestions.Include(x=>x.Sender).Include(x => x.ChildComments).ThenInclude(x=>x.Sender)
-                    .Where(x => x.TextileId == Guid.Parse(TextileId)).OrderBy(x => x.DatePosted).ToListAsync();
+                    .Where(x => x.TextileId == Guid.Parse(TextileId)).OrderBy(x => x.DatePosted).Skip((page - 1) * commentscount).Take(commentscount).ToListAsync();
             }
-            if (parentCommentQuestions.Count == 0 && parentCommentReviews.Count == 0)
+            if (Section=="AboutItem")
             {
-                return View(new TextileViewModel(){Textile = textile});
+                return View(new TextileViewModel(){Textile = textile, Section = "AboutItem" });
             }
-            else if (parentCommentQuestions.Count != 0 && parentCommentReviews.Count == 0)
+            else if (Section=="Charachteristics")
             {
                 return View(new TextileViewModel()
-                    {parentCommentQuestions = parentCommentQuestions});
+                    {Textile = textile, Section = "Charachteristics" , Fio = Fio});
+            }
+            else if(Section=="CommentsReviews")
+            {
+                return View(new TextileViewModel()
+                    { parentCommentReviews = parentCommentReviews, Section = "CommentsReviews",Fio = Fio, PageViewModel = new PageViewModel(parentCommentReviews.Count, page ,commentscount)});
             }
             else
             {
                 return View(new TextileViewModel()
-                    { parentCommentReviews = parentCommentReviews });
+                    { parentCommentQuestions = parentCommentQuestions, Section = "CommentsQuestions",Fio = Fio, PageViewModel  = new PageViewModel(parentCommentQuestions.Count, page, commentscount) });
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostCommentReview(string Datetime, string Message, int Stars, string TextileId, string Advantages, string Drawbacks)
+        public async Task<IActionResult> PostCommentReview(string Datetime, string Message, int Stars, string TextileId, string Advantages, string Drawbacks, string Fio)
         {
             DateTime datetime = DateTime.Parse(Datetime);
             Guid Id = Guid.Parse(TextileId);
-            await _context.ParentCommentReviews.AddAsync(new ParentCommentReview(){DatePosted = datetime, TextileId = Id, ParentCommentReviewId = Guid.NewGuid(), Stars = Stars , SenderId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id, Text = Message, Advantages = Advantages, DrawBacks = Drawbacks});
+            await _context.ParentCommentReviews.AddAsync(new ParentCommentReview(){DatePosted = datetime, TextileId = Id, ParentCommentReviewId = Guid.NewGuid(), Stars = Stars , SenderId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id, Text = Message, Advantages = Advantages, DrawBacks = Drawbacks,Fio = Fio});
             return RedirectToAction(Url.Action("ShowBook", "Home",
                 new {TextileId = TextileId, page = 1, Section = "CommentsReviews"}));
         }
 
         [HttpPost]
-        public async Task<IActionResult> ReplyToComment(string Datetime, string Message, string TextileId, int page, string ParentId)
+        public async Task<IActionResult> ReplyToComment(string Datetime, string Message, string TextileId, int page, string ParentId, string Fio)
         {
             DateTime datetime = DateTime.Parse(Datetime);
             Guid Id = Guid.Parse(TextileId);
-            await _context.ChildCommentQuestions.AddAsync(new ChildCommentQuestion(){ChildCommentQuestionId = Guid.NewGuid(), TextileId = Guid.Parse(TextileId), DatePosted = datetime, ParentCommentId = Guid.Parse(ParentId), SenderId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id, Text = Message});
+            await _context.ChildCommentQuestions.AddAsync(new ChildCommentQuestion(){ChildCommentQuestionId = Guid.NewGuid(), TextileId = Guid.Parse(TextileId), DatePosted = datetime, ParentCommentId = Guid.Parse(ParentId), SenderId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id, Text = Message,Fio = Fio});
             return RedirectToAction(Url.Action("ShowBook", "Home",
                 new { TextileId = TextileId, page = page, Section = "CommentsReviews" }));
         }
         [HttpPost]
-        public async Task<IActionResult> PostCommentQuestion(string Datetime, string Message, string TextileId, int page)
+        public async Task<IActionResult> PostCommentQuestion(string Datetime, string Message, string TextileId, string Fio)
         {
             DateTime datetime = DateTime.Parse(Datetime);
             Guid Id = Guid.Parse(TextileId);
-            await _context.ParentCommentQuestions.AddAsync(new ParentCommentQuestion(){DatePosted = datetime, TextileId = Guid.Parse(TextileId), SenderId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id, Text = Message, ParentCommentQuestionId = Guid.NewGuid()});
+            await _context.ParentCommentQuestions.AddAsync(new ParentCommentQuestion(){DatePosted = datetime, TextileId = Guid.Parse(TextileId), SenderId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id, Text = Message, ParentCommentQuestionId = Guid.NewGuid(), Fio = Fio});
             return RedirectToAction(Url.Action("ShowBook", "Home",
                 new { TextileId = TextileId, page = 1, Section = "CommentsReviews" }));
         }
