@@ -24,7 +24,7 @@ namespace AmitTextile.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-
+                
             }
 
             return View();
