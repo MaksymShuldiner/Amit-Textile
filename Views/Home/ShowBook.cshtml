@@ -1,4 +1,4 @@
-﻿@model AmitTextile.Domain.Textile
+﻿@model AmitTextile.Models.TextileViewModel
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="~/css/star-rating.css">
     <link rel="stylesheet" type="text/css" href="~/libs/themes/krajee-svg/theme.min.css">
     <link rel="stylesheet" href="~/css/adapt.css">
+    <script type="text/javascript" src="~/js/star-rating.js"></script>
+    <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
+    <script type="text/javascript" src="~/js/ru.js"></script>
     <script type="text/javascript" src="~/libs/jquery 3.4.1.min.js"></script>
     <script type="text/javascript" defer>
         let arrCat = [];
@@ -25,18 +28,17 @@
         let line = 1;
         $.ajax({
             type: 'GET',
-            url:'@Url.Action("GetCategories", "TextileApi")',
+            url: '@Url.Action("GetCategories", "TextileApi")',
             contentType: 'json',
-            success: function (result) {
+            success: function(result) {
                 arrCat = result;
                 let Url;
                 for (let i = 0; i < arrCat.length; i++) {
                     Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId;
                     if (line % 2 == 0) {
-                        $('#' + count).append('<a class="cats" href="'+Url+'">' + arrCat[i].name + '</a><br>');
-                    }
-                    else {
-                        $('#' + count).append('<a class="cats r" href="'+Url+'">' + arrCat[i].name + '</a><br>');
+                        $('#' + count).append('<a class="cats" href="' + Url + '">' + arrCat[i].name + '</a><br>');
+                    } else {
+                        $('#' + count).append('<a class="cats r" href="' + Url + '">' + arrCat[i].name + '</a><br>');
                     }
                     if (arrCat.length - i <= 4) {
                         $('#' + count).append('<br>');

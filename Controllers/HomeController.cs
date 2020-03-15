@@ -37,6 +37,7 @@ namespace AmitTextile.Controllers
         [HttpGet]   
         public async Task<IActionResult> ShowCategory(string CatId, Dictionary<string,List<string>> Filter, int page = 1, int EnumParam = 1, string CookieValue = "Grid")
         {
+            ViewBag.BookUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
             if (!HttpContext.Request.Cookies.ContainsKey("Form"))
             {
                 HttpContext.Response.Cookies.Append("Form", CookieValue ,new CookieOptions(){Expires = DateTime.Now.Add(TimeSpan.FromDays(15)), IsEssential = true });
@@ -412,6 +413,7 @@ namespace AmitTextile.Controllers
         [HttpGet]
         public async Task<IActionResult> ShowChildCategory(string ChildCatId, Dictionary<string, List<string>> Filter, int page = 1, int EnumParam = 1, string CookieValue = "Grid")
         {
+            ViewBag.BookUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
             string FilterQuery = Request.Query["Filter"];
             if (!HttpContext.Request.Cookies.ContainsKey("Form"))
             {
