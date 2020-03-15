@@ -320,9 +320,13 @@
         }
         @if (Model.Section == "CommentsReviews")
         {
-            <a href="#popupCommentForm" data-fancybox="popupCommentForm">dawdfdaw</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="#popupCommentForm" data-fancybox="popupCommentForm">dawdfdaw</a>
+            }
+            { }
             <div class="comment hidden">
-                <form id="popupCommentForm" action="#">
+                <form id="popupCommentForm" action="@Url.Action("PostCommentReview", "Home")" method="post">
                     <h1 class="formName">Написать отзыв</h1>
                     <label for="ratingComment"></label>
                     <input id="ratingComment" name="Stars">
@@ -331,7 +335,7 @@
                     <label for="cons">Недостатки</label><br>
                     <input class="cons" type="text" name="Drawbacks"><br>
                     <label for="commentText">Ваш комментарий</label><br>
-                    <input type="hidden" name="TextileId" value="@Model.Textile.TextileId/" />
+                    <input type="hidden" name="TextileId" value="@Model.Textile.TextileId" />
                     <textarea name="Message"></textarea> <br>
                     <label for="userNameField">Ваше имя и фамилия</label><br>
                     <input type="text" class="userNameField" name="Fio" value="@Model.Fio"><br><br>
@@ -374,12 +378,14 @@
         }
         @if (Model.Section == "CommentsQuestions")
         {
-            <a href="#popupQuestionForm" data-fancybox="popupQuestionForm">dawdfdaw</a>
+            if (User.Identity.IsAuthenticated) {
+                <a href="#popupQuestionForm" data-fancybox="popupQuestionForm">dawdfdaw</a>
+            }
             <div class="comment hidden">
-                <form id="popupQuestionForm" action="@Url.Action("PostCommentQuestion", "Home")">
+                <form id="popupQuestionForm" action="@Url.Action("PostCommentQuestion", "Home")" method="post">
                     <h1 class="formName">Задать вопрос</h1>
                     <label for="commentText">Ваш вопрос</label><br>
-                    <input type="hidden" name="TextileId" value="@Model.Textile.TextileId/"/>
+                    <input type="hidden" name="TextileId" value="@Model.Textile.TextileId"/>
                     <textarea name="Message"></textarea><br><br>
                     <label for="userNameField">Ваше имя и фамилия</label><br>
                     <input type="text" class="userNameField" value="@Model.Fio" name="Fio"><br><br>
@@ -389,10 +395,10 @@
                 </form>
             </div>
             <div class="comment hidden">
-                <form id="popupReplyForm" action="@Url.Action("ReplyToComment", "Home")">
+                <form id="popupReplyForm" action="@Url.Action("ReplyToComment", "Home")" method="post">
                     <h1 class="formName">Ответить на вопрос</h1>
                     <label for="commentText">Ваш ответ</label><br>
-                    <input type="hidden" name="TextileId" value="@Model.Textile.TextileId/"/>
+                    <input type="hidden" name="TextileId" value="@Model.Textile.TextileId"/>
                     <input type="hidden" value="@Model.PageViewModel.PageNumber" name="page"/>
                     <textarea name="Message"></textarea><br><br>
                     <label for="userNameField" value="@Model.Fio" name="Fio">Ваше имя и фамилия</label><br>
@@ -409,7 +415,10 @@
                         <span class="commentUserName">
                             @x.Fio
                         </span>
-                        <a href="#popupReplyForm" data-fancybox="popupReplyForm" class="replyButton" data="@x.ParentCommentQuestionId"><i class="fas fa-reply"></i> Ответить</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a href="#popupReplyForm" data-fancybox="popupReplyForm" class="replyButton" data="@x.ParentCommentQuestionId"><i class="fas fa-reply"></i> Ответить</a>
+                        }
                         <span class="commentDate">
                             @x.DatePosted.ToString();
                         </span>
