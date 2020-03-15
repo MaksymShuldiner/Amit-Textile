@@ -20,6 +20,8 @@ namespace AmitTextile.Domain
 
         public Textile Textile { get; set; }
 
+        public string Fio { get; set; }
+
         public Guid TextileId { get; set; }
 
 
