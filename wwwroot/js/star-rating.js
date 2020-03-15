@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * bootstrap-star-rating v4.0.6
  * http://plugins.krajee.com/star-rating
  *
@@ -129,7 +129,7 @@
             }
             w = self.getWidthFromValue(v) + '%';
             self.$filledStars.width(w);
-            self.cache = { caption: cap, width: w, val: v };
+            self.cache = {caption: cap, width: w, val: v};
         },
         _getContainerCss: function () {
             var self = this;
@@ -148,7 +148,7 @@
             self.disabled = opts.disabled === undefined ? $el.attr('disabled') || false : opts.disabled;
             self.readonly = opts.readonly === undefined ? $el.attr('readonly') || false : opts.readonly;
             self.inactive = (self.disabled || self.readonly);
-            $el.attr({ disabled: self.disabled, readonly: self.readonly });
+            $el.attr({disabled: self.disabled, readonly: self.readonly});
         },
         _addContent: function (type, content) {
             var self = this, $container = self.$container, isClear = type === 'clear';
@@ -210,7 +210,7 @@
             css = self._getClearClass();
             if ($clr.length) {
                 $h.addCss($clr, css);
-                $clr.attr({ "title": self.clearButtonTitle }).html(self.clearButton);
+                $clr.attr({"title": self.clearButtonTitle}).html(self.clearButton);
                 self.$clear = $clr;
                 return;
             }
@@ -267,14 +267,14 @@
             $el.val(v);
             return $el.removeClass('rating-loading');
         },
-        _initCaptionTitle: function () {
+        _initCaptionTitle: function() {
             var self = this, caption;
             if (self.showCaptionAsTitle) {
                 caption = self.fetchCaption(self.$element.val());
                 self.$rating.attr('title', $(caption).text());
             }
         },
-        _trigChange: function (params) {
+        _trigChange: function(params) {
             var self = this;
             self._initCaptionTitle();
             self.$element.trigger('change').trigger('rating:change', params);
@@ -375,7 +375,7 @@
                     caption = '<span class="' + self.clearCaptionClass + '">' + self.clearCaption + '</span>';
                     val = self.clearValue;
                     width = self.getWidthFromValue(val) || 0;
-                    out = { caption: caption, width: width, val: val };
+                    out = {caption: caption, width: width, val: val};
                     self._toggleHover(out);
                     self.$element.trigger('rating:hover', [val, caption, 'clear']);
                 },
@@ -442,7 +442,7 @@
                 val = arguments.length ? self.getValueFromPosition(pos) : defaultVal,
                 caption = self.fetchCaption(val), width = self.getWidthFromValue(val);
             width += '%';
-            return { caption: caption, width: width, val: val };
+            return {caption: caption, width: width, val: val};
         },
         getValueFromPosition: function (pos) {
             var self = this, precision = $h.getDecimalPlaces(self.step), val, factor, maxWidth = self.$rating.width();
@@ -472,7 +472,7 @@
             }
             cssVal = typeof vCss === "function" ? vCss(val, width) : vCss[val];
             capVal = typeof vCap === "function" ? vCap(val, width) : vCap[val];
-
+          
             cap = $h.isEmpty(capVal) ? self.defaultCaption.replace(/\{rating}/g, val) : capVal;
             css = $h.isEmpty(cssVal) ? self.clearCaptionClass : cssVal;
             caption = (val === self.clearValue) ? self.clearCaption : cap;
