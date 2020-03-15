@@ -25,6 +25,9 @@ namespace AmitTextile.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("NonAuthorizedId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("CartId");
 
                     b.ToTable("Carts");
@@ -301,8 +304,14 @@ namespace AmitTextile.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Advantages")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DatePosted")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DrawBacks")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SenderId")
                         .HasColumnType("nvarchar(450)");
@@ -353,6 +362,9 @@ namespace AmitTextile.Migrations
 
                     b.Property<DateTime>("DateWhenAdded")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Discount")
                         .HasColumnType("float");
