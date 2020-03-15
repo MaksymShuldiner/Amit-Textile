@@ -1,6 +1,9 @@
 ﻿using System;
 using AmitTextile.Domain;
 using AmitTextile.Domain.Context;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,15 +31,15 @@ namespace AmitTextile.ConfigureServices
                 })
                 .AddEntityFrameworkStores<AmitDbContext>()
                 .AddDefaultTokenProviders();
-            services.AddAuthentication().Services.ConfigureApplicationCookie(options =>
+            services.AddAuthentication(options =>
             {
-                options.SlidingExpiration = true;
-                options.ExpireTimeSpan = TimeSpan.FromHours(24);
+                options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
+                
             });
-            services.Configure<SecurityStampValidatorOptions>(options =>
-            {
-                options.ValidationInterval = TimeSpan.FromHours(12);
-            });
+            
+           
+
 
         }
     }

@@ -16,5 +16,7 @@ namespace AmitTextile.Models
         public string Fio { get; set; }
 
         public PageViewModel PageViewModel { get; set; }
+
+        public List<int> PagesCount { get; set; } = new List<int>();
     }
 }
