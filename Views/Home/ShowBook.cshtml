@@ -562,6 +562,20 @@
             });
         });
             </script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    let qId = $('#popupReplyForm').attr('data').value;
+                    alert(qId);
+                    /*$('#popupReplyForm').fancybox({
+                        'afterClose': function () {
+
+                        }
+                    });*/
+                    $('.replyButton').click(function () {
+                        $('#popupReplyForm').append('<input value='+ +'type="hidden"/>')
+                    });
+                });
+            </script>
             <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
             <script type="text/javascript" src="~/js/star-rating.js"></script>
             <script type="text/javascript" src="~/js/ru.js"></script>

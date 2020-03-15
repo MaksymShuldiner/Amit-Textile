@@ -787,7 +787,7 @@ namespace AmitTextile.Controllers
         }
         public async Task<IActionResult> ShowBook(string TextileId, int page = 1, string Section = "AboutItem" )
         {
-            string Fio = _context.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result.Fio;
+            string Fio = _context.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name)?.Result?.Fio;
             int commentscount = 6;
             Textile textile = new Textile();
             List<ParentCommentReview> parentCommentReviews = new List<ParentCommentReview>();
