@@ -7,7 +7,8 @@ $(document).ready(function () {
         if (flag) {
             toggle();
             $('#cats_hdn').animate({
-                top: '40px'
+                top: '40px',
+                opacity:1
             }, 300);
             flag = false;
             $('#arrowDown').toggleClass('hdn');
@@ -15,7 +16,8 @@ $(document).ready(function () {
         }
         else {
             $('#cats_hdn').animate({
-                top: '20px'
+                top: '20px',
+                opacity:0
             }, 300);
             flag = true;
             setTimeout(toggle, 300);
@@ -70,32 +72,8 @@ $(document).ready(function () {
         $('.atv2').toggleClass('hdn');
 
     });
-    $('.1').click(function() {
-        $('.11').toggleClass('selected');
-    });
-    $('.2').click(function () {
-        $('.22').toggleClass('selected');
-    });
-    $('.3').click(function () {
-        $('.33').toggleClass('selected');
-    });
-    $('.4').click(function () {
-        $('.44').toggleClass('selected');
-    });
-    $('.5').click(function () {
-        $('.55').toggleClass('selected');
-    });
-    $('.6').click(function () {
-        $('.66').toggleClass('selected');
-    });
-    $('.7').click(function () {
-        $('.77').toggleClass('selected');
-    });
-    $('.8').click(function () {
-        $('.88').toggleClass('selected');
-    });
-    $('.9').click(function () {
-        $('.99').toggleClass('selected');
+    $('.fav').click(function () {
+        $(this).find('.toFavourite').toggleClass('selected');
     });
     $('.filterName').click(function () {
         let hide = $(this).next();
@@ -112,6 +90,38 @@ $(document).ready(function () {
         }
         $(hide).toggleClass('hidden');
     });
+    $('.imgMiniimg').mouseover(function () {
+        $('#imgFull').attr('src', $(this).attr('src'));
+    });
+    $('#rating').rating({ displayOnly: true, language: 'ru' });
+    $('#ratingComment').rating({ step: 0.1, language: 'ru', showClear: false, size: 'xl' });
+    $(window).on('resize', function () {
+        let aa = $('.charact').find('.container-fluid').find('.row').find('.col-md-4');
+        if ($(window).width() > 1280 && aa.length == 0) {
+            $('.fix').toggleClass('fix').toggleClass('col-md-4');
+            $('.charact').find('.container-fluid').find('.row').find('.col-md-12').toggleClass('col-md-12').toggleClass('col-md-8');
+        }
+        else if ($(window).width() <= 1280 && aa.length == 1) {
+            $(aa[0]).toggleClass('col-md-4').toggleClass('fix');
+            $('.charact').find('.container-fluid').find('.row').find('.col-md-8').toggleClass('col-md-8').toggleClass('col-md-12');
+        }
+    });
+    $('.declineComment').click(function () {
+        let input = $(this).parent().find('input');
+        for (let i = 0; i < input.length; i++) {
+            if ($(input[i]).attr('type') == "text" && !$(input[i]).hasClass('userNameField')) {
+                input[i].value = "";
+            }
+        }
+        let textarea = $(this).parent().find('textarea');
+        $(textarea).val('');
+        let rate = $(this).parent().find('#ratingComment');
+        if (rate.length != 0) {
+            $(rate[0]).rating('clear');
+        }
+        parent.jQuery.fancybox.getInstance().close();
+    });
+    $('.postedCommentRating').rating({ displayOnly: true, size: 's', language: "ru" });
 });
 window.onscroll = function () { scrollFunction() };
 

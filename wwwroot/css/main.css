@@ -158,6 +158,7 @@ header {
     top: 20px;
     background: #777;
     z-index: 10;
+    opacity:0;
 }
 
 .hdn {
@@ -763,4 +764,476 @@ footer {
 .submitFilters:hover {
     transition: 0.3s all ease;
     background-color: #EE82EE;
+}
+.imgMini {
+    position: absolute;
+    left: 60px;
+    border: 1px solid #008B8B;
+    width: 100px;
+    padding: 5px;
+    background-color: white;
+}
+
+    .imgMini:hover {
+        background-color: #d3d3d3;
+    }
+
+    .imgMini > img {
+        height: 50px;
+        width: 100%;
+    }
+
+#imgFull {
+    width: 90%;
+    padding-left: 140px;
+}
+
+.imgMini:nth-child(1) {
+    top: 40px;
+}
+
+.imgMini:nth-child(2) {
+    top: 120px;
+}
+
+.imgMini:nth-child(3) {
+    top: 200px;
+}
+
+.imgMini:nth-child(4) {
+    top: 280px;
+}
+
+.current {
+    background-color: #696969;
+    transition: 0.3s all ease;
+    color: white;
+}
+
+.listImgContainer > img {
+    width: 100%;
+}
+
+.itemNameList h2 {
+    font-size: 24px;
+}
+
+.itemNameList a {
+    color: #212529;
+    transition: 0.3s all ease;
+}
+
+.itemNameList {
+    margin-bottom: 20px;
+}
+
+    .itemNameList a:hover {
+        color: #008B8B;
+        text-decoration: none;
+        transition: 0.3s all ease;
+    }
+
+.listItems {
+    border: 1px solid #d3d3d3;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.itemPriceList {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.buttonsItemList {
+    margin-top: 10px;
+}
+
+.name {
+    padding-bottom: 10px;
+    padding-left: 10%;
+    padding-top: 20px;
+    font-size: 35px;
+    background-color: white;
+}
+
+.itemCost {
+    font-size: 27px;
+}
+
+.buttonBar {
+    background-color: white;
+    padding-left: 10%;
+}
+
+.button {
+    display: inline-block;
+    margin-right: 30px;
+    padding-bottom: 20px;
+    cursor: pointer;
+}
+
+    .button > a {
+        color: #212529;
+        transition: 0.1s all ease;
+    }
+
+        .button > a:hover {
+            text-decoration: none;
+        }
+
+    .button:hover {
+        transition: 0.1s all ease;
+        border-bottom: 3px solid #FFB6C1;
+    }
+
+        .button:hover > a {
+            font-weight: bold;
+            color: #FFB6C1;
+        }
+
+.buttonSelected {
+    border-bottom: 3px solid #FFB6C1;
+}
+
+    .buttonSelected > a {
+        font-weight: bold;
+        color: #FFB6C1;
+    }
+
+.ratingContainer {
+    background-color: white;
+    padding-bottom: 20px;
+    padding-left: 10%
+}
+
+.itemDescription {
+    padding-right: 10%;
+}
+
+    .itemDescription > h2 {
+        font-size: 25px;
+        margin-bottom: 15px;
+    }
+
+.itemDescrioption span {
+    font-size: 20px;
+}
+
+.itemInfo > .inStock {
+    background-color: #f4faf6;
+    padding: 10px;
+    font-size: 18px;
+    display: inline-block;
+}
+
+.itemInfo > .lowAm {
+    background-color: #FFEBCD;
+    padding: 10px;
+    font-size: 18px;
+    display: inline-block;
+}
+
+.itemInfo > .notInStock {
+    background-color: #f5f5f5;
+    padding: 10px;
+    font-size: 18px;
+    display: inline-block;
+}
+
+.fix {
+    position: fixed;
+    bottom: 0px;
+    background-color: #fff;
+    width: 100%;
+    padding-top: 20px;
+}
+
+.characteristics {
+    margin-left: 14%;
+}
+
+    .characteristics > table {
+        width: 100%;
+    }
+
+.characteristicName {
+    width: 40%;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.characteristicValue {
+    width: 60%;
+    float: left;
+}
+
+.itemMini > .itemInfo {
+    padding: 0;
+}
+
+.itemMini {
+    position: sticky;
+    top: 5px;
+    margin-right: 19%;
+}
+
+    .itemMini > .itemInfo > .fav {
+        float: right;
+    }
+
+    .itemMini > .buyItem {
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .itemMini > .itemInfo > .itemCost {
+        margin-left: 10px;
+    }
+
+    .itemMini > .itemInfo > .inStock {
+        margin-bottom: 20px;
+    }
+
+    .itemMini > .itemInfo > .lowAm {
+        margin-bottom: 20px;
+    }
+
+    .itemMini > .itemInfo > .notInStock {
+        margin-bottom: 20px;
+    }
+
+.itemMiniImgContainer > img {
+    width: 100%;
+}
+
+.itemInfoMini {
+    margin-bottom: 20px;
+}
+
+    .itemInfoMini > .container-fluid {
+        padding: 0px;
+        padding-left: 10px;
+    }
+
+.itemMiniName {
+    font-size: 20px;
+}
+
+.itemMini {
+    border: 1px solid #d3d3d3;
+    padding: 20px;
+}
+
+.fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName {
+    white-space: nowrap;
+    position: fixed;
+    left: 100px;
+    bottom: 27px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+    .fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > span {
+        white-space: nowrap;
+    }
+
+.fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-5 > .itemMiniImgContainer > img {
+    width: 55px;
+    position: relative;
+    left: 10px;
+}
+
+.fix > .itemMini {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+    .fix > .itemMini > .itemInfo {
+        display: none;
+    }
+
+    .fix > .itemMini > .buyItem {
+        display: none;
+    }
+
+.fixCost {
+    display: none;
+}
+
+.fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > .fixCost {
+    display: inline-block;
+    position: fixed;
+    right: 200px;
+}
+
+.fixed {
+    display: none;
+}
+
+.fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > .fixed {
+    display: inline-block;
+}
+
+.fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > .buyItem {
+    display: inline-block;
+    margin: 0;
+    padding: 7px;
+    font-size: 12px;
+    position: fixed;
+    right: 70px;
+    bottom: 18px;
+}
+
+.comment {
+    margin-left: 10%;
+}
+
+textarea {
+    width: 500px;
+    height: 200px;
+    padding: 10px;
+}
+
+.sendComment {
+    width: 49%;
+    height: 35px;
+    background-color: #FF00FF;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s all ease;
+}
+
+.declineComment {
+    color: white;
+    font-weight: bold;
+    width: 49%;
+    height: 35px;
+    background-color: #FF00FF;
+    transition: 0.3s all ease;
+}
+
+.sendComment:hover {
+    transition: 0.3s all ease;
+    background-color: #EE82EE;
+}
+
+.declineComment:hover {
+    transition: 0.3s all ease;
+    background-color: #EE82EE;
+}
+
+#popupCommentForm > .pros {
+    width: 100%;
+    height: 30px;
+}
+
+#popupCommentForm > .cons {
+    width: 100%;
+    height: 30px;
+}
+
+.commentPosted {
+    border: 1px solid #d3d3d3;
+    margin-bottom: 2px;
+}
+
+.questionPosted {
+    border: 0;
+}
+
+    .questionPosted > .commentInfo {
+        border: 1px solid #d3d3d3;
+        border-bottom: 0;
+    }
+
+    .questionPosted > .commentTextContainer {
+        border: 1px solid #d3d3d3;
+    }
+
+#popupCommentForm > label {
+    margin-top: 20px;
+}
+
+.commentUserName {
+    font-size: 24px;
+}
+
+.commentDate {
+    float: right;
+    font-size: 14px;
+    color: #696969;
+    margin-top: 5px;
+}
+
+.commentPosted {
+    width: 60%;
+    margin-left: 10%;
+}
+
+.commentInfo {
+    padding: 10px;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.commentTextContainer {
+    padding: 10px;
+}
+
+    .commentTextContainer > label {
+        font-weight: bold;
+    }
+
+    .commentTextContainer > .pros {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .commentTextContainer > .cons {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+.userNameField {
+    width: 100%;
+    height: 30px;
+}
+
+.replyButton {
+    float: right;
+    margin-left: 5%;
+    margin-top: 2px;
+    transition: 0.3s all ease;
+}
+
+    .replyButton:hover {
+        color: #FA8072;
+        text-decoration: none;
+        transition: 0.3s all ease;
+    }
+
+.formName {
+    margin-bottom: 5px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.replyToQuestion {
+    padding-left: 3%;
+}
+
+.reply {
+    border: 1px solid #d3d3d3;
+    border-top: 0px;
+    padding: 10px;
+}
+
+.replyInfo {
+    border-bottom: 1px solid #d3d3d3;
+    padding-bottom: 10px;
+}
+
+.commentTextContainer {
+    border-bottom: 1px solid #d3d3d3;
 }
