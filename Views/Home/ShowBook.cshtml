@@ -1,2 +1,473 @@
 ﻿@model AmitTextile.Domain.Textile
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Интернет-магазин текстиля AmitTextile</title>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed&display=swap" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="~/css/main.css">
+    <link rel="stylesheet" href="~/libs/FontAwesome/all.min.css">
+    <link rel="stylesheet" href="~/libs/OwlCarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/slider.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="~/css/star-rating.css">
+    <link rel="stylesheet" type="text/css" href="~/libs/themes/krajee-svg/theme.min.css">
+    <link rel="stylesheet" href="~/css/adapt.css">
+    <script type="text/javascript" src="~/libs/jquery 3.4.1.min.js"></script>
+    <script type="text/javascript" defer>
+        let arrCat = [];
+        let count = 1;
+        let line = 1;
+        $.ajax({
+            type: 'GET',
+            url:'@Url.Action("GetCategories", "TextileApi")',
+            contentType: 'json',
+            success: function (result) {
+                arrCat = result;
+                let Url;
+                for (let i = 0; i < arrCat.length; i++) {
+                    Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId;
+                    if (line % 2 == 0) {
+                        $('#' + count).append('<a class="cats" href="'+Url+'">' + arrCat[i].name + '</a><br>');
+                    }
+                    else {
+                        $('#' + count).append('<a class="cats r" href="'+Url+'">' + arrCat[i].name + '</a><br>');
+                    }
+                    if (arrCat.length - i <= 4) {
+                        $('#' + count).append('<br>');
+                    }
+                    count++;
+                    if (count > 4) {
+                        count = 1;
+                        line++;
+                    }
+                }
+            }
+        });
 
+    </script>
+</head>
+<body>
+    <div id="regS"><p>Ваш аккаунт был успешно зарегистрирован, письмо для подтверждения уже было отправлено вам на почту.</p><button id="close"><i class="fas fa-times-circle"></i></button></div>
+    <button id="scrollBtn"><i class="fas fa-chevron-up"></i></button>
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 logo_container">
+
+                </div>
+                <div class="col-md-4 search_container">
+                    <form class="search_form" action="#">
+                        <input type="search" name="search" placeholder="Я ищу..."><a href="#"><button type="button">Поиск</button></a>
+                    </form>
+                </div>
+                <div class="col-md-5 cart_container">
+                    <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                    <span class="first">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span>
+                    <a href="#login" class="login" data-fancybox="pp">Войти</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="categories">
+        <span id="cat">Категории <i id="arrowDown" class="fas fa-chevron-down"></i><i id="arrowUp" class="fas fa-chevron-up hdn"></i></span>
+        <div id="cats_hdn" class="hdn">
+            <div class="container">
+                <div class="row">
+                    <div id="1" class="col-md-3"></div>
+                    <div id="2" class="col-md-3"></div>
+                    <div id="3" class="col-md-3"></div>
+                    <div id="4" class="col-md-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="name">
+            <h1>Ткань АЙывЦЙА для вля пошива платьев, брюк, рубашек.</h1>
+        </div>
+        <div class="ratingContainer">
+            <table>
+                <tr>
+                    <td>
+                        <label for="rating"></label>
+                    </td>
+                    <td>
+                        <input id="rating" name="rating" value="3.22">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="buttonBar">
+            <div class="button buttonSelected">
+                <a href="#">
+                    О товаре
+                </a>
+            </div>
+            <div class="button">
+                <a href="#">
+                    Характеристики
+                </a>
+            </div>
+            <div class="button">
+                <a href="#">
+                    Отзывы
+                </a>
+            </div>
+            <div class="button">
+                <a href="#">
+                    Вопросы
+                </a>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="itemImageFull">
+                        <ul class="imgMiniContainer">
+                            <li class="imgMini"><img class="imgMiniimg" src="../images/img1.jpg" alt="imgMini"></li>
+                            <li class="imgMini"><img class="imgMiniimg" src="../images/img2.jpg" alt="imgMini"></li>
+                            <li class="imgMini"><img class="imgMiniimg" src="../images/img3.jpg" alt="imgMini"></li>
+                            <li class="imgMini"><img class="imgMiniimg" src="../images/talon_splash_0.jpg" alt="imgMini"></li>
+                        </ul>
+                        <img src="../images/talon_splash_0.jpg" alt="imgFull" id="imgFull">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="itemInfo">
+                        <h2 class="inStock">
+                            <i class="fas fa-check-circle"></i> В наличии
+                        </h2><br>
+                        <h2 class="lowAm">
+                            <i class="far fa-clock"></i> Заканчивается
+                        </h2><br>
+                        <h2 class="notInStock">
+                            <i class="fas fa-minus-circle"></i> Нет в наличии
+                            <h2>
+                                <br>
+                                <span class="itemCost">
+                                    125 ₴
+                                </span>
+                                <button class="buyItem">
+                                    <a href="#">
+                                        <i class="fas fa-shopping-cart"></i> Купить
+                                    </a>
+                                </button>
+                                <button class="fav">
+                                    <a href="#" class="toFavourite selected">
+                                        <i class="far fa-heart"></i>
+                                    </a>
+                                    <a href="#" class="toFavourite"><i class="fas fa-heart"></i></a>
+                                </button>
+                    </div>
+                    <div class="itemDescription">
+                        <h2>
+                            О товаре
+                        </h2>
+                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam fugiat, rerum maiores voluptatum quo perspiciatis autem praesentium maxime molestias eius, odio, sapiente aliquam. Quae deserunt voluptas unde, veniam magnam, animi! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam soluta deleniti tempore eaque odit, repellendus ipsam voluptate, magnam, placeat reiciendis exercitationem modi sunt impedit error. Soluta blanditiis fuga ea eos voluptatem officia, doloribus temporibus magni dignissimos quibusdam doloremque corrupti aliquam veniam mollitia at nemo modi voluptas adipisci. Aspernatur reiciendis, maiores accusamus consectetur. Quasi voluptates asperiores, ipsam unde reiciendis vero aut ipsa iste voluptatum, quos similique consequuntur hic nemo sint culpa aspernatur officiis expedita quaerat amet optio iure labore? Est esse officia deleniti nam soluta distinctio consectetur, repellendus nesciunt amet commodi, non itaque unde laudantium inventore mollitia, quaerat, quae earum possimus!</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="charact">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="characteristics">
+                            <table>
+                                <tr>
+                                    <td class="characteristicName">
+                                        <span>Characteristic Name</span>
+                                    </td>
+                                    <td class="characteristicValue">
+                                        <span>Characteristic Value</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="itemMini">
+                            <div class="itemInfoMini">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="itemMiniImgContainer">
+                                                <img src="../images/img1.jpg" alt="awdwadwadawd">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="itemMiniName">
+                                                <span>
+                                                    Ткань АЙывЦЙА для вля пошива платьев, брюк, рубашек.
+                                                </span>
+                                                <span class="fixCost">ItemFixCost</span>
+                                                <button class="buyItem fixed">
+                                                    <a href="#">
+                                                        <i class="fas fa-shopping-cart"></i> Купить
+                                                    </a>
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="itemInfo">
+                                <h2 class="inStock">
+                                    <i class="fas fa-check-circle"></i> В наличии
+                                </h2><br>
+                                <span class="itemCost">
+                                    125 ₴
+                                </span>
+                                <button class="fav">
+                                    <a href="#" class="toFavourite selected">
+                                        <i class="far fa-heart"></i>
+                                    </a>
+                                    <a href="#" class="toFavourite"><i class="fas fa-heart"></i></a>
+                                </button>
+                            </div>
+                            <button class="buyItem">
+                                <a href="#">
+                                    <i class="fas fa-shopping-cart"></i> Купить
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#popupCommentForm" data-fancybox="popupCommentForm">dawdfdaw</a>
+        <a href="#popupQuestionForm" data-fancybox="popupQuestionForm">dawdfdaw</a>
+        <div class="comment hidden">
+            <form id="popupCommentForm" action="#">
+                <h1 class="formName">Написать отзыв</h1>
+                <label for="ratingComment"></label>
+                <input id="ratingComment" name="ratingComment">
+                <label for="pros">Достоинства</label><br>
+                <input class="pros" type="text" name="pros"><br>
+                <label for="cons">Недостатки</label><br>
+                <input class="cons" type="text" name="cons"><br>
+                <label for="commentText">Ваш комментарий</label><br>
+                <textarea name="commentText"></textarea> <br>
+                <label for="userNameField">Ваше имя и фамилия</label><br>
+                <input type="text" class="userNameField"><br><br>
+                <input type="button" class="declineComment" value="Отменить">
+                <input type="submit" class="sendComment" value="Оставить отзыв!">
+            </form>
+        </div>
+        <div class="comment hidden">
+            <form id="popupQuestionForm" action="#">
+                <h1 class="formName">Задать вопрос</h1>
+                <label for="commentText">Ваш вопрос</label><br>
+                <textarea name="commentText"></textarea><br><br>
+                <label for="userNameField">Ваше имя и фамилия</label><br>
+                <input type="text" class="userNameField"><br><br>
+                <input type="button" class="declineComment" value="Отменить">
+                <input type="submit" class="sendComment" value="Задать вопрос!">
+            </form>
+        </div>
+        <div class="comment hidden">
+            <form id="popupReplyForm" action="#">
+                <h1 class="formName">Ответить на вопрос</h1>
+                <label for="commentText">Ваш ответ</label><br>
+                <textarea name="commentText"></textarea><br><br>
+                <label for="userNameField">Ваше имя и фамилия</label><br>
+                <input type="text" class="userNameField"><br><br>
+                <input type="button" class="declineComment" value="Отменить">
+                <input type="submit" class="sendComment" value="Ответить">
+            </form>
+        </div>
+        <div class="commentPosted">
+            <div class="commentInfo">
+                <span class="commentUserName">
+                    UserName
+                </span>
+                <span class="commentDate">
+                    12.01.2020
+                </span>
+            </div>
+            <div class="commentTextContainer">
+                <input class="postedCommentRating" name="postedCommentRating" value="3">
+                <br><span class="commentText">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique rem minus accusantium in doloribus voluptatum, delectus iusto ratione eum facilis, repudiandae animi debitis incidunt? Voluptatibus reprehenderit rem minus, iusto amet.
+                </span>
+                <br><br><label for="pros">Достоинства:</label><br>
+                <div class="pros">
+                    <span>
+                        достоинства
+                    </span>
+                </div>
+                <label for="cons">Недостатки:</label>
+                <div class="cons">
+                    <span>
+                        недостатки
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="commentPosted questionPosted">
+            <div class="commentInfo">
+                <span class="commentUserName">
+                    UserName
+                </span>
+                <a href="#popupReplyForm" data-fancybox="popupReplyForm" class="replyButton"><i class="fas fa-reply"></i> Ответить</a>
+                <span class="commentDate">
+                    12.01.2020
+                </span>
+            </div>
+            <div class="commentTextContainer">
+                <br><span class="commentText">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique rem minus accusantium in doloribus voluptatum, delectus iusto ratione eum facilis, repudiandae animi debitis incidunt? Voluptatibus reprehenderit rem minus, iusto amet.
+                </span>
+            </div>
+            <div class="replyToQuestion">
+                <div class="reply">
+                    <div class="replyInfo">
+                        <span class="commentUserName">
+                            UserName
+                        </span>
+                        <a href="#popupReplyForm" data-fancybox="popupReplyForm" class="replyButton"><i class="fas fa-reply"></i> Ответить</a>
+                        <span class="commentDate">
+                            12.01.2020
+                        </span>
+                    </div>
+                    <div class="replyText">
+                        <br><span class="commentText">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique rem minus accusantium in doloribus voluptatum, delectus iusto ratione eum facilis, repudiandae animi debitis incidunt? Voluptatibus reprehenderit rem minus, iusto amet.
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hidden">
+            <form id="login">
+                <font>Эл. почта</font><br><br>
+                <div class="inputFields">
+                    <input type="email" id="loginName" name="UserEmail" required><br><br>
+                    <font>Пароль</font><br><br>
+                    <input type="password" id="loginPass" name="UserPassword" required><button type="button" id="showPassLogin" class="showBtn"><div class="atv"><i class="fas fa-eye"></i></div><div class="atv hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                </div>
+                <input type="submit" id="loginButton" class="registerButton" value="Войти" name="login" required><br><br>
+                <input type="checkbox" id="checkbox" value="true">  Запомнить меня<br><br>
+                <a data-fancybox="helo" href="#register">Зарегистрироваться</a> <br>
+            </form>
+        </div>
+        <div class="hidden">
+            <form id="register" class="register">
+                ФИО <br><br>
+                <div class="inputFields">
+                    <input type="text" id="registerName" name="UserName" required><br><br>
+                    Эл. почта <span>*</span><br><br>
+                    <input type="email" id="registerEmail" name="UserEmail" required><br><br>
+                    Придумайте пароль <span>*</span><br><br>
+                    <input type="password" id="registerPass" name="UserPassword" required><button type="button" id="showPassRegister" class="showBtn"><div class="atv1"><i class="fas fa-eye"></i></div><div class="atv1 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                    Подтвердите пароль <span>*</span><br><br>
+                    <input type="password" id="confirmPass" required><button type="button" id="showPassConfirm" class="showBtn"><div class="atv2"><i class="fas fa-eye"></i></div><div class="atv2 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                    Пароль должен содержать не менее 6 символов<br><br>
+                </div>
+            </form>
+            <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
+        </div>
+    </div>
+    <footer>
+    </footer>
+    <script type="text/javascript">
+            function tgl() {
+                $('#regS').fadeOut(400);
+            }
+            let errorArr = [];
+            $("#registerBtn").click(function (e) {
+                e.preventDefault();
+                let name = document.getElementById('registerName').value;
+                let mail = document.getElementById('registerEmail').value;
+                let pass = document.getElementById('registerPass').value;
+                let confirmPass = document.getElementById('confirmPass').value;
+                let x = {"Email":mail,"Fio":name,"Password":pass,"PasswordConfirm":confirmPass}
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Register", "TextileApi")',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(x),
+                    error: function(error) {
+                        errorArr = error.responseText.split('"');
+                        let errors = document.getElementsByClassName("error");
+                        if (errors[0] != undefined) {
+                            for (let i = 0; i < errors.length; i++) {
+                                errors[i].remove();
+                                i--;
+                            }
+                        }
+                        if (errorArr[0] != undefined) {
+                            for (let i = 1; i < errorArr.length - 1; i++) {
+                                if (errorArr[i] != ",") {
+                                    $('#register').append('<span class="error">' + errorArr[i] + '<br><br></span>');
+                                }
+                            }
+                        }
+                    },
+                    success: function (result) {
+                        parent.jQuery.fancybox.getInstance().close();
+                        parent.jQuery.fancybox.getInstance().close();
+                        $('#regS').fadeIn(400);
+                        setTimeout(tgl, 10000);
+                    }
+                });
+            });
+    </script>
+    <script type="text/javascript">
+        $('#loginButton').click(function (e) {
+            e.preventDefault();
+            let mail = document.getElementById('loginName').value;
+            let pass = document.getElementById('loginPass').value;
+            let check = document.getElementById('checkbox');
+            let bool;
+            if (check.checked) {
+                bool = true;
+            }
+            else {
+                bool = false;
+            }
+            let x = { "Email": mail, "Password": pass, "Remember": bool };
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Login", "TextileApi")',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(x),
+                error: function (error) {
+                    errorArr = error.responseText.split('"');
+                    let errors = document.getElementsByClassName("error");
+                    if (errors[0] != undefined) {
+                        for (let i = 0; i < errors.length; i++) {
+                            errors[i].remove();
+                            i--;
+                        }
+                    }
+                    if (errorArr[0] != undefined) {
+                        for (let i = 1; i < errorArr.length - 1; i++) {
+                            if (errorArr[i] != ",") {
+                                $('#login').append('<span class="error">' + errorArr[i] + '<br><br></span>');
+                            }
+                        }
+                    }
+                },
+                success: function (result) {
+                    window.location.href = result;
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript" src="~/js/slider.js"></script>
+    <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="~/js/main.js"></script>
+    <script type="text/javascript" src="~/libs/FontAwesome/all.min.js"></script>
+    <script type="text/javascript" src="~/libs/OwlCarousel/owl.carousel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+</body>
+</html>
