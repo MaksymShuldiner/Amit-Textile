@@ -42,6 +42,8 @@ namespace AmitTextile.Domain
 
         public Guid? ChildCategoryId { get; set; }
 
+        public string Description { get; set; }
+
         public ICollection<ChildCommentQuestion> ChildCommentQuestions { get; set; }
         public ICollection<ParentCommentReview> ParentCommentReviews { get; set; }
         public ICollection<ParentCommentQuestion> ParentCommentQuestions { get; set; }

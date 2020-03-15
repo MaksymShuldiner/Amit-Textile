@@ -8,7 +8,7 @@ namespace AmitTextile.Domain
         public Guid CartId { get; set; }
 
         public User User { get; set; }
-
+        public Guid NonAuthorizedId { get; set; }
         public ICollection<Item> Items { get; set; }
 
         public Cart()
