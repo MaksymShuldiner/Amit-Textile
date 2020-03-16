@@ -330,7 +330,7 @@
                     <input type="text" class="userNameField" name="Fio" value="@Model.Fio"><br><br>
                     <input type="hidden" name="Datetime" value="@DateTime.Now.ToString()" />
                     <input type="button" class="declineComment" value="Отменить">
-                    <input type="submit" class="sendComment" value="Оставить отзыв!">
+                    <input type="submit" class="sendComment" id="commentS" value="Оставить отзыв!">
                 </form>
             </div>
             @foreach (var x in Model.parentCommentReviews)

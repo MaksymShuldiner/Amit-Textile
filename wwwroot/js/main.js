@@ -122,6 +122,19 @@ $(document).ready(function () {
         parent.jQuery.fancybox.getInstance().close();
     });
     $('.postedCommentRating').rating({ displayOnly: true, size: 's', language: "ru" });
+    $('#commentS').click(function () {
+        let starsCount = $(this).parent().find('.rating-container').find('.rating-stars').attr('title');
+        let arr = starsCount.split('');
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] == " ") {
+                arr.splice(i, arr.length - i);
+                break;
+            }
+        }
+        starsCount = arr.join('');
+        alert(starsCount);
+        $('#ratingComment').attr('value', starsCount);
+    });
 });
 window.onscroll = function () { scrollFunction() };
 
