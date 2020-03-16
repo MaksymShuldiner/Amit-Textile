@@ -863,13 +863,12 @@ namespace AmitTextile.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ReplyToComment(string Datetime, string Message, string TextileId, int page, string Fio, string ParentId = "1")
+        public async Task<IActionResult> ReplyToComment(string Datetime, string Message, string TextileId, int page, string Fio, string ParentId)
         {
             DateTime datetime = DateTime.Parse(Datetime);
             Guid Id = Guid.Parse(TextileId);
             await _context.ChildCommentQuestions.AddAsync(new ChildCommentQuestion(){ChildCommentQuestionId = Guid.NewGuid(), TextileId = Guid.Parse(TextileId), DatePosted = datetime, ParentCommentId = Guid.Parse(ParentId), SenderId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id, Text = Message,Fio = Fio});
             await _context.SaveChangesAsync();
-           
             string Url1 = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook?TextileId={Id}&page=1&Section=CommentsQuestions"; ;
             return Redirect(Url1);
         }

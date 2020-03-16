@@ -29,7 +29,20 @@ namespace AmitTextile.Domain
         public bool IsOnDiscount { get; set; }
 
         public double Discount { get; set; }
-        public double Stars { get; set; }
+        [NotMapped]
+        public double Stars
+        {
+            get
+            {
+                double starssum = 0.0;
+                foreach (var x in ParentCommentReviews)
+                {
+                    starssum += x.Stars;
+                }
+                return starssum/ParentCommentReviews.Count;
+            }
+            
+        }
 
         public DateTime DateWhenAdded { get; set; }
 

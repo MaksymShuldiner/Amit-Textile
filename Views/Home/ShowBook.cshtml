@@ -224,7 +224,7 @@
                             <div class="characteristics">
                                 <table>
                                     <tr>
-                                        @foreach (var x in Model.Textile.Charachteristics)
+                                        @foreach (var x in Model.Textile.Charachteristics.Where(x=>x.Value!=null))
                                         {
                                             <td class="characteristicName">
                                                 <span>@x.Name</span>
@@ -344,7 +344,7 @@
                         </span>
                     </div>
                     <div class="commentTextContainer">
-                        <input class="postedCommentRating" name="postedCommentRating" value="3">
+                        <input class="postedCommentRating" name="postedCommentRating" value="@x.Stars">
                         <br>
                         <span class="commentText">
                             @x.Text
@@ -391,8 +391,8 @@
                     <input type="hidden" name="TextileId" value="@Model.Textile.TextileId" />
                     <input type="hidden" value="@Model.PageViewModel.PageNumber" name="page" />
                     <textarea name="Message"></textarea><br><br>
-                    <label for="userNameField" value="@Model.Fio" name="Fio">Ваше имя и фамилия</label><br>
-                    <input type="text" class="userNameField"><br><br>
+                    <label for="userNameField" >Ваше имя и фамилия</label><br>
+                    <input type="text" class="userNameField" value="@Model.Fio" name="Fio"><br><br>
                     <input type="hidden" name="Datetime" value="@DateTime.Now.ToString()" />
                     <input type="button" class="declineComment" value="Отменить">
                     <input type="submit" class="sendComment" value="Ответить">
@@ -421,7 +421,7 @@
                             @x.Text
                         </span>
                     </div>
-                    @foreach (var y in x.ChildComments)
+                    @foreach (var y in x.ChildComments.OrderBy(x=>x.DatePosted))
                     {
                         <div class="replyToQuestion">
                             <div class="reply">
@@ -449,43 +449,7 @@
         }
         <div class="navButtons navBcomments">
             <ul>
-                @if (Model.PageViewModel.HasPreviousPage)
-                {
-                    <a class="zxc" href="@ViewBag.ChildUrl?ChildCatId=@Model.Category.ChildCategoryId&page=@(Model.PageViewModel.PageNumber-1)&EnumParam=@Model.SortingParams&CookieValue=@Model.CookieValue&Filter=@Model.FilterQuery">
-                        <li class="pagButtons">
-                            <span><i class="fas fa-chevron-left"></i>Назад</span>
-                        </li>
-                    </a>
-                }
-                else
-                {
-                    <li class="pagButtons disabled">
-                        <span><i class="fas fa-chevron-left"></i> Назад</span>
-                    </li>
-                }
-                @foreach (var x in Model.PagesCountList)
-                {
-                    <a class="zxc1" href="@ViewBag.ChildUrl?ChildCatId=@Model.Category.ChildCategoryId&page=@x&EnumParam=@Model.SortingParams&CookieValue=@Model.CookieValue&Filter=@Model.FilterQuery">
-                        <li class="pagButtons number">
-                            <span>@x</span>
-                        </li>
-                    </a>
-                }
-
-                @if (Model.PageViewModel.HasNextPage)
-                {
-                    <a class="zxc" href="@ViewBag.ChildUrl?ChildCatId=@Model.Category.ChildCategoryId&page=@(Model.PageViewModel.PageNumber+1)&EnumParam=@Model.SortingParams&CookieValue=@Model.CookieValue&Filter=@Model.FilterQuery">
-                        <li class="pagButtons">
-                            <span>Вперед <i class="fas fa-chevron-right"></i></span>
-                        </li>
-                    </a>
-                }
-                else
-                {
-                    <li class="pagButtons disabled">
-                        <span> Вперед<i class="fas fa-chevron-right"></i></span>
-                    </li>
-                }
+                
 
             </ul>
         </div>
@@ -614,7 +578,7 @@
                     $('.replyButton').click(function () {
                         let q = $('#popupReplyForm').find('#qId');
                         if (q.length != 0) { q[0].remove() };
-                        $('#popupReplyForm').append('<input id="qId" value='+qId+' type="hidden"/>')
+                        $('#popupReplyForm').append('<input id="qId" value='+qId+' type="hidden" name="ParentId"/>')
                     });
                 });
             </script>

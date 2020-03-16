@@ -393,9 +393,6 @@ namespace AmitTextile.Migrations
                     b.Property<int>("Sold")
                         .HasColumnType("int");
 
-                    b.Property<double>("Stars")
-                        .HasColumnType("float");
-
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
