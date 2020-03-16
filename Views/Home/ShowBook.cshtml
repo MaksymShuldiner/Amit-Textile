@@ -31,7 +31,7 @@
                 arrCat = result;
                 let Url;
                 for (let i = 0; i < arrCat.length; i++) {
-                    Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId;
+                    Url = "@ViewBag.UrlCat" + "?CatId=" + arrCat[i].categoryId;
                     if (line % 2 == 0) {
                         $('#' + count).append('<a class="cats" href="' + Url + '">' + arrCat[i].name + '</a><br>');
                     } else {
@@ -97,7 +97,7 @@
                         <label for="rating"></label>
                     </td>
                     <td>
-                        <input id="rating" name="rating" value="@Model.Textile.Stars.ToString()">
+                        <input id="rating" name="rating" value="@Model.Textile.Stars.ToString().Replace(",",".")">
                     </td>
                 </tr>
             </table>
@@ -344,7 +344,7 @@
                         </span>
                     </div>
                     <div class="commentTextContainer">
-                        <input class="postedCommentRating" name="postedCommentRating" value="@x.Stars">
+                        <input class="postedCommentRating" name="postedCommentRating" value="@x.Stars.ToString().Replace(",",".")">
                         <br>
                         <span class="commentText">
                             @x.Text
@@ -364,7 +364,45 @@
                     </div>
                 </div>
             }
+            <div class="navButtons navBcomments">
+                <ul>
+                    @if (Model.PageViewModel.HasPreviousPage)
+                    {
+                        <text>
+                            <a class="zxc" href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=@(Model.PageViewModel.PageNumber-1)&Section=CommentsReviews"><li class="pagButtons"><span><i class="fas fa-chevron-left"></i>Назад</span></li></a>
+                        </text>
+                    }
+                    else
+                    {
+                        <text>
+                            <li class="pagButtons disabled"><span><i class="fas fa-chevron-left"></i> Назад</span></li>
+                        </text>
+                    }
+                    @foreach (var x in Model.PagesCount)
+                    {
+                        <text>
+                            <a class="zxc1" href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=@x&Section=CommentsReviews">
+                                <li class="pagButtons number"><span>@x</span></li>
+                            </a>
+                        </text>
+                    }
+
+                    @if (Model.PageViewModel.HasNextPage)
+                    {
+                        <text>
+                            <a class="zxc" href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=@(Model.PageViewModel.PageNumber+1)&Section=CommentsReviews"><li class="pagButtons"><span>Вперед <i class="fas fa-chevron-right"></i></span></li></a>
+                        </text>
+                    }
+                    else
+                    {
+                        <text>
+                            <li class="pagButtons disabled"><span> Вперед<i class="fas fa-chevron-right"></i></span></li>
+                        </text>
+                    }
+                </ul>
+            </div>
         }
+   
         @if (Model.Section == "CommentsQuestions")
         {
             if (User.Identity.IsAuthenticated)
@@ -446,13 +484,45 @@
                 </div>
 
             }
-        }
-        <div class="navButtons navBcomments">
-            <ul>
-                
+            <div class="navButtons navBcomments">
+                <ul>
+                    @if (Model.PageViewModel.HasPreviousPage)
+                    {
+                        <text>
+                            <a class="zxc" href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=@(Model.PageViewModel.PageNumber-1)&Section=CommentsQuestions"><li class="pagButtons"><span><i class="fas fa-chevron-left"></i>Назад</span></li></a>
+                        </text>
+                    }
+                    else
+                    {
+                        <text>
+                            <li class="pagButtons disabled"><span><i class="fas fa-chevron-left"></i> Назад</span></li>
+                        </text>
+                    }
+                    @foreach (var x in Model.PagesCount)
+                    {
+                        <text>
+                            <a class="zxc1" href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=@x&Section=CommentsQuestions">
+                                <li class="pagButtons number"><span>@x</span></li>
+                            </a>
+                        </text>
+                    }
 
-            </ul>
-        </div>
+                    @if (Model.PageViewModel.HasNextPage)
+                    {
+                        <text>
+                            <a class="zxc" href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=@(Model.PageViewModel.PageNumber+1)&Section=CommentsQuestions"><li class="pagButtons"><span>Вперед <i class="fas fa-chevron-right"></i></span></li></a>
+                        </text>
+                    }
+                    else
+                    {
+                        <text>
+                            <li class="pagButtons disabled"><span> Вперед<i class="fas fa-chevron-right"></i></span></li>
+                        </text>
+                    }
+                </ul>
+            </div>
+        }
+        
         <div class="hidden">
             <form id="login">
                 <font>Эл. почта</font><br><br>
@@ -574,8 +644,8 @@
             </script>
             <script type="text/javascript">
                 $(document).ready(function () {
-                    let qId = $('.replyButton').attr('parentId');
                     $('.replyButton').click(function () {
+                        let qId = $(this).attr('parentId');
                         let q = $('#popupReplyForm').find('#qId');
                         if (q.length != 0) { q[0].remove() };
                         $('#popupReplyForm').append('<input id="qId" value='+qId+' type="hidden" name="ParentId"/>')

@@ -122,5 +122,11 @@ namespace AmitTextile.Controllers
             }
             return BadRequest(errors);
         }
+        [HttpGet("AuthCheck")]
+        public async Task<IActionResult> IsAuthentificated()
+        {
+            return OkObjectResult(User.Identity.IsAuthenticated, _userManager.IsEmailConfirmedAsync(await _userManager.FindByNameAsync(User.Identity.Name)));
+        }
+
     }
 }
