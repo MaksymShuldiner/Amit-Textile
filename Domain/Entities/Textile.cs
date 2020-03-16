@@ -35,11 +35,17 @@ namespace AmitTextile.Domain
             get
             {
                 double starssum = 0.0;
+                double par = ParentCommentReviews.Count;
                 foreach (var x in ParentCommentReviews)
                 {
                     starssum += x.Stars;
                 }
-                return starssum/ParentCommentReviews.Count;
+
+                if (ParentCommentReviews.Count == 0)
+                {
+                    par = 1;
+                }
+                return (starssum/par);
             }
             
         }
