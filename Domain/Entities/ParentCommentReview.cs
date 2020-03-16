@@ -13,7 +13,7 @@ namespace AmitTextile.Domain
 
         public string SenderId { get; set; }
 
-        public int Stars { get; set; }
+        public double Stars { get; set; }
         
         public Textile Textile { get; set; }
 

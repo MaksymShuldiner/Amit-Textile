@@ -790,6 +790,7 @@ namespace AmitTextile.Controllers
         public async Task<IActionResult> ShowBook(string TextileId, int page = 1, string Section = "AboutItem" )
         {
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
+            ViewBag.UrlCat = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             string Fio = _context.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name)?.Result?.Fio;
             int commentscount = 6;
             bool x = User.Identity.IsAuthenticated;
@@ -798,23 +799,23 @@ namespace AmitTextile.Controllers
             List<ParentCommentQuestion> parentCommentQuestions = new List<ParentCommentQuestion>();
             if (Section == "AboutItem")
             {
-                textile = await _context.Textiles.Include(x => x.Charachteristics).FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId));
+                textile = await _context.Textiles.Include(x => x.Charachteristics).Include(x=>x.ParentCommentReviews).FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId));
             }
             if (Section == "Charachteristics")
             {
-                textile = await _context.Textiles.Include(x => x.Charachteristics).FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId));
+                textile = await _context.Textiles.Include(x => x.Charachteristics).Include(x=>x.ParentCommentReviews).FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId));
             }
             else if (Section == "CommentsReviews")
             {
-                textile = await _context.Textiles.Include(x => x.Charachteristics).FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId));
+                textile = await _context.Textiles.Include(x => x.Charachteristics).Include(x=>x.ParentCommentReviews).FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId));
                 parentCommentReviews = await _context.ParentCommentReviews.Include(x => x.Sender)
-                    .Where(x => x.TextileId == Guid.Parse(TextileId)).OrderBy(x=> x.DatePosted).Skip((page-1)*commentscount).Take(commentscount).ToListAsync();
+                    .Where(x => x.TextileId == Guid.Parse(TextileId)).OrderBy(x=> x.DatePosted).ToListAsync();
             }
             else if (Section == "CommentsQuestions")
             {
-                textile = await _context.Textiles.Include(x => x.Charachteristics).FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId));
+                textile = await _context.Textiles.Include(x => x.Charachteristics).Include(x=>x.ParentCommentReviews).FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId));
                 parentCommentQuestions = await _context.ParentCommentQuestions.Include(x=>x.Sender).Include(x => x.ChildComments).ThenInclude(x=>x.Sender)
-                    .Where(x => x.TextileId == Guid.Parse(TextileId)).OrderBy(x => x.DatePosted).Skip((page - 1) * commentscount).Take(commentscount).ToListAsync();
+                    .Where(x => x.TextileId == Guid.Parse(TextileId)).OrderBy(x => x.DatePosted).ToListAsync();
             }
             if (Section=="AboutItem")
             {
@@ -828,6 +829,7 @@ namespace AmitTextile.Controllers
             else if(Section=="CommentsReviews")
             {
                 PageViewModel model = new PageViewModel(parentCommentReviews.Count, page, commentscount);
+                parentCommentReviews = parentCommentReviews.Skip((page - 1) * commentscount).Take(commentscount).ToList();
                 List<int> pagesCounterList = new List<int>();
                 for (int i = 1; i <= model.TotalPages; i++)
                 {
@@ -835,28 +837,35 @@ namespace AmitTextile.Controllers
                 }
                 List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
                 return View(new TextileViewModel()
-                    { parentCommentReviews = parentCommentReviews, Section = "CommentsReviews",Fio = Fio, PageViewModel = new PageViewModel(parentCommentReviews.Count, page ,commentscount), Textile = textile, PagesCount = newList });
+                    { parentCommentReviews = parentCommentReviews, Section = "CommentsReviews",Fio = Fio, PageViewModel = model, Textile = textile, PagesCount = newList });
             }
             else
             {
                 PageViewModel model = new PageViewModel(parentCommentQuestions.Count, page, commentscount);
+                parentCommentQuestions =
+                    parentCommentQuestions.Skip((page - 1) * commentscount).Take(commentscount).ToList();
                 List<int> pagesCounterList = new List<int>();
                 for (int i = 1; i <= model.TotalPages; i++)
                 {
                     pagesCounterList.Add(i);
                 }
                 List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
+                int z = 5;
                 return View(new TextileViewModel()
-                    { parentCommentQuestions = parentCommentQuestions, Section = "CommentsQuestions",Fio = Fio, PageViewModel  = new PageViewModel(parentCommentQuestions.Count, page, commentscount) , Textile = textile, PagesCount = newList});
+                    { parentCommentQuestions = parentCommentQuestions, Section = "CommentsQuestions",Fio = Fio, PageViewModel  = model , Textile = textile, PagesCount = newList});
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostCommentReview(string Datetime, string Message, int Stars, string TextileId, string Advantages, string Drawbacks, string Fio)
+        public async Task<IActionResult> PostCommentReview(string Datetime, string Message, string Stars, string TextileId, string Advantages, string Drawbacks, string Fio)
         {
+            if (Stars == null)
+            {
+                Stars = "0.0";
+            }
             DateTime datetime = DateTime.Parse(Datetime);
             Guid Id = Guid.Parse(TextileId);
-            await _context.ParentCommentReviews.AddAsync(new ParentCommentReview(){DatePosted = datetime, TextileId = Id, ParentCommentReviewId = Guid.NewGuid(), Stars = Stars , SenderId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id, Text = Message, Advantages = Advantages, DrawBacks = Drawbacks,Fio = Fio});
+            await _context.ParentCommentReviews.AddAsync(new ParentCommentReview(){DatePosted = datetime, TextileId = Id,Stars = double.Parse(Stars, System.Globalization.CultureInfo.InvariantCulture),ParentCommentReviewId = Guid.NewGuid(), SenderId = _userManager.FindByNameAsync(User.Identity.Name).Result.Id, Text = Message, Advantages = Advantages, DrawBacks = Drawbacks,Fio = Fio});
             await _context.SaveChangesAsync();
             string Url2 = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook?TextileId={Id}&page=1&Section=CommentsReviews";
             return Redirect(Url2);

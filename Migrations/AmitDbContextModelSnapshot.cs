@@ -325,8 +325,8 @@ namespace AmitTextile.Migrations
                     b.Property<string>("SenderId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Stars")
-                        .HasColumnType("int");
+                    b.Property<double>("Stars")
+                        .HasColumnType("float");
 
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");

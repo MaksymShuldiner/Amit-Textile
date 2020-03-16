@@ -27,6 +27,6 @@
             5: '5 звёзд'
         },
         clearButtonTitle: 'Очистить',
-        clearCaption: 'Без рейтинга'
+        clearCaption: '0 звезд'
     };
 })(window.jQuery);

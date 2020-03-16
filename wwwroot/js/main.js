@@ -132,7 +132,6 @@ $(document).ready(function () {
             }
         }
         starsCount = arr.join('');
-        alert(starsCount);
         $('#ratingComment').attr('value', starsCount);
     });
 });
