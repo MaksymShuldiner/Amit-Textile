@@ -105,67 +105,51 @@
         <div class="buttonBar">
             @if (Model.Section == "AboutItem")
             {
-                <div class="button buttonSelected">
-                    <a href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=AboutItem">
-                        О товаре
-                    </a>
-                </div>
+                <a href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=AboutItem" class="button buttonSelected">
+                    О товаре
+                </a>
             }
             else
             {
-                <div class="button">
-                    <a href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=AboutItem">
-                        О товаре
-                    </a>
-                </div>
+                <a class="button" href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=AboutItem">
+                    О товаре
+                </a>
             }
             @if (Model.Section == "Charachteristics")
             {
-                <div class="button buttonSelected">
-                    <a href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=Charachteristics">
-                        Характеристики
-                    </a>
-                </div>
+                <a class="button buttonSelected" href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=Charachteristics">
+                    Характеристики
+                </a>
             }
             else
             {
-                <div class="button">
-                    <a href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=Charachteristics">
-                        Характеристики
-                    </a>
-                </div>
+                <a class="button" href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=Charachteristics">
+                    Характеристики
+                </a>
             }
             @if (Model.Section == "CommentsReviews")
             {
-                <div class="button buttonSelected">
-                    <a href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=CommentsReviews">
-                        Отзывы
-                    </a>
-                </div>
+                <a class="button buttonSelected" href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=CommentsReviews">
+                    Отзывы
+                </a>
             }
             else
             {
-                <div class="button">
-                    <a href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=CommentsReviews">
-                        Отзывы
-                    </a>
-                </div>
+                <a class="button" href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=CommentsReviews">
+                    Отзывы
+                </a>
             }
             @if (Model.Section == "CommentsQuestions")
             {
-                <div class="button buttonSelected">
-                    <a href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=CommentsQuestions">
-                        Вопросы
-                    </a>
-                </div>
+                <a class="button buttonSelected" href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=CommentsQuestions">
+                    Вопросы
+                </a>
             }
             else
             {
-                <div class="button">
-                    <a href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=CommentsQuestions">
-                        Вопросы
-                    </a>
-                </div>
+                <a class="button" href="@ViewBag.Url?TextileId=@Model.Textile.TextileId&page=1&Section=CommentsQuestions">
+                    Вопросы
+                </a>
             }
         </div>
         @if (Model.Section == "AboutItem")

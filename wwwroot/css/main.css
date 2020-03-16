@@ -873,26 +873,19 @@ footer {
     margin-right: 30px;
     padding-bottom: 20px;
     cursor: pointer;
+    color: #212529;
+    transition: 0.1s all ease;
 }
-
-    .button > a {
-        color: #212529;
-        transition: 0.1s all ease;
-    }
-
-        .button > a:hover {
+        .button:hover {
             text-decoration: none;
         }
 
     .button:hover {
         transition: 0.1s all ease;
+        font-weight: bold;
+        color: #FFB6C1;
         border-bottom: 3px solid #FFB6C1;
     }
-
-        .button:hover > a {
-            font-weight: bold;
-            color: #FFB6C1;
-        }
 
 .buttonSelected {
     border-bottom: 3px solid #FFB6C1;
@@ -1176,10 +1169,12 @@ textarea {
 .commentInfo {
     padding: 10px;
     border-bottom: 1px solid #d3d3d3;
+    background-color:#fff;
 }
 
 .commentTextContainer {
     padding: 10px;
+    background-color:#fff;
 }
 
     .commentTextContainer > label {
@@ -1228,6 +1223,7 @@ textarea {
     border: 1px solid #d3d3d3;
     border-top: 0px;
     padding: 10px;
+    background-color:#fff;
 }
 
 .replyInfo {
