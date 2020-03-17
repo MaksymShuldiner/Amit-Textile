@@ -15,7 +15,7 @@ header {
     margin-top: 27px;
 }
 
-.search_form input {
+.searchBar {
     width: 76%;
     height: 35px;
     border: 1px solid #DCDCDC;
@@ -27,7 +27,7 @@ header {
     font-family: 'Ubuntu Condensed';
 }
 
-    .search_form button {
+    .searchButton {
         height: 35px;
         border-radius: 0 3px 3px 0;
         background-color: #FFB6C1;
@@ -37,16 +37,11 @@ header {
         font-weight: bold;
     }
 
-        .search_form button:hover {
+        .searchButton:hover {
             background-color: #FFC0CB;
             border: 1px solid #FFC0CB;
             transition: 0.3s all;
         }
-
-    .search_form a {
-        height: 35px;
-    }
-
 .cart_container a > svg {
     color: #FFB6C1;
     font-size: 31px;
@@ -1358,3 +1353,21 @@ textarea {
 .item .rateItemContainer{
     margin-top:5px;
 }
+.lic{
+    margin-top:0px;
+}
+.close1 {
+    position: absolute;
+    right: -15px;
+    top: -10px;
+    background: none;
+    border: none;
+    font-size: 25px;
+    transition: 0.3s all ease;
+    color :#A9A9A9;
+}
+
+    .close1:hover {
+        color: #696969;
+        transition: 0.3s all ease;
+    }
