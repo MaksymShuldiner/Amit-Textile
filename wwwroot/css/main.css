@@ -236,7 +236,7 @@ header {
 
 .itm_field {
     padding: 0;
-    padding-top: 25px;
+    padding-top: 15px;
 }
 
 .item_cells > .col-md-3 {
@@ -674,6 +674,9 @@ footer {
 .mrg {
     margin-bottom: 60px;
 }
+.listImgContainer{
+    margin-top:15px;
+}
 .listImgContainer > img {
     width: 100%;
 }
@@ -687,7 +690,7 @@ footer {
     transition: 0.3s all ease;
 }
 
-.itemNameList {
+.itemDescriptionList .rateItemContainer {
     margin-bottom: 20px;
 }
 
@@ -1335,4 +1338,23 @@ textarea {
 }
 .favouriteList{
     margin-right:10px;
+}
+.rateItemContainer > .rating-container {
+    display: inline-block;
+}
+.rateItemContainer > a {
+    transition: 0.3s all ease;
+    font-size: 14px;
+    color: #212529;
+}
+    .rateItemContainer > a:hover {
+        transition: 0.3s all ease;
+        color: coral;
+        text-decoration: none;
+    }
+    .rateItemContainer > a:link {
+        text-decoration: none;
+    }
+.item .rateItemContainer{
+    margin-top:5px;
 }

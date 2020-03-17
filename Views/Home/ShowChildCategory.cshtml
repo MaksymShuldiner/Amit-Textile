@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Интернет-магазин текстиля AmitTextile</title>
     <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed&display=swap" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/animate.css">
     <link rel="stylesheet" href="~/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/reset.css">
@@ -14,6 +15,8 @@
     <link rel="stylesheet" href="~/libs/FontAwesome/all.min.css">
     <link rel="stylesheet" href="~/libs/OwlCarousel/owl.carousel.min.css">
     <link rel="stylesheet" href="~/css/slider.css" />
+    <link rel="stylesheet" href="~/libs/themes/krajee-svg/theme.min.css">
+    <link rel="stylesheet" href="~/css/star-rating.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <link rel="stylesheet" href="~/css/adapt.css">
     <script type="text/javascript" src="~/libs/jquery 3.4.1.min.js"></script>
@@ -189,6 +192,9 @@
                                                 <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId" class="item_name">
                                                     @x.Textile.Name
                                                 </a>
+                                                <div class="rateItemContainer">
+                                                    <input class="rateItem" value="4" /> <a href="#"> n Отзывов</a>
+                                                </div>
                                                 <div class="container-fluid itm_field">
                                                     <div class="row">
                                                         <div class="col-md-6">
@@ -265,6 +271,9 @@
                                                                             <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId">
                                                                                 <h2>@x.Textile.Name</h2>
                                                                             </a>
+                                                                        </div>
+                                                                        <div class="rateItemContainer">
+                                                                            <input class="rateItem" value="4" /> <a href="#"> n Отзывов</a>
                                                                         </div>
                                                                         <div class="itemDescrList">
                                                                             <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus veritatis, amet laboriosam maxime aliquam, accusamus sunt dignissimos corporis minima accusantium tempore ducimus eligendi architecto, inventore, error sint! Voluptatum, ab, harum.</span>
@@ -710,6 +719,9 @@
         window.location.href = "@ViewBag.ChildUrl" + "?ChildCatId=" + "@Model.Category.ChildCategoryId" + "&Filter=" + str + "&page=" + "1" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "@Model.CookieValue";
     });
     </script>
+    <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
+    <script type="text/javascript" src="~/js/star-rating.js"></script>
+    <script type="text/javascript" src="~/js/ru.js"></script>
     <script type="text/javascript" src="~/js/slider.js"></script>
     <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="~/js/main.js"></script>
