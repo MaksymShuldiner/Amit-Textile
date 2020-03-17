@@ -72,9 +72,9 @@ $(document).ready(function () {
         $('.atv2').toggleClass('hdn');
 
     });
-    $('.fav').click(function () {
+    /*$('.fav').click(function () {
         $(this).find('.toFavourite').toggleClass('selected');
-    });
+    });*/
     $('.filterName').click(function () {
         let hide = $(this).next();
         let arrow = $(this).find('svg');

@@ -901,13 +901,9 @@ footer {
 
 .buttonSelected {
     border-bottom: 3px solid #FFB6C1;
+    font-weight: bold;
+    color: #FFB6C1;
 }
-
-    .buttonSelected > a {
-        font-weight: bold;
-        color: #FFB6C1;
-    }
-
 .ratingContainer {
     background-color: white;
     padding-bottom: 20px;
@@ -965,12 +961,12 @@ footer {
     }
 
 .characteristicName {
-    width: 40%;
+    width: 60%;
     border-bottom: 1px solid #d3d3d3;
 }
 
 .characteristicValue {
-    width: 60%;
+    width: 40%;
     float: left;
 }
 
@@ -979,6 +975,8 @@ footer {
 }
 
 .itemMini {
+    margin-top:5px;
+    background-color:white;
     position: sticky;
     top: 5px;
     margin-right: 19%;
@@ -1321,4 +1319,8 @@ textarea {
     margin-left: 10%;
     padding: 45px;
     padding-left: 10px;
+}
+.characteristics > table {
+    border-spacing:0 25px;
+    border-collapse:separate;
 }

@@ -85,6 +85,8 @@ namespace AmitTextile.Controllers
             }
             return BadRequest(errorsList);
         }
+        [HttpPost]
+        [Route("Login")]
         public async Task<IActionResult> Login([FromBody]LoginModel Model)
         {
             List<string> errors = new List<string>();
@@ -100,13 +102,13 @@ namespace AmitTextile.Controllers
                     }
                     else
                     {
-                        errors.Add("Возникла ошибка на сервере");
+                        errors.Add("Вы ввели неверный логин и/или пароль");
                        
                     }
                 }
                 else
                 {
-                    errors.Add("Пользователя с такой почтой и паролем не существует");
+                    errors.Add("Вы ввели неверный логин и/или пароль");
                 }
                 
             }
@@ -140,20 +142,47 @@ namespace AmitTextile.Controllers
             return Ok(new { IsEmailConfirmed = isEmailConfirmed, IsAuthentificated = isAuthenticatedFlag });
         }
         [HttpPost]
-        public async Task<IActionResult> ToFavourite(string TextileId)
+        public async Task<IActionResult> ToFavourite(string TextileId, string Value)
         {
-            User user = _userManager.FindByNameAsync(User.Identity.Name).Result;
-            user.UserChosenTextiles.Add(new UserChosenTextile() { TextileId = Guid.Parse(TextileId), UserId = user.Id });
-            try
+            if (Value == "1")
             {
-                await _userManager.UpdateAsync(user);
-                await _context.SaveChangesAsync();
+                User user = await _context.Users.Include(x => x.UserChosenTextiles).FirstOrDefaultAsync(x => x.Id == User.Identity.Name);
+                user.UserChosenTextiles.Add(new UserChosenTextile() { TextileId = Guid.Parse(TextileId), UserId = user.Id });
+                try
+                {
+                    await _userManager.UpdateAsync(user);
+                    await _context.SaveChangesAsync();
+                }
+                catch
+                {
+                    return BadRequest();
+                }
+                return Ok();
             }
-            catch
+            else
             {
-                return BadRequest();
+                User user = _userManager.FindByNameAsync(User.Identity.Name).Result;
+                if (user.UserChosenTextiles.Contains(new UserChosenTextile()
+                { TextileId = Guid.Parse(TextileId), UserId = user.Id }))
+                {
+                    user.UserChosenTextiles.Remove(new UserChosenTextile()
+                    { TextileId = Guid.Parse(TextileId), UserId = user.Id });
+                    try
+                    {
+                        await _userManager.UpdateAsync(user);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch
+                    {
+                        return BadRequest();
+                    }
+                    return Ok();
+                }
+                else
+                {
+                    return Ok();
+                }
             }
-            return Ok();
         }
     }
 }

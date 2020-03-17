@@ -200,10 +200,10 @@
                                 </a>
                             </button>
                             <button class="fav">
-                                <a href="#" class="toFavourite selected">
+                                <a href="#" value="0" class="toFavourite selected">
                                     <i class="far fa-heart"></i>
                                 </a>
-                                <a href="#" class="toFavourite"><i class="fas fa-heart"></i></a>
+                                <a href="#" value="1" class="toFavourite"><i class="fas fa-heart"></i></a>
                             </button>
                         </div>
                         <div class="itemDescription">
@@ -223,20 +223,19 @@
                     <div class="row">
                         <div class="col-md-8">
                             <div class="characteristics">
-                                <table>
-                                    <tr>
+                                <table cellpadding="20px">
                                         @foreach (var x in Model.Textile.Charachteristics.Where(x => x.Value != null))
                                         {
-                                            <td class="characteristicName">
-                                                <span>@x.Name</span>
-                                            </td>
-                                            <td class="characteristicValue">
-                                                <span>@x.Value</span>
-                                            </td>
+                                            <tr>
+                                                <td class="characteristicName">
+                                                    <span>@x.Name</span>
+                                                </td>
+                                                <td class="characteristicValue">
+                                                    <span>@x.Value</span>
+                                                </td>
+                                            </tr>
+                                            
                                         }
-
-
-                                    </tr>
                                 </table>
                             </div>
                         </div>
@@ -292,10 +291,10 @@
                                         @Model.Textile.Price
                                     </span>
                                     <button class="fav">
-                                        <a href="#" class="toFavourite selected">
+                                        <a href="#" value="0" class="toFavourite selected">
                                             <i class="far fa-heart"></i>
                                         </a>
-                                        <a href="#" class="toFavourite"><i class="fas fa-heart"></i></a>
+                                        <a href="#" class="toFavourite" value="1"><i class="fas fa-heart"></i></a>
                                     </button>
                                 </div>
                                 <button class="buyItem">
@@ -557,6 +556,51 @@
     </div>
     <footer>
     </footer>
+    <script type="text/javascript">
+        $('.fav').click(function () {
+            let s = $(this).find('.toFavourite');
+            let s1;
+            for (let i = 0; i < s.length; i++) {
+                if ($(s[i]).hasClass('selected')) {
+                    s1 = $(s[i]).attr('value');
+                    break;
+                }
+            }
+            let f = $(this);
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("IsAuthentificated","TextileApi")',
+                contentType: 'json',
+                success: function (e) {
+                    if (e.isAuthentificated) {
+                        let x
+                        if (s1 == '1') {
+                             x= { 'Value': '0','TextileId':"@Model.Textile.TextileId" }
+                        }
+                        else {
+                             x = { 'Value': '1', 'TextileId':"@Model.Textile.TextileId"}
+                        }
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("ToFavourite","TextileApi")',
+                            contentType:'application/json; charset=utf-8',
+                            data: JSON.stringify(x),
+                            success: function (e){
+                                f.find('.toFavourite').toggleClass('selected');
+                            },
+                            error: function (e) {
+                                console.log(e);
+                            }
+                        })
+                    }
+                    else if (!e.isAuthentificated) {
+                        $.fancybox.open('#login');
+                    }
+                    
+                }
+            });
+        });
+    </script>
     <script type="text/javascript"> 
                 $('.commentSend').click(function () {
                     function tgl() {
@@ -580,6 +624,28 @@
                         }
                     });
                 });
+                $('.questionSend').click(function () {
+                            function tgl() {
+                                $('#notConfirmed').fadeOut(400);
+                            }
+                            $.ajax({
+                                type: 'GET',
+                                url: '@Url.Action("IsAuthentificated","TextileApi")',
+                                contentType: 'json',
+                                success: function (e) {
+                                    if (e.isAuthentificated && e.isEmailConfirmed) {
+                                        $.fancybox.open($('#popupQuestionForm'));
+                                    }
+                                    else if (!e.isEmailConfirmed && e.isAuthentificated) {
+                                        $('#notConfirmed').fadeIn(400);
+                                        setTimeout(tgl, 10000);
+                                    }
+                                    else if (!e.isAuthentificated) {
+                                        $.fancybox.open($('#login'));
+                                    }
+                                }
+                            });
+                        });
                 
     </script>
     <script type="text/javascript">
