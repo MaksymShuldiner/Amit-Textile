@@ -1015,5 +1015,6 @@ namespace AmitTextile.Controllers
             string Url2 = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook?TextileId={Id}&page=1&Section=CommentsQuestions";
             return Redirect(Url2);
         }
+        
     }
 }
