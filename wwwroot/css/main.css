@@ -336,7 +336,7 @@ footer {
         text-align: center;
     }
 
-#close {
+.close {
     position: fixed;
     right: 0px;
     top: 5px;
@@ -346,11 +346,23 @@ footer {
     transition: 0.3s all ease;
 }
 
-    #close:hover {
+    .close:hover {
         color: #A9A9A9;
         transition: 0.3s all ease;
     }
+#notConfirmed {
+    position: fixed;
+    height: 100px;
+    width: 100%;
+    z-index: 100;
+    background-color: #FFFAF0;
+    padding-top: 40px;
+    display: none;
+}
 
+    #notConfirmed > p {
+        text-align: center;
+    }
 #register > .inputFields > span {
     color: red;
 }

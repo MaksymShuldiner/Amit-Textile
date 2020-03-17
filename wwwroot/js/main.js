@@ -30,8 +30,8 @@ $(document).ready(function () {
             scrollTop: 0
         }, 800);
     });
-    $('#close').click(function () {
-        $('#regS').fadeOut(400);
+    $('.close').click(function () {
+        $(this).parent().fadeOut(400);
     });
     let flg = false;
     $('#showPassLogin').click(function () {

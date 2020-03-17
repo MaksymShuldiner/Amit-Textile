@@ -30,7 +30,7 @@ namespace AmitTextile.Controllers
             bool flag = false;
             if (User.Identity.IsAuthenticated)
             {
-                Cart cart = await _context.Carts.Include(x => x.Items).ThenInclude(x=>x.Textile).Include(x => x.User)
+                Cart cart = await _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).Include(x => x.User)
                     .FirstOrDefaultAsync(x => x.User.UserName == User.Identity.Name);
                 foreach (var x in cart.Items)
                 {
@@ -42,18 +42,61 @@ namespace AmitTextile.Controllers
                 }
                 if (!flag)
                 {
-                    cart.Items.Add(new Item(){CartId = cart.CartId, ItemId = Guid.NewGuid(), ItemsAmount = 1, TextileId = Guid.Parse(TextileId)});
+                    cart.Items.Add(new Item() { CartId = cart.CartId, ItemId = Guid.NewGuid(), ItemsAmount = 1, TextileId = Guid.Parse(TextileId) });
                     _context.Update(cart);
+                    await _context.SaveChangesAsync();
                 }
                 else
                 {
                     cart.Items.FirstOrDefault(x => x.Textile.TextileId == Guid.Parse(TextileId)).ItemsAmount++;
                     _context.Update(cart);
+                    await _context.SaveChangesAsync();
                 }
-               
+
             }
             else
             {
+
+                if (!HttpContext.Request.Cookies.ContainsKey("Cart"))
+                {
+                    bool flag1;
+                    Guid Id = Guid.NewGuid();
+                    Guid CartId = Guid.NewGuid();
+                    Cart Cart = new Cart() { CartId = Guid.NewGuid(), NonAuthorizedId = Id };
+                    await _context.Carts.AddAsync(Cart);
+                    await _context.Items.AddAsync(new Item()
+                    { ItemId = Guid.NewGuid(), CartId = CartId, TextileId = Guid.Parse(TextileId), ItemsAmount = 1 });
+                    await _context.SaveChangesAsync();
+                    HttpContext.Response.Cookies.Append("Cart", Id.ToString(), new Microsoft.AspNetCore.Http.CookieOptions() { Expires = DateTime.Now.Add(TimeSpan.FromDays(90)), IsEssential = true });
+                }
+                else
+                {
+                    bool flag2 = false;
+                    Guid Id = Guid.Parse(HttpContext.Request.Cookies["Cart"]);
+                    Cart Cart = await _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).FirstOrDefaultAsync(x => x.CartId == Id);
+                    foreach (var x in Cart.Items)
+                    {
+                        if (x.Textile.TextileId == Guid.Parse(TextileId))
+                        {
+                            flag2 = true;
+                            break;
+                        }
+                    }
+                    if (!flag2)
+                    {
+                        Cart.Items.Add(new Item() { CartId = Cart.CartId, ItemId = Guid.NewGuid(), ItemsAmount = 1, TextileId = Guid.Parse(TextileId) });
+                        _context.Update(Cart);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        Cart.Items.FirstOrDefault(x => x.Textile.TextileId == Guid.Parse(TextileId)).ItemsAmount++;
+                        _context.Update(Cart);
+                        await _context.SaveChangesAsync();
+                    }
+
+                }
+
 
             }
 

@@ -53,7 +53,7 @@ namespace AmitTextile.Controllers
                     if (code != null)
                     {
                         var callbackUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{Url.Action("ConfirmEmail", "Auth" , new{code = code, userId = user.Id})}";
-                        await _emailService.Execute("for some reason", "maksym.shuldiner@nure.ua", "Подтверди почту", $"<a href ='{callbackUrl}'>link</a>");
+                        await _emailService.Execute("for some reason", Model.Email, "Подтверди почту", $"<a href ='{callbackUrl}'>link</a>");
                         return Ok("zdarova");
                     }
                 }
@@ -125,8 +125,35 @@ namespace AmitTextile.Controllers
         [HttpGet("AuthCheck")]
         public async Task<IActionResult> IsAuthentificated()
         {
-            return OkObjectResult(User.Identity.IsAuthenticated, _userManager.IsEmailConfirmedAsync(await _userManager.FindByNameAsync(User.Identity.Name)));
-        }
+            bool isAuthenticatedFlag = User.Identity.IsAuthenticated;
+            bool isEmailConfirmed;
+            if (!isAuthenticatedFlag)
+            {
+                isEmailConfirmed = false;
+            }
+            else
+            {
+                isEmailConfirmed =
+                   await _userManager.IsEmailConfirmedAsync(await _userManager.FindByNameAsync(User.Identity.Name));
+            }
 
+            return Ok(new { IsEmailConfirmed = isEmailConfirmed, IsAuthentificated = isAuthenticatedFlag });
+        }
+        [HttpPost]
+        public async Task<IActionResult> ToFavourite(string TextileId)
+        {
+            User user = _userManager.FindByNameAsync(User.Identity.Name).Result;
+            user.UserChosenTextiles.Add(new UserChosenTextile() { TextileId = Guid.Parse(TextileId), UserId = user.Id });
+            try
+            {
+                await _userManager.UpdateAsync(user);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            return Ok();
+        }
     }
 }
