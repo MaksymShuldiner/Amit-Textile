@@ -115,10 +115,10 @@
                                                                 </a>
                                                             </div>
                                                             <div class="rateItemContainer">
-                                                                <input class="rateItem" value="@x.Stars.ToString().Replace(",", ".")" /> <a href="@ViewBag.BookUrl?TextileId=@x.TextileId&page=1&Section=CommentsReviews"> @x.ChildCommentQuestions отзывов</a>
+                                                                <input class="rateItem" value="@x.Stars.ToString().Replace(",", ".")" /> <a href="@ViewBag.BookUrl?TextileId=@x.TextileId&page=1&Section=CommentsReviews"> @x.ParentCommentReviews.Count отзывов</a>
                                                             </div>
                                                             <div class="itemDescrList">
-                                                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus veritatis, amet laboriosam maxime aliquam, accusamus sunt dignissimos corporis minima accusantium tempore ducimus eligendi architecto, inventore, error sint! Voluptatum, ab, harum.</span>
+                                                                <span>@x.Description</span>
                                                             </div>
                                                             <div class="itemPriceList"><span>@(x.Price + " ₴")</span></div>
                                                             @if (x.WarehouseAmount >= 30)
@@ -157,8 +157,45 @@
                                 </div>
                             </div>
                         }
+                        <div class="navButtons">
+                            <ul>
+                                @if (Model.Model.HasPreviousPage)
+                                {
+                                    <text>
+                                        <a class="zxc" href="@ViewBag.BookUrl&page=@(Model.Model.PageNumber-1)"><li class="pagButtons"><span><i class="fas fa-chevron-left"></i>Назад</span></li></a>
+                                    </text>
+                                }
+                                else
+                                {
+                                    <text>
+                                        <li class="pagButtons disabled"><span><i class="fas fa-chevron-left"></i> Назад</span></li>
+                                    </text>
+                                }
+                                @foreach (var x in Model.PagesCounterList)
+                                {
+                                    <text>
+                                        <a class="zxc1" href="@ViewBag.BookUrl&page=@x">
+                                            <li class="pagButtons number"><span>@x</span></li>
+                                        </a>
+                                    </text>
+                                }
+
+                                @if (Model.Model.HasNextPage)
+                                {
+                                    <text>
+                                        <a class="zxc" href="@ViewBag.BookUrl&page=@(Model.Model.PageNumber+1)"><li class="pagButtons"><span>Вперед <i class="fas fa-chevron-right"></i></span></li></a>
+                                    </text>
+                                }
+                                else
+                                {
+                                    <text>
+                                        <li class="pagButtons disabled"><span> Вперед<i class="fas fa-chevron-right"></i></span></li>
+                                    </text>
+                                }
+
+                            </ul>
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>

@@ -24,18 +24,26 @@ namespace AmitTextile.Controllers
         }
         public async Task<IActionResult> ShowFavourite(int page=1)
         {
+            ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             ViewBag.BookUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
             if (!User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
-
-            User user = _context.Users.Include(x => x.UserChosenTextiles)
+            
+            User user = _context.Users.Include(x => x.UserChosenTextiles).ThenInclude(x=>x.Textile).ThenInclude(x=>x.ParentCommentReviews)
                 .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result;
             List<Textile> Textiles = new List<Textile>();
             user.UserChosenTextiles.ToList().ForEach(x=>Textiles.Add(x.Textile));
+            PageViewModel Model = new PageViewModel(Textiles.Count, page,9);
+            List<int> pagesCounterList = new List<int>();
+            for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                pagesCounterList.Add(i);
+            }
+            List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
             return View(new ShowFavouriteModel()
-                {Textiles = Textiles, Model = new PageViewModel(Textiles.Count, page, 9)});
+                {Textiles = Textiles, Model = new PageViewModel(Textiles.Count, page, 9), PagesCounterList = newList});
 
         }
     }
