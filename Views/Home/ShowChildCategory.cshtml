@@ -184,29 +184,29 @@
                                                 <div class="item_image">
                                                     <img src="../images/img1.jpg" alt="ItemImg">
                                                 </div>
-                                                <a href="@ViewBag.BookUrl?TextileId=@x.TextileId" class="item_name">
-                                                    @x.Name
+                                                <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId" class="item_name">
+                                                    @x.Textile.Name
                                                 </a>
                                                 <div class="container-fluid itm_field">
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <span class="item_cost">
-                                                                @(x.Price + " ₴")
+                                                                @(x.Textile.Price + " ₴")
                                                             </span>
                                                             <br>
-                                                            @if (x.WarehouseAmount >= 30)
+                                                            @if (x.Textile.WarehouseAmount >= 30)
                                                             {
                                                                 <span class="inStock">
                                                                     В наличии
                                                                 </span>
                                                             }
-                                                            @if (x.WarehouseAmount < 30 && x.WarehouseAmount != 0)
+                                                            @if (x.Textile.WarehouseAmount < 30 && x.Textile.WarehouseAmount != 0)
                                                             {
                                                                 <span class="lowAm">
                                                                     Заканчивается
                                                                 </span>
                                                             }
-                                                            @if (x.WarehouseAmount == 0)
+                                                            @if (x.Textile.WarehouseAmount == 0)
                                                             {
                                                                 <span class="notInStock">
                                                                     Нет в наличии
@@ -245,27 +245,27 @@
                                                                 <div class="col-md-6">
                                                                     <div class="itemDescriptionList">
                                                                         <div class="itemNameList">
-                                                                            <a href="@ViewBag.BookUrl?TextileId=@x.TextileId">
-                                                                                <h2>@x.Name</h2>
+                                                                            <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId">
+                                                                                <h2>@x.Textile.Name</h2>
                                                                             </a>
                                                                         </div>
                                                                         <div class="itemDescrList">
                                                                             <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus veritatis, amet laboriosam maxime aliquam, accusamus sunt dignissimos corporis minima accusantium tempore ducimus eligendi architecto, inventore, error sint! Voluptatum, ab, harum.</span>
                                                                         </div>
-                                                                        <div class="itemPriceList"><span>@(x.Price + " ₴")</span></div>
-                                                                        @if (x.WarehouseAmount >= 30)
+                                                                        <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
+                                                                        @if (x.Textile.WarehouseAmount >= 30)
                                                                         {
                                                                             <span class="inStock">
                                                                                 Есть в наличии
                                                                             </span>
                                                                         }
-                                                                        @if (x.WarehouseAmount < 30 && x.WarehouseAmount != 0)
+                                                                        @if (x.Textile.WarehouseAmount < 30 && x.Textile.WarehouseAmount != 0)
                                                                         {
                                                                             <span class="lowAm">
                                                                                 Заканчивается
                                                                             </span>
                                                                         }
-                                                                        @if (x.WarehouseAmount == 0)
+                                                                        @if (x.Textile.WarehouseAmount == 0)
                                                                         {
                                                                             <span class="notInStock">
                                                                                 Нет в наличии
@@ -283,10 +283,20 @@
                                                                     </div>
                                                                     <div class="buttonsItemList">
                                                                         <button class="fav @(count)">
-                                                                            <a href="#" class="@(count)@(count) toFavourite selected">
-                                                                                <i class="far fa-heart"></i>
-                                                                            </a>
-                                                                            <a href="#" class="toFavourite"><i class="fas fa-heart"></i></a>
+                                                                            @if (x.isFavourite)
+                                                                            {
+                                                                                <p class="@(count)@(count) toFavourite">
+                                                                                    <i class="far fa-heart"></i>
+                                                                                </p>
+                                                                                <p class="@(count)@(count) toFavourite selected"><i class="fas fa-heart"></i></p>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <p class="@(count)@(count) toFavourite selected">
+                                                                                    <i class="far fa-heart"></i>
+                                                                                </p>
+                                                                                <p class="@(count)@(count) toFavourite"><i class="fas fa-heart"></i></p>
+                                                                            }
                                                                         </button>
                                                                     </div>
                                                                 </div>

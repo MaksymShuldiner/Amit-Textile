@@ -5,7 +5,7 @@ namespace AmitTextile.Models
 {
     public class ChildCategoriesViewModel
     {
-        public List<Textile> Textiles { get; set; }
+        public List<TextileForFavViewModel> Textiles { get; set; }
 
         public PageViewModel PageViewModel { get; set; }
 

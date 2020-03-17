@@ -142,46 +142,41 @@ namespace AmitTextile.Controllers
             return Ok(new { IsEmailConfirmed = isEmailConfirmed, IsAuthentificated = isAuthenticatedFlag });
         }
         [HttpPost]
-        public async Task<IActionResult> ToFavourite(string TextileId, string Value)
+        [Route("Yep")]
+        public async Task<IActionResult> ToFavourite([FromBody]FavouriteModel model)
         {
-            if (Value == "1")
+            if (model.Value == "1")
             {
-                User user = await _context.Users.Include(x => x.UserChosenTextiles).FirstOrDefaultAsync(x => x.Id == User.Identity.Name);
-                user.UserChosenTextiles.Add(new UserChosenTextile() { TextileId = Guid.Parse(TextileId), UserId = user.Id });
+                User user = await _context.Users.Include(x => x.UserChosenTextiles).FirstOrDefaultAsync(x => x.UserName == User.Identity.Name);
+                user.UserChosenTextiles.Add(new UserChosenTextile() { TextileId = Guid.Parse(model.TextileId), UserId = user.Id });
                 try
                 {
                     await _userManager.UpdateAsync(user);
                     await _context.SaveChangesAsync();
                 }
-                catch
+                catch(Exception ex)
                 {
-                    return BadRequest();
+                    return BadRequest(ex);
                 }
                 return Ok();
             }
             else
             {
-                User user = _userManager.FindByNameAsync(User.Identity.Name).Result;
-                if (user.UserChosenTextiles.Contains(new UserChosenTextile()
-                { TextileId = Guid.Parse(TextileId), UserId = user.Id }))
-                {
-                    user.UserChosenTextiles.Remove(new UserChosenTextile()
-                    { TextileId = Guid.Parse(TextileId), UserId = user.Id });
+                User user = await _context.Users.Include(x => x.UserChosenTextiles)
+                    .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name);
+                user.UserChosenTextiles.Remove(
+                        user.UserChosenTextiles.FirstOrDefault(x => x.TextileId == Guid.Parse(model.TextileId)));
                     try
                     {
                         await _userManager.UpdateAsync(user);
                         await _context.SaveChangesAsync();
                     }
-                    catch
+                    catch(Exception ex)
                     {
-                        return BadRequest();
+                        return BadRequest(ex);
                     }
                     return Ok();
-                }
-                else
-                {
-                    return Ok();
-                }
+               
             }
         }
     }

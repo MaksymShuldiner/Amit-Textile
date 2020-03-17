@@ -5,7 +5,7 @@ namespace AmitTextile.Models
 {
     public class TextileViewModel
     {
-        public Textile Textile { get; set; }
+        public TextileForFavViewModel Textile { get; set; }
 
         public List<ParentCommentReview> parentCommentReviews { get; set; }
 

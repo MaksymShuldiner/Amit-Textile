@@ -403,12 +403,29 @@ namespace AmitTextile.Controllers
             {
                 pagesCounterList.Add(i);
             }
+            List<TextileForFavViewModel> textileForFavViewModels = new List<TextileForFavViewModel>();
+            if (User.Identity.IsAuthenticated)
+            {
+                Textiles.ForEach(x => textileForFavViewModels.Add(new TextileForFavViewModel()
+                {
+                    Textile = x,
+                    isFavourite = _context.Users.Include(x=>x.UserChosenTextiles).FirstOrDefaultAsync(z=>z.UserName==User.Identity.Name).Result.UserChosenTextiles.Any(y=>x.TextileId== y.TextileId)
+                }));
+            }
+            else
+            {
+                Textiles.ForEach(x => textileForFavViewModels.Add(new TextileForFavViewModel()
+                {
+                    Textile = x,
+                    isFavourite = false
+                }));
+            }
             List<FilterCharachteristics> charachteristics = _context.FilterCharachteristicses.Include(x => x.Charachteristic).ThenInclude(x => x.Values).OrderBy(x => x.Charachteristic.Name).ToList();
             List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
             List<FilterCharachteristics> filters = await _context.FilterCharachteristicses.Include(x => x.Charachteristic)
                 .ThenInclude(x => x.Values).ToListAsync();
             CategoriesViewModel model = new CategoriesViewModel()
-                { PageViewModel = pageViewModel, childCategories = childCategories, Textiles = Textiles, SortingParams = EnumParam,FilterQuery = FilterQuery, Category = _context.Categories.FindAsync(Guid.Parse(CatId)).Result, PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = CookieValue, FilterDictionary = Filter, Charachteristic = charachteristics };
+                { PageViewModel = pageViewModel, childCategories = childCategories, Textiles = textileForFavViewModels, SortingParams = EnumParam,FilterQuery = FilterQuery, Category = _context.Categories.FindAsync(Guid.Parse(CatId)).Result, PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = CookieValue, FilterDictionary = Filter, Charachteristic = charachteristics };
             return View(model);
         }
         [HttpGet]
@@ -779,11 +796,27 @@ namespace AmitTextile.Controllers
             {
                 pagesCounterList.Add(i);
             }
-
+            List<TextileForFavViewModel> textileForFavViewModels = new List<TextileForFavViewModel>();
+            if (User.Identity.IsAuthenticated)
+            {
+                Textiles.ForEach(x => textileForFavViewModels.Add(new TextileForFavViewModel()
+                {
+                    Textile = x,
+                    isFavourite = _context.Users.Include(x => x.UserChosenTextiles).FirstOrDefaultAsync(z => z.UserName == User.Identity.Name).Result.UserChosenTextiles.Any(y => x.TextileId == y.TextileId)
+                }));
+            }
+            else
+            {
+                Textiles.ForEach(x => textileForFavViewModels.Add(new TextileForFavViewModel()
+                {
+                    Textile = x,
+                    isFavourite = false
+                }));
+            }
             List<FilterCharachteristics> charachteristics = _context.FilterCharachteristicses.Include(x => x.Charachteristic).ThenInclude(x=> x.Values).OrderBy(x => x.Charachteristic.Name).ToList();
             List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
             ChildCategoriesViewModel model = new ChildCategoriesViewModel()
-            { PageViewModel = pageViewModel, Textiles = Textiles, SortingParams = EnumParam, Category = _context.ChildCategories.Include(x => x.Category).FirstOrDefault(x=> x.ChildCategoryId == Guid.Parse(ChildCatId)), PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = CookieValue, FilterDictionary = Filter, Charachteristic = charachteristics, FilterQuery = FilterQuery};
+            { PageViewModel = pageViewModel, Textiles = textileForFavViewModels, SortingParams = EnumParam, Category = _context.ChildCategories.Include(x => x.Category).FirstOrDefault(x=> x.ChildCategoryId == Guid.Parse(ChildCatId)), PagesCountList = newList.OrderBy(x => x).ToList(), CookieValue = CookieValue, FilterDictionary = Filter, Charachteristic = charachteristics, FilterQuery = FilterQuery};
             return View(model);
         }
        
@@ -794,26 +827,112 @@ namespace AmitTextile.Controllers
             string Fio = _context.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name)?.Result?.Fio;
             int commentscount = 6;
             bool x = User.Identity.IsAuthenticated;
-            Textile textile = new Textile();
+            TextileForFavViewModel textile = new TextileForFavViewModel();
             List<ParentCommentReview> parentCommentReviews = new List<ParentCommentReview>();
             List<ParentCommentQuestion> parentCommentQuestions = new List<ParentCommentQuestion>();
+
             if (Section == "AboutItem")
             {
-                textile = await _context.Textiles.Include(x => x.Charachteristics).Include(x=>x.ParentCommentReviews).FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId));
+                if (User.Identity.IsAuthenticated)
+                {
+                    textile = new TextileForFavViewModel()
+                    {
+                       Textile = await _context.Textiles.Include(x => x.Charachteristics)
+                            .Include(x => x.ParentCommentReviews)
+                            .FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId)),
+                        isFavourite = _context.Users.Include(x => x.UserChosenTextiles)
+                            .FirstOrDefaultAsync(z => z.UserName == User.Identity.Name).Result.UserChosenTextiles
+                            .Any(y=>Guid.Parse(TextileId) == y.TextileId)
+                    };
+                }
+                else
+                {
+                    textile = new TextileForFavViewModel()
+                    {
+                        Textile = await _context.Textiles.Include(x => x.Charachteristics)
+                            .Include(x => x.ParentCommentReviews)
+                            .FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId)),
+                        isFavourite = false
+                    };
+                }
+
             }
             if (Section == "Charachteristics")
             {
-                textile = await _context.Textiles.Include(x => x.Charachteristics).Include(x=>x.ParentCommentReviews).FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId));
+                if (User.Identity.IsAuthenticated)
+                {
+                    textile = new TextileForFavViewModel()
+                    {
+                        Textile = await _context.Textiles.Include(x => x.Charachteristics)
+                            .Include(x => x.ParentCommentReviews)
+                            .FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId)),
+                        isFavourite = _context.Users.Include(x => x.UserChosenTextiles)
+                            .FirstOrDefaultAsync(z => z.UserName == User.Identity.Name).Result.UserChosenTextiles
+                            .Any(y => Guid.Parse(TextileId) == y.TextileId)
+                    };
+                }
+                else
+                {
+                    textile = new TextileForFavViewModel()
+                    {
+                        Textile = await _context.Textiles.Include(x => x.Charachteristics)
+                            .Include(x => x.ParentCommentReviews)
+                            .FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId)),
+                        isFavourite = false
+                    };
+                }
             }
             else if (Section == "CommentsReviews")
             {
-                textile = await _context.Textiles.Include(x => x.Charachteristics).Include(x=>x.ParentCommentReviews).FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId));
+                if (User.Identity.IsAuthenticated)
+                {
+                    textile = new TextileForFavViewModel()
+                    {
+                        Textile = await _context.Textiles.Include(x => x.Charachteristics)
+                            .Include(x => x.ParentCommentReviews)
+                            .FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId)),
+                        isFavourite = _context.Users.Include(x => x.UserChosenTextiles)
+                            .FirstOrDefaultAsync(z => z.UserName == User.Identity.Name).Result.UserChosenTextiles
+                            .Any(y => Guid.Parse(TextileId) == y.TextileId)
+                    };
+                }
+                else
+                {
+                    textile = new TextileForFavViewModel()
+                    {
+                        Textile = await _context.Textiles.Include(x => x.Charachteristics)
+                            .Include(x => x.ParentCommentReviews)
+                            .FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId)),
+                        isFavourite = false
+                    };
+                }
                 parentCommentReviews = await _context.ParentCommentReviews.Include(x => x.Sender)
                     .Where(x => x.TextileId == Guid.Parse(TextileId)).OrderBy(x=> x.DatePosted).ToListAsync();
             }
             else if (Section == "CommentsQuestions")
             {
-                textile = await _context.Textiles.Include(x => x.Charachteristics).Include(x=>x.ParentCommentReviews).FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId));
+                if (User.Identity.IsAuthenticated)
+                {
+                    textile = new TextileForFavViewModel()
+                    {
+                        Textile = await _context.Textiles.Include(x => x.Charachteristics)
+                            .Include(x => x.ParentCommentReviews)
+                            .FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId)),
+                        isFavourite = _context.Users.Include(x => x.UserChosenTextiles)
+                            .FirstOrDefaultAsync(z => z.UserName == User.Identity.Name).Result.UserChosenTextiles
+                            .Any(y => Guid.Parse(TextileId) == y.TextileId)
+                    };
+                }
+                else
+                {
+                    textile = new TextileForFavViewModel()
+                    {
+                        Textile = await _context.Textiles.Include(x => x.Charachteristics)
+                            .Include(x => x.ParentCommentReviews)
+                            .FirstOrDefaultAsync(x => x.TextileId == Guid.Parse(TextileId)),
+                        isFavourite = false
+                    };
+                }
                 parentCommentQuestions = await _context.ParentCommentQuestions.Include(x=>x.Sender).Include(x => x.ChildComments).ThenInclude(x=>x.Sender)
                     .Where(x => x.TextileId == Guid.Parse(TextileId)).OrderBy(x => x.DatePosted).ToListAsync();
             }
@@ -850,6 +969,7 @@ namespace AmitTextile.Controllers
                     pagesCounterList.Add(i);
                 }
                 List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
+
                 int z = 5;
                 return View(new TextileViewModel()
                     { parentCommentQuestions = parentCommentQuestions, Section = "CommentsQuestions",Fio = Fio, PageViewModel  = model , Textile = textile, PagesCount = newList});

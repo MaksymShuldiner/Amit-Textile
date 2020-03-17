@@ -8,7 +8,7 @@ namespace AmitTextile.Models
     {
         public List<ChildCategory> childCategories { get; set; }
 
-        public List<Textile> Textiles { get; set; }
+        public List<TextileForFavViewModel> Textiles { get; set; }
 
         public PageViewModel PageViewModel { get; set; }
 
