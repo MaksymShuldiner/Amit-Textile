@@ -53,7 +53,7 @@
 </head>
 <body>
     <div id="regS"><p>Ваш аккаунт был успешно зарегистрирован, письмо для подтверждения уже было отправлено вам на почту.</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
-    <div id="notConfirmed"><p>Для возможности писать комментарии подтвердите, пожалуйста, вашу почту</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
+    <div id="notConfirmed"><p>Для возможности писать комментарии и/или задавать вопросы подтвердите, пожалуйста, вашу почту</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
     <button id="scrollBtn"><i class="fas fa-chevron-up"></i></button>
     <header>
         <div class="container-fluid">
@@ -311,7 +311,10 @@
         }
         @if (Model.Section == "CommentsReviews")
         {
-                <a href="#" class="commentSend">dawdfdaw</a>
+            <div class="sc">
+                <span>Оставьте свой отзыв об этом товаре</span>
+                <a href="#" class="commentSend">Написать отзыв</a>
+            </div>
             <div class="comment hidden">
                 <form id="popupCommentForm" action="@Url.Action("PostCommentReview", "Home")" method="post">
                     <h1 class="formName">Написать отзыв</h1>
@@ -404,10 +407,12 @@
 
         @if (Model.Section == "CommentsQuestions")
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                <a href="#popupQuestionForm" data-fancybox="popupQuestionForm">dffdfff</a>
-            }
+                <div class="sc">
+                        <span>Задайте свой вопрос</span>
+                        <a href="#" class="questionSend">Задать вопрос</a>
+                </div>
+                
+
             <div class="comment hidden">
                 <form id="popupQuestionForm" action="@Url.Action("PostCommentQuestion", "Home")" method="post">
                     <h1 class="formName">Задать вопрос</h1>
@@ -443,11 +448,7 @@
                         <span class="commentUserName">
                             @x.Fio
                         </span>
-                        @if (User.Identity.IsAuthenticated)
-                        {
                             <a href="#popupReplyForm" data-fancybox="@(Guid.NewGuid())" class="replyButton" parentId="@x.ParentCommentQuestionId"><i class="fas fa-reply"></i> Ответить</a>
-                        }
-
                         <span class="commentDate">
                             @x.DatePosted.ToString()
                         </span>
@@ -466,7 +467,7 @@
                                     <span class="commentUserName">
                                         @y.Fio
                                     </span>
-                                    <a href="#popupReplyForm" data-fancybox="popupReplyForm" class="replyButton"><i class="fas fa-reply"></i> Ответить</a>
+                                    <a href="#popupReplyForm" data-fancybox="@(Guid.NewGuid())" parentId="@x.ParentCommentQuestionId" class="replyButton"><i class="fas fa-reply"></i> Ответить</a>
                                     <span class="commentDate">
                                         @y.DatePosted.ToString()
                                     </span>
@@ -579,6 +580,7 @@
                         }
                     });
                 });
+                
     </script>
     <script type="text/javascript">
             function tgl() {
@@ -643,6 +645,7 @@
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(x),
                 error: function (error) {
+                    console.log(error)
                     errorArr = error.responseText.split('"');
                     let errors = document.getElementsByClassName("error");
                     if (errors[0] != undefined) {
