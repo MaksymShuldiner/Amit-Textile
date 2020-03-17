@@ -52,6 +52,7 @@
 </head>
 <body>
     <div id="regS"><p>Ваш аккаунт был успешно зарегистрирован, письмо для подтверждения уже было отправлено вам на почту.</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
+    <div id="notConfirmed"><p>Для возможности писать комментарии и/или задавать вопросы подтвердите, пожалуйста, вашу почту</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
     <button id="scrollBtn"><i class="fas fa-chevron-up"></i></button>
     <header>
         <div class="container-fluid">
@@ -65,6 +66,7 @@
                     </form>
                 </div>
                 <div class="col-md-5 cart_container">
+                    <a class="favouriteList" href="#" title="Избранные товары"><i class="fas fa-heart"></i></a>
                     <a href="#"><i class="fas fa-shopping-cart"></i></a>
                     <span class="first">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span>
                     <a href="#login" class="login" data-fancybox="pp">Войти</a>
@@ -89,7 +91,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="filterFieldContainer">
+                    <div class="filterFieldContainer cat">
                         @foreach (var x in Model.Charachteristic)
                         {
                             <div class="filterField">
@@ -203,7 +205,7 @@
                                                 <div class="item_image">
                                                     <img src="../images/img1.jpg" alt="ItemImg">
                                                 </div>
-                                                <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId">
+                                                <a class="item_name" href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId">
                                                     @x.Textile.Name
                                                 </a>
                                                 <div class="container-fluid itm_field">
@@ -233,6 +235,22 @@
                                                             }
                                                         </div>
                                                         <div class="col-md-6">
+                                                            <button class="fav">
+                                                                @if (x.isFavourite)
+                                                                {
+                                                                    <p value="0" textileId="@x.Textile.TextileId" class="toFavourite">
+                                                                        <i class="far fa-heart"></i>
+                                                                    </p>
+                                                                    <p value="1" textileId="@x.Textile.TextileId" class="toFavourite selected"><i class="fas fa-heart"></i></p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p value="0" textileId="@x.Textile.TextileId" class="toFavourite selected">
+                                                                        <i class="far fa-heart"></i>
+                                                                    </p>
+                                                                    <p value="1" textileId="@x.Textile.TextileId" class="toFavourite"><i class="fas fa-heart"></i></p>
+                                                                }
+                                                            </button>
                                                             <a href="#" class="buy_item">
                                                                 <i class="fas fa-shopping-cart"></i>
                                                             </a>
@@ -304,17 +322,17 @@
                                                                         <button class="fav @(count)">
                                                                             @if (x.isFavourite)
                                                                             {
-                                                                                <p class="@(count)@(count) toFavourite">
+                                                                                <p value="0" textileId="@x.Textile.TextileId" class="toFavourite">
                                                                                     <i class="far fa-heart"></i>
                                                                                 </p>
-                                                                                <p class="@(count)@(count) toFavourite selected"><i class="fas fa-heart"></i></p>
+                                                                                <p value="1" textileId="@x.Textile.TextileId" class="toFavourite selected"><i class="fas fa-heart"></i></p>
                                                                             }
                                                                             else
                                                                             {
-                                                                                <p class="@(count)@(count) toFavourite selected">
+                                                                                <p value="0" textileId="@x.Textile.TextileId" class="toFavourite selected">
                                                                                     <i class="far fa-heart"></i>
                                                                                 </p>
-                                                                                <p class="@(count)@(count) toFavourite"><i class="fas fa-heart"></i></p>
+                                                                                <p value="1" textileId="@x.Textile.TextileId" class="toFavourite"><i class="fas fa-heart"></i></p>
                                                                             }
                                                                         </button>
                                                                     </div>
@@ -402,11 +420,58 @@
                 <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
                 <br />
             </form>
-           
+
         </div>
     </div>
     <footer>
     </footer>
+    <script type="text/javascript">
+        $('.fav').click(function () {
+            let s = $(this).find('.toFavourite');
+            let s1;
+            let s2;
+            for (let i = 0; i < s.length; i++) {
+                if ($(s[i]).hasClass('selected')) {
+                    s1 = $(s[i]).attr('value');
+                    s2 = $(s[i]).attr('textileId');
+                    break;
+                }
+            }
+            let f = $(this);
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("IsAuthentificated","TextileApi")',
+                contentType: 'json',
+                success: function (e) {
+                    if (e.isAuthentificated) {
+                        let x = {}
+                        if (s1 == '1') {
+                             x= {"TextileId":s2,"Value":"0"}
+                        }
+                        else {
+                             x = { "TextileId":s2,"Value":"1" }
+                        }
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("ToFavourite","TextileApi")',
+                            contentType:'application/json; charset=utf-8',
+                            data: JSON.stringify(x),
+                            success: function (e){
+                                f.find('.toFavourite').toggleClass('selected');
+                            },
+                            error: function (e) {
+                                console.log(e);
+                            }
+                        })
+                    }
+                    else if (!e.isAuthentificated) {
+                        $.fancybox.open('#login');
+                    }
+
+                }
+            });
+        });
+    </script>
     <script type="text/javascript">
             function tgl() {
                 $('#regS').fadeOut(400);

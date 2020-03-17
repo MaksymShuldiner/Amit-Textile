@@ -67,6 +67,7 @@
                     </form>
                 </div>
                 <div class="col-md-5 cart_container">
+                    <a class="favouriteList" href="#" title="Избранные товары"><i class="fas fa-heart"></i></a>
                     <a href="#"><i class="fas fa-shopping-cart"></i></a>
                     <span class="first">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span>
                     <a href="#login" class="login" data-fancybox="pp">Войти</a>
@@ -202,17 +203,17 @@
                             <button class="fav">
                                 @if (Model.Textile.isFavourite)
                                 {
-                                    <p class=" toFavourite">
+                                    <p class=" toFavourite" value="0">
                                         <i class="far fa-heart"></i>
                                     </p>
-                                    <p class=" toFavourite selected"><i class="fas fa-heart"></i></p>
+                                    <p class=" toFavourite selected" value="1"><i class="fas fa-heart"></i></p>
                                 }
                                 else
                                 {
-                                    <p class=" toFavourite selected">
+                                    <p class=" toFavourite selected" value="0">
                                         <i class="far fa-heart"></i>
                                     </p>
-                                    <p class=" toFavourite"><i class="fas fa-heart"></i></p>
+                                    <p class=" toFavourite" value="1"><i class="fas fa-heart"></i></p>
                                 }
                             </button>
                         </div>

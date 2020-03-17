@@ -59,7 +59,7 @@ header {
     }
 
 .first {
-    margin-left: 55px;
+    margin-left: 10px;
 }
 
 .nFirst {
@@ -74,7 +74,7 @@ header {
 }
 
 .cart_container {
-    padding-left: 6%;
+    padding-left: 4%;
 }
 
 .login {
@@ -387,6 +387,7 @@ footer {
     color: coral;
     display: none;
 }
+
 
     .toFavourite:hover {
         color: coral;
@@ -1323,4 +1324,15 @@ textarea {
 .characteristics > table {
     border-spacing:0 25px;
     border-collapse:separate;
+}
+.item .fav{
+    position:relative;
+    margin-left:20px;
+    bottom:7px;
+}
+.cat{
+    margin-top:434.5px;
+}
+.favouriteList{
+    margin-right:10px;
 }
