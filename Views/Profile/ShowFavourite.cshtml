@@ -162,7 +162,7 @@
                                 @if (Model.Model.HasPreviousPage)
                                 {
                                     <text>
-                                        <a class="zxc" href="@ViewBag.BookUrl&page=@(Model.Model.PageNumber-1)"><li class="pagButtons"><span><i class="fas fa-chevron-left"></i>Назад</span></li></a>
+                                        <a class="zxc" href="@ViewBag.BookUrl&page=@(Model.Model.PageNumber - 1)"><li class="pagButtons"><span><i class="fas fa-chevron-left"></i>Назад</span></li></a>
                                     </text>
                                 }
                                 else
@@ -183,7 +183,7 @@
                                 @if (Model.Model.HasNextPage)
                                 {
                                     <text>
-                                        <a class="zxc" href="@ViewBag.BookUrl&page=@(Model.Model.PageNumber+1)"><li class="pagButtons"><span>Вперед <i class="fas fa-chevron-right"></i></span></li></a>
+                                        <a class="zxc" href="@ViewBag.BookUrl&page=@(Model.Model.PageNumber + 1)"><li class="pagButtons"><span>Вперед <i class="fas fa-chevron-right"></i></span></li></a>
                                     </text>
                                 }
                                 else
