@@ -65,29 +65,29 @@ namespace AmitTextile.Controllers
                 switch (param)
                 {
                     case SortingParams.None:
-                        Textiles = _context.Categories.Include(x=>x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics)
+                        Textiles = _context.Categories.Include(x=>x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.ParentCommentReviews)
                             .FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory.Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                         count = _context.Categories.Include(x => x.TextilesOfThisCategory).FirstOrDefaultAsync(x => x.CategoryId == Guid.Parse(CatId)).Result.TextilesOfThisCategory.Count();
                         break;
                     case SortingParams.LettersByAscending:
-                        Textiles = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory.OrderBy(x => x.Name)
+                        Textiles = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory.OrderBy(x => x.Name)
                             .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                         count= _context.Categories.Include(x => x.TextilesOfThisCategory).FirstOrDefaultAsync(x => x.CategoryId == Guid.Parse(CatId)).Result.TextilesOfThisCategory.Count();
                         break;
                     case SortingParams.LettersByDescending:
-                        Textiles = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory.OrderByDescending(x => x.Name)
+                        Textiles = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory.OrderByDescending(x => x.Name)
                             .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                         count= _context.Categories.Include(x => x.TextilesOfThisCategory).FirstOrDefaultAsync(x => x.CategoryId == Guid.Parse(CatId)).Result.TextilesOfThisCategory.Count();;
                         ;
                         break;
                     case SortingParams.PriceByAscending:
-                        Textiles = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory.OrderBy(x => x.Price)
+                        Textiles = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory.OrderBy(x => x.Price)
                             .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                         count = _context.Categories.Include(x => x.TextilesOfThisCategory).FirstOrDefaultAsync(x => x.CategoryId == Guid.Parse(CatId)).Result.TextilesOfThisCategory.Count();
                         ;
                         break;
                     case SortingParams.PriceByDescending:
-                        Textiles = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory.OrderByDescending(x => x.Price)
+                        Textiles = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory.OrderByDescending(x => x.Price)
                             .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                         count= _context.Categories.Include(x => x.TextilesOfThisCategory).FirstOrDefaultAsync(x => x.CategoryId == Guid.Parse(CatId)).Result.TextilesOfThisCategory.Count();
                         ;
@@ -99,7 +99,7 @@ namespace AmitTextile.Controllers
                         ;
                         break;
                     case SortingParams.ViewsByAscending:
-                        Textiles = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory.OrderBy(x => x.ViewsCounter)
+                        Textiles = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory.OrderBy(x => x.ViewsCounter)
                             .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                         count= _context.Categories.Include(x => x.TextilesOfThisCategory).FirstOrDefaultAsync(x => x.CategoryId == Guid.Parse(CatId)).Result.TextilesOfThisCategory.Count();
                         ;
@@ -111,7 +111,7 @@ namespace AmitTextile.Controllers
                 switch (param)
                 {
                     case SortingParams.None:
-                        List<Textile> Textile1 = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).FirstOrDefault(x=> x.CategoryId==Guid.Parse(CatId)).TextilesOfThisCategory
+                        List<Textile> Textile1 = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefault(x=> x.CategoryId==Guid.Parse(CatId)).TextilesOfThisCategory
                             .Where(x =>
                             {
                                 List<bool> result = new List<bool>();
@@ -149,7 +149,7 @@ namespace AmitTextile.Controllers
                             Textiles = Textile1.Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                         break;
                     case SortingParams.LettersByAscending:
-                        List<Textile> Textile2 = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory
+                        List<Textile> Textile2 = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory
                             .Where(x =>
                             {
                                 List<bool> result = new List<bool>();
@@ -191,7 +191,7 @@ namespace AmitTextile.Controllers
                         break;
                     case SortingParams.LettersByDescending:
                         List<Textile> Textile3 = _context.Categories.Include(x => x.TextilesOfThisCategory)
-                            .ThenInclude(x => x.Charachteristics).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId))
+                            .ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId))
                             .TextilesOfThisCategory
                             .Where(x =>
                             {
@@ -235,7 +235,7 @@ namespace AmitTextile.Controllers
                             .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                         break;
                     case SortingParams.PriceByAscending:
-                        List<Textile> Textile4 = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory
+                        List<Textile> Textile4 = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory
                             .Where(x =>
                             {
                                 List<bool> result = new List<bool>();
@@ -273,7 +273,7 @@ namespace AmitTextile.Controllers
                             Textiles = Textile4.OrderBy(x => x.Price).Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                         break;
                     case SortingParams.PriceByDescending:
-                        List<Textile> Textile5 = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory
+                        List<Textile> Textile5 = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory
                             .Where(x =>
                             {
                                 List<bool> result = new List<bool>();
@@ -313,7 +313,7 @@ namespace AmitTextile.Controllers
                             .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                         break;
                     case SortingParams.RateByAscending:
-                        List<Textile> Textile6 = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory
+                        List<Textile> Textile6 = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory
                             .Where(x =>
                             {
                                 List<bool> result = new List<bool>();
@@ -353,7 +353,7 @@ namespace AmitTextile.Controllers
                             .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                         break;
                     case SortingParams.ViewsByAscending:
-                        List<Textile> Textile7 = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory
+                        List<Textile> Textile7 = _context.Categories.Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefault(x => x.CategoryId == Guid.Parse(CatId)).TextilesOfThisCategory
                             .Where(x =>
                             {
                                 List<bool> result = new List<bool>();
@@ -420,6 +420,7 @@ namespace AmitTextile.Controllers
                     isFavourite = false
                 }));
             }
+            ViewBag.BookUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
             List<FilterCharachteristics> charachteristics = _context.FilterCharachteristicses.Include(x => x.Charachteristic).ThenInclude(x => x.Values).OrderBy(x => x.Charachteristic.Name).ToList();
             List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
             List<FilterCharachteristics> filters = await _context.FilterCharachteristicses.Include(x => x.Charachteristic)
@@ -443,6 +444,7 @@ namespace AmitTextile.Controllers
                 HttpContext.Response.Cookies.Append("Form", CookieValue, new CookieOptions() { Expires = DateTime.Now.Add(TimeSpan.FromDays(15)), IsEssential = true });
             }
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
+            ViewBag.BookUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
             ViewBag.UrlChild = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowChildCategory";
             List<Textile> Textiles = new List<Textile>();
             int count = 0;
@@ -457,37 +459,37 @@ namespace AmitTextile.Controllers
             switch (param)
             {
                 case SortingParams.None:
-                    count= _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).FirstOrDefaultAsync(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.Count();
+                    count= _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).ThenInclude(x=>x.ParentCommentReviews).FirstOrDefaultAsync(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.Count();
                     Textiles = _context.ChildCategories.FindAsync(Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory
                        .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                     break;
                 case SortingParams.LettersByAscending:
-                    count = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).FirstOrDefaultAsync(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.Count();
+                    count = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefaultAsync(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.Count();
                         Textiles = _context.ChildCategories.FindAsync(Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.OrderBy(x => x.Name)
                         .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                     break;
                 case SortingParams.LettersByDescending:
-                    count = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).FirstOrDefaultAsync(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.Count();
+                    count = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefaultAsync(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.Count();
                         Textiles = _context.ChildCategories.FindAsync(Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.OrderByDescending(x => x.Name)
                         .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                     break;
                 case SortingParams.PriceByAscending:
-                    count = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).FirstOrDefaultAsync(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.Count();
+                    count = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefaultAsync(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.Count();
                         Textiles = _context.ChildCategories.FindAsync(Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.OrderBy(x => x.Price)
                         .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                     break;
                 case SortingParams.PriceByDescending:
-                    count = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).FirstOrDefaultAsync(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.Count();
+                    count = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefaultAsync(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.Count();
                         Textiles = _context.ChildCategories.FindAsync(Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.OrderByDescending(x => x.Price)
                         .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                     break;
                 case SortingParams.RateByAscending:
-                    count = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).FirstOrDefaultAsync(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.Count();
+                    count = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefaultAsync(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.Count();
                         Textiles = _context.ChildCategories.FindAsync(Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.OrderBy(x => x.Stars)
                         .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                     break;
                 case SortingParams.ViewsByAscending:
-                    count = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).FirstOrDefaultAsync(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.Count();
+                    count = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefaultAsync(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.Count();
                         Textiles = _context.ChildCategories.FindAsync(Guid.Parse(ChildCatId)).Result.TextilesOfThisChildCategory.OrderBy(x => x.ViewsCounter)
                         .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                     break;
@@ -499,7 +501,7 @@ namespace AmitTextile.Controllers
                 {
                     case SortingParams.None:
                         List<Textile> Texts = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory)
-                            .ThenInclude(x => x.Charachteristics)
+                            .ThenInclude(x => x.Charachteristics).Include(x=>x.TextilesOfThisChildCategory).ThenInclude(x=>x.ParentCommentReviews)
                             .FirstOrDefault(x => x.ChildCategoryId == Guid.Parse(ChildCatId))
                             .TextilesOfThisChildCategory
                             .Where(x =>
@@ -545,7 +547,7 @@ namespace AmitTextile.Controllers
 
 
                     case SortingParams.LettersByAscending:
-                        List<Textile> Texts1 = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.Charachteristics).FirstOrDefault(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).TextilesOfThisChildCategory
+                        List<Textile> Texts1 = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefault(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).TextilesOfThisChildCategory
                             .Where(x =>
                             {
                                 List<bool> result = new List<bool>();
@@ -584,7 +586,7 @@ namespace AmitTextile.Controllers
                             .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                         break;
                     case SortingParams.LettersByDescending:
-                        List<Textile> Texts2 = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.Charachteristics).FirstOrDefault(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).TextilesOfThisChildCategory
+                        List<Textile> Texts2 = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefault(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).TextilesOfThisChildCategory
                             .Where(x =>
                             {
                                 List<bool> result = new List<bool>();
@@ -623,7 +625,7 @@ namespace AmitTextile.Controllers
                             .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                         break;
                     case SortingParams.PriceByAscending:
-                        List<Textile> Texts3 = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.Charachteristics).FirstOrDefault(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).TextilesOfThisChildCategory
+                        List<Textile> Texts3 = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefault(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).TextilesOfThisChildCategory
                             .Where(x =>
                             {
                                 List<bool> result = new List<bool>();
@@ -662,7 +664,7 @@ namespace AmitTextile.Controllers
                                 .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                         break;
                     case SortingParams.PriceByDescending:
-                        List<Textile> Texts4 = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.Charachteristics).FirstOrDefault(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).TextilesOfThisChildCategory
+                        List<Textile> Texts4 = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefault(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).TextilesOfThisChildCategory
                             .Where(x =>
                             {
                                 List<bool> result = new List<bool>();
@@ -703,7 +705,7 @@ namespace AmitTextile.Controllers
                         break;
                     case SortingParams.RateByAscending:
                         List<Textile> Texts5 = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory)
-                            .ThenInclude(x => x.Charachteristics)
+                            .ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.ParentCommentReviews)
                             .FirstOrDefault(x => x.ChildCategoryId == Guid.Parse(ChildCatId))
                             .TextilesOfThisChildCategory
                             .Where(x =>
@@ -748,7 +750,7 @@ namespace AmitTextile.Controllers
                             .Skip(textilesForPage * (page - 1)).Take(textilesForPage).ToList();
                         break;
                     case SortingParams.ViewsByAscending:
-                        List<Textile> Texts6 = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.Charachteristics).FirstOrDefault(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).TextilesOfThisChildCategory
+                        List<Textile> Texts6 = _context.ChildCategories.Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.Charachteristics).Include(x => x.TextilesOfThisChildCategory).ThenInclude(x => x.ParentCommentReviews).FirstOrDefault(x => x.ChildCategoryId == Guid.Parse(ChildCatId)).TextilesOfThisChildCategory
                             .Where(x =>
                             {
                                 List<bool> result = new List<bool>();

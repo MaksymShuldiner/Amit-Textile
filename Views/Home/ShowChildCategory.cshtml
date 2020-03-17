@@ -193,7 +193,7 @@
                                                     @x.Textile.Name
                                                 </a>
                                                 <div class="rateItemContainer">
-                                                    <input class="rateItem" value="4" /> <a href="#"> n Отзывов</a>
+                                                    <input class="rateItem" value="@x.Textile.Stars.ToString().Replace(",",".")" /> <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId&page=1&Section=CommentsReviews"> @x.Textile.ParentCommentReviews.Count отзывов</a>
                                                 </div>
                                                 <div class="container-fluid itm_field">
                                                     <div class="row">
@@ -273,7 +273,7 @@
                                                                             </a>
                                                                         </div>
                                                                         <div class="rateItemContainer">
-                                                                            <input class="rateItem" value="4" /> <a href="#"> n Отзывов</a>
+                                                                            <input class="rateItem" value="@x.Textile.Stars.ToString().Replace(",",".")" /> <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId&page=1&Section=CommentsReviews"> @x.Textile.ChildCommentQuestions отзывов</a>
                                                                         </div>
                                                                         <div class="itemDescrList">
                                                                             <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus veritatis, amet laboriosam maxime aliquam, accusamus sunt dignissimos corporis minima accusantium tempore ducimus eligendi architecto, inventore, error sint! Voluptatum, ab, harum.</span>
