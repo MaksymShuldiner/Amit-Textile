@@ -5,5 +5,6 @@
         public string TextileId { get; set; }
 
         public string Value { get; set; }
+
     }
 }

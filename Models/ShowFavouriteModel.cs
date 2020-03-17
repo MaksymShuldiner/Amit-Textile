@@ -8,5 +8,7 @@ namespace AmitTextile.Models
         public List<Textile> Textiles { get; set; }
 
         public PageViewModel Model { get; set; }
+
+        public List<int> PagesCounterList { get; set; }
     }
 }
