@@ -1,9 +1,4 @@
 ﻿@model AmitTextile.Models.ShowFavouriteModel
-@{
-    ViewData["Title"] = "ShowFavourite";
-}
-
-<h1>ShowFavourite</h1>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -101,58 +96,59 @@
                     <div class="listItems">
                         @foreach (var x in Model.Textiles)
                         {
-                        <div class="listItem">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="listImgContainer">
-                                                        <img src="../images/img1.jpg" alt="awd">
+                            <div class="listItem">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="listImgContainer">
+                                                            <img src="../images/img1.jpg" alt="awd">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="itemDescriptionList">
-                                                        <div class="itemNameList">
-                                                            <a href="@ViewBag.BookUrl?TextileId=@x.TextileId">
-                                                                <h2>@x.Name</h2>
-                                                            </a>
+                                                    <div class="col-md-6">
+                                                        <div class="itemDescriptionList">
+                                                            <div class="itemNameList">
+                                                                <a href="@ViewBag.BookUrl?TextileId=@x.TextileId">
+                                                                    <h2>@x.Name</h2>
+                                                                </a>
+                                                            </div>
+                                                            <div class="rateItemContainer">
+                                                                <input class="rateItem" value="@x.Stars.ToString().Replace(",", ".")" /> <a href="@ViewBag.BookUrl?TextileId=@x.TextileId&page=1&Section=CommentsReviews"> @x.ChildCommentQuestions отзывов</a>
+                                                            </div>
+                                                            <div class="itemDescrList">
+                                                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus veritatis, amet laboriosam maxime aliquam, accusamus sunt dignissimos corporis minima accusantium tempore ducimus eligendi architecto, inventore, error sint! Voluptatum, ab, harum.</span>
+                                                            </div>
+                                                            <div class="itemPriceList"><span>@(x.Price + " ₴")</span></div>
+                                                            @if (x.WarehouseAmount >= 30)
+                                                            {
+                                                                <span class="inStock">
+                                                                    Есть в наличии
+                                                                </span>
+                                                            }
+                                                            @if (x.WarehouseAmount < 30 && x.WarehouseAmount != 0)
+                                                            {
+                                                                <span class="lowAm">
+                                                                    Заканчивается
+                                                                </span>
+                                                            }
+                                                            @if (x.WarehouseAmount == 0)
+                                                            {
+                                                                <span class="notInStock">
+                                                                    Нет в наличии
+                                                                </span>
+                                                            }
                                                         </div>
-                                                        <div class="rateItemContainer">
-                                                            <input class="rateItem" value="@x.Stars.ToString().Replace(",", ".")" /> <a href="@ViewBag.BookUrl?TextileId=@x.TextileId&page=1&Section=CommentsReviews"> @x.ChildCommentQuestions отзывов</a>
-                                                        </div>
-                                                        <div class="itemDescrList">
-                                                            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus veritatis, amet laboriosam maxime aliquam, accusamus sunt dignissimos corporis minima accusantium tempore ducimus eligendi architecto, inventore, error sint! Voluptatum, ab, harum.</span>
-                                                        </div>
-                                                        <div class="itemPriceList"><span>@(x.Price + " ₴")</span></div>
-                                                        @if (x.WarehouseAmount >= 30)
-                                                        {
-                                                            <span class="inStock">
-                                                                Есть в наличии
-                                                            </span>
-                                                        }
-                                                        @if (x.WarehouseAmount < 30 && x.WarehouseAmount != 0)
-                                                        {
-                                                            <span class="lowAm">
-                                                                Заканчивается
-                                                            </span>
-                                                        }
-                                                        @if (x.WarehouseAmount == 0)
-                                                        {
-                                                            <span class="notInStock">
-                                                                Нет в наличии
-                                                            </span>
-                                                        }
                                                     </div>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="buyItemList">
-                                                        <button class="buyItem">
-                                                            <a href="#">
-                                                                <i class="fas fa-shopping-cart"></i> Купить
-                                                            </a>
-                                                        </button>
+                                                    <div class="col-md-2">
+                                                        <div class="buyItemList">
+                                                            <button class="buyItem">
+                                                                <a href="#">
+                                                                    <i class="fas fa-shopping-cart"></i> Купить
+                                                                </a>
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -160,12 +156,21 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         }
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </body>
+    <footer>
+    </footer>
+    <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
+    <script type="text/javascript" src="~/js/star-rating.js"></script>
+    <script type="text/javascript" src="~/js/ru.js"></script>
+    <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="~/js/main.js"></script>
+    <script type="text/javascript" src="~/libs/FontAwesome/all.min.js"></script>
+    <script type="text/javascript" src="~/libs/OwlCarousel/owl.carousel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+</body>
 </html>

@@ -24,6 +24,7 @@ namespace AmitTextile.Controllers
         }
         public async Task<IActionResult> ShowFavourite(int page=1)
         {
+            ViewBag.BookUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
             if (!User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
