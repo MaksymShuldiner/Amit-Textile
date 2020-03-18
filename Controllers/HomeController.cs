@@ -1019,10 +1019,11 @@ namespace AmitTextile.Controllers
             ViewBag.UrlCat = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
             ViewBag.SearchUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/Search";
+            ViewBag.BookUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
             List<Textile> Textiles = _context.Textiles.Include(x => x.Category).Include(x => x.ChildCategory)
                 .Include(x => x.ParentCommentReviews)
-                .Where(x => x.Category.Name.Contains(StringQuery) || x.ChildCategory.Name.Contains(StringQuery) ||
-                            x.Name.Contains(StringQuery)).ToList();
+                .Where(x => x.Category.Name.Replace(" ", "").Contains(StringQuery) || x.ChildCategory.Name.Replace(" ", "").Contains(StringQuery) ||
+                            x.Name.Replace(" ", "").Contains(StringQuery)).ToList();
             List<TextileForFavViewModel> model = new List<TextileForFavViewModel>();
             if (User.Identity.IsAuthenticated)
             {

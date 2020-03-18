@@ -20,11 +20,6 @@ namespace AmitTextile.Controllers
             _signInManager = signInManager;
             _context = context;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public async Task<IActionResult> AddToCart(string TextileId)
         {
             bool flag = false;
@@ -42,15 +37,21 @@ namespace AmitTextile.Controllers
                 }
                 if (!flag)
                 {
-                    cart.Items.Add(new Item() { CartId = cart.CartId, ItemId = Guid.NewGuid(), ItemsAmount = 1, TextileId = Guid.Parse(TextileId) });
-                    _context.Update(cart);
-                    await _context.SaveChangesAsync();
+                    if (_context.Textiles.Find(TextileId).WarehouseAmount >= 1) {
+                        cart.Items.Add(new Item() { CartId = cart.CartId, ItemId = Guid.NewGuid(), ItemsAmount = 1, TextileId = Guid.Parse(TextileId) });
+                        _context.Update(cart);
+                        await _context.SaveChangesAsync();
+                    }
+
                 }
                 else
                 {
-                    cart.Items.FirstOrDefault(x => x.Textile.TextileId == Guid.Parse(TextileId)).ItemsAmount++;
-                    _context.Update(cart);
-                    await _context.SaveChangesAsync();
+                    if (_context.Textiles.Find(TextileId).WarehouseAmount > cart.Items.FirstOrDefault(x => x.Textile.TextileId == Guid.Parse(TextileId)).ItemsAmount)
+                    {
+                        cart.Items.FirstOrDefault(x => x.Textile.TextileId == Guid.Parse(TextileId)).ItemsAmount++;
+                        _context.Update(cart);
+                        await _context.SaveChangesAsync();
+                    }
                 }
 
             }
@@ -84,15 +85,27 @@ namespace AmitTextile.Controllers
                     }
                     if (!flag2)
                     {
-                        Cart.Items.Add(new Item() { CartId = Cart.CartId, ItemId = Guid.NewGuid(), ItemsAmount = 1, TextileId = Guid.Parse(TextileId) });
-                        _context.Update(Cart);
-                        await _context.SaveChangesAsync();
+                        if (_context.Textiles.Find(TextileId).WarehouseAmount >= 1)
+                        {
+                            Cart.Items.Add(new Item()
+                            {
+                                CartId = Cart.CartId, ItemId = Guid.NewGuid(), ItemsAmount = 1,
+                                TextileId = Guid.Parse(TextileId)
+                            });
+                            _context.Update(Cart);
+                            await _context.SaveChangesAsync();
+                        }
                     }
                     else
                     {
-                        Cart.Items.FirstOrDefault(x => x.Textile.TextileId == Guid.Parse(TextileId)).ItemsAmount++;
-                        _context.Update(Cart);
-                        await _context.SaveChangesAsync();
+                        if (_context.Textiles.Find(TextileId).WarehouseAmount > Cart.Items
+                                .FirstOrDefault(x => x.Textile.TextileId == Guid.Parse(TextileId)).ItemsAmount)
+                        {
+                            Cart.Items.FirstOrDefault(x => x.Textile.TextileId == Guid.Parse(TextileId)).ItemsAmount++;
+                            _context.Update(Cart);
+                            await _context.SaveChangesAsync();
+                        }
+                        
                     }
 
                 }
@@ -100,7 +113,77 @@ namespace AmitTextile.Controllers
 
             }
 
-            return View();
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+        public async Task<IActionResult> RemoveFromCart(string ItemId)
+        {
+
+            if (User.Identity.IsAuthenticated)
+            {
+                Cart cart = await _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).Include(x => x.User)
+                    .FirstOrDefaultAsync(x => x.User.UserName == User.Identity.Name);
+                Item item = cart.Items.FirstOrDefault(x => x.ItemId == Guid.Parse(ItemId));
+                if (cart.Items.Contains(item))
+                {
+                    cart.Items.Remove(item);
+                }
+                _context.Carts.Update(cart);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                Guid Id = Guid.Parse(HttpContext.Request.Cookies["Cart"]);
+                Cart Cart = await _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).FirstOrDefaultAsync(x => x.NonAuthorizedId == Id);
+                Item item = Cart.Items.FirstOrDefault(x => x.ItemId == Guid.Parse(ItemId));
+                if (Cart.Items.Contains(item))
+                {
+                    Cart.Items.Remove(item);
+                }
+                _context.Carts.Update(Cart);
+                await _context.SaveChangesAsync();
+            }
+
+            return Ok();
+        }
+        public async Task<IActionResult> MinusItemInCart(string ItemId)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                Cart cart = await _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).Include(x => x.User)
+                    .FirstOrDefaultAsync(x => x.User.UserName == User.Identity.Name);
+                Item item = cart.Items.FirstOrDefault(x => x.ItemId == Guid.Parse(ItemId));
+                if (item.ItemsAmount==1)
+                {
+                    cart.Items.Remove(item);
+                    _context.Carts.Update(cart);
+                }
+                else
+                {
+                    item.ItemsAmount--;
+                    _context.Items.Update(item);
+                }
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            else
+            {
+                Guid Id = Guid.Parse(HttpContext.Request.Cookies["Cart"]);
+                Cart Cart = await _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).FirstOrDefaultAsync(x => x.NonAuthorizedId == Id);
+                Item item = Cart.Items.FirstOrDefault(x => x.ItemId == Guid.Parse(ItemId));
+                if (item.ItemsAmount == 1)
+                {
+                    Cart.Items.Remove(item);
+                    _context.Carts.Update(Cart);
+                }
+                else
+                {
+                    item.ItemsAmount--;
+                    _context.Items.Update(item);
+                }
+                
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
         }
     }
 }
