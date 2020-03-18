@@ -72,9 +72,6 @@ $(document).ready(function () {
         $('.atv2').toggleClass('hdn');
 
     });
-    /*$('.fav').click(function () {
-        $(this).find('.toFavourite').toggleClass('selected');
-    });*/
     $('.filterName').click(function () {
         let hide = $(this).next();
         let arrow = $(this).find('svg');
@@ -134,7 +131,20 @@ $(document).ready(function () {
         starsCount = arr.join('');
         $('#ratingComment').attr('value', starsCount);
     });
-    $('.rateItem').rating({ displayOnly: true, size: 'xs', showCaption: false, language:"ru" });
+    $('.rateItem').rating({ displayOnly: true, size: 'xs', showCaption: false, language: "ru" });
+    $('.cart').hover(
+        function () {
+            $('.inCart').animate({
+                top: '56px',
+                opacity: "1"
+            }, 300);
+            $('.inCart').toggleClass('hidden');
+        }, function () {
+            $('.inCart').toggleClass('hidden');
+            $('.inCart').css('top','50px');
+            $('.inCart').css('opacity','0');
+        }
+    );
 });
 window.onscroll = function () { scrollFunction() };
 
