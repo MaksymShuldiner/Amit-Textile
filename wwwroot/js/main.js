@@ -134,7 +134,7 @@ $(document).ready(function () {
         starsCount = arr.join('');
         $('#ratingComment').attr('value', starsCount);
     });
-    $('.rateItem').rating({ displayOnly: true, size: 's', showCaption: false, language:"ru" });
+    $('.rateItem').rating({ displayOnly: true, size: 'xs', showCaption: false, language:"ru" });
 });
 window.onscroll = function () { scrollFunction() };
 
