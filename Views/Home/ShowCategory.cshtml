@@ -425,6 +425,72 @@
                 </div>
             </div>
         </div>
+        <div>
+            <form id="cartPopup">
+                <h1>Корзина</h1>
+                @foreach (var x in ViewBag.Items)
+                {
+                <div class="listItems">
+                    <div class="listItem">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="listImgContainer">
+                                                    <img src="../images/img1.jpg" alt="awd">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="itemDescriptionList">
+                                                    <div class="itemNameList">
+                                                        <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId">
+                                                            <h2>@x.Textile.Name</h2>
+                                                        </a>
+                                                    </div>
+                                                    <div class="rateItemContainer">
+                                                        <input class="rateItem" value="@x.Textile.Stars.ToString().Replace(",", ".")" /> <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId&page=1&Section=CommentsReviews"> @x.Textile.ParentCommentReviews.Count отзывов</a>
+                                                    </div>
+                                                    <div class="itemDescrList">
+                                                        <span>@x.Textile.Description</span>
+                                                    </div>
+                                                    <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
+                                                    @if (x.Textile.WarehouseAmount >= 30)
+                                                    {
+                                                        <span class="inStock">
+                                                            Есть в наличии
+                                                        </span>
+                                                    }
+                                                    @if (x.Textile.WarehouseAmount < 30 && x.Textile.WarehouseAmount != 0)
+                                                    {
+                                                        <span class="lowAm">
+                                                            Заканчивается
+                                                        </span>
+                                                    }
+                                                    @if (x.Textile.WarehouseAmount == 0)
+                                                    {
+                                                        <span class="notInStock">
+                                                            Нет в наличии
+                                                        </span>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="buyItemList">
+                                                    <input type="number" value="@x."/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </form>
+        </div>
         <div class="hidden">
             <form id="login">
                 <font>Эл. почта</font><br><br>
@@ -440,7 +506,6 @@
         </div>
         <div class="hidden">
             <form id="register" class="register">
-
                 ФИО <br><br>
                 <div class="inputFields">
                     <input type="text" id="registerName" name="UserName" required><br><br>
