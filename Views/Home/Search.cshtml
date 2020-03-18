@@ -54,7 +54,7 @@
 </head>
 <body>
     <div id="regS"><p>Ваш аккаунт был успешно зарегистрирован, письмо для подтверждения уже было отправлено вам на почту.</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
-    <div id="notConfirmed"><p>Для возможности писать комментарии и/или задавать вопросы подтвердите, пожалуйста, вашу почту</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
+    <div id="notConfirmed"><p>Для возможности добавлять товар в избранное подтвердите, пожалуйста, вашу почту</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
     <button id="scrollBtn"><i class="fas fa-chevron-up"></i></button>
     <header>
         <div class="container-fluid">
@@ -223,16 +223,177 @@
                 </div>
             </div>
         </div>
-    </div>
-    <footer>
-    </footer>
-    <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
-    <script type="text/javascript" src="~/js/star-rating.js"></script>
-    <script type="text/javascript" src="~/js/ru.js"></script>
-    <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="~/js/main.js"></script>
-    <script type="text/javascript" src="~/libs/FontAwesome/all.min.js"></script>
-    <script type="text/javascript" src="~/libs/OwlCarousel/owl.carousel.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+        <div class="hidden">
+            <form id="login">
+                <font>Эл. почта</font><br><br>
+                <div class="inputFields">
+                    <input type="email" id="loginName" name="UserEmail" required><br><br>
+                    <font>Пароль</font><br><br>
+                    <input type="password" id="loginPass" name="UserPassword" required><button type="button" id="showPassLogin" class="showBtn"><div class="atv"><i class="fas fa-eye"></i></div><div class="atv hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                </div>
+                <input type="submit" id="loginButton" class="registerButton" value="Войти" name="login" required><br><br>
+                <input type="checkbox" id="checkbox" value="true">  Запомнить меня<br><br>
+                <a data-fancybox="helo" href="#register">Зарегистрироваться</a> <br>
+            </form>
+        </div>
+        <div class="hidden">
+            <form id="register" class="register">
+                ФИО <br><br>
+                <div class="inputFields">
+                    <input type="text" id="registerName" name="UserName" required><br><br>
+                    Эл. почта <span>*</span><br><br>
+                    <input type="email" id="registerEmail" name="UserEmail" required><br><br>
+                    Придумайте пароль <span>*</span><br><br>
+                    <input type="password" id="registerPass" name="UserPassword" required><button type="button" id="showPassRegister" class="showBtn"><div class="atv1"><i class="fas fa-eye"></i></div><div class="atv1 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                    Подтвердите пароль <span>*</span><br><br>
+                    <input type="password" id="confirmPass" required><button type="button" id="showPassConfirm" class="showBtn"><div class="atv2"><i class="fas fa-eye"></i></div><div class="atv2 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                    Пароль должен содержать не менее 6 символов<br><br>
+                </div>
+                <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
+                <br />
+            </form>
+        </div>
+        <footer>
+        </footer>
+        <script type="text/javascript">
+        $('.fav').click(function () {
+            let s = $(this).find('.toFavourite');
+            let s1;
+            let s2;
+            for (let i = 0; i < s.length; i++) {
+                if ($(s[i]).hasClass('selected')) {
+                    s1 = $(s[i]).attr('value');
+                    s2 = $(s[i]).attr('textileId');
+                    break;
+                }
+            }
+            let f = $(this);
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("IsAuthentificated","TextileApi")',
+                contentType: 'json',
+                success: function (e) {
+                    if (e.isAuthentificated) {
+                        let x = {}
+                        if (s1 == '1') {
+                             x= {"TextileId":s2,"Value":"0"}
+                        }
+                        else {
+                             x = { "TextileId":s2,"Value":"1" }
+                        }
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("ToFavourite","TextileApi")',
+                            contentType:'application/json; charset=utf-8',
+                            data: JSON.stringify(x),
+                            success: function (e){
+                                f.find('.toFavourite').toggleClass('selected');
+                            },
+                            error: function (e) {
+                                console.log(e);
+                            }
+                        })
+                    }
+                    else if (!e.isAuthentificated) {
+                        $.fancybox.open($("#login"));
+                    }
+
+                }
+            });
+        });
+        </script>
+        <script type="text/javascript">
+            function tgl() {
+                $('#regS').fadeOut(400);
+            }
+            let errorArr = [];
+            $("#registerBtn").click(function (e) {
+                e.preventDefault();
+                let name = document.getElementById('registerName').value;
+                let mail = document.getElementById('registerEmail').value;
+                let pass = document.getElementById('registerPass').value;
+                let confirmPass = document.getElementById('confirmPass').value;
+                let x = {"Email":mail,"Fio":name,"Password":pass,"PasswordConfirm":confirmPass}
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Register", "TextileApi")',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(x),
+                    error: function(error) {
+                        errorArr = error.responseText.split('"');
+                        let errors = document.getElementsByClassName("error");
+                        if (errors[0] != undefined) {
+                            for (let i = 0; i < errors.length; i++) {
+                                errors[i].remove();
+                                i--;
+                            }
+                        }
+                        if (errorArr[0] != undefined) {
+                            for (let i = 1; i < errorArr.length - 1; i++) {
+                                if (errorArr[i] != ",") {
+                                    $('#register').append('<span class="error">' + errorArr[i] + '<br><br></span>');
+                                }
+                            }
+                        }
+                    },
+                    success: function (result) {
+                        parent.jQuery.fancybox.getInstance().close();
+                        parent.jQuery.fancybox.getInstance().close();
+                        $('#regS').fadeIn(400);
+                        setTimeout(tgl, 10000);
+                    }
+                });
+            });
+        </script>
+        <script type="text/javascript">
+        $('#loginButton').click(function (e) {
+            e.preventDefault();
+            let mail = document.getElementById('loginName').value;
+            let pass = document.getElementById('loginPass').value;
+            let check = document.getElementById('checkbox');
+            let bool;
+            if (check.checked) {
+                bool = true;
+            }
+            else {
+                bool = false;
+            }
+            let x = { "Email": mail, "Password": pass, "Remember": bool };
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Login", "TextileApi")',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(x),
+                error: function (error) {
+                    errorArr = error.responseText.split('"');
+                    let errors = document.getElementsByClassName("error");
+                    if (errors[0] != undefined) {
+                        for (let i = 0; i < errors.length; i++) {
+                            errors[i].remove();
+                            i--;
+                        }
+                    }
+                    if (errorArr[0] != undefined) {
+                        for (let i = 1; i < errorArr.length - 1; i++) {
+                            if (errorArr[i] != ",") {
+                                $('#login').append('<span class="error">' + errorArr[i] + '<br><br></span>');
+                            }
+                        }
+                    }
+                },
+                success: function (result) {
+                    window.location.href = result;
+                }
+            });
+        });
+        </script>
+        <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
+        <script type="text/javascript" src="~/js/star-rating.js"></script>
+        <script type="text/javascript" src="~/js/ru.js"></script>
+        <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="~/js/main.js"></script>
+        <script type="text/javascript" src="~/libs/FontAwesome/all.min.js"></script>
+        <script type="text/javascript" src="~/libs/OwlCarousel/owl.carousel.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 </body>
 </html>
