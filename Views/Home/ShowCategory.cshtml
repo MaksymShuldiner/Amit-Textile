@@ -79,17 +79,23 @@
                     }
                 <div class="cart">
                     <a href="#"><i class="fas fa-shopping-cart"></i></a>
-                    <div class="cartWithItems inCart hidden">
-                        <span>В корзине x товаров</span>
-                        <span>Стоимостью n гришек</span>
-                        <div class="btns">
-                            <a href="#" class="buy">Оформить заказ</a>
-                            <a href="#" class="toCart">Перейти в корзину</a>
+                    @if (ViewBag.Items.Count > 0)
+                    {
+                        <div class="cartWithItems inCart hidden">
+                            <span>В корзине @ViewBag.Items.Count товаров</span>
+                            <span>Стоимостью @ViewBag.Sum гришек</span>
+                            <div class="btns">
+                                <a href="#" class="buy">Оформить заказ</a>
+                                <a href="#" class="toCart">Перейти в корзину</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="inCart hidden">
-                        <i class="fas fa-shopping-cart"></i> <span>Ваша корзина пуста</span>
-                    </div>
+                    }
+                    else
+                    {
+                        <div class="inCart hidden">
+                            <i class="fas fa-shopping-cart"></i> <span>Ваша корзина пуста</span>
+                        </div>
+                    }
                 </div>
                     <span class="first">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span>
                     <a href="#login" class="login" data-fancybox="pp">Войти</a>
@@ -261,7 +267,7 @@
                                                             }
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <a href="#" class="buy_item">
+                                                            <a href="@Url.Action("AddToCart","Cart", new {TextileId = x.Textile.TextileId})" class="buy_item">
                                                                 <i class="fas fa-shopping-cart"></i>
                                                             </a>
                                                             <button class="fav">

@@ -74,6 +74,23 @@
                         <a class="favouriteList" href="#login" title="Избранные товары" data-fancybox="dsf"><i class="fas fa-heart"></i></a>
                     }
                     <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                    @if (ViewBag.Items.Count > 0)
+                    {
+                        <div class="cartWithItems inCart hidden">
+                            <span>В корзине @ViewBag.Items.Count товаров</span>
+                            <span>Стоимостью @ViewBag.Sum гришек</span>
+                            <div class="btns">
+                                <a href="#" class="buy">Оформить заказ</a>
+                                <a href="#" class="toCart">Перейти в корзину</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="inCart hidden">
+                            <i class="fas fa-shopping-cart"></i> <span>Ваша корзина пуста</span>
+                        </div>
+                    }
                     <span class="first">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span>
                     <a href="#login" class="login" data-fancybox="pp">Войти</a>
                 </div>

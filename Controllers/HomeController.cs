@@ -32,12 +32,54 @@ namespace AmitTextile.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            List<Item> Items = new List<Item>();
+            if (User.Identity.IsAuthenticated)
+            {
+                Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile)
+                    .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result.Cart.Items.ToList();
+            }
+            else
+            {
+                if (Request.Cookies.ContainsKey("Cart"))
+                {
+                    Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile)
+                        .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"])).Result.Items
+                        .ToList();
+                }
+                else { Items = new List<Item>(); }
+
+            }
+            ViewBag.Items = Items;
+            decimal sum = 0;
+            Items.ForEach(x => sum += (x.Textile.Price * (decimal)x.ItemsAmount));
+            ViewBag.Sum = sum;
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             return View();
         }
         [HttpGet]   
         public async Task<IActionResult> ShowCategory(string CatId, Dictionary<string,List<string>> Filter, int page = 1, int EnumParam = 1, string CookieValue = "Grid")
         {
+            List<Item> Items = new List<Item>();
+            if (User.Identity.IsAuthenticated)
+            {
+                Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x=>x.Textile)
+                    .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result.Cart.Items.ToList();
+            }
+            else
+            {
+                if (Request.Cookies.ContainsKey("Cart"))
+                {
+                    Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile)
+                        .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"])).Result.Items
+                        .ToList();
+                }
+                else { Items = new List<Item>(); }
+                
+            }
+            ViewBag.Items = Items;
+            decimal sum = 0;
+            Items.ForEach(x => sum += (x.Textile.Price * (decimal)x.ItemsAmount));
+            ViewBag.Sum = sum;
             ViewBag.BookUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
             if (!HttpContext.Request.Cookies.ContainsKey("Form"))
             {
@@ -431,6 +473,27 @@ namespace AmitTextile.Controllers
         [HttpGet]
         public async Task<IActionResult> ShowChildCategory(string ChildCatId, Dictionary<string, List<string>> Filter, int page = 1, int EnumParam = 1, string CookieValue = "Grid")
         {
+            List<Item> Items = new List<Item>();
+            if (User.Identity.IsAuthenticated)
+            {
+                Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile)
+                    .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result.Cart.Items.ToList();
+            }
+            else
+            {
+                if (Request.Cookies.ContainsKey("Cart"))
+                {
+                    Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile)
+                        .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"])).Result.Items
+                        .ToList();
+                }
+                else { Items = new List<Item>(); }
+
+            }
+            ViewBag.Items = Items;
+            decimal sum = 0;
+            Items.ForEach(x => sum += (x.Textile.Price * (decimal)x.ItemsAmount));
+            ViewBag.Sum = sum;
             ViewBag.BookUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
             string FilterQuery = Request.Query["Filter"];
             if (!HttpContext.Request.Cookies.ContainsKey("Form"))
@@ -831,7 +894,27 @@ namespace AmitTextile.Controllers
             TextileForFavViewModel textile = new TextileForFavViewModel();
             List<ParentCommentReview> parentCommentReviews = new List<ParentCommentReview>();
             List<ParentCommentQuestion> parentCommentQuestions = new List<ParentCommentQuestion>();
+            List<Item> Items = new List<Item>();
+            if (User.Identity.IsAuthenticated)
+            {
+                Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile)
+                    .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result.Cart.Items.ToList();
+            }
+            else
+            {
+                if (Request.Cookies.ContainsKey("Cart"))
+                {
+                    Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile)
+                        .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"])).Result.Items
+                        .ToList();
+                }
+                else { Items = new List<Item>(); }
 
+            }
+            ViewBag.Items = Items;
+            decimal sum = 0;
+            Items.ForEach(x => sum += (x.Textile.Price * (decimal)x.ItemsAmount));
+            ViewBag.Sum = sum;
             if (Section == "AboutItem")
             {
                 if (User.Identity.IsAuthenticated)
@@ -1016,6 +1099,27 @@ namespace AmitTextile.Controllers
         [HttpGet]
         public async Task<IActionResult> Search(string StringQuery, int page = 1)
         {
+            List<Item> Items = new List<Item>();
+            if (User.Identity.IsAuthenticated)
+            {
+                Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile)
+                    .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result.Cart.Items.ToList();
+            }
+            else
+            {
+                if (Request.Cookies.ContainsKey("Cart"))
+                {
+                    Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile)
+                        .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"])).Result.Items
+                        .ToList();
+                }
+                else { Items = new List<Item>(); }
+
+            }
+            ViewBag.Items = Items;
+            decimal sum = 0;
+            Items.ForEach(x => sum += (x.Textile.Price * (decimal)x.ItemsAmount));
+            ViewBag.Sum = sum;
             ViewBag.UrlCat = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
             ViewBag.SearchUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/Search";

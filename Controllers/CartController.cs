@@ -37,16 +37,15 @@ namespace AmitTextile.Controllers
                 }
                 if (!flag)
                 {
-                    if (_context.Textiles.Find(TextileId).WarehouseAmount >= 1) {
-                        cart.Items.Add(new Item() { CartId = cart.CartId, ItemId = Guid.NewGuid(), ItemsAmount = 1, TextileId = Guid.Parse(TextileId) });
-                        _context.Update(cart);
+                    if (_context.Textiles.Find(Guid.Parse(TextileId)).WarehouseAmount >= 1) {
+                        await _context.Items.AddAsync(new Item() {ItemId = Guid.NewGuid(), CartId = cart.CartId, TextileId = Guid.Parse(TextileId), ItemsAmount = 1});
                         await _context.SaveChangesAsync();
                     }
 
                 }
                 else
                 {
-                    if (_context.Textiles.Find(TextileId).WarehouseAmount > cart.Items.FirstOrDefault(x => x.Textile.TextileId == Guid.Parse(TextileId)).ItemsAmount)
+                    if (_context.Textiles.Find(Guid.Parse(TextileId)).WarehouseAmount > cart.Items.FirstOrDefault(x => x.Textile.TextileId == Guid.Parse(TextileId)).ItemsAmount)
                     {
                         cart.Items.FirstOrDefault(x => x.Textile.TextileId == Guid.Parse(TextileId)).ItemsAmount++;
                         _context.Update(cart);
@@ -63,7 +62,7 @@ namespace AmitTextile.Controllers
                     bool flag1;
                     Guid Id = Guid.NewGuid();
                     Guid CartId = Guid.NewGuid();
-                    Cart Cart = new Cart() { CartId = Guid.NewGuid(), NonAuthorizedId = Id };
+                    Cart Cart = new Cart() { CartId = CartId, NonAuthorizedId = Id };
                     await _context.Carts.AddAsync(Cart);
                     await _context.Items.AddAsync(new Item()
                     { ItemId = Guid.NewGuid(), CartId = CartId, TextileId = Guid.Parse(TextileId), ItemsAmount = 1 });
@@ -74,7 +73,7 @@ namespace AmitTextile.Controllers
                 {
                     bool flag2 = false;
                     Guid Id = Guid.Parse(HttpContext.Request.Cookies["Cart"]);
-                    Cart Cart = await _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).FirstOrDefaultAsync(x => x.CartId == Id);
+                    Cart Cart = await _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).FirstOrDefaultAsync(x => x.NonAuthorizedId == Id);
                     foreach (var x in Cart.Items)
                     {
                         if (x.Textile.TextileId == Guid.Parse(TextileId))
@@ -85,20 +84,16 @@ namespace AmitTextile.Controllers
                     }
                     if (!flag2)
                     {
-                        if (_context.Textiles.Find(TextileId).WarehouseAmount >= 1)
+                        if (_context.Textiles.Find(Guid.Parse(TextileId)).WarehouseAmount >= 1)
                         {
-                            Cart.Items.Add(new Item()
-                            {
-                                CartId = Cart.CartId, ItemId = Guid.NewGuid(), ItemsAmount = 1,
-                                TextileId = Guid.Parse(TextileId)
-                            });
+                            _context.Items.Add(new Item(){CartId = Cart.CartId, ItemId = Guid.NewGuid(), ItemsAmount = 1, TextileId = Guid.Parse(TextileId)});
                             _context.Update(Cart);
                             await _context.SaveChangesAsync();
                         }
                     }
                     else
                     {
-                        if (_context.Textiles.Find(TextileId).WarehouseAmount > Cart.Items
+                        if (_context.Textiles.Find(Guid.Parse(TextileId)).WarehouseAmount > Cart.Items
                                 .FirstOrDefault(x => x.Textile.TextileId == Guid.Parse(TextileId)).ItemsAmount)
                         {
                             Cart.Items.FirstOrDefault(x => x.Textile.TextileId == Guid.Parse(TextileId)).ItemsAmount++;
