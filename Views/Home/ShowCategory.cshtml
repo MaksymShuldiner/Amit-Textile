@@ -449,12 +449,6 @@
                                                             <h2>@x.Textile.Name</h2>
                                                         </a>
                                                     </div>
-                                                    <div class="rateItemContainer">
-                                                        <input class="rateItem" value="@x.Textile.Stars.ToString().Replace(",", ".")" /> <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId&page=1&Section=CommentsReviews"> @x.Textile.ParentCommentReviews.Count отзывов</a>
-                                                    </div>
-                                                    <div class="itemDescrList">
-                                                        <span>@x.Textile.Description</span>
-                                                    </div>
                                                     <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
                                                     @if (x.Textile.WarehouseAmount >= 30)
                                                     {
@@ -478,7 +472,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="buyItemList">
-                                                    <input type="number" value="@x."/>
+                                                    <input type="number" value="@x.ItemsAmount"/>
                                                 </div>
                                             </div>
                                         </div>
