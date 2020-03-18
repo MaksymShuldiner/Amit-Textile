@@ -78,7 +78,7 @@
                         <a class="favouriteList" href="#login" title="Избранные товары" data-fancybox="dsf"><i class="fas fa-heart"></i></a>
                     }
                 <div class="cart">
-                    <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                    <a  href="#cartPopup" data-fancybox="2"><i class="fas fa-shopping-cart"></i></a>
                     @if (ViewBag.Items.Count > 0)
                     {
                         <div class="cartWithItems inCart hidden">
@@ -86,7 +86,7 @@
                             <span>Стоимостью @ViewBag.Sum гришек</span>
                             <div class="btns">
                                 <a href="#" class="buy">Оформить заказ</a>
-                                <a href="#" class="toCart">Перейти в корзину</a>
+                                <a href="#cartPopup" data-fancybox="1" class="toCart">Перейти в корзину</a>
                             </div>
                         </div>
                     }
@@ -426,53 +426,45 @@
             </div>
         </div>
         <div>
-            <form id="cartPopup">
-                <h1>Корзина</h1>
-                @foreach (var x in ViewBag.Items)
-                {
-                <div class="listItems">
-                    <div class="listItem">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="listImgContainer">
-                                                    <img src="../images/img1.jpg" alt="awd">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="itemDescriptionList">
-                                                    <div class="itemNameList">
-                                                        <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId">
-                                                            <h2>@x.Textile.Name</h2>
-                                                        </a>
+            <div class="hidden">
+                <form id="cartPopup">
+                    <h1>Корзина</h1>
+                    @foreach (var x in ViewBag.Items)
+                    {
+                        <div class="listItems">
+                            <div class="listItem">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="listImgContainer">
+                                                            <img src="../images/img1.jpg" alt="awd">
+                                                        </div>
                                                     </div>
-                                                    <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
-                                                    @if (x.Textile.WarehouseAmount >= 30)
-                                                    {
-                                                        <span class="inStock">
-                                                            Есть в наличии
-                                                        </span>
-                                                    }
-                                                    @if (x.Textile.WarehouseAmount < 30 && x.Textile.WarehouseAmount != 0)
-                                                    {
-                                                        <span class="lowAm">
-                                                            Заканчивается
-                                                        </span>
-                                                    }
-                                                    @if (x.Textile.WarehouseAmount == 0)
-                                                    {
-                                                        <span class="notInStock">
-                                                            Нет в наличии
-                                                        </span>
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="buyItemList">
-                                                    <input type="number" value="@x.ItemsAmount"/>
+                                                    <div class="col-md-6">
+                                                        <div class="itemDescriptionList">
+                                                            <div class="itemNameList">
+                                                                <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId">
+                                                                    <h2>@x.Textile.Name</h2>
+                                                                </a>
+                                                            </div>
+                                                            <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="buyItemList">
+                                                            <span class="changeAm">-</span>
+                                                            <span>@x.ItemsAmount</span>
+                                                            <span class="changeAm">+</span>
+                                                        </div>
+                                                        <div class="sum">
+                                                            <label>Сумма</label><br>
+                                                            <span>123456</span>
+                                                        </div>
+                                                        <button class="close1"><i class="fas fa-times-circle"></i></button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -480,10 +472,16 @@
                                 </div>
                             </div>
                         </div>
+                    }
+                    <div class="popupCartButtons">
+                        <span class="continue">Продолжить покупки</span>
+                        <div>
+                            <label for="orderIt">Итого</label> <label class="summa">n грн</label><br>
+                            <input class="orderIt" type="submit" value="Оформить заказ" />
+                        </div>
                     </div>
-                </div>
-                }
-            </form>
+                </form>
+            </div>
         </div>
         <div class="hidden">
             <form id="login">

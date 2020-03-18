@@ -1440,3 +1440,80 @@ textarea {
     color:coral;
     transition:0.3s all ease;
 }
+.buyItemList span{
+    font-size:35px;
+    position:relative;
+    top:30px;
+    right:20px;
+}
+.buyItemList > .changeAm {
+    font-size: 45px;
+    cursor: pointer;
+    top: 30px;
+    transition: 0.3s all ease;
+}
+.buyItemList > .changeAm:hover {
+    color:coral;
+    transition:0.3s all ease;
+}
+    .buyItemList > .changeAm:nth-child(1) {
+    right:25px;
+}
+.buyItemList > .changeAm:nth-child(2) {
+    left:5px;
+}
+.sum{
+    position:relative;
+    left:80px;
+    bottom:15px;
+}
+.sum> span{
+    font-size:20px;
+}
+.sum label{
+    color:#696969;
+    position:relative;
+    bottom:10px;
+}
+#cartPopup .listItems {
+    max-width: 980px;
+}
+#cartPopup>h1{
+    font-size:26px;
+}
+.continue {
+    padding: 10px;
+    font-size: 18px;
+    background-color: #DCDCDC;
+    position: relative;
+    top: 50px;
+    cursor: pointer;
+    transition: 0.3s all ease;
+}
+    .continue:hover {
+        color: #008B8B;
+        transition: 0.3s all ease;
+    }
+.orderIt {
+    padding: 10px;
+    font-size: 20px;
+    background-color: #FFB6C1;
+    color: white;
+    transition: 0.3s all ease;
+    font-weight:bold;
+}
+    .orderIt:hover {
+        transition: 0.3s all ease;
+        background-color:pink;
+    }
+.popupCartButtons>div{
+    position:relative;
+   width:180px;
+   padding-left:5px;
+   padding-right:20px;
+   top:20px;
+   float:right;
+}
+.popupCartButtons>div>label:nth-child(2){
+    float:right;    
+}
