@@ -1,0 +1,238 @@
+﻿@model AmitTextile.Models.SearchModel
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Интернет-магазин текстиля AmitTextile</title>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed&display=swap" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="~/css/main.css">
+    <link rel="stylesheet" href="~/libs/FontAwesome/all.min.css">
+    <link rel="stylesheet" href="~/libs/OwlCarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/slider.css" />
+    <link rel="stylesheet" href="~/libs/themes/krajee-svg/theme.min.css">
+    <link rel="stylesheet" href="~/css/star-rating.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="~/css/adapt.css">
+    <script type="text/javascript" src="~/libs/jquery 3.4.1.min.js"></script>
+    <script type="text/javascript" defer>
+        let arrCat = [];
+        let count = 1;
+        let line = 1;
+        $.ajax({
+            type: 'GET',
+            url:'@Url.Action("GetCategories", "TextileApi")',
+            contentType: 'json',
+            success: function (result) {
+                arrCat = result;
+                let Url;
+                for (let i = 0; i < arrCat.length; i++) {
+                    Url = "@ViewBag.UrlCat" + "?CatId=" + arrCat[i].categoryId;
+                    if (line % 2 == 0) {
+                        $('#' + count).append('<a class="cats" href="'+Url+'">' + arrCat[i].name + '</a><br>');
+                    }
+                    else {
+                        $('#' + count).append('<a class="cats r" href="'+Url+'">' + arrCat[i].name + '</a><br>');
+                    }
+                    if (arrCat.length - i <= 4) {
+                        $('#' + count).append('<br>');
+                    }
+                    count++;
+                    if (count > 4) {
+                        count = 1;
+                        line++;
+                    }
+                }
+            }
+        });
+
+    </script>
+</head>
+<body>
+    <div id="regS"><p>Ваш аккаунт был успешно зарегистрирован, письмо для подтверждения уже было отправлено вам на почту.</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
+    <div id="notConfirmed"><p>Для возможности писать комментарии и/или задавать вопросы подтвердите, пожалуйста, вашу почту</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
+    <button id="scrollBtn"><i class="fas fa-chevron-up"></i></button>
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 logo_container">
+
+                </div>
+                <div class="col-md-4 search_container">
+                    <form class="search_form" action="@Url.Action("Search","Home")" method="get">
+                        <input type="search" class="searchBar" name="StringQuery" placeholder="Я ищу..."><input class="searchButton" value="Поиск" type="submit" />
+                    </form>
+                </div>
+                <div class="col-md-5 cart_container">
+                    <a class="favouriteList" href="#" title="Избранные товары"><i class="fas fa-heart"></i></a>
+                    <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                    <span class="first">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span>
+                    <a href="#login" class="login" data-fancybox="pp">Войти</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="categories">
+        <span id="cat">Категории <i id="arrowDown" class="fas fa-chevron-down"></i><i id="arrowUp" class="fas fa-chevron-up hdn"></i></span>
+        <div id="cats_hdn" class="hdn">
+            <div class="container">
+                <div class="row">
+                    <div id="1" class="col-md-3"></div>
+                    <div id="2" class="col-md-3"></div>
+                    <div id="3" class="col-md-3"></div>
+                    <div id="4" class="col-md-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="nameHolder mrg">
+                        <h1 class="catName">
+                            Избранное
+                        </h1>
+                    </div>
+                    @foreach (var x in Model.Textiles)
+                    {
+                        <div class="listItems">
+                            <div class="listItem">
+                                <div class="container-fluid">
+                                    <div class="row item_cells">
+                                        <div class="col-md-12">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="listImgContainer lic">
+                                                            <img src="../images/img1.jpg" alt="awd">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="itemDescriptionList">
+                                                            <div class="itemNameList">
+                                                                <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId">
+                                                                    <h2>@x.Textile.Name</h2>
+                                                                </a>
+                                                            </div>
+                                                            <div class="rateItemContainer">
+                                                                <input class="rateItem" value="@x.Textile.Stars.ToString().Replace(",", ".")" /> <a href="@ViewBag.Url?TextileId=@x.Textile.TextileId&page=1&Section=CommentsReviews"> @x.Textile.ParentCommentReviews.Count отзывов</a>
+                                                            </div>
+                                                            <div class="itemDescrList">
+                                                                <span>@x.Textile.Description</span>
+                                                            </div>
+                                                            <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
+                                                            @if (x.Textile.WarehouseAmount >= 30)
+                                                            {
+                                                                <span class="inStock">
+                                                                    Есть в наличии
+                                                                </span>
+                                                            }
+                                                            @if (x.Textile.WarehouseAmount < 30 && x.Textile.WarehouseAmount != 0)
+                                                            {
+                                                                <span class="lowAm">
+                                                                    Заканчивается
+                                                                </span>
+                                                            }
+                                                            @if (x.Textile.WarehouseAmount == 0)
+                                                            {
+                                                                <span class="notInStock">
+                                                                    Нет в наличии
+                                                                </span>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="buyItemList">
+                                                            <button class="buyItem">
+                                                                <a href="#">
+                                                                    <i class="fas fa-shopping-cart"></i> Купить
+                                                                </a>
+                                                            </button>
+                                                        </div>
+                                                        <div class="buttonsItemList">
+                                                            <button class="fav">
+                                                                @if (x.isFavourite)
+                                                                {
+                                                                    <p value="0" textileId="@x.Textile.TextileId" class="toFavourite">
+                                                                        <i class="far fa-heart"></i>
+                                                                    </p>
+                                                                    <p value="1" textileId="@x.Textile.TextileId" class="toFavourite selected"><i class="fas fa-heart"></i></p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p value="0" textileId="@x.Textile.TextileId" class="toFavourite selected">
+                                                                        <i class="far fa-heart"></i>
+                                                                    </p>
+                                                                    <p value="1" textileId="@x.Textile.TextileId" class="toFavourite"><i class="fas fa-heart"></i></p>
+                                                                }
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="navButtons">
+                        <ul>
+                            @if (Model.Model.HasPreviousPage)
+                            {
+                                <text>
+                                    <li class="pagButtons"><span><i class="fas fa-chevron-left"></i>Назад</span></li>
+                                    <a class="zxc" href="@ViewBag.SearchUrl?page=@(Model.Model.PageNumber - 1)&StringQuery=@Model.StringQuery"></a>
+                                </text>
+                            }
+                            else
+                            {
+                                <text>
+                                    <li class="pagButtons disabled"><span><i class="fas fa-chevron-left"></i> Назад</span></li>
+                                </text>
+                            }
+                            @foreach (var x in Model.PagesCounterList)
+                            {
+                                <text>
+                                    <a class="zxc1" href="@ViewBag.SearchUrl?page=@x&StringQuery=@Model.StringQuery">
+                                        <li class="pagButtons number"><span>@x</span></li>
+                                    </a>
+                                </text>
+                            }
+
+                            @if (Model.Model.HasNextPage)
+                            {
+                                <text>
+                                    <a class="zxc" href="@ViewBag.SearchUrl?page=@(Model.Model.PageNumber + 1)&StringQuery=@Model.StringQuery"><li class="pagButtons"><span>Вперед <i class="fas fa-chevron-right"></i></span></li></a>
+                                </text>
+                            }
+                            else
+                            {
+                                <text>
+                                    <li class="pagButtons disabled"><span> Вперед<i class="fas fa-chevron-right"></i></span></li>
+                                </text>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+    </footer>
+    <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
+    <script type="text/javascript" src="~/js/star-rating.js"></script>
+    <script type="text/javascript" src="~/js/ru.js"></script>
+    <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="~/js/main.js"></script>
+    <script type="text/javascript" src="~/libs/FontAwesome/all.min.js"></script>
+    <script type="text/javascript" src="~/libs/OwlCarousel/owl.carousel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+</body>
+</html>

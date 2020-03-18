@@ -53,7 +53,7 @@ namespace AmitTextile.Controllers
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             List<Textile> Textiles = new List<Textile>();
             int count = 0;
-            int textilesForPage = 3;
+            int textilesForPage = 9;
             SortingParams param;    
             Enum.TryParse(EnumParam.ToString(), out param);
             if (param == 0)
@@ -398,7 +398,6 @@ namespace AmitTextile.Controllers
             List<ChildCategory> childCategories = _context.Categories.Include(x => x.ChildCategories).FirstOrDefaultAsync(x => x.CategoryId == Guid.Parse(CatId)).Result.ChildCategories.ToList();
             PageViewModel pageViewModel = new PageViewModel(count, page, textilesForPage);
             List<int> pagesCounterList = new List<int>();
-            int counterForPrevious = 3;
             for (int i = 1; i <= pageViewModel.TotalPages; i++)
             {
                 pagesCounterList.Add(i);
@@ -448,7 +447,7 @@ namespace AmitTextile.Controllers
             ViewBag.UrlChild = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowChildCategory";
             List<Textile> Textiles = new List<Textile>();
             int count = 0;
-            int textilesForPage = 3;
+            int textilesForPage = 9;
             SortingParams param;
             Enum.TryParse(EnumParam.ToString(), out param);
             if (param == 0)
@@ -827,7 +826,7 @@ namespace AmitTextile.Controllers
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
             ViewBag.UrlCat = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             string Fio = _context.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name)?.Result?.Fio;
-            int commentscount = 6;
+            int commentscount = 9;
             bool x = User.Identity.IsAuthenticated;
             TextileForFavViewModel textile = new TextileForFavViewModel();
             List<ParentCommentReview> parentCommentReviews = new List<ParentCommentReview>();
@@ -971,8 +970,6 @@ namespace AmitTextile.Controllers
                     pagesCounterList.Add(i);
                 }
                 List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
-
-                int z = 5;
                 return View(new TextileViewModel()
                     { parentCommentQuestions = parentCommentQuestions, Section = "CommentsQuestions",Fio = Fio, PageViewModel  = model , Textile = textile, PagesCount = newList});
             }
@@ -1015,7 +1012,49 @@ namespace AmitTextile.Controllers
             string Url2 = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook?TextileId={Id}&page=1&Section=CommentsQuestions";
             return Redirect(Url2);
         }
-       
-        
+
+        [HttpGet]
+        public async Task<IActionResult> Search(string StringQuery, int page = 1)
+        {
+            ViewBag.UrlCat = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
+            ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
+            ViewBag.SearchUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/Search";
+            List<Textile> Textiles = _context.Textiles.Include(x => x.Category).Include(x => x.ChildCategory)
+                .Include(x => x.ParentCommentReviews)
+                .Where(x => x.Category.Name.Contains(StringQuery) || x.ChildCategory.Name.Contains(StringQuery) ||
+                            x.Name.Contains(StringQuery)).ToList();
+            List<TextileForFavViewModel> model = new List<TextileForFavViewModel>();
+            if (User.Identity.IsAuthenticated)
+            {
+                Textiles.ForEach(x =>
+                {
+                    model.Add(new TextileForFavViewModel(){
+                        Textile = x,
+                        isFavourite = _context.Users.Include(x => x.UserChosenTextiles)
+                            .FirstOrDefaultAsync(z => z.UserName == User.Identity.Name).Result.UserChosenTextiles
+                            .Any(y => x.TextileId == y.TextileId)
+                    });
+                });
+            }
+            else
+            {
+                Textiles.ForEach(x =>
+                {
+                    model.Add(new TextileForFavViewModel()
+                    {
+                        Textile = x,
+                        isFavourite = false
+                    });
+                });
+            }
+            PageViewModel pageViewModel = new PageViewModel(Textiles.Count, page, 9);
+            List<int> pagesCounterList = new List<int>();
+            for (int i = 1; i <= pageViewModel.TotalPages; i++)
+            {
+                pagesCounterList.Add(i);
+            }
+            List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
+            return View(new SearchModel(){PagesCounterList = newList, Textiles = model.Skip((page - 1) * 9).Take(9).ToList(), Model = pageViewModel, StringQuery = StringQuery});
+        }
     }
 }

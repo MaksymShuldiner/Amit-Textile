@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using AmitTextile.Models;
 using AmitTextile.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace AmitTextile.Controllers
 {
@@ -164,19 +165,26 @@ namespace AmitTextile.Controllers
             {
                 User user = await _context.Users.Include(x => x.UserChosenTextiles)
                     .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name);
-                user.UserChosenTextiles.Remove(
+                if(user.UserChosenTextiles.Contains(user.UserChosenTextiles.FirstOrDefault(x => x.TextileId == Guid.Parse(model.TextileId)))){
+                    user.UserChosenTextiles.Remove(
                         user.UserChosenTextiles.FirstOrDefault(x => x.TextileId == Guid.Parse(model.TextileId)));
                     try
                     {
                         await _userManager.UpdateAsync(user);
                         await _context.SaveChangesAsync();
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         return BadRequest(ex);
                     }
+
                     return Ok();
-               
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
             }
         }
     }
