@@ -90,6 +90,7 @@ namespace AmitTextile.Controllers
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody]LoginModel Model)
         {
+            string Url = Request.Headers["Referer"].ToString();
             List<string> errors = new List<string>();
             if (ModelState.IsValid)
             {
@@ -99,7 +100,7 @@ namespace AmitTextile.Controllers
                     var result = await _signInManager.PasswordSignInAsync(user, Model.Password, Model.Remember, false);
                     if (result.Succeeded)
                     {
-                        return Ok($"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}");
+                        return Ok(Url);
                     }
                     else
                     {
