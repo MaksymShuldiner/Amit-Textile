@@ -189,7 +189,7 @@ header {
         }
 
 .item {
-    padding: 20px;
+    padding: 17px;
     border: 1px solid #d3d3d3;
     width: 100%;
     height: 300px;
@@ -1325,7 +1325,7 @@ textarea {
 }
 .item .fav{
     position:relative;
-    margin-left:20px;
+    float:right;
     bottom:7px;
 }
 .cat{

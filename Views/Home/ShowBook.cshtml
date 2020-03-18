@@ -53,7 +53,7 @@
 </head>
 <body>
     <div id="regS"><p>Ваш аккаунт был успешно зарегистрирован, письмо для подтверждения уже было отправлено вам на почту.</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
-    <div id="notConfirmed"><p>Для возможности писать комментарии и/или задавать вопросы подтвердите, пожалуйста, вашу почту</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
+    <div id="notConfirmed"><p>Для возможности оставлять отзывы и/или задавать или отвечать на вопросы подтвердите, пожалуйста, вашу почту</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
     <button id="scrollBtn"><i class="fas fa-chevron-up"></i></button>
     <header>
         <div class="container-fluid">
@@ -465,7 +465,7 @@
                         <span class="commentUserName">
                             @x.Fio
                         </span>
-                            <a href="#popupReplyForm" data-fancybox="@(Guid.NewGuid())" class="replyButton" parentId="@x.ParentCommentQuestionId"><i class="fas fa-reply"></i> Ответить</a>
+                            <a href="#" class="replyButton" parentId="@x.ParentCommentQuestionId"><i class="fas fa-reply"></i> Ответить</a>
                         <span class="commentDate">
                             @x.DatePosted.ToString()
                         </span>
@@ -484,7 +484,7 @@
                                     <span class="commentUserName">
                                         @y.Fio
                                     </span>
-                                    <a href="#popupReplyForm" data-fancybox="@(Guid.NewGuid())" parentId="@x.ParentCommentQuestionId" class="replyButton"><i class="fas fa-reply"></i> Ответить</a>
+                                    <a href="#" parentId="@x.ParentCommentQuestionId" class="replyButton"><i class="fas fa-reply"></i> Ответить</a>
                                     <span class="commentDate">
                                         @y.DatePosted.ToString()
                                     </span>
@@ -612,7 +612,7 @@
                         })
                     }
                     else if (!e.isAuthentificated) {
-                        $.fancybox.open('#login');
+                        $.fancybox.open($('#login'));
                     }
                     
                 }
@@ -759,8 +759,28 @@
                 let q = $('#popupReplyForm').find('#qId');
                 if (q.length != 0) { q[0].remove() };
                 $('#popupReplyForm').append('<input id="qId" value=' + qId + ' type="hidden" name="ParentId"/>')
-            });
-        });
+                function tgl() {
+                        $('#notConfirmed').fadeOut(400);
+                    }
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("IsAuthentificated","TextileApi")',
+                        contentType: 'json',
+                        success: function (e) {
+                            if (e.isAuthentificated && e.isEmailConfirmed) {
+                                $.fancybox.open($('#popupReplyForm'));
+                            }
+                            else if (!e.isEmailConfirmed && e.isAuthentificated) {
+                                $('#notConfirmed').fadeIn(400);
+                                setTimeout(tgl, 10000);
+                            }
+                            else if (!e.isAuthentificated) {
+                                $.fancybox.open($('#login'));
+                            }
+                        }
+                    });
+                });
+            })
     </script>
     <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
     <script type="text/javascript" src="~/js/star-rating.js"></script>

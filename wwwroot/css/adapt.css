@@ -1,29 +1,99 @@
-@media only screen and (max-width:991px) {
-    .f{
-        padding-left:30px;
-        padding-right:30px;
-        max-width:991px;
-        width:100%;
+@media only screen and (max-width:1508px){
+    .l{
+        padding-right:0;
     }
-    .item_image>img{
-        height:125px;
+    .contentM{
+        margin-right:0;
+        margin-left:0;
+    }
+}
+@media only screen and (max-width:1199px){
+    .item_name{
+        font-size:13px;
+    }
+}
+@media only screen and (max-width:1100px) {
+    .rateItemContainer a {
+        font-size: 12px;
+    }
+}
+@media only screen and (max-width:1086px) {
+    .item_cells .fav{
+        position:relative;
+        right:25px;
+        bottom:32px;
+    }
+    .item:hover>.itm_field>.row>.col-md-6>.fav{
+        right:0px;
+        bottom:7px;
+    }
+}
+@media only screen and (max-width:1075px) {
+    .item:hover > .itm_field > .row > .col-md-6 > .fav {
+        right: 25px;
+        bottom: 32px;
     }
     .item_cost{
-        font-size:20px;
+        font-size:22px;
     }
-}
-@media only screen and (max-width:793px){
-    .cart_container{
-        padding-left:3%;
+    .inStock, notInStock, lowAm{
+        font-size:12px;
     }
-    .search_container{
-        padding:0px;
+    .itm_field>.row>.col-md-6:nth-child(1){
+        padding-right:0px;
     }
-}
-@media only screen and (max-width:767px){
-    .search_form {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
     }
-}
+    @media only screen and (max-width:991px) {
+        .f {
+            padding-left: 30px;
+            padding-right: 30px;
+            max-width: 991px;
+            width: 100%;
+        }
+
+        .item_image > img {
+            height: 125px;
+        }
+
+        .item_cost {
+            font-size: 20px;
+        }
+    }
+
+    @media only screen and (max-width:991px) {
+        .rateItemContainer a {
+            font-size: 12px;
+        }
+    }
+
+    @media only screen and (max-width:793px) {
+        .cart_container {
+            padding-left: 3%;
+        }
+
+        .search_container {
+            padding: 0px;
+        }
+    }
+
+    @media only screen and (max-width:767px) {
+        .search_form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .buy_item {
+            position: relative;
+            bottom: 35px;
+        }
+
+        .item {
+            padding: 30px;
+            height: auto;
+        }
+
+        .item_image > img {
+            height: auto;
+        }
+    }
