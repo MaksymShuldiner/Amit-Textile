@@ -117,9 +117,30 @@ namespace AmitTextile.Controllers
 
         public async Task<IActionResult> Profile()
         {
+            List<Item> Items = new List<Item>();
+            if (User.Identity.IsAuthenticated)
+            {
+                Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile)
+                    .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result.Cart.Items.ToList();
+            }
+            else
+            {
+                if (Request.Cookies.ContainsKey("Cart"))
+                {
+                    Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile)
+                        .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"])).Result.Items
+                        .ToList();
+                }
+                else { Items = new List<Item>(); }
+
+            }
+            ViewBag.Items = Items;
+            decimal sum = 0;
+            Items.ForEach(x => sum += (x.Textile.Price * (decimal)x.ItemsAmount));
+            ViewBag.Sum = sum;
             if (!User.Identity.IsAuthenticated)
             {
-                return Redirect(Request.Headers["Referer"].ToString());
+                return RedirectToAction("Index", "Home");
             }
             else
             {
