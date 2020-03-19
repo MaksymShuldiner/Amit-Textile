@@ -524,14 +524,14 @@
     <footer>
     </footer>
     <script type="text/javascript">
-        let url="@Url.Action("RemoveFromCart", "Cart")";
+        let url= "@Url.Action("RemoveFromCart", "TextileApi")";
         $('.close1').click(function (e) {
             e.preventDefault();
             let item = $(this).parent().parent().parent().parent().parent().parent().parent().parent();
             let id = $(this).attr('data');
             $.ajax({
                 type: 'GET',
-                url: url + "&ItemId=" + id,
+                url: url + "?ItemId=" + id,
                 contentType: 'json',
                 success: function () {
                     item.remove();
