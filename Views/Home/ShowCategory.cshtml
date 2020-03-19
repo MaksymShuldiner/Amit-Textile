@@ -534,11 +534,11 @@
                 url: url + "&ItemId=" + id,
                 contentType: 'json',
                 success: function () {
+                    let price1 = parseFloat($(item).find('.sum').find('span').html());
+                    let price2 = $(item).parent().find('.popupCartButtons').find('.summa');
+                    price2.html(parseFloat(price2.html()) - price1+" грн");
                     item.remove();
                 },
-                error: function (e) {
-                    console.log(e);
-                }
             })
         })
     </script>
