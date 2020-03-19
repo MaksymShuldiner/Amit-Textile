@@ -117,7 +117,8 @@ namespace AmitTextile.Controllers
             }
            
         }
-        
+        [HttpGet]
+        [Route("Minus")]
         public async Task<IActionResult> MinusItemInCart(string ItemId)
         {
             if (User.Identity.IsAuthenticated)

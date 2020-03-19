@@ -32,7 +32,7 @@
                 arrCat = result;
                 let Url;
                 for (let i = 0; i < arrCat.length; i++) {
-                    Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId;
+                    Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId+"&CookieValue="+"@Model.CookieValue";
                     if (line % 2 == 0) {
                         $('#' + count).append('<a class="cats" href="'+Url+'">' + arrCat[i].name + '</a><br>');
                     }
@@ -89,7 +89,7 @@
                     @if (ViewBag.Items.Count > 0)
                     {
                         <div class="cartWithItems inCart hidden">
-                            <span>В корзине @count3 товаров</span>
+                            <span data="@count3">В корзине @count3 товаров</span>
                             <span>Стоимостью @ViewBag.Sum гришек</span>
                             <div class="btns">
                                 <a href="#" class="buy">Оформить заказ</a>
@@ -187,7 +187,7 @@
                             <div class="containr">
                                 @foreach (var x in Model.childCategories)
                                 {
-                                    <a href="@Url.Action("ShowChildCategory", "Home", new { ChildCatId = x.ChildCategoryId, page = Model.PageViewModel.PageNumber })">
+                                    <a href="@Url.Action("ShowChildCategory", "Home", new { ChildCatId = x.ChildCategoryId, CookieValue=Model.CookieValue })">
                                         <li class="catItem">
                                             <div class="catItemImgHolder">
                                                 <img src="../images/img1.jpg" alt="CategoryImage">
@@ -355,7 +355,7 @@
                                                                 <div class="col-md-2">
                                                                     <div class="buyItemList">
                                                                         <button class="buyItem">
-                                                                            <a href="#">
+                                                                            <a href="@Url.Action("AddToCart","Cart", new {TextileId = x.Textile.TextileId})">
                                                                                 <i class="fas fa-shopping-cart"></i> Купить
                                                                             </a>
                                                                         </button>
@@ -462,9 +462,9 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="buyItemList">
-                                                            <span class="changeAm">-</span>
+                                                            <span class="changeAm" data="@x.ItemId">-</span>
                                                             <span>@x.ItemsAmount</span>
-                                                            <span class="changeAm">+</span>
+                                                            <span class="changeAm" data="@x.ItemId">+</span>
                                                         </div>
                                                         <div class="sum">
                                                             <label>Сумма</label><br>
@@ -531,12 +531,34 @@
     <footer>
     </footer>
     <script type="text/javascript">
+        $('.changeAm').click(function () {
+            let id = $(this).attr('data');
+            let sum = $(this).parent().parent().find('.sum').find('span');
+            let am1 = $(this).next();
+            let operation = $(this).html();
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("MinusItemInCart","Cart")'+'?ItemId='+id,
+                contentType: 'json',
+                success: function () {
+                    if (operation == "-") {
+                        $(am1).html(parseInt($(am1).html())-1);
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            })
+        });
+    </script>
+    <script type="text/javascript">
         let url= "@Url.Action("RemoveFromCart", "TextileApi")";
         $('.close1').click(function (e) {
             e.preventDefault();
             let item = $(this).parent().parent().parent().parent().parent().parent().parent().parent();
             let form = $(item).parent();
             let id = $(this).attr('data');
+            let am = $(this).parent().find('.buyItemList').find('span');
             $.ajax({
                 type: 'GET',
                 url: url + "?ItemId=" + id,
@@ -554,6 +576,7 @@
                     else {
                         let chPrice = $('.inCart').find('span');
                         $(chPrice[1]).html("Стоимостью " + parseFloat(parseFloat(price3) - price1) + " грн")
+                        $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) - parseInt($(am[1]).html())) + " товаров");
                     }
                 },
             })

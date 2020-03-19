@@ -32,7 +32,7 @@
                 arrCat = result;
                 let Url;
                 for (let i = 0; i < arrCat.length; i++) {
-                    Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId;
+                    Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId+"&CookieValue="+"@Model.CookieValue";
                     if (line % 2 == 0) {
                         $('#' + count).append('<a class="cats" href="'+Url+'">' + arrCat[i].name + '</a><br>');
                     }
