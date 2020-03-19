@@ -12,5 +12,9 @@ namespace AmitTextile.Models
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         [DataType(DataType.Password)]
         public string PasswordConfirm { get; set; }
+
+        public string Code { get; set; }
+
+        public string Name { get; set; }
     }
 }

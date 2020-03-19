@@ -101,20 +101,24 @@ namespace AmitTextile.Controllers
         }
         public async Task<IActionResult> ForgotPassword()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            string name = User.Identity.Name;
-            User user = await _userManager.FindByNameAsync(name);
-            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var returningUrl = Url.Action("ResetPassword", "Home", new { code = code, name = name }, protocol: HttpContext.Request.Scheme);
-           
-            await _emailservice.Execute("Password Reset", user.Email,"",
-                $"Для сброса пароля: <a href='{returningUrl}'>link</a>");
+            
+                if (!User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                string name = User.Identity.Name;
+                User user = await _userManager.FindByNameAsync(name);
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var returningUrl = Url.Action("ResetPassword", "Profile", new {code = code, name = name},
+                    protocol: HttpContext.Request.Scheme);
+
+                await _emailservice.Execute("Password Reset", user.Email, "",
+                    $"Для сброса пароля: <a href='{returningUrl}'>link</a>");
+            
+            
             return Ok();
         }
-
         public async Task<IActionResult> Profile()
         {
             List<Item> Items = new List<Item>();
@@ -148,7 +152,102 @@ namespace AmitTextile.Controllers
                 return View(user);
 
             }
+
         }
+        public ActionResult ResetPassword(string name, string code = null)
+        {
+            if (code == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            else
+            {
+                ViewBag.name = name;
+                ViewBag.code = code;
+                return View();
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(PasswordResetViewModel model)
+        {
+            List<string> errors = new List<string>();
+            if (ModelState.IsValid)
+            {
+                ViewBag.name = model.Name;
+                ViewBag.code = model.Code;
+                User user = await _userManager.FindByNameAsync(model.Name);
+                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                {
+                    return Ok("Неверная ссылка для восстановления пароля или ваша почта не подтверждена");
+                }
+
+                var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignOutAsync();
+                    return Ok();
+                }
+                else
+                {
+                    errors.Add("Неверная ссылка для восстановления пароля");
+                }
+            }
+            else
+            {
+                List<string> errorsList2 = ModelState.Values
+                    .SelectMany(x => x.Errors)
+                    .Select(x => x.ErrorMessage).ToList();
+                foreach (var x in errorsList2)
+                {
+                    errors.Add(x);
+                }
+            }
+            return BadRequest(errors);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangeEmail(EmailViewModel model)
+        {
+            string name = User.Identity.Name;
+            User user = await _userManager.FindByNameAsync(name);
+            var code = await _userManager.GenerateChangeEmailTokenAsync(user, model.Email);
+            var returningUrl = Url.Action("OnChangingEmail", "Profile", new { code = code, email = model.Email, name = name }, protocol: HttpContext.Request.Scheme);
+            await _emailservice.Execute("Email Reset", model.Email,"",
+                $"Для смены почты: <a href='{returningUrl}'>link</a>");
+            return Ok();
+        }
+        public async Task<IActionResult> OnChangingEmail(string code, string email, string name)
+        {
+            User user = await _userManager.FindByNameAsync(name);
+            user.UserName = email;
+            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var result1 = await _userManager.UpdateAsync(user);
+            var result = await _userManager.ChangeEmailAsync(user, email, code);
+            if (result.Succeeded && result1.Succeeded)
+            {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetInfo(InfoViewModel model)
+        {
+            User user = await _userManager.FindByNameAsync(User.Identity.Name);
+            user.Address = model.Address;
+            user.Fio = model.Fio;
+            user.PhoneNumber = model.PhoneNumber;
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+            return Ok(Request.Headers["Referer"].ToString());
+
+        }
+
+
 
     }
 }
