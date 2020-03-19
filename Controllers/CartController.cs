@@ -116,6 +116,7 @@ namespace AmitTextile.Controllers
             }
            
         }
+        [HttpGet]
         public async Task<IActionResult> RemoveFromCart(string ItemId)
         {
             if (User.Identity.IsAuthenticated)
