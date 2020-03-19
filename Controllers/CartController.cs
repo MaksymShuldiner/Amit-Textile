@@ -112,7 +112,6 @@ namespace AmitTextile.Controllers
         }
         public async Task<IActionResult> RemoveFromCart(string ItemId)
         {
-
             if (User.Identity.IsAuthenticated)
             {
                 Cart cart = await _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).Include(x => x.User)
@@ -137,7 +136,6 @@ namespace AmitTextile.Controllers
                 _context.Carts.Update(Cart);
                 await _context.SaveChangesAsync();
             }
-
             return Ok();
         }
         public async Task<IActionResult> MinusItemInCart(string ItemId)

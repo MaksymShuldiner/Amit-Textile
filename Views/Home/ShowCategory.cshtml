@@ -461,7 +461,7 @@
                                                         </div>
                                                         <div class="sum">
                                                             <label>Сумма</label><br>
-                                                            <span>123456</span>
+                                                            <span>@(x.ItemsAmount * x.Textile.Price)</span>
                                                         </div>
                                                         <button class="close1"><i class="fas fa-times-circle"></i></button>
                                                     </div>
@@ -473,10 +473,17 @@
                             </div>
                         </div>
                     }
+                    @{
+                        decimal yDecimal = 0;
+                        foreach(var x in ViewBag.Items)
+                        {
+                            yDecimal += x.Textile.Price * x.ItemsAmount;
+                        }
+                    }
                     <div class="popupCartButtons">
                         <span class="continue">Продолжить покупки</span>
                         <div>
-                            <label for="orderIt">Итого</label> <label class="summa">n грн</label><br>
+                            <label for="orderIt">Итого</label> <label class="summa">@yDecimal грн</label><br>
                             <input class="orderIt" type="submit" value="Оформить заказ" />
                         </div>
                     </div>
