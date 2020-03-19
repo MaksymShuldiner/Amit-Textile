@@ -118,6 +118,15 @@ $(document).ready(function () {
         }
         parent.jQuery.fancybox.getInstance().close();
     });
+    $('.decline').click(function () {
+        let input = $(this).parent().parent().find('input');
+        for (let i = 0; i < input.length; i++) {
+            if ($(input[i]).attr('type') == "text" && !$(input[i]).hasClass('userNameField')) {
+                input[i].value = "";
+            }
+        }
+            parent.jQuery.fancybox.getInstance().close();
+        });
     $('.postedCommentRating').rating({ displayOnly: true, size: 's', language: "ru" });
     $('#commentS').click(function () {
         let starsCount = $(this).parent().find('.rating-container').find('.rating-stars').attr('title');
@@ -148,6 +157,20 @@ $(document).ready(function () {
     $('.continue').click(function () {
         parent.jQuery.fancybox.getInstance().close();
     });
+    $('.helloAuth').hover(
+        function () { 
+            $('.logedDropdown').animate({
+                top: '54px',
+                opacity: "1"
+            }, 300);
+            $('.logedDropdown').toggleClass('hidden');
+        },
+        function () {
+            $('.logedDropdown').toggleClass('hidden');
+            $('.logedDropdown').css('top', '50px');
+            $('.logedDropdown').css('opacity', '0');
+        }
+    )
 });
 window.onscroll = function () { scrollFunction() };
 

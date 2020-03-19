@@ -1,4 +1,4 @@
-﻿
+﻿@model AmitTextile.Domain.User
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -98,7 +98,19 @@
                         }
                     </div>
                     <span class="first">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span>
-                    <a href="#login" class="login" data-fancybox="pp">Войти</a>
+                    <div class="helloAuth ">
+                        <a href="#" class="login">Здравствуйте, @Model.Fio</a>
+                        <div class="logedDropdown hidden">
+                            <ul>
+                                <li class="authOption">
+                                    <a href="#">Личные данные <i class="fas fa-chevron-right"></i></a>
+                                </li>
+                                <li class="authOption leave">
+                                    Выход
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -117,7 +129,80 @@
         </div>
     </div>
     <div class="content">
-        
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="title">Личные Данные</h1>
+                    <table class="personalInfo">
+                        <tr>
+                            <td>
+                                ФИО
+                            </td>
+                            <td>
+                                @Model.Fio
+                            </td>
+                            <td>
+                                <button class="changeInfo" data-fancybox="changeInform" href="#changeInform">Изменить личные данные</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Электронная почта
+                            </td>
+                            <td>
+                                @Model.Email
+                            </td>
+                            <td>
+                                <button class="changePass">Изменить пароль</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Телефон
+                            </td>
+                            <td>
+                                @Model.PhoneNumber
+                            </td>
+                            <td>
+                                <button class="changeMail">Изменить почту</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Адрес доставки
+                            </td>
+                            <td>
+                                @Model.Address
+                            </td>
+                            <td>
+                                <button class="exit">Выйти</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <form id="changeInform">
+            <label for="Uname">
+                ФИО
+            </label><br>
+            <input class="Uname" type="text" /><br>
+            <label for="phone">
+                Номер телефона
+            </label><br>
+            <input type="text" class="phone" /><br>
+            <label for="adress">
+                Адрес доставки
+            </label><br>
+            <input type="text" class="adress" />
+            <div>
+                <span class="decline">Отменить</span>
+                <input class="saveCh" type="submit" value="Сохранить" />
+            </div>
+        </form>
     </div>
     <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
     <script type="text/javascript" src="~/js/star-rating.js"></script>
