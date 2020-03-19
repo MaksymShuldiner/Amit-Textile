@@ -106,9 +106,10 @@ namespace AmitTextile.Controllers
                 }
             }
 
+            string Url =Request.Headers["Referer"].ToString();
             if (Api == "none")
             {
-                return Redirect(Request.Headers["Referer"].ToString());
+                return Redirect(Url);
             }
             else
             {
