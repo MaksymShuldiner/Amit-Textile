@@ -20,7 +20,7 @@ namespace AmitTextile.Controllers
             _signInManager = signInManager;
             _context = context;
         }
-        public async Task<IActionResult> AddToCart(string TextileId)
+        public async Task<IActionResult> AddToCart(string TextileId, string Api = "none")
         {
             bool flag = false;
             if (User.Identity.IsAuthenticated)
@@ -104,11 +104,17 @@ namespace AmitTextile.Controllers
                     }
 
                 }
-
-
             }
 
-            return Redirect(Request.Headers["Referer"].ToString());
+            if (Api == "none")
+            {
+                return Redirect(Request.Headers["Referer"].ToString());
+            }
+            else
+            {
+                return Ok();
+            }
+           
         }
         public async Task<IActionResult> RemoveFromCart(string ItemId)
         {
