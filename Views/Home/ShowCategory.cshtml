@@ -528,17 +528,27 @@
         $('.close1').click(function (e) {
             e.preventDefault();
             let item = $(this).parent().parent().parent().parent().parent().parent().parent().parent();
+            let form = $(item).parent();
             let id = $(this).attr('data');
             $.ajax({
                 type: 'GET',
                 url: url + "?ItemId=" + id,
                 contentType: 'json',
                 success: function () {
+                    let price1 = parseFloat($(item).find('.sum').find('span').html());
+                    let price2 = $(item).parent().find('.popupCartButtons').find('.summa');
+                    let price3= $(item).parent().find('.popupCartButtons').find('.summa').html();
+                    price2.html(parseFloat(price3) - price1+" грн");
                     item.remove();
+                    if ($(form).find('.listItems').length == 0) {
+                        $('.inCart').remove();
+                        $('.cart').append('<div class="inCart hidden"><i class="fas fa-shopping-cart"></i> <span>Ваша корзина пуста</span></div>');
+                    }
+                    else {
+                        let chPrice = $('.inCart').find('span');
+                        $(chPrice[1]).html("Стоимостью " + parseFloat(parseFloat(price3) - price1) + " грн")
+                    }
                 },
-                error: function (e) {
-                    console.log(e);
-                }
             })
         })
     </script>
