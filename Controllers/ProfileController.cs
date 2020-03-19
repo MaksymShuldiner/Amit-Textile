@@ -112,8 +112,21 @@ namespace AmitTextile.Controllers
            
             await _emailservice.Execute("Password Reset", user.Email,"",
                 $"Для сброса пароля: <a href='{returningUrl}'>link</a>");
-
             return Ok();
+        }
+
+        public async Task<IActionResult> Profile()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect(Request.Headers["Referer"].ToString());
+            }
+            else
+            {
+                User user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name);
+                return View(user);
+
+            }
         }
 
     }
