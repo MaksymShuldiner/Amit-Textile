@@ -117,9 +117,10 @@ namespace AmitTextile.Controllers
 
         public async Task<IActionResult> Profile()
         {
+            ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             if (!User.Identity.IsAuthenticated)
             {
-                return Redirect(Request.Headers["Referer"].ToString());
+                return RedirectToAction("Index","Home");
             }
             else
             {
