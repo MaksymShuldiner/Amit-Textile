@@ -77,12 +77,19 @@
                     {
                         <a class="favouriteList" href="#login" title="Избранные товары" data-fancybox="dsf"><i class="fas fa-heart"></i></a>
                     }
+                    @{
+                        int count3 = 0;
+                        foreach (var x in ViewBag.Items)
+                        {
+                            count3 += x.ItemsAmount;
+                        }
+                    }
                 <div class="cart">
                     <a  href="#cartPopup" data-fancybox="2"><i class="fas fa-shopping-cart"></i></a>
                     @if (ViewBag.Items.Count > 0)
                     {
                         <div class="cartWithItems inCart hidden">
-                            <span>В корзине @ViewBag.Items.Count товаров</span>
+                            <span>В корзине @count3 товаров</span>
                             <span>Стоимостью @ViewBag.Sum гришек</span>
                             <div class="btns">
                                 <a href="#" class="buy">Оформить заказ</a>
