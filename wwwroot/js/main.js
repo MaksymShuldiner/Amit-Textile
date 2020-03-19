@@ -145,6 +145,9 @@ $(document).ready(function () {
             $('.inCart').css('opacity','0');
         }
     );
+    $('.continue').click(function () {
+        parent.jQuery.fancybox.getInstance().close();
+    });
 });
 window.onscroll = function () { scrollFunction() };
 
