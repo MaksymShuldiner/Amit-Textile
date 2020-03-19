@@ -525,7 +525,8 @@
     </footer>
     <script type="text/javascript">
         let url="@Url.Action("RemoveFromCart", "Cart")";
-        $('.close1').click(function () {
+        $('.close1').click(function (e) {
+            e.preventDefault();
             let item = $(this).parent().parent().parent().parent().parent().parent().parent().parent();
             let id = $(this).attr('data');
             $.ajax({
@@ -535,6 +536,9 @@
                 success: function () {
                     item.remove();
                 },
+                error: function (e) {
+                    console.log(e);
+                }
             })
         })
     </script>
