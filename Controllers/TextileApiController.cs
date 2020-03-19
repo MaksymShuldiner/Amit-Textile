@@ -188,5 +188,35 @@ namespace AmitTextile.Controllers
 
             }
         }
+        [HttpGet]
+        [Route("Remove")]
+        public async Task<IActionResult> RemoveFromCart(string ItemId)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                Cart cart = await _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).Include(x => x.User)
+                    .FirstOrDefaultAsync(x => x.User.UserName == User.Identity.Name);
+                Item item = cart.Items.FirstOrDefault(x => x.ItemId == Guid.Parse(ItemId));
+                if (cart.Items.Contains(item))
+                {
+                    cart.Items.Remove(item);
+                }
+                _context.Carts.Update(cart);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                Guid Id = Guid.Parse(HttpContext.Request.Cookies["Cart"]);
+                Cart Cart = await _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).FirstOrDefaultAsync(x => x.NonAuthorizedId == Id);
+                Item item = Cart.Items.FirstOrDefault(x => x.ItemId == Guid.Parse(ItemId));
+                if (Cart.Items.Contains(item))
+                {
+                    Cart.Items.Remove(item);
+                }
+                _context.Carts.Update(Cart);
+                await _context.SaveChangesAsync();
+            }
+            return Ok();
+        }
     }
 }
