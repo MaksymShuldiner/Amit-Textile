@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AmitTextile.Domain;
 using AmitTextile.Domain.Context;
 using AmitTextile.Models;
+using AmitTextile.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,14 +17,15 @@ namespace AmitTextile.Controllers
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
         private AmitDbContext _context;
+        private EmailService _emailservice;
 
         public ProfileController(UserManager<User> userManager, SignInManager<User> signInManager,
-            AmitDbContext context)
+            AmitDbContext context, EmailService emailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
-
+            _emailservice = emailService;
         }
 
         public async Task<IActionResult> ShowFavourite(int page = 1)
@@ -90,5 +92,29 @@ namespace AmitTextile.Controllers
             }
             return Redirect(Url);
         }
+        [HttpGet]
+        public async Task<IActionResult> LogOff()
+        {
+
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+        public async Task<IActionResult> ForgotPassword()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            string name = User.Identity.Name;
+            User user = await _userManager.FindByNameAsync(name);
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var returningUrl = Url.Action("ResetPassword", "Home", new { code = code, name = name }, protocol: HttpContext.Request.Scheme);
+           
+            await _emailservice.Execute("Password Reset", user.Email,"",
+                $"Для сброса пароля: <a href='{returningUrl}'>link</a>");
+
+            return Ok();
+        }
+
     }
 }
