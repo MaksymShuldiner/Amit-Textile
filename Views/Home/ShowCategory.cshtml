@@ -463,7 +463,7 @@
                                                             <label>Сумма</label><br>
                                                             <span>@(x.ItemsAmount * x.Textile.Price)</span>
                                                         </div>
-                                                        <button class="close1"><i class="fas fa-times-circle"></i></button>
+                                                        <button data="@x.ItemId" class="close1"><i class="fas fa-times-circle"></i></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -523,6 +523,21 @@
     </div>
     <footer>
     </footer>
+    <script type="text/javascript">
+        let url="@Url.Action("RemoveFromCart", "Cart")";
+        $('.close1').click(function () {
+            let item = $(this).parent().parent().parent().parent().parent().parent().parent().parent();
+            let id = $(this).attr('data');
+            $.ajax({
+                type: 'GET',
+                url: url + "&ItemId=" + id,
+                contentType: 'json',
+                success: function () {
+                    item.remove();
+                },
+            })
+        })
+    </script>
     <script type="text/javascript">
         $('.fav').click(function () {
             let s = $(this).find('.toFavourite');
