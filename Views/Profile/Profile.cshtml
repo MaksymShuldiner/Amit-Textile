@@ -104,11 +104,11 @@
                     </div>
                     <span class="first">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span>
                     <div class="helloAuth ">
-                        <a href="#" class="login">Здравствуйте, @Model.Fio</a>
+                        <a href="@ViewBag.ProfileUrl" class="login">Здравствуйте, @Model.Fio</a>
                         <div class="logedDropdown hidden">
                             <ul>
                                 <li class="authOption">
-                                    <a href="#">Личные данные <i class="fas fa-chevron-right"></i></a>
+                                    <a href="@ViewBag.ProfileUrl">Личные данные <i class="fas fa-chevron-right"></i></a>
                                 </li>
                                 <li class="authOption leave">
                                     Выход
@@ -387,9 +387,6 @@
                     $('#regS').fadeIn(400);
                     setTimeout(tgl, 10000);
                 },
-                error: function (e) {
-                    console.log(e);
-                }
             })
         });
     </script>

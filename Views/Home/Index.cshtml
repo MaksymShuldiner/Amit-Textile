@@ -222,7 +222,7 @@
                                         </span>
                                     </div>
                                     <div class="col-md-6">
-                                            <a href="#" class="buy_item">
+                                        <a href="#" class="buy_item">
                                             <i class="fas fa-shopping-cart"></i>
                                         </a>
                                     </div>
@@ -300,53 +300,252 @@
             </div>
         </div>
         <div class="hidden">
-            <form id="login">
-                <font>Эл. почта</font><br><br>
-                <div class="inputFields">
-                    <input type="email" id="loginName" name="UserEmail" required><br><br>
-                    <font>Пароль</font><br><br>
-                    <input type="password" id="loginPass" name="UserPassword" required><button type="button" id="showPassLogin" class="showBtn"><div class="atv"><i class="fas fa-eye"></i></div><div class="atv hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+            <form id="cartPopup">
+                <h1>Корзина</h1>
+                @foreach (var x in ViewBag.Items)
+                {
+                    <div class="listItems">
+                        <div class="listItem">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="listImgContainer">
+                                                        <img src="../images/img1.jpg" alt="awd">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="itemDescriptionList">
+                                                        <div class="itemNameList">
+                                                            <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId">
+                                                                <h2>@x.Textile.Name</h2>
+                                                            </a>
+                                                        </div>
+                                                        <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="buyItemList">
+                                                        <span class="changeAm minus" data1="@x.Textile.TextileId" data="@x.ItemId">-</span>
+                                                        <span>@x.ItemsAmount</span>
+                                                        <span class="changeAm plus" data1="@x.Textile.TextileId" data="@x.ItemId">+</span>
+                                                    </div>
+                                                    <div class="sum">
+                                                        <label>Сумма</label><br>
+                                                        <span>@(x.ItemsAmount * x.Textile.Price)</span>
+                                                    </div>
+                                                    <button data="@x.ItemId" class="close1"><i class="fas fa-times-circle"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @{
+                    decimal yDecimal = 0;
+                    foreach (var x in ViewBag.Items)
+                    {
+                        yDecimal += x.Textile.Price * x.ItemsAmount;
+                    }
+                }
+                <div class="popupCartButtons">
+                    <span class="continue">Продолжить покупки</span>
+                    <div>
+                        <label for="orderIt">Итого</label> <label class="summa">@yDecimal грн</label><br>
+                        <input class="orderIt" type="submit" value="Оформить заказ" />
+                    </div>
                 </div>
-                <input type="submit" id="loginButton" class="registerButton" value="Войти" name="login" required><br><br>
-                <input type="checkbox" id="checkbox" value="true">  Запомнить меня<br><br>
-                <a data-fancybox="helo" href="#register">Зарегистрироваться</a> <br>
             </form>
         </div>
-        <div class="hidden">
-            <form id="register" class="register">
+    </div>
+    <div class="hidden">
+        <form id="login">
+            <font>Эл. почта</font><br><br>
+            <div class="inputFields">
+                <input type="email" id="loginName" name="UserEmail" required><br><br>
+                <font>Пароль</font><br><br>
+                <input type="password" id="loginPass" name="UserPassword" required><button type="button" id="showPassLogin" class="showBtn"><div class="atv"><i class="fas fa-eye"></i></div><div class="atv hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+            </div>
+            <input type="submit" id="loginButton" class="registerButton" value="Войти" name="login" required><br><br>
+            <input type="checkbox" id="checkbox" value="true">  Запомнить меня<br><br>
+            <a data-fancybox="helo" href="#register">Зарегистрироваться</a> <br>
+        </form>
+    </div>
+    <div class="hidden">
+        <form id="register" class="register">
 
-                ФИО <br><br>
-                <div class="inputFields">
-                    <input type="text" id="registerName" name="UserName" required><br><br>
-                    Эл. почта <span>*</span><br><br>
-                    <input type="email" id="registerEmail" name="UserEmail" required><br><br>
-                    Придумайте пароль <span>*</span><br><br>
-                    <input type="password" id="registerPass" name="UserPassword" required><button type="button" id="showPassRegister" class="showBtn"><div class="atv1"><i class="fas fa-eye"></i></div><div class="atv1 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
-                    Подтвердите пароль <span>*</span><br><br>
-                    <input type="password" id="confirmPass" required><button type="button" id="showPassConfirm" class="showBtn"><div class="atv2"><i class="fas fa-eye"></i></div><div class="atv2 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
-                    Пароль должен содержать не менее 6 символов<br><br>
-                </div>
-                <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
-                <br />
-            </form>
+            ФИО <br><br>
+            <div class="inputFields">
+                <input type="text" id="registerName" name="UserName" required><br><br>
+                Эл. почта <span>*</span><br><br>
+                <input type="email" id="registerEmail" name="UserEmail" required><br><br>
+                Придумайте пароль <span>*</span><br><br>
+                <input type="password" id="registerPass" name="UserPassword" required><button type="button" id="showPassRegister" class="showBtn"><div class="atv1"><i class="fas fa-eye"></i></div><div class="atv1 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                Подтвердите пароль <span>*</span><br><br>
+                <input type="password" id="confirmPass" required><button type="button" id="showPassConfirm" class="showBtn"><div class="atv2"><i class="fas fa-eye"></i></div><div class="atv2 hdn"><i class="fas fa-eye-slash"></i></div></button><br><br>
+                Пароль должен содержать не менее 6 символов<br><br>
+            </div>
+            <input type="submit" id="registerBtn" class="registerButton" name="register" value="Зарегистрироваться">
+            <br />
+        </form>
 
-        </div>
     </div>
     <div class="hidden">
         <form id="resetPass" data-fancybox="resetPass">
             <label for="pass">
                 Введите новый пароль
             </label><br />
-            <input type="password" name="pass" /><br />
+            <input type="password" class="pass" /><br />
             <label for="confirmPass">
                 Подтвердите пароль
             </label><br />
-            <input type="password" name="confirmPass" /><br />
+            <input type="password" class="confirmPass" /><br />
             <span class="passChangeButton">Изменить пароль</span>
         </form>
     </div>
     <footer>
     </footer>
+    <script type="text/javascript">
+        $('.passChangeButton').click(function () {
+            let pass = $('.pass').val();
+            let confirmPass = $('.confirmPass').val();
+            let x = {"Password": pass, "PasswordConfirm": confirmPass, "Code":"@ViewBag.code", "Name": "@ViewBag.name"};
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("ResetPassword","Profile")",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(x),
+                error: function (e) {
+                    errorArr = e.responseText.split('"');
+                    let errors = document.getElementsByClassName("error");
+                    if (errors[0] != undefined) {
+                        for (let i = 0; i < errors.length; i++) {
+                            errors[i].remove();
+                            i--;
+                        }
+                    }
+                    if (errorArr[0] != undefined) {
+                        for (let i = 1; i < errorArr.length - 1; i++) {
+                            if (errorArr[i] != ",") {
+                                $('#resetPass').append('<span class="error">' + errorArr[i] + '<br><br></span>');
+                            }
+                        }
+                    }
+                },
+                success: function () {
+                    parent.jQuery.fancybox.getInstance().close();
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $('.changeAm').click(function () {
+            function add0(e) {
+                if ((parseFloat($(e).html()) * 10) % 10 == 0) {
+                    $(e).html($(e).html() + ",00");
+                }
+                else {
+                    $(e).html($(e).html().replace('.', ','));
+                }
+            }
+            let item = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent();
+            let form = $(item).parent();
+            let id = $(this).attr('data');
+            let sum = $(this).parent().parent().find('.sum').find('span');
+            let id1 = $(this).attr('data1');
+            let am1 = $(this).next();
+            let am = $(this).prev();
+            let operator = $(this).html();
+            let url;
+            if (operator == "-") {
+                url = '@Url.Action("MinusItemInCart","Cart")'+"?ItemId="+id;
+            }
+            else {
+                url = '@Url.Action("AddToCart","Cart")'+"?Api=1&TextileId="+id1;
+            }
+            let cost = parseFloat($(this).parent().parent().prev().find('.itemDescriptionList').find('.itemPriceList').find('span').html());
+            $.ajax({
+                type: 'GET',
+                url: url,
+                contentType: 'json',
+                success: function () {
+                    if (operator == "-") {
+                        $(am1).html(parseInt($(am1).html()) - 1);
+                        $(sum).html(parseFloat(parseFloat($(sum).html()) - cost));
+                        add0(sum);
+                        $('.summa').html(parseFloat($('.summa').html()) - cost);
+                        add0('.summa');
+                        $('.summa').html($('.summa').html() + " грн");
+                        if ($(am1).html() == "0") {
+                            item.remove();
+                        }
+                    }
+                    else {
+                        $(am).html(parseInt($(am).html()) + 1);
+                        $(sum).html(parseFloat(parseFloat($(sum).html()) + cost));
+                        add0(sum);
+                        $('.summa').html(parseFloat($('.summa').html()) + cost);
+                        add0('.summa');
+                    }
+                        if ($(form).find('.listItems').length == 0) {
+                        $('.inCart').remove();
+                        $('.cart').append('<div class="inCart hidden"><i class="fas fa-shopping-cart"></i> <span>Ваша корзина пуста</span></div>');
+                        }
+                        else {
+
+                            let chPrice = $('.inCart').find('span');
+                            if (operator == "-") {
+                                $(chPrice[1]).html("Стоимостью " + $('.summa').html())
+                                $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) - 1) + " товаров");
+                            }
+                            else {
+                                $(chPrice[1]).html("Стоимостью " + $('.summa').html())
+                                $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) + 1) + " товаров");
+                            }
+                        }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            })
+        });
+    </script>
+    <script type="text/javascript">
+        let url= "@Url.Action("RemoveFromCart", "TextileApi")";
+        $('.close1').click(function (e) {
+            e.preventDefault();
+            let item = $(this).parent().parent().parent().parent().parent().parent().parent().parent();
+            let form = $(item).parent();
+            let id = $(this).attr('data');
+            let am = $(this).parent().find('.buyItemList').find('span');
+            $.ajax({
+                type: 'GET',
+                url: url + "?ItemId=" + id,
+                contentType: 'json',
+                success: function () {
+                    let price1 = parseFloat($(item).find('.sum').find('span').html());
+                    let price2 = $(item).parent().find('.popupCartButtons').find('.summa');
+                    let price3= $(item).parent().find('.popupCartButtons').find('.summa').html();
+                    price2.html(parseFloat(price3) - price1+" грн");
+                    item.remove();
+                    if ($(form).find('.listItems').length == 0) {
+                        $('.inCart').remove();
+                        $('.cart').append('<div class="inCart hidden"><i class="fas fa-shopping-cart"></i> <span>Ваша корзина пуста</span></div>');
+                    }
+                    else {
+                        let chPrice = $('.inCart').find('span');
+                        $(chPrice[1]).html("Стоимостью " + parseFloat(parseFloat(price3) - price1) + " грн")
+                        $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) - parseInt($(am[1]).html())) + " товаров");
+                    }
+                },
+            })
+        })
+    </script>
     <script type="text/javascript">
         function tgl() {
             $('#regS').fadeOut(400);
