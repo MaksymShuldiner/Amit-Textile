@@ -2,7 +2,9 @@ body {
     font-family: 'Ubuntu Condensed';
     background-color: #FFFAF0;
 }
-
+body a:link{
+    text-decoration:none;
+}
 button {
     cursor: pointer;
 }
