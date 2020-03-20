@@ -31,7 +31,7 @@ namespace AmitTextile.Controllers
             _signInManager = signInManager;
             _context = context;
         }
-        public async Task<IActionResult> Index(string name, string code = null)
+        public async Task<IActionResult> Index(string name = null, string code = null)
         {
             ViewBag.ProfileUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Profile/Profile";
             if (User.Identity.IsAuthenticated)
