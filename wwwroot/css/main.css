@@ -1386,9 +1386,8 @@ textarea {
     padding-top:25px;
     padding-left:30px;
     position:fixed;
-    top:50px;
+    top:80px;
     right:350px;
-    
     z-index:1000;
 }
     .inCart > svg {
@@ -1552,7 +1551,7 @@ textarea {
         height: 35px;
         font-size: 20px;
         font-weight: bold;
-        background-color: #FF69B4;
+        background-color: #FFB6C1;
         color: white;
         transition: 0.3s all ease;
     }
@@ -1570,7 +1569,7 @@ textarea {
         transition: 0.3s all ease !important;
     }
 .personalInfo > tbody > tr > td:nth-child(3) > button:hover {
-    background-color: #FFB6C1;
+    background-color: pink;
     transition:0.3s all ease;
 }
 #changeInform>input{
@@ -1644,7 +1643,28 @@ textarea {
     box-shadow: -3px 3px 10px rgba(0,0,0,0.5);
     width:200px;
     position:fixed;
-    top:50px;
+    top:78px;
     right:280px;
     opacity:0;
 }
+#resetPass{
+    font-size:18px;
+}
+#resetPass>input{
+    margin-bottom:10px;
+    height:35px;
+    width:300px;
+}
+.passChangeButton {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #dcdcdc;
+    font-size: 20px;
+    display: block;
+    text-align: center;
+    transition: 0.3s all ease;
+}
+    .passChangeButton:hover {
+        color: #008B8B;
+        transition:0.3s all ease;
+    }
