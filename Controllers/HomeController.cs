@@ -33,6 +33,10 @@ namespace AmitTextile.Controllers
         }
         public async Task<IActionResult> Index(string name, string code = null)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.Fio = await _userManager.FindByNameAsync(User.Identity.Name);
+            }
             List<Item> Items = new List<Item>();
             if (User.Identity.IsAuthenticated)
             {
@@ -62,6 +66,10 @@ namespace AmitTextile.Controllers
         [HttpGet]   
         public async Task<IActionResult> ShowCategory(string CatId, Dictionary<string,List<string>> Filter, int page = 1, int EnumParam = 1, string CookieValue = "Grid")
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.Fio = await _userManager.FindByNameAsync(User.Identity.Name);
+            }
             List<Item> Items = new List<Item>();
             if (User.Identity.IsAuthenticated)
             {
@@ -476,6 +484,10 @@ namespace AmitTextile.Controllers
         [HttpGet]
         public async Task<IActionResult> ShowChildCategory(string ChildCatId, Dictionary<string, List<string>> Filter, int page = 1, int EnumParam = 1, string CookieValue = "Grid")
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.Fio = await _userManager.FindByNameAsync(User.Identity.Name);
+            }
             List<Item> Items = new List<Item>();
             if (User.Identity.IsAuthenticated)
             {
@@ -889,6 +901,10 @@ namespace AmitTextile.Controllers
        
         public async Task<IActionResult> ShowBook(string TextileId, int page = 1, string Section = "AboutItem" )
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.Fio = await _userManager.FindByNameAsync(User.Identity.Name);
+            }
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
             ViewBag.UrlCat = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             string Fio = _context.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name)?.Result?.Fio;
@@ -1102,6 +1118,10 @@ namespace AmitTextile.Controllers
         [HttpGet]
         public async Task<IActionResult> Search(string StringQuery, int page = 1)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.Fio = await _userManager.FindByNameAsync(User.Identity.Name);
+            }
             List<Item> Items = new List<Item>();
             if (User.Identity.IsAuthenticated)
             {
