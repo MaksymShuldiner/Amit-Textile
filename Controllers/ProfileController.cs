@@ -99,6 +99,8 @@ namespace AmitTextile.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        [HttpGet]
+        [Route("passChange")]
         public async Task<IActionResult> ForgotPassword()
         {
             
