@@ -30,6 +30,10 @@ namespace AmitTextile.Controllers
 
         public async Task<IActionResult> ShowFavourite(int page = 1)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.Fio = await _userManager.FindByNameAsync(User.Identity.Name);
+            }
             List<Item> Items = new List<Item>();
             if (User.Identity.IsAuthenticated)
             {
@@ -112,9 +116,8 @@ namespace AmitTextile.Controllers
                 string name = User.Identity.Name;
                 User user = await _userManager.FindByNameAsync(name);
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var returningUrl = Url.Action("ResetPassword", "Profile", new {code = code, name = name},
-                    protocol: HttpContext.Request.Scheme);
-
+                var returningUrl = Url.Action("Index", "Home", new {code = code, name = name},
+                    protocol: HttpContext.Request.Scheme) + "#resetPass";
                 await _emailservice.Execute("Password Reset", user.Email, "",
                     $"Для сброса пароля: <a href='{returningUrl}'>link</a>");
             
@@ -156,20 +159,7 @@ namespace AmitTextile.Controllers
             }
 
         }
-        public ActionResult ResetPassword(string name, string code = null)
-        {
-            if (code == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            else
-            {
-                ViewBag.name = name;
-                ViewBag.code = code;
-                return View();
-            }
-        }
+        
         [HttpPost]
         public async Task<IActionResult> ResetPassword(PasswordResetViewModel model)
         {
