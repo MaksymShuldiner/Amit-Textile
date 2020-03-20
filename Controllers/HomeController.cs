@@ -14,6 +14,7 @@ using AmitTextile.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -30,7 +31,7 @@ namespace AmitTextile.Controllers
             _signInManager = signInManager;
             _context = context;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string name, string code = null)
         {
             List<Item> Items = new List<Item>();
             if (User.Identity.IsAuthenticated)
@@ -54,6 +55,8 @@ namespace AmitTextile.Controllers
             Items.ForEach(x => sum += (x.Textile.Price * (decimal)x.ItemsAmount));
             ViewBag.Sum = sum;
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
+            ViewBag.name = name;
+            ViewBag.code = code;
             return View();
         }
         [HttpGet]   
