@@ -75,17 +75,23 @@
                     {
                         <a class="favouriteList" href="#login" title="Избранные товары" data-fancybox="dsf"><i class="fas fa-heart"></i></a>
                     }
+                    @{
+                        int count3 = 0;
+                        foreach (var x in ViewBag.Items)
+                        {
+                            count3 += x.ItemsAmount;
+                        }
+                    }
                     <div class="cart">
-                        <a href="#"><i class="fas fa-shopping-cart"></i></a>
-
+                        <a href="#cartPopup" data-fancybox="2"><i class="fas fa-shopping-cart"></i></a>
                         @if (ViewBag.Items.Count > 0)
                         {
                             <div class="cartWithItems inCart hidden">
-                                <span>В корзине @ViewBag.Items.Count товаров</span>
-                                <span>Стоимостью @ViewBag.Sum гришек</span>
+                                <span data="@count3">В корзине @count3 товаров</span>
+                                <span>Стоимостью @ViewBag.Sum грн</span>
                                 <div class="btns">
                                     <a href="#" class="buy">Оформить заказ</a>
-                                    <a href="#" class="toCart">Перейти в корзину</a>
+                                    <a href="#cartPopup" data-fancybox="1" class="toCart">Перейти в корзину</a>
                                 </div>
                             </div>
                         }
@@ -242,7 +248,7 @@
                                 @Model.Textile.Textile.Price
                             </span>
                             <button class="buyItem">
-                                <a href="#">
+                                <a href="@Url.Action("AddToCart","Cart", new {TextileId = Model.Textile.Textile.TextileId})">
                                     <i class="fas fa-shopping-cart"></i> Купить
                                 </a>
                             </button>
@@ -281,18 +287,18 @@
                         <div class="col-md-8">
                             <div class="characteristics">
                                 <table>
-                                        @foreach (var x in Model.Textile.Textile.Charachteristics.Where(x => x.Value != null))
-                                        {
-                                            <tr>
-                                                <td class="characteristicName">
-                                                    <span>@x.Name</span>
-                                                </td>
-                                                <td class="characteristicValue">
-                                                    <span>@x.Value</span>
-                                                </td>
-                                            </tr>
-                                            
-                                        }
+                                    @foreach (var x in Model.Textile.Textile.Charachteristics.Where(x => x.Value != null))
+                                    {
+                                        <tr>
+                                            <td class="characteristicName">
+                                                <span>@x.Name</span>
+                                            </td>
+                                            <td class="characteristicValue">
+                                                <span>@x.Value</span>
+                                            </td>
+                                        </tr>
+
+                                    }
                                 </table>
                             </div>
                         </div>
@@ -463,11 +469,11 @@
 
         @if (Model.Section == "CommentsQuestions")
         {
-                <div class="sc">
-                        <span>Задайте свой вопрос</span>
-                        <a href="#" class="questionSend">Задать вопрос</a>
-                </div>
-                
+            <div class="sc">
+                <span>Задайте свой вопрос</span>
+                <a href="#" class="questionSend">Задать вопрос</a>
+            </div>
+
 
             <div class="comment hidden">
                 <form id="popupQuestionForm" action="@Url.Action("PostCommentQuestion", "Home")" method="post">
@@ -504,7 +510,7 @@
                         <span class="commentUserName">
                             @x.Fio
                         </span>
-                            <a href="#" class="replyButton" parentId="@x.ParentCommentQuestionId"><i class="fas fa-reply"></i> Ответить</a>
+                        <a href="#" class="replyButton" parentId="@x.ParentCommentQuestionId"><i class="fas fa-reply"></i> Ответить</a>
                         <span class="commentDate">
                             @x.DatePosted.ToString()
                         </span>
@@ -578,7 +584,69 @@
                 </ul>
             </div>
         }
-
+        <div class="hidden">
+            <form id="cartPopup">
+                <h1>Корзина</h1>
+                @foreach (var x in ViewBag.Items)
+                {
+                    <div class="listItems">
+                        <div class="listItem">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="listImgContainer">
+                                                        <img src="../images/img1.jpg" alt="awd">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="itemDescriptionList">
+                                                        <div class="itemNameList">
+                                                            <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId">
+                                                                <h2>@x.Textile.Name</h2>
+                                                            </a>
+                                                        </div>
+                                                        <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="buyItemList">
+                                                        <span class="changeAm minus" data1="@x.Textile.TextileId" data="@x.ItemId">-</span>
+                                                        <span>@x.ItemsAmount</span>
+                                                        <span class="changeAm plus" data1="@x.Textile.TextileId" data="@x.ItemId">+</span>
+                                                    </div>
+                                                    <div class="sum">
+                                                        <label>Сумма</label><br>
+                                                        <span>@(x.ItemsAmount * x.Textile.Price)</span>
+                                                    </div>
+                                                    <button data="@x.ItemId" class="close1"><i class="fas fa-times-circle"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @{
+                    decimal yDecimal = 0;
+                    foreach (var x in ViewBag.Items)
+                    {
+                        yDecimal += x.Textile.Price * x.ItemsAmount;
+                    }
+                }
+                <div class="popupCartButtons">
+                    <span class="continue">Продолжить покупки</span>
+                    <div>
+                        <label for="orderIt">Итого</label> <label class="summa">@yDecimal грн</label><br>
+                        <input class="orderIt" type="submit" value="Оформить заказ" />
+                    </div>
+                </div>
+            </form>
+        </div>
         <div class="hidden">
             <form id="login">
                 <font>Эл. почта</font><br><br>
@@ -653,12 +721,13 @@
                     else if (!e.isAuthentificated) {
                         $.fancybox.open($('#login'));
                     }
-                    
+
                 }
             });
         });
     </script>
-    <script type="text/javascript"> 
+    <script type="text/javascript">
+
                 $('.commentSend').click(function () {
                     function tgl() {
                         $('#notConfirmed').fadeOut(400);
@@ -703,7 +772,7 @@
                                 }
                             });
                         });
-                
+
     </script>
     <script type="text/javascript">
             function tgl() {
@@ -747,6 +816,109 @@
                     }
                 });
             });
+    </script>
+    <script type="text/javascript">
+        $('.changeAm').click(function () {
+            function add0(e) {
+                if ((parseFloat($(e).html()) * 10) % 10 == 0) {
+                    $(e).html($(e).html() + ",00");
+                }
+                else {
+                    $(e).html($(e).html().replace('.', ','));
+                }
+            }
+            let item = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent();
+            let form = $(item).parent();
+            let id = $(this).attr('data');
+            let sum = $(this).parent().parent().find('.sum').find('span');
+            let id1 = $(this).attr('data1');
+            let am1 = $(this).next();
+            let am = $(this).prev();
+            let operator = $(this).html();
+            let url;
+            if (operator == "-") {
+                url = '@Url.Action("MinusItemInCart","Cart")'+"?ItemId="+id;
+            }
+            else {
+                url = '@Url.Action("AddToCart","Cart")'+"?Api=1&TextileId="+id1;
+            }
+            let cost = parseFloat($(this).parent().parent().prev().find('.itemDescriptionList').find('.itemPriceList').find('span').html());
+            $.ajax({
+                type: 'GET',
+                url: url,
+                contentType: 'json',
+                success: function () {
+                    if (operator == "-") {
+                        $(am1).html(parseInt($(am1).html()) - 1);
+                        $(sum).html(parseFloat(parseFloat($(sum).html()) - cost));
+                        add0(sum);
+                        $('.summa').html(parseFloat($('.summa').html()) - cost);
+                        add0('.summa');
+                        $('.summa').html($('.summa').html() + " грн");
+                        if ($(am1).html() == "0") {
+                            item.remove();
+                        }
+                    }
+                    else {
+                        $(am).html(parseInt($(am).html()) + 1);
+                        $(sum).html(parseFloat(parseFloat($(sum).html()) + cost));
+                        add0(sum);
+                        $('.summa').html(parseFloat($('.summa').html()) + cost);
+                        add0('.summa');
+                    }
+                        if ($(form).find('.listItems').length == 0) {
+                        $('.inCart').remove();
+                        $('.cart').append('<div class="inCart hidden"><i class="fas fa-shopping-cart"></i> <span>Ваша корзина пуста</span></div>');
+                        }
+                        else {
+
+                            let chPrice = $('.inCart').find('span');
+                            if (operator == "-") {
+                                $(chPrice[1]).html("Стоимостью " + $('.summa').html())
+                                $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) - 1) + " товаров");
+                            }
+                            else {
+                                $(chPrice[1]).html("Стоимостью " + $('.summa').html())
+                                $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) + 1) + " товаров");
+                            }
+                        }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            })
+        });
+    </script>
+    <script type="text/javascript">
+        let url= "@Url.Action("RemoveFromCart", "TextileApi")";
+        $('.close1').click(function (e) {
+            e.preventDefault();
+            let item = $(this).parent().parent().parent().parent().parent().parent().parent().parent();
+            let form = $(item).parent();
+            let id = $(this).attr('data');
+            let am = $(this).parent().find('.buyItemList').find('span');
+            $.ajax({
+                type: 'GET',
+                url: url + "?ItemId=" + id,
+                contentType: 'json',
+                success: function () {
+                    let price1 = parseFloat($(item).find('.sum').find('span').html());
+                    let price2 = $(item).parent().find('.popupCartButtons').find('.summa');
+                    let price3= $(item).parent().find('.popupCartButtons').find('.summa').html();
+                    price2.html(parseFloat(price3) - price1+" грн");
+                    item.remove();
+                    if ($(form).find('.listItems').length == 0) {
+                        $('.inCart').remove();
+                        $('.cart').append('<div class="inCart hidden"><i class="fas fa-shopping-cart"></i> <span>Ваша корзина пуста</span></div>');
+                    }
+                    else {
+                        let chPrice = $('.inCart').find('span');
+                        $(chPrice[1]).html("Стоимостью " + parseFloat(parseFloat(price3) - price1) + " грн")
+                        $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) - parseInt($(am[1]).html())) + " товаров");
+                    }
+                },
+            })
+        })
     </script>
     <script type="text/javascript">
         $('#loginButton').click(function (e) {

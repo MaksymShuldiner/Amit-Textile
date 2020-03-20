@@ -73,17 +73,23 @@
                     {
                         <a class="favouriteList" href="#login" title="Избранные товары" data-fancybox="dsf"><i class="fas fa-heart"></i></a>
                     }
+                    @{
+                        int count3 = 0;
+                        foreach (var x in ViewBag.Items)
+                        {
+                            count3 += x.ItemsAmount;
+                        }
+                    }
                     <div class="cart">
-                        <a href="#"><i class="fas fa-shopping-cart"></i></a>
-
+                        <a href="#cartPopup" data-fancybox="2"><i class="fas fa-shopping-cart"></i></a>
                         @if (ViewBag.Items.Count > 0)
                         {
                             <div class="cartWithItems inCart hidden">
-                                <span>В корзине @ViewBag.Items.Count товаров</span>
-                                <span>Стоимостью @ViewBag.Sum гришек</span>
+                                <span data="@count3">В корзине @count3 товаров</span>
+                                <span>Стоимостью @ViewBag.Sum грн</span>
                                 <div class="btns">
                                     <a href="#" class="buy">Оформить заказ</a>
-                                    <a href="#" class="toCart">Перейти в корзину</a>
+                                    <a href="#cartPopup" data-fancybox="1" class="toCart">Перейти в корзину</a>
                                 </div>
                             </div>
                         }
@@ -197,7 +203,7 @@
                                         </span>
                                     </div>
                                     <div class="col-md-6">
-                                        <a href="#" class="buy_item">
+                                            <a href="#" class="buy_item">
                                             <i class="fas fa-shopping-cart"></i>
                                         </a>
                                     </div>
