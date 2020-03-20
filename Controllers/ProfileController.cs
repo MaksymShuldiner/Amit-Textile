@@ -32,7 +32,7 @@ namespace AmitTextile.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                ViewBag.Fio = await _userManager.FindByNameAsync(User.Identity.Name);
+                ViewBag.Fio = _userManager.FindByNameAsync(User.Identity.Name).Result.Fio;
             }
             List<Item> Items = new List<Item>();
             if (User.Identity.IsAuthenticated)
