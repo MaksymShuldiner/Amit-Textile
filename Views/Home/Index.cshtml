@@ -101,7 +101,26 @@
                         }
                     </div>
                     <span class="first">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span>
-                    <a href="#login" class="login" data-fancybox="pp">Войти</a>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <a href="#login" class="login" data-fancybox="pp">Войти</a>
+                    }
+                    else
+                    {
+                        <div class="helloAuth ">
+                            <a href="#" class="login">Здравствуйте, @ViewBag.Fio</a>
+                            <div class="logedDropdown hidden">
+                                <ul>
+                                    <li class="authOption">
+                                        <a href="#">Личные данные <i class="fas fa-chevron-right"></i></a>
+                                    </li>
+                                    <li class="authOption leave">
+                                        Выход
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

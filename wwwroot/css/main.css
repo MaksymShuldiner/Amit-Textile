@@ -1378,6 +1378,15 @@ textarea {
         color: #696969;
         transition: 0.3s all ease;
     }
+    .close1 > a {
+        color: #A9A9A9;
+        transition: 0.3s all ease;
+    }
+    .close1>a:hover{
+        text-decoration:none;
+        color: #696969;
+        transition: 0.3s all ease;
+    }
 .inCart {
     width: 450px;
     height: 100px;
