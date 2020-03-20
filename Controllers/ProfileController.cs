@@ -30,6 +30,7 @@ namespace AmitTextile.Controllers
 
         public async Task<IActionResult> ShowFavourite(int page = 1)
         {
+            ViewBag.ProfileUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Profile/Profile";
             if (User.Identity.IsAuthenticated)
             {
                 ViewBag.Fio = _userManager.FindByNameAsync(User.Identity.Name).Result.Fio;
@@ -126,6 +127,7 @@ namespace AmitTextile.Controllers
         }
         public async Task<IActionResult> Profile()
         {
+            ViewBag.ProfileUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Profile/Profile";
             List<Item> Items = new List<Item>();
             if (User.Identity.IsAuthenticated)
             {
