@@ -12,7 +12,12 @@ header {
 }
 
 .logo_container, .search_container, .cart_container {
-    margin-top: 27px;
+    margin-top: 15px;
+   
+}
+.search_container, .cart_container {
+    margin-top: 55px;
+    padding-left: 200px;
 }
 
 .searchBar {
@@ -1517,9 +1522,12 @@ textarea {
 .popupCartButtons>div>label:nth-child(2){
     float:right;    
 }
-.logo_container>img{
-    width:140px;
-    height:100px;
+.logo_container>a>img{
+    width:420px;
+    height:120px;
+}
+.logo_container > a {
+    margin-left: 20px;
 }
 .personalInfo {
     width: 100%;
