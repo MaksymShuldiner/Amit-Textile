@@ -215,6 +215,9 @@ namespace AmitTextile.Migrations
                     b.Property<Guid>("TextileId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("isBought")
+                        .HasColumnType("bit");
+
                     b.HasKey("ItemId");
 
                     b.HasIndex("CartId");

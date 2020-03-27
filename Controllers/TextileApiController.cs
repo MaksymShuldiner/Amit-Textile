@@ -218,5 +218,27 @@ namespace AmitTextile.Controllers
             }
             return Ok();
         }
+
+        [HttpGet("Popular")]
+        public async Task<IActionResult> ShowPopular()
+        {
+            return Ok(await _context.Textiles.OrderBy(x => x.ViewsCounter).Take(9).ToListAsync());
+        }
+        [HttpGet("NewComings")]
+        public async Task<IActionResult> ShowNewComings()
+        {
+            return Ok(await _context.Textiles.OrderBy(x => x.DateWhenAdded).Take(9).ToListAsync());
+        }
+        [HttpGet("SellsLeaders")]
+        public async Task<IActionResult> SellsLeaders()
+        {
+            return Ok( _context.Items.Include(x=>x.Textile).OrderBy(x => _context.Items.Where(y=>y.TextileId == x.TextileId && x.isBought).Count()).Take(9).ToList());
+        }
+        [HttpGet("Discounts")]
+        public async Task<IActionResult> Discounts()
+        {
+            return Ok(_context.Textiles.Where(x=>x.IsOnDiscount).OrderBy(x =>x.Discount).Take(9).ToList());
+        }
+
     }
 }
