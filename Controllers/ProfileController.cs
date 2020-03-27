@@ -232,6 +232,10 @@ namespace AmitTextile.Controllers
             User user = await _userManager.FindByNameAsync(name);
             if ((DateTime.Now - user.LastTimeEmailForEmailSent).Hours > 6)
             {
+                if (_context.Users.Any(x => x.Email == model.Email))
+                {
+                    return BadRequest("Пользователь с данной почтой уже зарегистрирован");
+                }
                 user.LastTimeEmailForEmailSent = DateTime.Now;
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
@@ -265,7 +269,7 @@ namespace AmitTextile.Controllers
                     await _userManager.UpdateAsync(user);
                     await _context.SaveChangesAsync();
                     await _signInManager.SignOutAsync();
-                    return Ok();
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return RedirectToAction("Index", "Home");

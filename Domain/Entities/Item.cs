@@ -18,6 +18,8 @@ namespace AmitTextile.Domain
 
         public Cart Cart { get; set; }
 
+        public bool isBought { get; set; }
+
         public Item()
         {
             ItemOrders = new List<ItemOrder>();
