@@ -226,19 +226,19 @@ namespace AmitTextile.Controllers
             return BadRequest(errors);
         }
         [HttpPost("mail")]
-        public async Task<IActionResult> ChangeEmail(EmailViewModel model)
+        public async Task<IActionResult> ChangeEmail([FromBody]EmailViewModel model)
         {
-            Url.Action("ChangeEmail", "Profile");
             string name = User.Identity.Name;
             User user = await _userManager.FindByNameAsync(name);
             if ((DateTime.Now - user.LastTimeEmailForEmailSent).Hours > 6)
             {
                 user.LastTimeEmailForEmailSent = DateTime.Now;
                 _context.Users.Update(user);
+                await _context.SaveChangesAsync();
                 var code = await _userManager.GenerateChangeEmailTokenAsync(user, model.Email);
                 var returningUrl = Url.Action("OnChangingEmail", "Profile",
                     new {code = code, email = model.Email, name = name}, protocol: HttpContext.Request.Scheme); 
-                await _emailservice.Execute("Email Reset", model.Email, "",
+                await _emailservice.Execute("Email Reset", name, "",
                     $"Для смены почты: <a href='{returningUrl}'>link</a>");
                 return Ok();
             }
@@ -263,6 +263,7 @@ namespace AmitTextile.Controllers
                 {
                     user.LastTimeEmailChanged = DateTime.Now;
                     await _userManager.UpdateAsync(user);
+                    await _context.SaveChangesAsync();
                     await _signInManager.SignOutAsync();
                     return Ok();
                 }
