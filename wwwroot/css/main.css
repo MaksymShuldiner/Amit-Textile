@@ -389,6 +389,7 @@ footer {
     background-color: #FFFAF0;
     padding-top: 40px;
     display: none;
+    text-align:center;
 }
 
     #notConfirmed > p {
@@ -1439,11 +1440,11 @@ textarea {
     box-shadow: -3px 3px 10px rgba(0,0,0,0.5);
     font-size: 35px;
     color: white;
+    margin-right:30px;
     padding-top: 25px;
     padding-left: 30px;
-    position: fixed;
-    top: 61px;
-    right: 350px;
+    position: absolute;
+    top: 23px;
     z-index: 1000;
 }
     .inCart > svg {
@@ -1727,9 +1728,9 @@ textarea {
 .logedDropdown {
     box-shadow: -3px 3px 10px rgba(0,0,0,0.5);
     width:200px;
-    position:fixed;
-    top:59px;
-    right:250px;
+    margin-left:35px;
+    position:absolute;
+    top:33px;
     opacity:0;
 }
 #resetPass{

@@ -144,13 +144,13 @@ $(document).ready(function () {
     $('.cart').hover(
         function () {
             $('.inCart').animate({
-                top: '66px',
+                top: '28px',
                 opacity: "1"
             }, 300);
             $('.inCart').toggleClass('hidden');
         }, function () {
             $('.inCart').toggleClass('hidden');
-            $('.inCart').css('top','61px');
+            $('.inCart').css('top','23px');
             $('.inCart').css('opacity','0');
         }
     );
@@ -160,14 +160,14 @@ $(document).ready(function () {
     $('.helloAuth').hover(
         function () { 
             $('.logedDropdown').animate({
-                top: '64px',
+                top: '27px',
                 opacity: "1"
             }, 300);
             $('.logedDropdown').toggleClass('hidden');
         },
         function () {
             $('.logedDropdown').toggleClass('hidden');
-            $('.logedDropdown').css('top', '59px');
+            $('.logedDropdown').css('top', '22px');
             $('.logedDropdown').css('opacity', '0');
         }
     )

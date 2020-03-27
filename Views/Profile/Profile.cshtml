@@ -54,178 +54,180 @@
 </head>
 <body>
     <div id="regS"><p>Перейдите по ссылке, которую мы отправили вам на вашу почту для смены пароля</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
-    <button id="scrollBtn"><i class="fas fa-chevron-up"></i></button>
-    <header>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-2 logo_container">
-                    <a href="#"><img src="~/images/logo.png" /></a>
-                </div>
-                <div class="col-md-5 search_container">
-                    <form class="search_form" action="@Url.Action("Search","Home")" method="get">
-                        <input type="search" class="searchBar" name="StringQuery" placeholder="Я ищу..."><input class="searchButton" value="Поиск" type="submit" />
-                    </form>
-                </div>
-                <div class="col-md-5 cart_container">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <a class="favouriteList" href="@Url.Action("ShowFavourite", "Profile")" title="Избранные товары"><i class="fas fa-heart"></i></a>
-                    }
-                    else
-                    {
-                        <a class="favouriteList" href="#login" title="Избранные товары" data-fancybox="dsf"><i class="fas fa-heart"></i></a>
-                    }
-                    @{
-                        int count3 = 0;
-                        foreach (var x in ViewBag.Items)
+    <div id="notConfirmed">Извините, но письмо о востановлении пароля можно отправлять только раз в 5 часов<button class="close"><i class="fas fa-times-circle"></i></button></div>
+        <button id="scrollBtn"><i class="fas fa-chevron-up"></i></button>
+        <header>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-2 logo_container">
+                        <a href="#"><img src="~/images/logo.png" /></a>
+                    </div>
+                    <div class="col-md-5 search_container">
+                        <form class="search_form" action="@Url.Action("Search","Home")" method="get">
+                            <input type="search" class="searchBar" name="StringQuery" placeholder="Я ищу..."><input class="searchButton" value="Поиск" type="submit" />
+                        </form>
+                    </div>
+                    <div class="col-md-5 cart_container">
+                        @if (User.Identity.IsAuthenticated)
                         {
-                            count3 += x.ItemsAmount;
-                        }
-                    }
-                    <div class="cart">
-                        <a href="#cartPopup" data-fancybox="2"><i class="fas fa-shopping-cart"></i></a>
-                        @if (ViewBag.Items.Count > 0)
-                        {
-                            <div class="cartWithItems inCart hidden">
-                                <span data="@count3">В корзине @count3 товаров</span>
-                                <span>Стоимостью @ViewBag.Sum грн</span>
-                                <div class="btns">
-                                    <a href="#" class="buy">Оформить заказ</a>
-                                    <a href="#cartPopup" data-fancybox="1" class="toCart">Перейти в корзину</a>
-                                </div>
-                            </div>
+                            <a class="favouriteList" href="@Url.Action("ShowFavourite", "Profile")" title="Избранные товары"><i class="fas fa-heart"></i></a>
                         }
                         else
                         {
-                            <div class="inCart hidden">
-                                <i class="fas fa-shopping-cart"></i> <span>Ваша корзина пуста</span>
-                            </div>
+                            <a class="favouriteList" href="#login" title="Избранные товары" data-fancybox="dsf"><i class="fas fa-heart"></i></a>
                         }
-                    </div>
-                    <span class="first">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span>
-                    <div class="helloAuth ">
-                        <a href="@ViewBag.ProfileUrl" class="login">Здравствуйте, @Model.Fio</a>
-                        <div class="logedDropdown hidden">
-                            <ul>
-                                <li class="authOption">
-                                    <a href="@ViewBag.ProfileUrl">Личные данные <i class="fas fa-chevron-right"></i></a>
-                                </li>
-                                <li class="authOption leave">
-                                    Выход
-                                </li>
-                            </ul>
+                        @{
+                            int count3 = 0;
+                            foreach (var x in ViewBag.Items)
+                            {
+                                count3 += x.ItemsAmount;
+                            }
+                        }
+                        <div class="cart">
+                            <a href="#cartPopup" data-fancybox="2"><i class="fas fa-shopping-cart"></i></a>
+                            @if (ViewBag.Items.Count > 0)
+                            {
+                                <div class="cartWithItems inCart hidden">
+                                    <span data="@count3">В корзине @count3 товаров</span>
+                                    <span>Стоимостью @ViewBag.Sum грн</span>
+                                    <div class="btns">
+                                        <a href="#" class="buy">Оформить заказ</a>
+                                        <a href="#cartPopup" data-fancybox="1" class="toCart">Перейти в корзину</a>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="inCart hidden">
+                                    <i class="fas fa-shopping-cart"></i> <span>Ваша корзина пуста</span>
+                                </div>
+                            }
+                        </div>
+                        <span class="first">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span>
+                        <div class="helloAuth ">
+                            <a href="@ViewBag.ProfileUrl" class="login">Здравствуйте, @Model.Fio</a>
+                            <div class="logedDropdown hidden">
+                                <ul>
+                                    <li class="authOption">
+                                        <a href="@ViewBag.ProfileUrl">Личные данные <i class="fas fa-chevron-right"></i></a>
+                                    </li>
+                                    <li class="authOption leave">
+                                        Выход
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </header>
+        <div class="categories">
+            <span id="cat">Категории <i id="arrowDown" class="fas fa-chevron-down"></i><i id="arrowUp" class="fas fa-chevron-up hdn"></i></span>
+            <div id="cats_hdn" class="hdn">
+                <div class="container">
+                    <div class="row">
+                        <div id="1" class="col-md-3"></div>
+                        <div id="2" class="col-md-3"></div>
+                        <div id="3" class="col-md-3"></div>
+                        <div id="4" class="col-md-3"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </header>
-    <div class="categories">
-        <span id="cat">Категории <i id="arrowDown" class="fas fa-chevron-down"></i><i id="arrowUp" class="fas fa-chevron-up hdn"></i></span>
-        <div id="cats_hdn" class="hdn">
+        <div class="content">
             <div class="container">
                 <div class="row">
-                    <div id="1" class="col-md-3"></div>
-                    <div id="2" class="col-md-3"></div>
-                    <div id="3" class="col-md-3"></div>
-                    <div id="4" class="col-md-3"></div>
+                    <div class="col-md-12">
+                        <h1 class="title">Личные Данные</h1>
+                        <table class="personalInfo">
+                            <tr>
+                                <td>
+                                    ФИО
+                                </td>
+                                <td>
+                                    @Model.Fio
+                                </td>
+                                <td>
+                                    <button class="changeInfo" data-fancybox="changeInform" href="#changeInform">Изменить личные данные</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Электронная почта
+                                </td>
+                                <td>
+                                    @Model.Email
+                                </td>
+                                <td>
+                                    <button class="changePass">Изменить пароль</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Телефон
+                                </td>
+                                <td>
+                                    @Model.PhoneNumber
+                                </td>
+                                <td>
+                                    <button class="changeMail">Изменить почту</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Адрес доставки
+                                </td>
+                                <td>
+                                    @Model.Address
+                                </td>
+                                <td>
+                                    <button class="exit">Выйти</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="content">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1 class="title">Личные Данные</h1>
-                    <table class="personalInfo">
-                        <tr>
-                            <td>
-                                ФИО
-                            </td>
-                            <td>
-                                @Model.Fio
-                            </td>
-                            <td>
-                                <button class="changeInfo" data-fancybox="changeInform" href="#changeInform">Изменить личные данные</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Электронная почта
-                            </td>
-                            <td>
-                                @Model.Email
-                            </td>
-                            <td>
-                                <button class="changePass">Изменить пароль</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Телефон
-                            </td>
-                            <td>
-                                @Model.PhoneNumber
-                            </td>
-                            <td>
-                                <button class="changeMail">Изменить почту</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Адрес доставки
-                            </td>
-                            <td>
-                                @Model.Address
-                            </td>
-                            <td>
-                                <button class="exit">Выйти</button>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="hidden">
-        <form id="cartPopup">
-            <h1>Корзина</h1>
-            @foreach (var x in ViewBag.Items)
-            {
-                <div class="listItems">
-                    <div class="listItem">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="listImgContainer">
-                                                    <img src="../images/img1.jpg" alt="awd">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="itemDescriptionList">
-                                                    <div class="itemNameList">
-                                                        <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId">
-                                                            <h2>@x.Textile.Name</h2>
-                                                        </a>
+        <div class="hidden">
+            <form id="cartPopup">
+                <h1>Корзина</h1>
+                @foreach (var x in ViewBag.Items)
+                {
+                    <div class="listItems">
+                        <div class="listItem">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="listImgContainer">
+                                                        <img src="../images/img1.jpg" alt="awd">
                                                     </div>
-                                                    <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="buyItemList">
-                                                    <span class="changeAm minus" data1="@x.Textile.TextileId" data="@x.ItemId">-</span>
-                                                    <span>@x.ItemsAmount</span>
-                                                    <span class="changeAm plus" data1="@x.Textile.TextileId" data="@x.ItemId">+</span>
+                                                <div class="col-md-6">
+                                                    <div class="itemDescriptionList">
+                                                        <div class="itemNameList">
+                                                            <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId">
+                                                                <h2>@x.Textile.Name</h2>
+                                                            </a>
+                                                        </div>
+                                                        <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
+                                                    </div>
                                                 </div>
-                                                <div class="sum">
-                                                    <label>Сумма</label><br>
-                                                    <span>@(x.ItemsAmount * x.Textile.Price)</span>
+                                                <div class="col-md-2">
+                                                    <div class="buyItemList">
+                                                        <span class="changeAm minus" data1="@x.Textile.TextileId" data="@x.ItemId">-</span>
+                                                        <span>@x.ItemsAmount</span>
+                                                        <span class="changeAm plus" data1="@x.Textile.TextileId" data="@x.ItemId">+</span>
+                                                    </div>
+                                                    <div class="sum">
+                                                        <label>Сумма</label><br>
+                                                        <span>@(x.ItemsAmount * x.Textile.Price)</span>
+                                                    </div>
+                                                    <button data="@x.ItemId" class="close1"><i class="fas fa-times-circle"></i></button>
                                                 </div>
-                                                <button data="@x.ItemId" class="close1"><i class="fas fa-times-circle"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -233,45 +235,44 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            }
-            @{
-                decimal yDecimal = 0;
-                foreach (var x in ViewBag.Items)
-                {
-                    yDecimal += x.Textile.Price * x.ItemsAmount;
                 }
-            }
-            <div class="popupCartButtons">
-                <span class="continue">Продолжить покупки</span>
-                <div>
-                    <label for="orderIt">Итого</label> <label class="summa">@yDecimal грн</label><br>
-                    <input class="orderIt" type="submit" value="Оформить заказ" />
+                @{
+                    decimal yDecimal = 0;
+                    foreach (var x in ViewBag.Items)
+                    {
+                        yDecimal += x.Textile.Price * x.ItemsAmount;
+                    }
+                }
+                <div class="popupCartButtons">
+                    <span class="continue">Продолжить покупки</span>
+                    <div>
+                        <label for="orderIt">Итого</label> <label class="summa">@yDecimal грн</label><br>
+                        <input class="orderIt" type="submit" value="Оформить заказ" />
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
-    <div class="hidden">
-        <form id="changeInform">
-            <label for="Uname">
-                ФИО
-            </label><br>
-            <input class="Uname" type="text" /><br>
-            <label for="phone">
-                Номер телефона
-            </label><br>
-            <input type="text" class="phone" /><br>
-            <label for="adress">
-                Адрес доставки
-            </label><br>
-            <input type="text" class="adress" />
-            <div>
-                <span class="decline">Отменить</span>
-                <input class="saveCh" type="submit" value="Сохранить" />
-            </div>
-        </form>
-    </div>
-    <script type="text/javascript">
+            </form>
+        </div>
+        <div class="hidden">
+            <form id="changeInform">
+                <label for="Uname">
+                    ФИО
+                </label><br>
+                <input class="Uname" type="text" /><br>
+                <label for="phone">
+                    Номер телефона
+                </label><br>
+                <input type="text" class="phone" /><br>
+                <label for="adress">
+                    Адрес доставки
+                </label><br>
+                <input type="text" class="adress" />
+                <div>
+                    <span class="decline">Отменить</span>
+                    <input class="saveCh" type="submit" value="Сохранить" />
+                </div>
+            </form>
+        </div>
+        <script type="text/javascript">
         $('.changeAm').click(function () {
             function add0(e) {
                 if ((parseFloat($(e).html()) * 10) % 10 == 0) {
@@ -342,8 +343,8 @@
                 }
             })
         });
-    </script>
-    <script type="text/javascript">
+        </script>
+        <script type="text/javascript">
         let url= "@Url.Action("RemoveFromCart", "TextileApi")";
         $('.close1').click(function (e) {
             e.preventDefault();
@@ -373,11 +374,14 @@
                 },
             })
         })
-    </script>
-    <script type="text/javascript">
+        </script>
+        <script type="text/javascript">
         $('.changePass').click(function () {
             function tgl() {
                 $('#regS').fadeOut(400);
+            }
+            function tgl1() {
+                $('#notConfirmed').fadeOut(400);
             }
             $.ajax({
                 type: 'GET',
@@ -387,17 +391,21 @@
                     $('#regS').fadeIn(400);
                     setTimeout(tgl, 10000);
                 },
+                error: function () {
+                    $('#notConfirmed').fadeIn(400);
+                    setTimeout(tgl1, 10000);
+                }
             })
         });
-    </script>
-    <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
-    <script type="text/javascript" src="~/js/star-rating.js"></script>
-    <script type="text/javascript" src="~/js/ru.js"></script>
-    <script type="text/javascript" src="~/js/slider.js"></script>
-    <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="~/js/main.js"></script>
-    <script type="text/javascript" src="~/libs/FontAwesome/all.min.js"></script>
-    <script type="text/javascript" src="~/libs/OwlCarousel/owl.carousel.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+        </script>
+        <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
+        <script type="text/javascript" src="~/js/star-rating.js"></script>
+        <script type="text/javascript" src="~/js/ru.js"></script>
+        <script type="text/javascript" src="~/js/slider.js"></script>
+        <script type="text/javascript" src="~/libs/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="~/js/main.js"></script>
+        <script type="text/javascript" src="~/libs/FontAwesome/all.min.js"></script>
+        <script type="text/javascript" src="~/libs/OwlCarousel/owl.carousel.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 </body>
 </html>
