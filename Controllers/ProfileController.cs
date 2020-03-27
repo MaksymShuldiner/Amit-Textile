@@ -256,7 +256,7 @@ namespace AmitTextile.Controllers
                 user.UserName = email;
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
-                    return BadRequest();
+                    return RedirectToAction("Index", "Home");
                 }
                 var result = await _userManager.ChangeEmailAsync(user, email, code);
                 if (result.Succeeded)
@@ -268,7 +268,7 @@ namespace AmitTextile.Controllers
                     return Ok();
                 }
             }
-            return BadRequest();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
