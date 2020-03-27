@@ -228,6 +228,7 @@ namespace AmitTextile.Controllers
         [HttpPost("mail")]
         public async Task<IActionResult> ChangeEmail(EmailViewModel model)
         {
+            Url.Action("ChangeEmail", "Profile");
             string name = User.Identity.Name;
             User user = await _userManager.FindByNameAsync(name);
             if ((DateTime.Now - user.LastTimeEmailForEmailSent).Hours > 6)
