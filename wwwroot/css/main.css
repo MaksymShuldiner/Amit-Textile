@@ -1779,3 +1779,9 @@ textarea {
         height:35px;
         margin-bottom:10px;
     }
+    .tpsSelected {
+        color: #FFA500 !important;
+    }
+        .tpsSelected:hover {
+            color: #FFA500 !important;
+        }

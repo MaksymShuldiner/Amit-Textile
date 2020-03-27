@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="~/css/star-rating.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <link rel="stylesheet" href="~/css/adapt.css">
-    <script type="text/javascript" src="libs/jquery 3.4.1.min.js"></script>
+    <script type="text/javascript" src="~/libs/jquery 3.4.1.min.js"></script>
     <script type="text/javascript" defer>
         let arrCat = [];
         let count = 1;
@@ -47,6 +47,37 @@
                     }
                 }
             }
+        });
+        $(document).ready(function () {
+            let lineContainer = document.getElementsByClassName('line');
+            let count = 0;
+            $.ajax({
+                type: 'GET',
+                url:"@Url.Action("ShowPopular","TextileApi")",
+                contentType: 'json',
+                success: function (e) {
+                    console.log(e);
+                    for (let i = 0; i < e.length; i++) {
+                        if (e[i].warehouseAmount >= 30) {
+                             $(lineContainer[count]).append("<div class='item'><div class='item_image'><img src='images/img2.jpg' alt='ItemImg'></div><a href='#' class='item_name'>"+e[i].name+"</a><div class='rateItemContainer'><input class='rateItem' value='"+e[i].stars+"'/> <a href='#'> n Отзывов</a></div><div class='container-fluid itm_field'><div class='row'><div class='col-md-6'><span class='item_cost'>"+e[i].price+" ₴</span><br/><span class='inStock'>В наличии</span></div><div class='col-md-6'><a href='#' class='buy_item'><i class='fas fa-shopping-cart'0></i></a></div></div></div></div>")
+                        }
+                        else if (e[i].warehouseAmount < 30 && e[i].warehouseAmount != 0) {
+                             $(lineContainer[count]).append("<div class='item'><div class='item_image'><img src='images/img2.jpg' alt='ItemImg'></div><a href='#' class='item_name'>"+e[i].name+"</a><div class='rateItemContainer'><input class='rateItem' value='"+e[i].stars+"'/> <a href='#'> n Отзывов</a></div><div class='container-fluid itm_field'><div class='row'><div class='col-md-6'><span class='item_cost'>"+e[i].price+" ₴</span><br/><span class='lowAm'>Заканчивается</span></div><div class='col-md-6'><a href='#' class='buy_item'><i class='fas fa-shopping-cart'0></i></a></div></div></div></div>")
+                        }
+                        else {
+                             $(lineContainer[count]).append("<div class='item'><div class='item_image'><img src='images/img2.jpg' alt='ItemImg'></div><a href='#' class='item_name'>"+e[i].name+"</a><div class='rateItemContainer'><input class='rateItem' value='" + e[i].stars + "'/> <a href='#'> n Отзывов</a></div><div class='container-fluid itm_field'><div class='row'><div class='col-md-6'><span class='item_cost'>" + e[i].price + " ₴</span><br/><span class='notInStock'>Нет в наличии</span></div><div class='col-md-6'><a href='#' class='buy_item'><i class='fas fa-shopping-cart'0></i></a></div></div></div></div>")
+                        } 
+                        $('.rateItem').rating({ displayOnly: true, size: 'xs', showCaption: false, language: "ru" });
+                        if (count == 3) {
+                            count = 0;
+                        }
+                        else {
+                            count++;
+                        }
+                    }
+                }
+            });
+            $('.popular').addClass('tpsSelected');
         });
     </script>
 </head>
@@ -158,143 +189,27 @@
             <a class="slider__control slider__control_right" href="#" role="button"></a>
         </div>
         <div class="tps">
-            <span>Популярное</span>
-            <span>Новые поступления</span>
-            <span>Лидеры продаж</span>
-            <span>Скидки</span>
+            <span class="popular">Популярное</span>
+            <span class="new">Новые поступления</span>
+            <span class="top">Лидеры продаж</span>
+            <span class="discounts">Скидки</span>
         </div>
         <div class="container f">
             <div class="row item_cells">
                 <div class="col-md-3">
                     <div class="line">
-                        <div class="item">
-                            <div class="item_image">
-                                <img src="images/img1.jpg" alt="ItemImg">
-                            </div>
-                            <a href="#" class="item_name">
-                                Ткань АЙывЦЙА для вля пошива платьев, брюк, рубашек.
-                            </a>
-                            <div class="rateItemContainer">
-                                <input class="rateItem" value="4" /> <a href="#"> n Отзывов</a>
-                            </div>
-                            <div class="container-fluid itm_field">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <span class="item_cost">
-                                            1258 ₴
-                                        </span>
-                                        <br>
-                                        <span class="inStock">
-                                            Есть в наличии
-                                        </span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a href="#" class="buy_item">
-                                            <i class="fas fa-shopping-cart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="line">
-                        <div class="item">
-                            <div class="item_image">
-                                <img src="images/talon_splash_0.jpg" alt="ItemImg">
-                            </div>
-                            <a href="#" class="item_name">
-                                Ткань АЙывЦЙА для вля пошива платьев, брюк, рубашек.
-                            </a>
-                            <div class="rateItemContainer">
-                                <input class="rateItem" value="4" /> <a href="#"> n Отзывов</a>
-                            </div>
-                            <div class="container-fluid itm_field">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <span class="item_cost">
-                                            1258 ₴
-                                        </span>
-                                        <br>
-                                        <span class="lowAm">
-                                            Заканчивается
-                                        </span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a href="#" class="buy_item">
-                                            <i class="fas fa-shopping-cart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="line">
-                        <div class="item">
-                            <div class="item_image">
-                                <img src="images/img2.jpg" alt="ItemImg">
-                            </div>
-                            <a href="#" class="item_name">
-                                Ткань АЙывЦЙА для вля пошива платьев, брюк, рубашек.
-                            </a>
-                            <div class="rateItemContainer">
-                                <input class="rateItem" value="4" /> <a href="#"> n Отзывов</a>
-                            </div>
-                            <div class="container-fluid itm_field">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <span class="item_cost">
-                                            1258 ₴
-                                        </span>
-                                        <br>
-                                        <span class="notInStock">
-                                            Нет в наличии
-                                        </span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a href="#" class="buy_item">
-                                            <i class="fas fa-shopping-cart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="line">
-                        <div class="item">
-                            <div class="item_image">
-                                <img src="images/img1.jpg" alt="ItemImg">
-                            </div>
-                            <a href="#" class="item_name">
-                                Ткань АЙывЦЙА для вля пошива платьев, брюк, рубашек.
-                            </a>
-                            <div class="rateItemContainer">
-                                <input class="rateItem" value="4" /> <a href="#"> n Отзывов</a>
-                            </div>
-                            <div class="container-fluid itm_field">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <span class="item_cost">
-                                            1258 ₴
-                                        </span>
-                                        <br>
-                                        <span class="inStock">
-                                            Есть в наличии
-                                        </span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a href="#" class="buy_item">
-                                            <i class="fas fa-shopping-cart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="line">   
                     </div>
                 </div>
             </div>
@@ -629,6 +544,80 @@
                     window.location.href = result;
                 }
             });
+        });
+    </script>
+    <script type="text/javascript">
+        function get(target) {
+            $('.tpsSelected').removeClass('tpsSelected');
+            let items = $('.item');
+            let lines = $('.line');
+            let url;
+            for (let i = 0; i < items.length; i++) {
+                items[i].remove();
+            }
+            if (target == 'popular') {
+                $('.populal').addClass('tpsSelected');
+                url = "@Url.Action("ShowPopular","TextileApi")";
+            }
+            else if (target == 'new') {
+                $('.new').addClass('tpsSelected');
+                url = "@Url.Action("ShowNewComings","TextileApi")";
+            }
+            else if (target == 'top') {
+                $('.top').addClass('tpsSelected');
+                url = "@Url.Action("SellsLeaders","TextileApi")";
+            }
+            else {
+                $('.discounts').addClass('tpsSelected');
+                url = "@Url.Action("Discounts","TextileApi")";
+            }
+            let count = 0;
+            $.ajax({
+                type: 'GET',
+                url: url,
+                contentType: 'json',
+                success: function (e) {
+                    console.log(e);
+                    for (let i = 0; i < e.length; i++) {
+                        if (e[i].warehouseAmount >= 30) {
+                             $(lines[count]).append("<div class='item'><div class='item_image'><img src='images/img2.jpg' alt='ItemImg'></div><a href='#' class='item_name'>"+e[i].name+"</a><div class='rateItemContainer'><input class='rateItem' value='"+e[i].stars+"'/> <a href='#'> n Отзывов</a></div><div class='container-fluid itm_field'><div class='row'><div class='col-md-6'><span class='item_cost'>"+e[i].price+" ₴</span><br/><span class='inStock'>В наличии</span></div><div class='col-md-6'><a href='#' class='buy_item'><i class='fas fa-shopping-cart'0></i></a></div></div></div></div>")
+                        }
+                        else if (e[i].warehouseAmount < 30 && e[i].warehouseAmount != 0) {
+                             $(lines[count]).append("<div class='item'><div class='item_image'><img src='images/img2.jpg' alt='ItemImg'></div><a href='#' class='item_name'>"+e[i].name+"</a><div class='rateItemContainer'><input class='rateItem' value='"+e[i].stars+"'/> <a href='#'> n Отзывов</a></div><div class='container-fluid itm_field'><div class='row'><div class='col-md-6'><span class='item_cost'>"+e[i].price+" ₴</span><br/><span class='lowAm'>Заканчивается</span></div><div class='col-md-6'><a href='#' class='buy_item'><i class='fas fa-shopping-cart'0></i></a></div></div></div></div>")
+                        }
+                        else {
+                             $(lines[count]).append("<div class='item'><div class='item_image'><img src='images/img2.jpg' alt='ItemImg'></div><a href='#' class='item_name'>"+e[i].name+"</a><div class='rateItemContainer'><input class='rateItem' value='" + e[i].stars + "'/> <a href='#'> n Отзывов</a></div><div class='container-fluid itm_field'><div class='row'><div class='col-md-6'><span class='item_cost'>" + e[i].price + " ₴</span><br/><span class='notInStock'>Нет в наличии</span></div><div class='col-md-6'><a href='#' class='buy_item'><i class='fas fa-shopping-cart'0></i></a></div></div></div></div>")
+                        } 
+                        $('.rateItem').rating({ displayOnly: true, size: 'xs', showCaption: false, language: "ru" });
+                        if (count == 3) {
+                            count = 0;
+                        }
+                        else {
+                            count++;
+                        }
+                    }
+                }
+            });
+        }
+        $('.popular').click(function () {
+            if (!$(this).hasClass('tpsSelected')) {
+                get('popular');
+            }
+        });
+        $('.new').click(function () {
+            if (!$(this).hasClass('tpsSelected')) {
+                get('new');
+            }
+        });
+        $('.top').click(function () {
+            if (!$(this).hasClass('tpsSelected')) {
+                get('top');
+            }
+        });
+        $('.discounts').click(function () {
+            if (!$(this).hasClass('tpsSelected')) {
+                get('discounts');
+            }
         });
     </script>
     <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
