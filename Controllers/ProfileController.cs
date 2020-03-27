@@ -227,8 +227,10 @@ namespace AmitTextile.Controllers
         {
             string name = User.Identity.Name;
             User user = await _userManager.FindByNameAsync(name);
-            if ((DateTime.Now - user.LastTimeEmailForPassSent).Hours > 6)
+            if ((DateTime.Now - user.LastTimeEmailForEmailSent).Hours > 6)
             {
+                user.LastTimeEmailForEmailSent = DateTime.Now;
+                _context.Users.Update(user);
                 var code = await _userManager.GenerateChangeEmailTokenAsync(user, model.Email);
                 var returningUrl = Url.Action("OnChangingEmail", "Profile",
                     new {code = code, email = model.Email, name = name}, protocol: HttpContext.Request.Scheme);
@@ -238,31 +240,30 @@ namespace AmitTextile.Controllers
             }
             else
             {
-                return BadRequest("Отправлять письмо о смене пароля на почту можно лишь раз в 6 часов");
+                return BadRequest("Отправлять письмо о смене почты на почту можно лишь раз в 6 часов");
             }
         }
         public async Task<IActionResult> OnChangingEmail(string code, string email, string name)
         {
             User user = await _userManager.FindByNameAsync(name);
-            if (((DateTime.Now) - (user.LastTimePassChanged)).Days >
+            if (((DateTime.Now) - (user.LastTimeEmailChanged)).Days >
                 1)
             {
                 user.UserName = email;
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
-                    return RedirectToAction("Index", "Home");
+                    return BadRequest();
                 }
-
-                var result1 = await _userManager.UpdateAsync(user);
                 var result = await _userManager.ChangeEmailAsync(user, email, code);
-                if (result.Succeeded && result1.Succeeded)
+                if (result.Succeeded)
                 {
-
+                    user.LastTimeEmailChanged = DateTime.Now;
+                    await _userManager.UpdateAsync(user);
                     await _signInManager.SignOutAsync();
-                    return RedirectToAction("Index", "Home");
+                    return Ok();
                 }
             }
-            return RedirectToAction("Index", "Home");
+            return BadRequest();
         }
 
         [HttpPost]
