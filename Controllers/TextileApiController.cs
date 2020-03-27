@@ -235,7 +235,7 @@ namespace AmitTextile.Controllers
         [HttpGet("SellsLeaders")]
         public async Task<IActionResult> SellsLeaders()
         {
-            return Ok( _context.Items.Include(x=>x.Textile).OrderByDescending(x => _context.Items.Where(y=>y.TextileId == x.TextileId && x.isBought).Count()).Select(x=>x.Textile).Take(12).ToList());
+            return Ok( _context.Items.Include(x=>x.Textile).OrderByDescending(x => _context.Items.Where(y=>y.TextileId == x.TextileId && x.isBought).Count()).Take(12).Select(x => x.Textile).ToList());
         }
         [HttpGet("Discounts")]
         public async Task<IActionResult> Discounts()
