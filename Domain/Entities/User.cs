@@ -21,7 +21,9 @@ namespace AmitTextile.Domain
         public ICollection<ParentCommentQuestion> ParentCommentQuestions { get; set; }
         public ICollection<ChildCommentQuestion> ChildCommentQuestions { get; set; }
         
+        public DateTime LastTimeEmailSent { get; set; }
 
+        public DateTime LastTimePassChanged { get; set; }
         public User()
         {
             ParentCommentQuestions = new List<ParentCommentQuestion>();

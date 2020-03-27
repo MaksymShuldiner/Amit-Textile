@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using AmitTextile.Domain;
 using AmitTextile.Domain.Context;
 using AmitTextile.Models;
@@ -116,14 +117,23 @@ namespace AmitTextile.Controllers
 
                 string name = User.Identity.Name;
                 User user = await _userManager.FindByNameAsync(name);
-                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var returningUrl = Url.Action("Index", "Home", new {code = code, name = name},
-                    protocol: HttpContext.Request.Scheme) + "#resetPass";
+               
+                if ((DateTime.Now - user.LastTimeEmailSent).Hours > 6)
+                {
+                    user.LastTimeEmailSent = DateTime.Now;
+                    _context.Users.Update(user);
+                    await _context.SaveChangesAsync();
+                    var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    var returningUrl = Url.Action("Index", "Home", new { code = code, name = name },
+                                           protocol: HttpContext.Request.Scheme) + "#resetPass";
                 await _emailservice.Execute("Password Reset", user.Email, "",
-                    $"Для сброса пароля: <a href='{returningUrl}'>link</a>");
-            
-            
-            return Ok();
+                        $"Для сброса пароля: <a href='{returningUrl}'>link</a>");
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("Отправлять письмо о смене пароля на почту можно лишь раз в 6 часов");
+                }
         }
         public async Task<IActionResult> Profile()
         {
@@ -163,29 +173,41 @@ namespace AmitTextile.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> ResetPassword(PasswordResetViewModel model)
+        public async Task<IActionResult> ResetPassword([FromBody]PasswordResetViewModel model)
         {
+           
             List<string> errors = new List<string>();
             if (ModelState.IsValid)
             {
                 ViewBag.name = model.Name;
                 ViewBag.code = model.Code;
                 User user = await _userManager.FindByNameAsync(model.Name);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                if (user == null)
                 {
                     return Ok("Неверная ссылка для восстановления пароля или ваша почта не подтверждена");
                 }
-
-                var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
-                if (result.Succeeded)
+                string code = HttpUtility.HtmlDecode(model.Code);
+                if (user != null)
                 {
-                    await _signInManager.SignOutAsync();
-                    return Ok();
+                    if (((DateTime.Now) - (_userManager.FindByNameAsync(model.Name).Result.LastTimePassChanged)).Days >
+                        1)
+                    {
+                        var result = await _userManager.ResetPasswordAsync(user, code, model.Password);
+                        if (result.Succeeded)
+                        {
+                            user.LastTimePassChanged = DateTime.Now;
+                            _context.Users.Update(user);
+                            _context.SaveChangesAsync();
+                            await _signInManager.SignOutAsync();
+                            return Ok();
+                        }
+                        else
+                        {
+                            errors.Add("Неверная ссылка для восстановления пароля");
+                        }
+                    }
                 }
-                else
-                {
-                    errors.Add("Неверная ссылка для восстановления пароля");
-                }
+                errors.Add("Неверная ссылка для восстановления пароля");
             }
             else
             {
