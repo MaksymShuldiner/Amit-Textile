@@ -232,7 +232,7 @@ namespace AmitTextile.Controllers
         [HttpGet("SellsLeaders")]
         public async Task<IActionResult> SellsLeaders()
         {
-            return Ok( _context.Items.Include(x=>x.Textile).OrderBy(x => _context.Items.Where(y=>y.TextileId == x.TextileId && x.isBought).Count()).Take(9).ToList());
+            return Ok( _context.Items.Include(x=>x.Textile).OrderBy(x => _context.Items.Where(y=>y.TextileId == x.TextileId && x.isBought).Count()).Select(x=>x.Textile).Take(9).ToList());
         }
         [HttpGet("Discounts")]
         public async Task<IActionResult> Discounts()
