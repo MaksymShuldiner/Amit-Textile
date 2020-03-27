@@ -230,7 +230,7 @@ namespace AmitTextile.Controllers
         {
             string name = User.Identity.Name;
             User user = await _userManager.FindByNameAsync(name);
-            if ((DateTime.Now - user.LastTimeEmailForEmailSent).Hours > 6)
+            if ((DateTime.Now - user.LastTimeEmailForEmailSent).Hours > 5)
             {
                 user.LastTimeEmailForEmailSent = DateTime.Now;
                 _context.Users.Update(user);
@@ -244,7 +244,7 @@ namespace AmitTextile.Controllers
             }
             else
             {
-                return BadRequest("Отправлять письмо о смене почты на почту можно лишь раз в 6 часов");
+                return BadRequest("Отправлять письмо о смене почты на почту можно лишь раз в 5 часов");
             }
         }
         public async Task<IActionResult> OnChangingEmail(string code, string email, string name)
