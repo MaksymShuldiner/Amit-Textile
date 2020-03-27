@@ -236,7 +236,7 @@ namespace AmitTextile.Controllers
                 _context.Users.Update(user);
                 var code = await _userManager.GenerateChangeEmailTokenAsync(user, model.Email);
                 var returningUrl = Url.Action("OnChangingEmail", "Profile",
-                    new {code = code, email = model.Email, name = name}, protocol: HttpContext.Request.Scheme);
+                    new {code = code, email = model.Email, name = name}, protocol: HttpContext.Request.Scheme); 
                 await _emailservice.Execute("Email Reset", model.Email, "",
                     $"Для смены почты: <a href='{returningUrl}'>link</a>");
                 return Ok();
