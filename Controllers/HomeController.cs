@@ -34,6 +34,7 @@ namespace AmitTextile.Controllers
         public async Task<IActionResult> Index(string name = null, string code = null)
         {
             ViewBag.ProfileUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Profile/Profile";
+            ViewBag.Urling = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/Index";
             if (User.Identity.IsAuthenticated)
             {
                 ViewBag.Fio = _userManager.FindByNameAsync(User.Identity.Name).Result.Fio;

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Primitives;
 
 
 namespace AmitTextile.ConfigureServices
@@ -37,8 +38,11 @@ namespace AmitTextile.ConfigureServices
                 options.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
                 
             });
-            
-           
+            services.Configure<DataProtectionTokenProviderOptions>(options =>
+            {
+                options.TokenLifespan = TimeSpan.FromHours(6);
+            });
+
 
 
         }

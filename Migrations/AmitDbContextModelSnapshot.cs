@@ -641,6 +641,12 @@ namespace AmitTextile.Migrations
                     b.Property<string>("Fio")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("LastTimeEmailSent")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastTimePassChanged")
+                        .HasColumnType("datetime2");
+
                     b.HasIndex("CartId")
                         .IsUnique()
                         .HasFilter("[CartId] IS NOT NULL");
