@@ -222,22 +222,25 @@ namespace AmitTextile.Controllers
         [HttpGet("Popular")]
         public async Task<IActionResult> ShowPopular()
         {
-            return Ok(await _context.Textiles.OrderBy(x => x.ViewsCounter).Take(9).ToListAsync());
+            List<Textile> textiles = await _context.Textiles.OrderByDescending(x => x.ViewsCounter).Take(12).ToListAsync();
+            return Ok(textiles);
         }
         [HttpGet("NewComings")]
         public async Task<IActionResult> ShowNewComings()
         {
-            return Ok(await _context.Textiles.OrderBy(x => x.DateWhenAdded).Take(9).ToListAsync());
+            List<Textile> textiles = await _context.Textiles.OrderByDescending(x => x.DateWhenAdded).Take(12).ToListAsync();
+            int x = 5;
+            return Ok(textiles);
         }
         [HttpGet("SellsLeaders")]
         public async Task<IActionResult> SellsLeaders()
         {
-            return Ok( _context.Items.Include(x=>x.Textile).OrderBy(x => _context.Items.Where(y=>y.TextileId == x.TextileId && x.isBought).Count()).Select(x=>x.Textile).Take(9).ToList());
+            return Ok( _context.Items.Include(x=>x.Textile).OrderByDescending(x => _context.Items.Where(y=>y.TextileId == x.TextileId && x.isBought).Count()).Take(12).Select(x => x.Textile).ToList());
         }
         [HttpGet("Discounts")]
         public async Task<IActionResult> Discounts()
         {
-            return Ok(_context.Textiles.Where(x=>x.IsOnDiscount).OrderBy(x =>x.Discount).Take(9).ToList());
+            return Ok(_context.Textiles.Where(x=>x.IsOnDiscount).OrderByDescending(x =>x.Discount).Take(12).ToList());
         }
 
     }
