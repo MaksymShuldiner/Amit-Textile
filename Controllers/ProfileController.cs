@@ -118,9 +118,9 @@ namespace AmitTextile.Controllers
                 string name = User.Identity.Name;
                 User user = await _userManager.FindByNameAsync(name);
                
-                if ((DateTime.Now - user.LastTimeEmailSent).Hours > 6)
+                if ((DateTime.Now - user.LastTimeEmailForPassSent).Hours > 6)
                 {
-                    user.LastTimeEmailSent = DateTime.Now;
+                    user.LastTimeEmailForPassSent = DateTime.Now;
                     _context.Users.Update(user);
                     await _context.SaveChangesAsync();
                     var code = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -206,6 +206,7 @@ namespace AmitTextile.Controllers
                             errors.Add("Неверная ссылка для восстановления пароля");
                         }
                     }
+                    return BadRequest("К сожалению пароль можно восстановить только раз в день ");
                 }
                 errors.Add("Неверная ссылка для восстановления пароля");
             }
@@ -226,26 +227,40 @@ namespace AmitTextile.Controllers
         {
             string name = User.Identity.Name;
             User user = await _userManager.FindByNameAsync(name);
-            var code = await _userManager.GenerateChangeEmailTokenAsync(user, model.Email);
-            var returningUrl = Url.Action("OnChangingEmail", "Profile", new { code = code, email = model.Email, name = name }, protocol: HttpContext.Request.Scheme);
-            await _emailservice.Execute("Email Reset", model.Email,"",
-                $"Для смены почты: <a href='{returningUrl}'>link</a>");
-            return Ok();
+            if ((DateTime.Now - user.LastTimeEmailForPassSent).Hours > 6)
+            {
+                var code = await _userManager.GenerateChangeEmailTokenAsync(user, model.Email);
+                var returningUrl = Url.Action("OnChangingEmail", "Profile",
+                    new {code = code, email = model.Email, name = name}, protocol: HttpContext.Request.Scheme);
+                await _emailservice.Execute("Email Reset", model.Email, "",
+                    $"Для смены почты: <a href='{returningUrl}'>link</a>");
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Отправлять письмо о смене пароля на почту можно лишь раз в 6 часов");
+            }
         }
         public async Task<IActionResult> OnChangingEmail(string code, string email, string name)
         {
             User user = await _userManager.FindByNameAsync(name);
-            user.UserName = email;
-            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            if (((DateTime.Now) - (user.LastTimePassChanged)).Days >
+                1)
             {
-                return RedirectToAction("Index", "Home");
-            }
-            var result1 = await _userManager.UpdateAsync(user);
-            var result = await _userManager.ChangeEmailAsync(user, email, code);
-            if (result.Succeeded && result1.Succeeded)
-            {
-                await _signInManager.SignOutAsync();
-                return RedirectToAction("Index", "Home");
+                user.UserName = email;
+                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                var result1 = await _userManager.UpdateAsync(user);
+                var result = await _userManager.ChangeEmailAsync(user, email, code);
+                if (result.Succeeded && result1.Succeeded)
+                {
+
+                    await _signInManager.SignOutAsync();
+                    return RedirectToAction("Index", "Home");
+                }
             }
             return RedirectToAction("Index", "Home");
         }
@@ -260,7 +275,6 @@ namespace AmitTextile.Controllers
             _context.Update(user);
             await _context.SaveChangesAsync();
             return Ok(Request.Headers["Referer"].ToString());
-
         }
 
 
