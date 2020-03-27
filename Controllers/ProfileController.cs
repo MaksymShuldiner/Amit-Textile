@@ -226,7 +226,7 @@ namespace AmitTextile.Controllers
             return BadRequest(errors);
         }
         [HttpPost("mail")]
-        public async Task<IActionResult> ChangeEmail(EmailViewModel model)
+        public async Task<IActionResult> ChangeEmail([FromBody]EmailViewModel model)
         {
             Url.Action("ChangeEmail", "Profile");
             string name = User.Identity.Name;
