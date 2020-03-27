@@ -61,7 +61,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-2 logo_container">
-                    <a href="#"><img src="~/images/LogoGlobalTextile_Восстановлен_Монтажная_область_1_копия_2.png" /></a>
+                    <a href="#"><img src="~/images/logo.png" /></a>
                 </div>
                 <div class="col-md-5 search_container">
                     <form class="search_form" action="@Url.Action("Search","Home")" method="get">
@@ -274,6 +274,9 @@
                                                             }
                                                         </div>
                                                         <div class="col-md-6">
+                                                            <a href="@Url.Action("AddToCart","Cart", new {TextileId = x.Textile.TextileId})" class="buy_item">
+                                                                <i class="fas fa-shopping-cart"></i>
+                                                            </a>
                                                             <button class="fav">
                                                                 @if (x.isFavourite)
                                                                 {
@@ -290,9 +293,6 @@
                                                                     <p class="toFavourite" value="1" textileId="@x.Textile.TextileId"><i class="fas fa-heart"></i></p>
                                                                 }
                                                             </button>
-                                                            <a href="@Url.Action("AddToCart","Cart", new {TextileId = x.Textile.TextileId})" class="buy_item">
-                                                                <i class="fas fa-shopping-cart"></i>
-                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -395,7 +395,7 @@
                             {
                                 <a class="zxc" href="@ViewBag.ChildUrl?ChildCatId=@Model.Category.ChildCategoryId&page=@(Model.PageViewModel.PageNumber-1)&EnumParam=@Model.SortingParams&CookieValue=@Model.CookieValue&Filter=@Model.FilterQuery">
                                     <li class="pagButtons">
-                                        <span><i class="fas fa-chevron-left"></i>Назад</span>
+                                        <span><i class="fas fa-chevron-left"></i> Назад</span>
                                     </li>
                                 </a>
                             }
@@ -425,7 +425,7 @@
                             else
                             {
                                 <li class="pagButtons disabled">
-                                    <span> Вперед<i class="fas fa-chevron-right"></i></span>
+                                    <span>Вперед <i class="fas fa-chevron-right"></i></span>
                                 </li>
                             }
 

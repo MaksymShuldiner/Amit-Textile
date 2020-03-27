@@ -61,7 +61,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-2 logo_container">
-                    <a href="#"><img src="~/images/LogoGlobalTextile_Восстановлен_Монтажная_область_1_копия_2.png" /></a>
+                    <a href="#"><img src="~/images/logo.png" /></a>
                 </div>
                 <div class="col-md-5 search_container">
                     <form class="search_form" action="@Url.Action("Search","Home")" method="get">
@@ -415,7 +415,7 @@
                             @if (Model.PageViewModel.HasPreviousPage)
                             {
                                 <text>
-                                    <a class="zxc" href="@ViewBag.Url?CatId=@Model.Category.CategoryId&page=@(Model.PageViewModel.PageNumber-1)&EnumParam=@Model.SortingParams&CookieValue=@Model.CookieValue&Filter=@Model.FilterQuery"><li class="pagButtons"><span><i class="fas fa-chevron-left"></i>Назад</span></li></a>
+                                    <a class="zxc" href="@ViewBag.Url?CatId=@Model.Category.CategoryId&page=@(Model.PageViewModel.PageNumber-1)&EnumParam=@Model.SortingParams&CookieValue=@Model.CookieValue&Filter=@Model.FilterQuery"><li class="pagButtons"><span><i class="fas fa-chevron-left"></i> Назад</span></li></a>
                                 </text>
                             }
                             else
@@ -442,7 +442,7 @@
                             else
                             {
                                 <text>
-                                    <li class="pagButtons disabled"><span> Вперед<i class="fas fa-chevron-right"></i></span></li>
+                                    <li class="pagButtons disabled"><span> Вперед <i class="fas fa-chevron-right"></i></span></li>
                                 </text>
                             }
 
@@ -597,6 +597,7 @@
                         add0(sum);
                         $('.summa').html(parseFloat($('.summa').html()) + cost);
                         add0('.summa');
+                        $('.summa').html($('.summa').html() + " грн");
                     }
                         if ($(form).find('.listItems').length == 0) {
                         $('.inCart').remove();

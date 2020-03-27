@@ -1,6 +1,6 @@
 body {
     font-family: 'Ubuntu Condensed';
-    background-color: #FFFAF0;
+    background-color: #282828;
 }
 body a:link{
     text-decoration:none;
@@ -10,17 +10,20 @@ button {
 }
 
 header {
-    background-color: white;
+    background-color: #202020;
 }
 
 .logo_container, .search_container, .cart_container {
     margin-top: 15px;
    
 }
-.search_container, .cart_container {
-    margin-top: 55px;
-    padding-left: 200px;
-}
+    .logo_container{
+        margin-top:22px;
+    }
+    .search_container, .cart_container {
+        margin-top: 35px;
+        padding-left: 200px;
+    }
 
 .searchBar {
     width: 76%;
@@ -37,40 +40,39 @@ header {
 .searchButton {
     height: 35px;
     border-radius: 0 3px 3px 0;
-    background-color: #FFB6C1;
-    border: 1px solid #FFB6C1;
+    background-color: #FF8C00;
+    border: 1px solid #FF8C00;
     color: white;
     transition: 0.3s all;
     font-weight: bold;
 }
 
-        .searchButton:hover {
-            background-color: #FFB6C1;
-            border: 1px solid #FFC0CB;
-            transition: 0.3s all;
-        }
+    .searchButton:hover {
+        background-color: #FFA500;
+        border: 1px solid #FFA500;
+        transition: 0.3s all;
+    }
 .cart_container a > svg {
-    color: #FFB6C1;
+    color: #FF8C00;
     font-size: 31px;
     transition: 0.3s all;
 }
 
     .cart_container a > svg:hover {
-        color: #FFC0CB;
+        color: #FFA500;
         transition: 0.3s all;
     }
 
 .first {
-    margin-left: 10px;
+    margin-left: 40px;
 }
 
 .nFirst {
-    margin-left: 93px;
+    margin-left: 123px;
 }
 
 .cart_container span {
-    color: #696969;
-    font-weight: bold;
+    color: white;
     position: relative;
     bottom: 20px;
 }
@@ -79,9 +81,8 @@ header {
     padding-left: 4%;
 }
 
-.login {
-    color: #696969;
-    font-weight: bold;
+.login:link {
+    color: white;
     transition: 0.3s all;
     position: relative;
     left: 10%;
@@ -90,9 +91,8 @@ header {
 
     .login:hover {
         text-decoration: none;
-        color: #A9A9A9;
-        text-decoration: underline;
-        transition: 0.3s all;
+        color: #FF8C00;
+        transition: 0.3s all ease;
     }
 
 .inputFields > input {
@@ -101,14 +101,17 @@ header {
 }
 
 #login > a {
-    color: #212529;
+    color: #181818;
+    transition: 0.3s all ease;
 }
 
     #login > a:hover {
-        color: #696969;
-        text-decoration: underline;
+        transition: 0.3s all ease;
+        color: #FF8C00;
     }
-
+#login > font {
+    color:#181818;
+}
 #checkbox {
     width: 15px;
     height: 15px;
@@ -121,16 +124,16 @@ header {
     height: 35px;
     font-weight: bold;
     color: white;
-    background-color: #FFB6C1;
-    border: 1px solid #FFB6C1;
-    transition: 0.3s all;
-    display:block;
+    background-color: #FF8C00;
+    border: 1px solid #FF8C00;
+    transition: 0.3s all ease;
+    display: block;
 }
 
     .registerButton:hover {
-        transition: 0.3s all;
-        background-color: #FFC0CB;
-        border: 1px solid #FFC0CB;
+        transition: 0.3s all ease;
+        background-color: #FFA500;
+        border: 1px solid #FFA500;
     }
 
 .hidden {
@@ -144,7 +147,7 @@ header {
 
 .categories {
     width: 100%;
-    background-color: #777;
+    background-color: #101010;
     text-align: center;
     font-size: 30px;
     color: white;
@@ -159,9 +162,9 @@ header {
 #cats_hdn {
     position: relative;
     top: 20px;
-    background: #777;
+    background-color: #101010;
     z-index: 10;
-    opacity:0;
+    opacity: 0;
 }
 
 .hdn {
@@ -174,7 +177,7 @@ header {
 }
 
     #cat:hover {
-        color: #C0C0C0;
+        color: #FFA500;
         transition: 0.3s all ease;
     }
 
@@ -188,16 +191,17 @@ header {
         cursor: pointer;
         margin-right: 50px;
         transition: 0.3s all ease;
+        color:white;
     }
 
         .tps span:hover {
-            color: #008B8B;
+            color: #FFA500;
             transition: 0.3s all ease;
         }
 
 .item {
     padding: 17px;
-    border: 1px solid #d3d3d3;
+    border: 1px solid #303030;
     width: 100%;
     height: 300px;
 }
@@ -208,31 +212,41 @@ header {
     height: 160px;
 }
 
+.item_name:visited {
+    font-size: 16px;
+    color: white;
+    text-decoration: none;
+}
 .item_name {
     font-size: 16px;
-    color: #212529;
+    color: white;
 }
+    .item_name:link {
+        font-size: 16px;
+        color: white;
+        text-decoration: none;
+    }
 
     .item_name:hover {
-        color: #008B8B;
+        color: #FFA500;
         text-decoration: none;
         transition: 0.3s all ease;
     }
-
-.item_cost {
-    font-size: 24px;
-    color: #212529;
-}
+    
+    .item_cost {
+        font-size: 24px;
+        color: white;
+    }
 
 .buy_item {
-    color: #FFB6C1;
+    color: #FF8C00;
     font-size: 24px;
     float: right;
     transition: 0.3s all ease;
 }
 
     .buy_item:hover {
-        color: #FFC0CB;
+        color: #FFA500;
         transition: 0.3s all ease;
     }
 
@@ -266,6 +280,13 @@ header {
     color: #797878;
     font-size: 14px;
 }
+.cats:visited {
+    color: white;
+    font-size: 19px;
+    border-radius: 100px;
+    padding: 5px;
+    transition: 0.3s all ease;
+}
 .cats {
     color: white;
     font-size: 19px;
@@ -273,11 +294,19 @@ header {
     padding: 5px;
     transition: 0.3s all ease;
 }
+.cats:link {
+    color: white;
+    font-size: 19px;
+    border-radius: 100px;
+    padding: 5px;
+    transition: 0.3s all ease;
+}
+
 
     .cats:hover {
-        color: #008B8B;
+        color: white;
         text-decoration: none;
-        background-color: white;
+        background-color: #FFA500;
         transition: 0.3s all ease;
     }
 
@@ -303,14 +332,14 @@ footer {
     z-index: 20;
     border: none;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    background-color: #FF00FF;
+    background-color: #FF8C00;
     color: white;
     transition: 0.3s all ease;
     display: none;
 }
 
     #scrollBtn:hover {
-        background-color: violet;
+        background-color:  	#FFA500;
         transition: 0.3s all ease;
     }
 
@@ -349,7 +378,7 @@ footer {
 }
 
     .close:hover {
-        color: #A9A9A9;
+        color: #FFA500;
         transition: 0.3s all ease;
     }
 #notConfirmed {
@@ -386,17 +415,17 @@ footer {
 
 .toFavourite {
     font-size: 20px;
-    color: coral;
+    color: #FF8C00;
     display: none;
 }
 
 
     .toFavourite:hover {
-        color: coral;
+        color: #FF8C00;
     }
 
 .fav:hover {
-    background: #d3d3d3;
+    background: #303030;
 }
 
 .selected {
@@ -426,11 +455,14 @@ footer {
 
 .buyItem {
     padding: 10px;
-    background-color: #FFB6C1;
+    background-color: #FF8C00;
+    border: none;
+    transition:0.3s all ease;
 }
 
     .buyItem:hover {
-        background-color: pink;
+        background-color: #FFA500;
+        transition: 0.3s all ease;
     }
 
         .buyItem:hover > a {
@@ -441,7 +473,6 @@ footer {
     .buyItem > a {
         color: white;
         font-size: 20px;
-        font-weight: bold;
     }
 
 .nameHolder {
@@ -453,7 +484,7 @@ footer {
 .catName {
     font-size: 30px;
     padding-top: 40px;
-    color: #212529;
+    color: white;
 }
 
 .categs {
@@ -484,7 +515,7 @@ footer {
     padding: 5px;
     margin-right: 10px;
     transition: 0.3s all ease;
-    border: 1px solid #d3d3d3;
+    border: 1px solid #303030;
 }
 
     .catItem:hover {
@@ -498,21 +529,22 @@ footer {
 }
 
 .catItemNameHolder > span {
-    color: #A9A9A9;
+    color: white;
     transition: 0.3s all ease;
 }
 
-    .catItemNameHolder > span:hover {
-        color: #212529;
+    .catItem:hover span{
+        color: #FFA500;
         transition: 0.3s all ease;
     }
 
 .propButtons {
     width: 100%;
     display: inline-block;
-    border-bottom: 1px solid #696969;
+    border-bottom: 1px solid white;
     margin-bottom: 10px;
     width: 95%;
+    color:white;
 }
 
 .select-wrapper {
@@ -522,7 +554,8 @@ footer {
     position: relative;
     left: 120px;
     bottom: 21px;
-    border: 1px solid #d3d3d3;
+    border: 1px solid #303030;
+    color: white;
 }
 
     .select-wrapper > select {
@@ -548,23 +581,23 @@ footer {
     border-bottom: 0;
     right: 6px;
     top: 4px;
-    border-top-color: #FFFAF0;
+    border-top-color: #282828;
 }
 
     .select-arrow-3:nth-child(1) {
         top: 11px;
-        border-top-color: #FFFAF0;
+        border-top-color: #282828;
         cursor: pointer;
     }
 
     .select-arrow-3:nth-child(2) {
         top: 8px;
-        border-top-color: black;
+        border-top-color: white;
     }
 
 .viewButton > svg {
     font-size: 28px;
-    color: #d3d3d3;
+    color: white;
     transition: 0.3s all ease;
 }
 
@@ -591,13 +624,13 @@ footer {
 }
 
 .viewButton:hover > svg {
-    color: #696969;
+    color: #FFA500;
     transition: 0.3s all ease;
     cursor: pointer;
 }
 
 .viewSelected > svg {
-    color: #212529;
+    color: #FF8C00;
 }
 
 .viewSelected:hover > svg {
@@ -626,9 +659,9 @@ footer {
 }
 
     .pagButtons:hover {
-        background-color: #696969;
+        background-color: white;
         transition: 0.3s all ease;
-        color: white;
+        color: #282828;
     }
 
 .number {
@@ -653,15 +686,15 @@ footer {
 }
 
 .navButtons a {
-    color: #212529;
+    color: white;
     display: inline-block;
     transition: 0.3s all ease;
 }
 
     .navButtons a:hover {
-        background-color: #696969;
+        background-color: white;
         transition: 0.3s all ease;
-        color: white;
+        color: #282828;
         text-decoration: none;
     }
 
@@ -685,10 +718,11 @@ footer {
 
 .itemNameList h2 {
     font-size: 24px;
+    color:white;
 }
 
 .itemNameList a {
-    color: #212529;
+    color: white;
     transition: 0.3s all ease;
 }
 
@@ -696,11 +730,11 @@ footer {
     margin-bottom: 20px;
 }
 
-    .itemNameList a:hover {
-        color: #008B8B;
-        text-decoration: none;
-        transition: 0.3s all ease;
-    }
+.itemNameList a:hover {
+    color: #FFA500;
+    text-decoration: none;
+    transition: 0.3s all ease;
+}
 
 .listItems {
     border: 1px solid #d3d3d3;
@@ -710,6 +744,7 @@ footer {
 }
 
 .itemPriceList {
+    color:white;
     margin-top: 20px;
     margin-bottom: 10px;
     font-size: 30px;
@@ -727,23 +762,24 @@ footer {
     padding-top:20px;
     padding-bottom:20px;
     margin-left:40%;
-    
+    color:white;
 }
 .filterName>span{
    font-weight:bold;
 }
-.filterName{
-    cursor:pointer;
+.filterName {
+    cursor: pointer;
+    transition: 0.3s all ease;
 }
-.filterName:hover{
-    text-decoration:underline;
-    color:#696969;
-}
+    .filterName:hover {
+        transition: 0.3s all ease;
+        color: #FFA500;
+    }
 .filterName>svg{
     font-size:13px;
     margin-right:10px;
     margin-bottom:2px;
-    color:#696969;
+    color:white;
 }
 .filterOptions{ 
     padding-top:10px;
@@ -775,15 +811,15 @@ footer {
     margin-top: 30px;
     margin-left: 140px;
     height: 35px;
-    background-color: #FF00FF;
+    background-color: #FF8C00;
     color: white;
-    font-weight: bold;
+    border:none;
     transition: 0.3s all ease;
 }
-.submitFilters:hover {
-    transition: 0.3s all ease;
-    background-color: #EE82EE;
-}
+    .submitFilters:hover {
+        transition: 0.3s all ease;
+        background-color: #FFA500;
+    }
 .imgMini {
     position: absolute;
     left: 60px;
@@ -835,25 +871,28 @@ footer {
 
 .itemNameList h2 {
     font-size: 24px;
+    width:140px;
 }
 
 .itemNameList a {
-    color: #212529;
+    color: white;
     transition: 0.3s all ease;
+    display:block;
+    width:140px;
 }
 
 .itemNameList {
     margin-bottom: 20px;
 }
 
-    .itemNameList a:hover {
-        color: #008B8B;
+    .itemNameList h2:hover {
+        color: #FFA500;
         text-decoration: none;
         transition: 0.3s all ease;
     }
 
 .listItems {
-    border: 1px solid #d3d3d3;
+    border: 1px solid #303030;
     width: 100%;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -874,15 +913,16 @@ footer {
     padding-left: 10%;
     padding-top: 20px;
     font-size: 35px;
-    background-color: white;
+    color:white;
 }
 
 .itemCost {
     font-size: 27px;
+    color:white;
+    margin-right:50px;
 }
 
 .buttonBar {
-    background-color: white;
     padding-left: 10%;
 }
 
@@ -891,7 +931,7 @@ footer {
     margin-right: 30px;
     padding-bottom: 20px;
     cursor: pointer;
-    color: #212529;
+    color: white;
     transition: 0.1s all ease;
 }
         .button:hover {
@@ -901,23 +941,23 @@ footer {
     .button:hover {
         transition: 0.1s all ease;
         font-weight: bold;
-        color: #FFB6C1;
-        border-bottom: 3px solid #FFB6C1;
+        color: #FFA500;
+        border-bottom: 3px solid #FFA500;
     }
 
 .buttonSelected {
-    border-bottom: 3px solid #FFB6C1;
-    font-weight: bold;
-    color: #FFB6C1;
+    border-bottom: 3px solid #FFA500;
+    font-weight:bold;
+    color: #FFA500;
 }
 .ratingContainer {
-    background-color: white;
     padding-bottom: 20px;
     padding-left: 10%
 }
 
 .itemDescription {
     padding-right: 10%;
+    color:white;
 }
 
     .itemDescription > h2 {
@@ -930,21 +970,18 @@ footer {
 }
 
 .itemInfo > .inStock {
-    background-color: #f4faf6;
     padding: 10px;
     font-size: 18px;
     display: inline-block;
 }
 
 .itemInfo > .lowAm {
-    background-color: #FFEBCD;
     padding: 10px;
     font-size: 18px;
     display: inline-block;
 }
 
 .itemInfo > .notInStock {
-    background-color: #f5f5f5;
     padding: 10px;
     font-size: 18px;
     display: inline-block;
@@ -960,6 +997,7 @@ footer {
 
 .characteristics {
     margin-left: 14%;
+    color:white;
 }
 
     .characteristics > table {
@@ -987,6 +1025,9 @@ footer {
     top: 5px;
     margin-right: 19%;
 }
+    .itemMini .itemCost {
+        color: #282828;
+    }
 
     .itemMini > .itemInfo > .fav {
         float: right;
@@ -1145,7 +1186,7 @@ textarea {
 }
 
 .commentPosted {
-    border: 1px solid #d3d3d3;
+    border: 1px solid #303030;
     margin-bottom: 2px;
 }
 
@@ -1154,12 +1195,12 @@ textarea {
 }
 
     .questionPosted > .commentInfo {
-        border: 1px solid #d3d3d3;
+        border: 1px solid #303030;
         border-bottom: 0;
     }
 
     .questionPosted > .commentTextContainer {
-        border: 1px solid #d3d3d3;
+        border: 1px solid #303030;
     }
 
 #popupCommentForm > label {
@@ -1173,7 +1214,7 @@ textarea {
 .commentDate {
     float: right;
     font-size: 14px;
-    color: #696969;
+    color: white;
     margin-top: 5px;
 }
 
@@ -1184,13 +1225,15 @@ textarea {
 
 .commentInfo {
     padding: 10px;
-    border-bottom: 1px solid #d3d3d3;
-    background-color:#fff;
+    border-bottom: 1px solid #303030;
+    background-color: #202020;
+    color: white;
 }
 
 .commentTextContainer {
     padding: 10px;
-    background-color:#fff;
+    background-color: #202020;
+    color:white;
 }
 
     .commentTextContainer > label {
@@ -1220,7 +1263,7 @@ textarea {
 }
 
     .replyButton:hover {
-        color: #FA8072;
+        color: #FFA500;
         text-decoration: none;
         transition: 0.3s all ease;
     }
@@ -1236,23 +1279,25 @@ textarea {
 }
 
 .reply {
-    border: 1px solid #d3d3d3;
+    border: 1px solid #303030;
     border-top: 0px;
     padding: 10px;
-    background-color:#fff;
+    background-color: #202020;
+    color:white;
 }
 
 .replyInfo {
-    border-bottom: 1px solid #d3d3d3;
+    border-bottom: 1px solid #303030;
     padding-bottom: 10px;
 }
 
 .commentTextContainer {
-    border-bottom: 1px solid #d3d3d3;
+    border-bottom: 1px solid #303030;
 }
 .navBcomments{
     width:60%;
     text-align:center;
+    margin-left:10%;
 }
 .commentSend {
     float: right;
@@ -1347,11 +1392,11 @@ textarea {
 .rateItemContainer > a {
     transition: 0.3s all ease;
     font-size: 14px;
-    color: #212529;
+    color: white;
 }
     .rateItemContainer > a:hover {
         transition: 0.3s all ease;
-        color: coral;
+        color: #FFA500;
         text-decoration: none;
     }
     .rateItemContainer > a:link {
@@ -1375,36 +1420,36 @@ textarea {
 }
 
     .close1:hover {
-        color: #696969;
+        color: #FFA500;
         transition: 0.3s all ease;
     }
     .close1 > a {
         color: #A9A9A9;
         transition: 0.3s all ease;
     }
-    .close1>a:hover{
-        text-decoration:none;
-        color: #696969;
-        transition: 0.3s all ease;
-    }
+        .close1 > a:hover {
+            text-decoration: none;
+            color: #FFA500;
+            transition: 0.3s all ease;
+        }
 .inCart {
     width: 450px;
     height: 100px;
-    background-color: white;
+    background-color: #181818;
     box-shadow: -3px 3px 10px rgba(0,0,0,0.5);
-    font-size:35px;
-    color:#696969;
-    padding-top:25px;
-    padding-left:30px;
-    position:fixed;
-    top:80px;
-    right:350px;
-    z-index:1000;
+    font-size: 35px;
+    color: white;
+    padding-top: 25px;
+    padding-left: 30px;
+    position: fixed;
+    top: 61px;
+    right: 350px;
+    z-index: 1000;
 }
     .inCart > svg {
         font-size: 50px;
-        color: #FFB6C1;
-        margin-right:20px;
+        color: #FF8C00 !important;
+        margin-right: 20px;
     }
     .inCart>span{
         position:relative;
@@ -1424,42 +1469,52 @@ textarea {
         display:block;
         margin-bottom:10px;
     }
-    .cartWithItems{
-        background-color:white;
-        width:250px;
-        padding:30px;
-        font-size:16px;
-        height:auto;
-        right:500px;
-    }
+.cartWithItems {
+    background-color:#181818;
+    width: 250px;
+    padding: 30px;
+    font-size: 16px;
+    height: auto;
+    right: 500px;
+}
 .buy {
     width: 100%;
     color: white;
-    background-color:#FFB6C1;
-    font-weight:bold;
-    transition:0.3s all ease;
-    padding:10px;
-    display:block;
-    margin-bottom:10px;
+    background-color: #FF8C00;
+    border:none;
+    transition: 0.3s all ease;
+    padding: 10px;
+    display: block;
+    margin-bottom: 10px;
 }
-.buy:hover{
-    background-color:pink;
-    transition:0.3s all ease;
-    color:white;
-    text-decoration:none;
+    .buy:hover {
+        background-color: #FFA500;
+        transition: 0.3s all ease;
+        color: white;
+        text-decoration: none;
+    }
+.toCart:link {
+    color: white;
+    transition: 0.3s all ease;
+}
+.toCart:visited {
+    color: white;
+    transition: 0.3s all ease;
 }
 .toCart{
+    color:white;
     transition:0.3s all ease;
 }
-.toCart:hover{
-    color:coral;
-    transition:0.3s all ease;
-}
-.buyItemList span{
-    font-size:35px;
-    position:relative;
-    top:30px;
-    right:20px;
+    .toCart:hover {
+        color: #FFA500;
+        transition: 0.3s all ease;
+    }
+.buyItemList span {
+    font-size: 35px;
+    position: relative;
+    top: 30px;
+    right: 20px;
+    color:white;
 }
 .buyItemList > .changeAm {
     font-size: 45px;
@@ -1484,9 +1539,10 @@ textarea {
 }
 .sum> span{
     font-size:20px;
+    color:white;
 }
 .sum label{
-    color:#696969;
+    color:white;
     position:relative;
     bottom:10px;
 }
@@ -1495,31 +1551,35 @@ textarea {
 }
 #cartPopup>h1{
     font-size:26px;
+    color:white;
+}
+#cartPopup {
+    background-color: #282828;
 }
 .continue {
     padding: 10px;
     font-size: 18px;
-    background-color: #DCDCDC;
+    background-color: white;
     position: relative;
     top: 50px;
     cursor: pointer;
     transition: 0.3s all ease;
 }
     .continue:hover {
-        color: #008B8B;
+        color: #FF8C00;
         transition: 0.3s all ease;
     }
 .orderIt {
     padding: 10px;
     font-size: 20px;
-    background-color: #FFB6C1;
+    background-color: #FF8C00;
+    border:none;
     color: white;
     transition: 0.3s all ease;
-    font-weight:bold;
 }
     .orderIt:hover {
         transition: 0.3s all ease;
-        background-color:pink;
+        background-color: #FFA500;
     }
 .popupCartButtons>div{
     position:relative;
@@ -1528,25 +1588,30 @@ textarea {
    padding-right:20px;
    top:20px;
    float:right;
+   margin-top:5px;
 }
 .popupCartButtons>div>label:nth-child(2){
     float:right;    
 }
-.logo_container>a>img{
-    width:420px;
-    height:120px;
-}
+    .popupCartButtons > div > label{
+        color:white;
+    }
+    .logo_container > a > img {
+        width: 250px;
+        height: 65px;
+    }
 .logo_container > a {
-    margin-left: 20px;
+    margin-left: 80px;
 }
 .personalInfo {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 20px;
+    color:white;
 }
 .personalInfo>tbody>tr>td:nth-child(1){
     width:15%;
-    color:#696969;
+    color:white;
 }
 .personalInfo>tbody> tr > td:nth-child(2) {
     width:30%;
@@ -1561,8 +1626,8 @@ textarea {
         width: 250px;
         height: 35px;
         font-size: 20px;
-        font-weight: bold;
-        background-color: #FFB6C1;
+        background-color: #FF8C00;
+        border:none;
         color: white;
         transition: 0.3s all ease;
     }
@@ -1570,6 +1635,7 @@ textarea {
     margin-top:10px;
     font-size:28px;
     margin-bottom:25px;
+    color:white;
 }
 .exit {
     background-color: #DC143C !important;
@@ -1580,8 +1646,8 @@ textarea {
         transition: 0.3s all ease !important;
     }
 .personalInfo > tbody > tr > td:nth-child(3) > button:hover {
-    background-color: pink;
-    transition:0.3s all ease;
+    background-color: #FFA500;
+    transition: 0.3s all ease;
 }
 #changeInform>input{
     height:35px;
@@ -1614,6 +1680,14 @@ textarea {
 .helloAuth{
     display:inline-block;
 }
+    .helloAuth .login {
+        color: white;
+        transition: 0.3s all ease;
+    }
+    .helloAuth .login:hover {
+        color: #FFA500;
+        transition:0.3s all ease;
+    }
 .authOption {
     width: 200px;
     padding: 10px;
@@ -1654,8 +1728,8 @@ textarea {
     box-shadow: -3px 3px 10px rgba(0,0,0,0.5);
     width:200px;
     position:fixed;
-    top:78px;
-    right:280px;
+    top:59px;
+    right:250px;
     opacity:0;
 }
 #resetPass{
