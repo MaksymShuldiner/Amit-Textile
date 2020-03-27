@@ -362,6 +362,16 @@ footer {
     padding-top: 40px;
     display: none;
 }
+#regS1 {
+    position: fixed;
+    height: 100px;
+    width: 100%;
+    z-index: 100;
+    background-color: #FFFAF0;
+    padding-top: 40px;
+    display: none;
+    text-align:center;
+}
 
     #regS > p {
         text-align: center;
@@ -1753,4 +1763,9 @@ textarea {
     .passChangeButton:hover {
         color: #008B8B;
         transition:0.3s all ease;
+    }
+    .mail1{
+        width:320px;
+        height:35px;
+        margin-bottom:10px;
     }
