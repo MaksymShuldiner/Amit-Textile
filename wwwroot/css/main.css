@@ -372,6 +372,16 @@ footer {
     display: none;
     text-align:center;
 }
+#regS2 {
+    position: fixed;
+    height: 100px;
+    width: 100%;
+    z-index: 100;
+    background-color: #FFFAF0;
+    padding-top: 40px;
+    display: none;
+    text-align: center;
+}
 
     #regS > p {
         text-align: center;
