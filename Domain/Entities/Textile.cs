@@ -56,7 +56,7 @@ namespace AmitTextile.Domain
         public Image MainImage { get; set; }
         public int ViewsCounter { get; set; }
         public bool IsPopular { get; set; }
-
+        public decimal PriceWithDiscount { get; set; }
         public Guid CategoryId { get; set; }
 
         public Category Category { get; set; }
