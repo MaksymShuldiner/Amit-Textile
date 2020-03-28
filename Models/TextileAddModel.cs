@@ -6,12 +6,9 @@ namespace AmitTextile.Models
     {
         public string Name { get; set; }
 
-        public string Status { get; set; }
-
         public decimal Price { get; set; }
 
         public int WarehouseAmount { get; set; }
-
         public int Sold { get; set; }
         public bool IsOnDiscount { get; set; }
 
