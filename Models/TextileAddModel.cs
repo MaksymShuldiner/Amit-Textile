@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Localization.Internal;
 
 namespace AmitTextile.Models
 {
@@ -12,6 +14,14 @@ namespace AmitTextile.Models
         public bool IsOnDiscount { get; set; }
 
         public decimal Discount { get; set; }
+
+        public string[] CharacsNames { get; set; }
+
+        public string[] CharacsValues { get; set; }
+
+        public string CategoryId { get; set; }
+
+        public string ChildCategoryId { get; set; }
 
         public string Description { get; set; }
 
