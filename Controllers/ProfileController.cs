@@ -228,8 +228,11 @@ namespace AmitTextile.Controllers
         [HttpPost("mail")]
         public async Task<IActionResult> ChangeEmail([FromBody]EmailViewModel model)
         {
-            string name = User.Identity.Name;
-            User user = await _userManager.FindByNameAsync(name);
+            List<string> errors = new List<string>();
+            if (ModelState.IsValid)
+            {
+                string name = User.Identity.Name;
+                User user = await _userManager.FindByNameAsync(name);
             if ((DateTime.Now - user.LastTimeEmailForEmailSent).Hours > 5)
             {
                 if (_context.Users.Any(x => x.Email == model.Email))
@@ -250,6 +253,18 @@ namespace AmitTextile.Controllers
             {
                 return BadRequest("Отправлять письмо о смене почты на почту можно лишь раз в 5 часов");
             }
+            }
+            else
+            {
+                List<string> errorsList2 = ModelState.Values
+                    .SelectMany(x => x.Errors)
+                    .Select(x => x.ErrorMessage).ToList();
+                foreach (var x in errorsList2)
+                {
+                    errors.Add(x);
+                }
+            }
+            return BadRequest(errors);
         }
         public async Task<IActionResult> OnChangingEmail(string code, string email, string name)
         {
@@ -285,6 +300,49 @@ namespace AmitTextile.Controllers
             _context.Update(user);
             await _context.SaveChangesAsync();
             return Ok(Request.Headers["Referer"].ToString());
+        }
+
+        [HttpPost("ResetPassForAnons")]
+        public async Task<IActionResult> ResetPassForAnons([FromBody]EmailViewModel model)
+        {
+            List<string> errors = new List<string>();
+            User user = await _userManager.FindByNameAsync(model.Email);
+            if (_context.Users.Any(x => x.Email == model.Email))
+            {
+                return BadRequest("Пользователь с данной почтой уже зарегистрирован");
+            }
+
+            if (ModelState.IsValid)
+            {
+                if ((DateTime.Now - user.LastTimePassChanged).Hours > 5)
+                {
+                    user.LastTimePassChanged = DateTime.Now;
+                    _context.Users.Update(user);
+                    await _context.SaveChangesAsync();
+                    var code = await _userManager.GenerateChangeEmailTokenAsync(user, model.Email);
+                    var returningUrl = Url.Action("OnChangingEmail", "Profile",
+                        new {code = code, email = model.Email, name = model.Email},
+                        protocol: HttpContext.Request.Scheme);
+                    await _emailservice.Execute("Email Reset", model.Email, "",
+                        $"Для смены почты: <a href='{returningUrl}'>link</a>");
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("Отправлять письмо о смене почты на почту можно лишь раз в 5 часов");
+                }
+            }
+            else
+            {
+                List<string> errorsList2 = ModelState.Values
+                    .SelectMany(x => x.Errors)
+                    .Select(x => x.ErrorMessage).ToList();
+                foreach (var x in errorsList2)
+                {
+                    errors.Add(x);
+                }
+            }
+            return BadRequest(errors);
         }
 
 
