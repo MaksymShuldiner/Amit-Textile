@@ -182,6 +182,9 @@ namespace AmitTextile.Migrations
                     b.Property<byte[]>("ByteImg")
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<Guid>("MainTextileId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -192,6 +195,9 @@ namespace AmitTextile.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ImageId");
+
+                    b.HasIndex("MainTextileId")
+                        .IsUnique();
 
                     b.HasIndex("SliderId");
 
@@ -720,6 +726,12 @@ namespace AmitTextile.Migrations
 
             modelBuilder.Entity("AmitTextile.Domain.Image", b =>
                 {
+                    b.HasOne("AmitTextile.Domain.Textile", "MainTextile")
+                        .WithOne("MainImage")
+                        .HasForeignKey("AmitTextile.Domain.Image", "MainTextileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AmitTextile.Domain.Slider", "Slider")
                         .WithMany("Images")
                         .HasForeignKey("SliderId")

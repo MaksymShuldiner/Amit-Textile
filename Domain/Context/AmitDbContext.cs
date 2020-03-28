@@ -32,6 +32,10 @@ namespace AmitTextile.Domain.Context
                 .HasOne(x => x.User)
                 .WithMany(x => x.UserChosenTextiles)
                 .HasForeignKey(x => x.UserId);
+            modelBuilder.Entity<Image>()
+                .HasOne(x => x.Textile)
+                .WithMany(x => x.Images)
+                .HasForeignKey(x => x.TextileId);
 
 
 
