@@ -306,30 +306,29 @@ namespace AmitTextile.Controllers
         public async Task<IActionResult> ResetPassForAnons([FromBody]EmailViewModel model)
         {
             List<string> errors = new List<string>();
-            User user = await _userManager.FindByNameAsync(model.Email);
+            User user = await _userManager.FindByEmailAsync(model.Email);
             if (_context.Users.Any(x => x.Email == model.Email))
             {
-                return BadRequest("Пользователь с данной почтой уже зарегистрирован");
+                return BadRequest(new List<string>{ "Пользователь с данной почтой уже зарегистрирован" });
             }
-
             if (ModelState.IsValid)
             {
-                if ((DateTime.Now - user.LastTimePassChanged).Hours > 5)
+                if ((DateTime.Now - user.LastTimeEmailForPassSent).Hours > 5)
                 {
-                    user.LastTimePassChanged = DateTime.Now;
+                    user.LastTimeEmailForPassSent = DateTime.Now;
                     _context.Users.Update(user);
                     await _context.SaveChangesAsync();
-                    var code = await _userManager.GenerateChangeEmailTokenAsync(user, model.Email);
-                    var returningUrl = Url.Action("OnChangingEmail", "Profile",
+                    var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    var returningUrl = Url.Action("ResetPassword", "Profile",
                         new {code = code, email = model.Email, name = model.Email},
                         protocol: HttpContext.Request.Scheme);
-                    await _emailservice.Execute("Email Reset", model.Email, "",
+                    await _emailservice.Execute("PasswordForAnonConfirmation", model.Email, "",
                         $"Для смены почты: <a href='{returningUrl}'>link</a>");
                     return Ok();
                 }
                 else
                 {
-                    return BadRequest("Отправлять письмо о смене почты на почту можно лишь раз в 5 часов");
+                    return BadRequest(new List<string>{ "Отправлять письмо о смене почты на почту можно лишь раз в 5 часов" });
                 }
             }
             else
@@ -344,6 +343,7 @@ namespace AmitTextile.Controllers
             }
             return BadRequest(errors);
         }
+        
 
 
 
