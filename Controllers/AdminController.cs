@@ -34,7 +34,8 @@ namespace AmitTextile.Controllers
         public async Task<IActionResult> CreateItem(TextileAddModel model)
         {
             Guid Id = new Guid();
-            Textile textile = new Textile(){TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description, DateWhenAdded = DateTime.Now, Discount  = model.Discount, IsOnDiscount = model.IsOnDiscount};
+            double Discount = Convert.ToDouble(Math.Round((model.Price / model.Discount), 3));  
+            Textile textile = new Textile(){TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description,Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount};
             if (model.MainFile != null)
             {
                 byte[] imageData = null;
@@ -46,7 +47,7 @@ namespace AmitTextile.Controllers
                     {Name = model.MainFile.FileName, MainTextileId = Id, ByteImg = imageData, ImageId = Guid.NewGuid()};
                 await _context.Textiles.AddAsync(textile);
                 await _context.Images.AddAsync(image);
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     if (model.Files[i] != null)
                     {

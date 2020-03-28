@@ -9,10 +9,9 @@ namespace AmitTextile.Models
         public decimal Price { get; set; }
 
         public int WarehouseAmount { get; set; }
-        public int Sold { get; set; }
         public bool IsOnDiscount { get; set; }
 
-        public double Discount { get; set; }
+        public decimal Discount { get; set; }
 
         public string Description { get; set; }
 

@@ -400,6 +400,9 @@ namespace AmitTextile.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("PriceWithDiscount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("Sold")
                         .HasColumnType("int");
 
