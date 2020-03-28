@@ -48,6 +48,9 @@
                 }
             }
         });
+        $(document).ready(function () {
+            $('.forma').append('')
+        });
     </script>
 </head>
 <body>
@@ -131,7 +134,21 @@
                     </ul>
                 </div>
                 <div class="col-md-8">
-
+                    <div class="forma">
+                        <form action="#">
+                            <input type="text" name="newItemName" />
+                            <input type="text" name="price" />
+                            <input type="text" name="warehouseAm" />
+                            <input type="checkbox" name="isOnDiscount"/>
+                            <textarea name="newDescription"></textarea>
+                            <label>Характеристики</label>
+                            @foreach(var x in CharachteristicS)
+                            {
+                                <label>x.name</label><br/>
+                                <input type="text"/><br/>
+                            }
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
