@@ -56,13 +56,13 @@
                 console.log(e);
                 for (let i = 0; i < e.length; i++) {
                     if (e[i].values.length != 0) {
-                        $('.charactsContainer').append('<div class="selectContainer"><label>' + e[i].name + '</label><br/><div class="select-wrapper createSelect"><select name="CharacsValues" class="characteristicSelect ' + i + '"></select><div class="select-arrow-3"></div><div class="select-arrow-3"></div></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span><input type="hidden" value='+e[i].name+'/></div >');
+                        $('.charactsContainer').append('<div class="selectContainer"><label>' + e[i].name + '</label><br/><div class="select-wrapper createSelect"><select name="CharacsValues" class="characteristicSelect ' + i + '"></select><div class="select-arrow-3"></div><div class="select-arrow-3"></div></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span><input type="hidden" name="CharacsNames" value="'+e[i].name+'"/></div >');
                         for (let j = 0; j < e[i].values.length; j++) {
                             $('.' + i).append('<option value="'+e[i].values[j].value+'"> '+e[i].values[j].value+ '</option>');
                         }
                     }
                     else {
-                        $('.charactsContainer').append('<div class="newCharact"><label class="charactName">' + e[i].name + '</label><br /><input class="charactValue" type="text" /><span class="removeCharact"><i class="fas fa-times"></i></span><input type="hidden" value=' + e[i].name + 'name = "CharacsNames"/></div>');
+                        $('.charactsContainer').append('<div class="newCharact"><label class="charactName">' + e[i].name + '</label><br /><input class="charactValue" type="text" /><span class="removeCharact"><i class="fas fa-times"></i></span><input type="hidden" value="' + e[i].name + '" name = "CharacsNames"/></div>');
                     }
                     $('.removeCharact').click(function () {
                         $(this).parent().remove();
@@ -156,7 +156,7 @@
                 </div>
                 <div class="col-md-8">
                     <div class="forma">
-                        <form action="@Url.Action("Main","Admin")" method="post" enctype="multipart/form-data">
+                        <form action="@Url.Action("CreateItem","Admin")" method="post" enctype="multipart/form-data">
                             <label for="newItemName">Название товара</label><br />
                             <input type="text" class="newItemName" name="Name" /><br />
                             <label for="price">Цена товара</label><br />
@@ -176,9 +176,9 @@
 
                             </div>
                             <label for="imageUpload">Выберите изображение для товара</label><br /><br />
-                            <input type="file" class="imageUpload" />
+                            <input type="file" class="imageUpload" name="MainFile"/>
                             <label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br />
-                            <input type="file" multiple class="imageUploadMultiple" />
+                            <input type="file" multiple class="imageUploadMultiple" name="Files" />
                             <input type="submit" class="createItem" placeholder="Добавить товар" />
                         </form>
                     </div>

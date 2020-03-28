@@ -39,16 +39,10 @@ namespace AmitTextile.Controllers
         {
             Guid Id = new Guid();
             Guid ChildCatId;
-            if (model.ChildCategoryId=="None")
-            {
-                ChildCatId = Guid.Empty;
-            }
-            else
-            {
-                ChildCatId = Guid.Parse(model.ChildCategoryId);
-            }
-            double Discount = Convert.ToDouble(Math.Round((model.Price / model.Discount), 3));  
-            Textile textile = new Textile(){TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description,Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId), ChildCategoryId = ChildCatId};
+
+            double Discount =
+                (Convert.ToDouble(Math.Round(((model.Price - model.Discount) / model.Price), 3)));
+            Textile textile = new Textile(){TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description,Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse("f2f50ce8-2550-45e7-bf8e-03a2032db05c")};
             if (model.MainFile != null)
             {
                 byte[] imageData = null;
@@ -58,33 +52,44 @@ namespace AmitTextile.Controllers
                 }
                 Image image = new Image()
                     {Name = model.MainFile.FileName, MainTextileId = Id, ByteImg = imageData, ImageId = Guid.NewGuid()};
-                await _context.Textiles.AddAsync(textile);
-                await _context.Images.AddAsync(image);
+                textile.MainImage = image;
+                ICollection<Image> Image = new List<Image>();
                 for (int i = 0; i < 3; i++)
                 {
-                    if (model.Files[i] != null)
+                    try
                     {
-                        byte[] imageData1 = null;
-                        using (var binaryReader = new BinaryReader(model.Files[i].OpenReadStream()))
+                        if (model.Files[i] != null)
                         {
-                            imageData1 = binaryReader.ReadBytes((int) model.Files[i].Length);
+                            byte[] imageData1 = null;
+                            using (var binaryReader = new BinaryReader(model.Files[i].OpenReadStream()))
+                            {
+                                imageData1 = binaryReader.ReadBytes((int) model.Files[i].Length);
+                            }
+                            Image image2 = new Image()
+                            {
+                                Name = model.Files[i].FileName, TextileId = Id, ByteImg = imageData1,
+                                ImageId = Guid.NewGuid()
+                            };
+                            Image.Add(image2);
                         }
-                        Image image2 = new Image()
-                        {
-                            Name = model.Files[i].FileName, TextileId = Id, ByteImg = imageData1,
-                            ImageId = Guid.NewGuid()
-                        };
-                        await _context.Images.AddAsync(image2);
+                    }
+                    catch
+                    {
+
                     }
                 }
+                textile.Images = Image;
+                ICollection<CharachteristicValues> values = new List<CharachteristicValues>();
                 for (int i = 0; i < model.CharacsNames.Length; i++)
-                {
-                   await _context.CharachteristicValues.AddAsync(new CharachteristicValues()
+                { 
+                    values.Add(new CharachteristicValues()
                     {
                         CharachteristicValuesId = Guid.NewGuid(), Value = model.CharacsValues[i],
                         Name = model.CharacsNames[i], TextileId = Id
                     });
                 }
+                textile.Charachteristics = values;
+                await _context.Textiles.AddAsync(textile);
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction("Main", "Admin");
@@ -127,6 +132,12 @@ namespace AmitTextile.Controllers
             await  _context.ChildCategories.AddAsync(category);
             await _context.SaveChangesAsync();
             return RedirectToAction("Main", "Admin");
+        }
+
+        [HttpGet("GetChilds")]
+        public async Task<IActionResult> GetChilds(string CatId)
+        {
+            return Ok(_context.Categories.Include(x=>x.ChildCategories).FirstOrDefaultAsync(x=>x.CategoryId==Guid.Parse(CatId)).Result.ChildCategories);
         }
     }
 }
