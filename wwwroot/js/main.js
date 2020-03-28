@@ -1,4 +1,4 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
     let flag = true;
     function toggle() {
         $("#cats_hdn").toggleClass('hdn');
@@ -171,6 +171,21 @@ $(document).ready(function () {
             $('.logedDropdown').css('opacity', '0');
         }
     )
+    if ($('.isOnDiscount').prop('checked')) {
+        $('.priceWithDiscount').removeClass('hidden');
+    }
+    $('.isOnDiscount').change(function () {
+        $('.priceWithDiscount').toggleClass('hidden');
+    });
+    $('.addCharact').click(function () {
+        $('.charactLine').append('<div class="newCharacteristic"><span class="removeCharact"><i class="fas fa-times"></i></span><label for="charactName">Введите имя для характеристики</label><br/><input class="charactName" type="text"/><br/><label for="charactValue">Введите значение характеристики</label><br/><input class="charactValue" type="text"/></div>')
+        $('.removeCharact').click(function () {
+            $(this).parent().remove();
+        });
+    });
+    $('.removeCharact').click(function () {
+        $(this).parent().remove();
+    });
 });
 window.onscroll = function () { scrollFunction() };
 

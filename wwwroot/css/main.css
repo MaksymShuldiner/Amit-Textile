@@ -1828,3 +1828,146 @@ textarea {
             background-color: #404040;
             color: #FFA500;
         }
+        .createSelect{
+            width:450px;
+            height:35px;
+            position:relative;
+            top:15px;
+            bottom:0;
+            left:0;
+        }
+        .createSelect .select-arrow-3:nth-child(1) {
+            top: 15px;
+            border-top-color: #282828;
+            cursor: pointer;
+        }
+        .createSelect .select-arrow-3:nth-child(2) {
+            top: 12px;
+            border-top-color: white;
+        }
+        .forma>form label{
+            color:white;
+        }
+        .forma > form input{
+            width:500px;
+            height:35px;
+            margin-bottom:15px;
+        }
+        .isOnDiscount{
+            width:auto !important;
+            height:auto !important;
+        }
+        .createSelect > select {
+        border: none;
+        height: 35px;
+        width: 450px;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: transparent;
+        cursor: pointer;
+        }
+        .createSelect .select-arrow-3 {
+            position: absolute;
+            z-index: -1000;
+            border: 8px solid transparent;
+            border-bottom: 0;
+            right: 6px;
+            top: 8px;
+            border-top-color: #282828;
+        }
+        .forma{
+            margin-top:32px;
+        }
+        .newDescription{
+            margin-bottom:15px;
+        }
+        .newCharact{
+            margin-top:15px;
+        }
+        .priceWithDiscount{
+            padding:5px;
+            color:#696969;
+        }
+        .newCharact input{
+            width:450px !important;
+        }
+        .removeCharact{
+            transition:0.3s all ease;
+            padding-left:20px;
+            padding-right:20px;
+            padding-top:8.5px;
+            padding-bottom:8.5px;
+            color:white;
+            cursor:pointer;
+            border:1px solid #303030;
+            border-left:none;
+        }
+        .removeCharact:hover{
+            transition:0.3s all ease;
+            background-color:#404040;
+            color: 	#DC143C; 	
+        }
+        .selectContainer>.removeCharact{
+            position:relative;
+            bottom:11px;
+            left:450px;
+            padding-top:8px;
+            padding-bottom:8px;
+        }
+        .imageUpload{
+            color:white;
+        }
+        .selectContainer{
+            margin-bottom:15px;
+        }
+        .charactLine{
+            width:500px;
+        }
+        .charactLine label{
+            margin-top:5px;
+        }
+        .addCharact{
+            position:relative;
+            left:350px;
+            color:#9ACD32;
+            padding-left:20px;
+            padding-right:20px;
+            padding-top:8.5px;
+            padding-bottom:8.5px;
+            cursor:pointer;
+            transition:0.3s all ease;
+        }
+        .addCharact:hover{
+            transition:0.3s all ease;
+            background-color:#404040;
+        }
+        .newCharacteristic{
+            border-top:1px solid #383838;
+            margin-top:15px;
+            border-bottom:1px solid #383838;
+        }
+        .newCharacteristic>.removeCharact
+        {
+            border-right:none;
+            float:right;
+            width:50px;
+            display:block;
+        }
+        .imageUploadMultiple{
+            color:white;
+        }
+        .createItem{
+            width:500px;
+            height:35px;
+            border:1px solid #202020;
+            background-color:transparent;
+            color:white;
+            text-align:center;
+            transition:0.3s all ease;
+        }
+        .createItem:hover{
+            background-color:#404040;
+            color: 	#FFA500;
+            transition:0.3s all ease;
+        }
