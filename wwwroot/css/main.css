@@ -1795,3 +1795,7 @@ textarea {
             text-align: center;
             transition: 0.3s all ease;
         }
+        .emailChangeButton:hover {
+                color: #008B8B;
+                transition: 0.3s all ease;
+        }
