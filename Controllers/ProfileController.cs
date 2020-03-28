@@ -211,7 +211,10 @@ namespace AmitTextile.Controllers
                         errors.Add("К сожалению пароль можно восстановить только раз в день ");
                     }
                 }
-                errors.Add("Неверная ссылка для восстановления пароля");
+                else
+                {
+                    errors.Add("Неверная ссылка для восстановления пароля");
+                }
             }
             else
             {
@@ -307,9 +310,9 @@ namespace AmitTextile.Controllers
         {
             List<string> errors = new List<string>();
             User user = await _userManager.FindByEmailAsync(model.Email);
-            if (_context.Users.Any(x => x.Email == model.Email))
+            if (user==null)
             {
-                return BadRequest(new List<string>{ "Пользователь с данной почтой уже зарегистрирован" });
+                return BadRequest(new List<string>{ "Пользователь с данной почтой не зарегистрирован" });
             }
             if (ModelState.IsValid)
             {
@@ -319,9 +322,8 @@ namespace AmitTextile.Controllers
                     _context.Users.Update(user);
                     await _context.SaveChangesAsync();
                     var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                    var returningUrl = Url.Action("ResetPassword", "Profile",
-                        new {code = code, email = model.Email, name = model.Email},
-                        protocol: HttpContext.Request.Scheme);
+                    var returningUrl = Url.Action("Index", "Home", new {code = code, name = model.Email},
+                                           protocol: HttpContext.Request.Scheme) + "#resetPass";
                     await _emailservice.Execute("PasswordForAnonConfirmation", model.Email, "",
                         $"Для смены почты: <a href='{returningUrl}'>link</a>");
                     return Ok();
