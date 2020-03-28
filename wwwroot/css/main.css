@@ -1775,7 +1775,8 @@ textarea {
         transition:0.3s all ease;
     }
     .mail1{
-        width:320px;
+        width:100%;
+        min-width:320px;
         height:35px;
         margin-bottom:10px;
     }
@@ -1784,4 +1785,13 @@ textarea {
     }
         .tpsSelected:hover {
             color: #FFA500 !important;
+        }
+        .emailChangeButton {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #dcdcdc;
+            font-size: 20px;
+            display: block;
+            text-align: center;
+            transition: 0.3s all ease;
         }

@@ -56,7 +56,6 @@
     <div id="regS"><p>Перейдите по ссылке, которую мы отправили вам на вашу почту для смены пароля</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
     <div id="notConfirmed">Извините, но письмо о востановлении пароля можно отправлять только раз в 5 часов<button class="close"><i class="fas fa-times-circle"></i></button></div>
     <div id="regS1"><p>Перейдите по ссылке, которую мы отправили вам на вашу почту для смены почты</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
-    <div id="regS2"><p>Извините, но письмо о смене почты можно отправлять только раз в 5 часов</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
     <button id="scrollBtn"><i class="fas fa-chevron-up"></i></button>
     <header>
         <div class="container-fluid">
@@ -291,18 +290,14 @@
             $.fancybox.open($('#resetMail'));
         });
         $('.emailChangeButton').click(function (e) {
-            let error = $('.error');
-            for (let i = 0; i < error.length; i++) {
-                error[i].remove();
+            let errors = $('.error');
+            if (errors[0] != undefined) {
+                for (let i = 0; i < errors.length; i++) {
+                    errors[i].remove();
+                }
             }
-            e.preventDefault();
             function tgl() {
-                if (flag == 0) {
-                    $('#regS1').fadeOut(400);
-                }
-                else {
-                    $('#regS2').fadeOut(400);
-                }
+                $('#regS1').fadeOut(400);
             }
             let mail = $('.mail1').val();
             let x = { "Email":mail};
@@ -313,12 +308,18 @@
                 data: JSON.stringify(x),
                 success: function () {
                     parent.jQuery.fancybox.getInstance().close();
-                    flag = 0;
                     $('#regS1').fadeIn(400);
                     setTimeout(tgl, 10000);
                 },
                 error: function (e) {
-                    console.log(e); 
+                    let errorArr = e.responseText.split('"');
+                    if (errorArr[0] != undefined) {
+                        for (let i = 1; i < errorArr.length - 1; i++) {
+                            if (errorArr[i] != ",") {
+                                $('#resetMail').append('<span class="error">' + errorArr[i] + '<br><br></span>');
+                            }
+                        }
+                    }
                 }
             });
         });

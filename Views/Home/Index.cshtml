@@ -83,6 +83,7 @@
 </head>
 <body>
     <div id="regS"><p>Ваш аккаунт был успешно зарегистрирован, письмо для подтверждения уже было отправлено вам на почту.</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
+    <div id="regS1"><p>Вам на почту было отправлено письмо для восстановления пароля</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
     <button id="scrollBtn"><i class="fas fa-chevron-up"></i></button>
     <header>
         <div class="container-fluid">
@@ -209,7 +210,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="line">   
+                    <div class="line">
                     </div>
                 </div>
             </div>
@@ -288,12 +289,12 @@
             </div>
             <input type="submit" id="loginButton" class="registerButton" value="Войти" name="login" required><br><br>
             <input type="checkbox" id="checkbox" value="true">  Запомнить меня<br><br>
+            <a data-fancybox="resetMail" href="#resetMail">Забыли пароль</a><br /><br />
             <a data-fancybox="helo" href="#register">Зарегистрироваться</a> <br>
         </form>
     </div>
     <div class="hidden">
         <form id="register" class="register">
-
             ФИО <br><br>
             <div class="inputFields">
                 <input type="text" id="registerName" name="UserName" required><br><br>
@@ -323,8 +324,54 @@
             <span class="passChangeButton">Изменить пароль</span>
         </form>
     </div>
+    <div class="hidden">
+        <form id="resetMail">
+            <label for="mail1">
+                Введите почту, на которую зарегистрирован ваш аккаунт
+            </label><br />
+            <input type="email" class="mail1" /><br />
+            <input type="text" class="hidden" />
+            <span class="emailChangeButton">Восстановить пароль</span>
+        </form>
+    </div>
     <footer>
     </footer>
+    <script type="text/javascript">
+        $('.emailChangeButton').click(function (e) {
+            let errors = $('.error');
+            if (errors[0] != undefined) {
+                for (let i = 0; i < errors.length; i++) {
+                    errors[i].remove();
+                }
+            }
+            function tgl() {
+                $('#regS1').fadeOut(400);
+            }
+            let mail = $('.mail1').val();
+            let x = { "Email":mail};
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("ResetPassForAnons", "Profile")",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(x),
+                success: function () {
+                    parent.jQuery.fancybox.getInstance().close();
+                    $('#regS1').fadeIn(400);
+                    setTimeout(tgl, 10000);
+                },
+                error: function (e) {
+                    let errorArr = e.responseText.split('"');
+                    if (errorArr[0] != undefined) {
+                        for (let i = 1; i < errorArr.length - 1; i++) {
+                            if (errorArr[i] != ",") {
+                                $('#resetMail').append('<span class="error">' + errorArr[i] + '<br><br></span>');
+                            }
+                        }
+                    }
+                }
+            })
+        });
+    </script>
     <script type="text/javascript">
         $('.passChangeButton').click(function () {
             let pass = $('.pass').val();
@@ -587,7 +634,7 @@
                         }
                         else {
                              $(lines[count]).append("<div class='item'><div class='item_image'><img src='images/img2.jpg' alt='ItemImg'></div><a href='#' class='item_name'>"+e[i].name+"</a><div class='rateItemContainer'><input class='rateItem' value='" + e[i].stars + "'/> <a href='#'> n Отзывов</a></div><div class='container-fluid itm_field'><div class='row'><div class='col-md-6'><span class='item_cost'>" + e[i].price + " ₴</span><br/><span class='notInStock'>Нет в наличии</span></div><div class='col-md-6'><a href='#' class='buy_item'><i class='fas fa-shopping-cart'0></i></a></div></div></div></div>")
-                        } 
+                        }
                         $('.rateItem').rating({ displayOnly: true, size: 'xs', showCaption: false, language: "ru" });
                         if (count == 3) {
                             count = 0;
