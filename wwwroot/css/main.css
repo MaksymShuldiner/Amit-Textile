@@ -1971,3 +1971,6 @@ textarea {
             color: 	#FFA500;
             transition:0.3s all ease;
         }
+        .charactsContainer{
+            margin-top:15px;
+        }
