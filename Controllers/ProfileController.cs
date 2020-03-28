@@ -306,12 +306,11 @@ namespace AmitTextile.Controllers
         public async Task<IActionResult> ResetPassForAnons([FromBody]EmailViewModel model)
         {
             List<string> errors = new List<string>();
-            User user = await _userManager.FindByNameAsync(model.Email);
+            User user = await _userManager.FindByEmailAsync(model.Email);
             if (_context.Users.Any(x => x.Email == model.Email))
             {
                 return BadRequest("Пользователь с данной почтой уже зарегистрирован");
             }
-
             if (ModelState.IsValid)
             {
                 if ((DateTime.Now - user.LastTimePassChanged).Hours > 5)
@@ -323,7 +322,7 @@ namespace AmitTextile.Controllers
                     var returningUrl = Url.Action("OnChangingEmail", "Profile",
                         new {code = code, email = model.Email, name = model.Email},
                         protocol: HttpContext.Request.Scheme);
-                    await _emailservice.Execute("Email Reset", model.Email, "",
+                    await _emailservice.Execute("PasswordForAnonConfirmation", model.Email, "",
                         $"Для смены почты: <a href='{returningUrl}'>link</a>");
                     return Ok();
                 }
@@ -344,6 +343,7 @@ namespace AmitTextile.Controllers
             }
             return BadRequest(errors);
         }
+        
 
 
 
