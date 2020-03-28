@@ -175,6 +175,11 @@
         $('.priceWithDiscount').removeClass('hidden');
     }
     $('.isOnDiscount').change(function () {
+        if ($(this).prop('checked')) {
+            $(this).attr('value', 'true');
+        } else {
+            $(this).attr('value', 'false');
+        }
         $('.priceWithDiscount').toggleClass('hidden');
     });
     $('.addCharact').click(function () {
