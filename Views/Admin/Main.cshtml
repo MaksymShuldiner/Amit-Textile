@@ -51,6 +51,17 @@
         $(document).ready(function () {
             $('.forma').append('')
         });
+        $.ajax({
+            type: 'GET',
+            url:"@Url.Action("GetCharachteristics","Admin")",
+            contentType: 'json',
+            success: function (e) {
+                console.log(e);
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
     </script>
 </head>
 <body>
