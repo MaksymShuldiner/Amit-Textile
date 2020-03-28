@@ -58,7 +58,7 @@
                     if (e[i].values.length != 0) {
                         $('.charactsContainer').append('<div class="selectContainer"><label>' + e[i].name + '</label><br/><div class="select-wrapper createSelect"><select class="characteristicSelect ' + i + '"></select><div class="select-arrow-3"></div><div class="select-arrow-3"></div></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span><input type="hidden" value='+e[i].name+'/></div >');
                         for (let j = 0; j < e[i].values.length; j++) {
-                            $('.' + i).append('<option value="'+e[i].values[j].value+'">'+e[i].values[j].value+'</optionn>');
+                            $('.' + i).append('<option value="'+e[i].values[j].value+'">'+e[i].values[j].value+'</option>');
                         }
                     }
                     else {
