@@ -291,6 +291,10 @@
             $.fancybox.open($('#resetMail'));
         });
         $('.emailChangeButton').click(function (e) {
+            let error = $('.error');
+            for (let i = 0; i < error.length; i++) {
+                error[i].remove();
+            }
             e.preventDefault();
             function tgl() {
                 if (flag == 0) {
@@ -313,11 +317,8 @@
                     $('#regS1').fadeIn(400);
                     setTimeout(tgl, 10000);
                 },
-                error: function () {
-                    parent.jQuery.fancybox.getInstance().close();
-                    flag = 1;
-                    $('#regS2').fadeIn(400);
-                    setTimeout(tgl, 10000);
+                error: function (e) {
+                    console.log(e); 
                 }
             });
         });
