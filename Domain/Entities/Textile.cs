@@ -16,6 +16,7 @@ namespace AmitTextile.Domain
             get => Price * Convert.ToDecimal(Discount);
         }
         public string Name { get; set; }
+        [ForeignKey("TextileId")]
         public ICollection<Image> Images { get; set; }  
 
         public string Status { get; set; }
@@ -51,7 +52,8 @@ namespace AmitTextile.Domain
         }
 
         public DateTime DateWhenAdded { get; set; }
-
+        [ForeignKey("MainTextileId")]
+        public Image MainImage { get; set; }
         public int ViewsCounter { get; set; }
         public bool IsPopular { get; set; }
 
