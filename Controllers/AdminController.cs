@@ -111,7 +111,6 @@ namespace AmitTextile.Controllers
         {
             return Ok(await _context.Charachteristics.Include(x => x.Values).ToListAsync());
         }
-
         [HttpPost]
         public async Task<IActionResult> CreateCharachteristic(CharachteristicsAddModel model)
         {
