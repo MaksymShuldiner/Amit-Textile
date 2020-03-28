@@ -48,15 +48,26 @@
                 }
             }
         });
-        $(document).ready(function () {
-            $('.forma').append('')
-        });
         $.ajax({
             type: 'GET',
             url:"@Url.Action("GetCharachteristics","Admin")",
             contentType: 'json',
             success: function (e) {
                 console.log(e);
+                for (let i = 0; i < e.length; i++) {
+                    if (e[i].values.length != 0) {
+                        $('.charactsContainer').append('<div class="selectContainer"><label>' + e[i].name + '</label><br/><div class="select-wrapper createSelect"><select class="characteristicSelect ' + i + '"></select><div class="select-arrow-3"></div><div class="select-arrow-3"></div></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span><input type="hidden" value='+e[i].name+'/></div >');
+                        for (let j = 0; j < e[i].values.length; j++) {
+                            $('.' + i).append('<option value="'+e[i].values[j].value+'">'+e[i].values[j].value+'</optionn>');
+                        }
+                    }
+                    else {
+                        $('.charactsContainer').append('<div class="newCharact"><label class="charactName">' + e[i].name + '</label><br /><input class="charactValue" type="text" /><span class="removeCharact"><i class="fas fa-times"></i></span><input type="hiddem" value=' + e[i].name + '/></div>');
+                    }
+                    $('.removeCharact').click(function () {
+                        $(this).parent().remove();
+                    });
+                }
             },
             error: function (e) {
                 console.log(e);
@@ -159,28 +170,18 @@
                             </div>
                             <label for="newDescription">Введите описание для товара</label><br />
                             <textarea class="newDescription"></textarea>
+
                             <div class="charactLine">
                                 <label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span>
                             </div>
-                            <div class="newCharact">
-                                <label class="charactName">x.name</label><br />
-                                <input class="charactValue" type="text" /><span class="removeCharact"><i class="fas fa-times"></i></span>
-                            </div>
-                            <div class="selectContainer">
-                                <div class="select-wrapper createSelect">
-                                    <select class="characteristicSelect">
-                                        <option>1</option>
-                                    </select>
-                                    <div class="select-arrow-3"></div>
-                                    <div class="select-arrow-3"></div>
-                                </div>
-                                <span class="removeCharact forSelect"><i class="fas fa-times"></i></span>
+                            <div class="charactsContainer">
+
                             </div>
                             <label for="imageUpload">Выберите изображение для товара</label><br /><br />
                             <input type="file" class="imageUpload" />
                             <label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br />
                             <input type="file" multiple class="imageUploadMultiple" />
-                            <input type="submit" class="createItem" placeholder="Добавить товар"/>
+                            <input type="submit" class="createItem" placeholder="Добавить товар" />
                         </form>
                     </div>
                 </div>
