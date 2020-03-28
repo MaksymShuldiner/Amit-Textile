@@ -182,22 +182,23 @@ namespace AmitTextile.Migrations
                     b.Property<byte[]>("ByteImg")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<Guid>("MainTextileId")
+                    b.Property<Guid?>("MainTextileId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("SliderId")
+                    b.Property<Guid?>("SliderId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("TextileId")
+                    b.Property<Guid?>("TextileId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ImageId");
 
                     b.HasIndex("MainTextileId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[MainTextileId] IS NOT NULL");
 
                     b.HasIndex("SliderId");
 
@@ -728,21 +729,15 @@ namespace AmitTextile.Migrations
                 {
                     b.HasOne("AmitTextile.Domain.Textile", "MainTextile")
                         .WithOne("MainImage")
-                        .HasForeignKey("AmitTextile.Domain.Image", "MainTextileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AmitTextile.Domain.Image", "MainTextileId");
 
                     b.HasOne("AmitTextile.Domain.Slider", "Slider")
                         .WithMany("Images")
-                        .HasForeignKey("SliderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SliderId");
 
                     b.HasOne("AmitTextile.Domain.Textile", "Textile")
                         .WithMany("Images")
-                        .HasForeignKey("TextileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TextileId");
                 });
 
             modelBuilder.Entity("AmitTextile.Domain.Item", b =>

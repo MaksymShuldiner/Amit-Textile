@@ -11,15 +11,15 @@ namespace AmitTextile.Domain
 
         public byte[] ByteImg { get; set; }
 
-        public Guid TextileId { get; set; }
+        public Guid? TextileId { get; set; }
         [ForeignKey("TextileId")]
         public Textile Textile { get; set; }
         [ForeignKey("MainTextile")]
-        public Guid MainTextileId { get; set; }
+        public Guid? MainTextileId { get; set; }
         
         public Textile MainTextile { get; set; }
         public Slider Slider { get; set; }
 
-        public Guid SliderId { get; set; }
+        public Guid? SliderId { get; set; }
     }
 }
