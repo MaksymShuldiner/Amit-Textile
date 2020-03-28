@@ -56,13 +56,13 @@
                 console.log(e);
                 for (let i = 0; i < e.length; i++) {
                     if (e[i].values.length != 0) {
-                        $('.charactsContainer').append('<div class="selectContainer"><label>' + e[i].name + '</label><br/><div class="select-wrapper createSelect"><select class="characteristicSelect ' + i + '"></select><div class="select-arrow-3"></div><div class="select-arrow-3"></div></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span><input type="hidden" value='+e[i].name+'/></div >');
+                        $('.charactsContainer').append('<div class="selectContainer"><label>' + e[i].name + '</label><br/><div class="select-wrapper createSelect"><select name="CharacsValues" class="characteristicSelect ' + i + '"></select><div class="select-arrow-3"></div><div class="select-arrow-3"></div></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span><input type="hidden" value='+e[i].name+'/></div >');
                         for (let j = 0; j < e[i].values.length; j++) {
-                            $('.' + i).append('<option value="'+e[i].values[j].value+'">'+e[i].values[j].value+'</optionn>');
+                            $('.' + i).append('<option value="'+e[i].values[j].value+'"> '+e[i].values[j].value+ '</option>');
                         }
                     }
                     else {
-                        $('.charactsContainer').append('<div class="newCharact"><label class="charactName">' + e[i].name + '</label><br /><input class="charactValue" type="text" /><span class="removeCharact"><i class="fas fa-times"></i></span><input type="hiddem" value=' + e[i].name + '/></div>');
+                        $('.charactsContainer').append('<div class="newCharact"><label class="charactName">' + e[i].name + '</label><br /><input class="charactValue" type="text" /><span class="removeCharact"><i class="fas fa-times"></i></span><input type="hidden" value=' + e[i].name + 'name = "CharacsNames"/></div>');
                     }
                     $('.removeCharact').click(function () {
                         $(this).parent().remove();
@@ -70,7 +70,6 @@
                 }
             },
             error: function (e) {
-                console.log(e);
             }
         });
     </script>
@@ -157,20 +156,19 @@
                 </div>
                 <div class="col-md-8">
                     <div class="forma">
-                        <form action="#">
+                        <form action="@Url.Action("Main","Admin")" method="post" enctype="multipart/form-data">
                             <label for="newItemName">Название товара</label><br />
-                            <input type="text" class="newItemName" /><br />
+                            <input type="text" class="newItemName" name="Name" /><br />
                             <label for="price">Цена товара</label><br />
-                            <input type="text" class="price" /><br />
+                            <input type="text" class="price" name="Price" /><br />
                             <label for="warehouseAm">Кол-во товара на складе</label><br />
-                            <input type="text" class="warehouseAm" />
+                            <input type="text" class="warehouseAm" name="WarehouseAmount" />
                             <div class="discContainer">
-                                <input type="checkbox" class="isOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br />
-                                <input placeholder='Цена со скидкой' type='text' class='priceWithDiscount hidden' />
+                                <input type="checkbox" class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br />
+                                <input placeholder='Цена со скидкой' type='text' class='priceWithDiscount hidden' name="Discount" />
                             </div>
                             <label for="newDescription">Введите описание для товара</label><br />
-                            <textarea class="newDescription"></textarea>
-
+                            <textarea class="newDescription" name="Description"></textarea>
                             <div class="charactLine">
                                 <label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span>
                             </div>
