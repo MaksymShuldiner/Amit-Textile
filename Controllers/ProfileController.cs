@@ -184,7 +184,7 @@ namespace AmitTextile.Controllers
                 User user = await _userManager.FindByNameAsync(model.Name);
                 if (user == null)
                 {
-                    return Ok("Неверная ссылка для восстановления пароля или ваша почта не подтверждена");
+                    return BadRequest(new List<string>{ "Неверная ссылка для восстановления пароля или ваша почта не подтверждена" });
                 }
                 string code = HttpUtility.HtmlDecode(model.Code);
                 if (user != null)
@@ -208,7 +208,7 @@ namespace AmitTextile.Controllers
                     }
                     else
                     {
-                        return BadRequest("К сожалению пароль можно восстановить только раз в день ");
+                        errors.Add("К сожалению пароль можно восстановить только раз в день ");
                     }
                 }
                 errors.Add("Неверная ссылка для восстановления пароля");
@@ -237,7 +237,7 @@ namespace AmitTextile.Controllers
             {
                 if (_context.Users.Any(x => x.Email == model.Email))
                 {
-                    return BadRequest("Пользователь с данной почтой уже зарегистрирован");
+                    return BadRequest(new List<string>{ "Пользователь с данной почтой уже зарегистрирован" });
                 }
                 user.LastTimeEmailForEmailSent = DateTime.Now;
                 _context.Users.Update(user);
@@ -251,7 +251,7 @@ namespace AmitTextile.Controllers
             }
             else
             {
-                return BadRequest("Отправлять письмо о смене почты на почту можно лишь раз в 5 часов");
+                errors.Add("Отправлять письмо о смене почты на почту можно лишь раз в 5 часов");
             }
             }
             else
