@@ -1799,3 +1799,32 @@ textarea {
                 color: #008B8B;
                 transition: 0.3s all ease;
         }
+        .admLogin{
+            bottom:5px !important;
+        }
+        .adminOption{
+            padding:20px;
+            border:1px solid #202020;
+            color:white;
+            cursor:pointer;
+            font-size:20px;
+            transition:0.3s all ease;
+        }
+        .adminOption>svg{
+            float:right;
+            margin-top:4px;
+            font-size:15px;
+        }
+        .adminOption:hover {
+            background-color: #404040;
+            color: #FFA500;
+            transition: 0.3s all ease;
+        }
+        .adminOptions{
+            margin-top:30px;
+            margin-left:40%;
+        }
+        .adminOptionSelected {
+            background-color: #404040;
+            color: #FFA500;
+        }
