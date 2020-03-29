@@ -2007,7 +2007,7 @@ textarea {
         }
         .addPattern{
             position:relative;
-            left:293px;
+            left:253px;
             color:#9ACD32;
             padding-left:20px;
             padding-right:20px;
@@ -2028,4 +2028,7 @@ textarea {
         }
         .patternContainer input{
             width:450px !important;
+        }
+        .patterns{
+            margin-bottom:15px;
         }
