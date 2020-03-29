@@ -108,7 +108,7 @@ namespace AmitTextile.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CategoryId")
+                    b.Property<Guid?>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -695,9 +695,7 @@ namespace AmitTextile.Migrations
                 {
                     b.HasOne("AmitTextile.Domain.Category", "Category")
                         .WithMany("ChildCategories")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("AmitTextile.Domain.ChildCommentQuestion", b =>

@@ -11,7 +11,7 @@ namespace AmitTextile.Domain
         public Category Category { get; set; }
 
         [ForeignKey("Category")] 
-        public Guid CategoryId { get; set; }
+        public Guid? CategoryId { get; set; }
 
         public string Name { get; set; }
         
