@@ -39,10 +39,17 @@ namespace AmitTextile.Controllers
         {
             Guid Id = new Guid();
             Guid ChildCatId;
-
+            if (model.ChildCategoryId == "Нет")
+            {
+                ChildCatId = Guid.Empty;
+            }
+            else
+            {
+                ChildCatId = Guid.Parse(model.ChildCategoryId);
+            }
             double Discount =
                 (Convert.ToDouble(Math.Round(((model.Price - model.Discount) / model.Price), 3)));
-            Textile textile = new Textile(){TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description,Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse("f2f50ce8-2550-45e7-bf8e-03a2032db05c")};
+            Textile textile = new Textile(){TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description,Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId), ChildCategoryId = ChildCatId};
             if (model.MainFile != null)
             {
                 byte[] imageData = null;
@@ -100,7 +107,7 @@ namespace AmitTextile.Controllers
             Guid Id = new Guid();
             Category category = new Category(){CategoryId = Id, Name = model.Name};
             _context.Categories.Update(category);
-            await _context.SaveChangesAsync();
+           
             foreach (var x in model.ChildCategoryId)
             {
               ChildCategory Category = await _context.ChildCategories.FindAsync(Guid.Parse(x));
