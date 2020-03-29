@@ -159,10 +159,16 @@
                             <span>Добавить категорию</span>  <i class="fas fa-chevron-right"></i>
                         </li>
                         <li class="adminOption">
-                           <span>Добавить подкатегорию</span>  <i class="fas fa-chevron-right"></i>
+                            <span>Добавить подкатегорию</span>  <i class="fas fa-chevron-right"></i>
                         </li>
                         <li class="adminOption">
-                           <span>Добавить характеристику</span> <i class="fas fa-chevron-right"></i>
+                            <span>Добавить характеристику</span> <i class="fas fa-chevron-right"></i>
+                        </li>
+                        <li class="adminOption">
+                            <span>Добавить характеристику в фильтры</span> <i class="fas fa-chevron-right"></i>
+                        </li>
+                        <li class="adminOption">
+                            <span>Добавить изображение(я) в слайдер</span> <i class="fas fa-chevron-right"></i>
                         </li>
                     </ul>
                 </div>
@@ -217,7 +223,7 @@
                         </div>
                     </div>
                 </div>-->
-                        <!--<form action="@Url.Action("CreateChildCategory","Admin")" method="post">
+                <!--<form action="@Url.Action("CreateChildCategory","Admin")" method="post">
                     <label>Название подкатегории</label><br/>
                     <input type="text" class="newChildName" name="name" />
                     <input type="submit" class="createItem" value="Добавить подкатегории" />
@@ -239,7 +245,7 @@
                     </div>
                     <input type="submit" class="createItem" value="Добавить характеристику"/>
                 </form>-->
-                <form action="#">
+                <!--<form action="#">
                     <label>Характеристика для фильтров</label><vr/>
                     <div class="selectContainer">
                         <div class="select-wrapper createSelect filterSelect">
@@ -251,7 +257,7 @@
                         </div>
                     </div>
                     <br/><input type="submit" class="createItem" value="Добавить в фильтр"/>
-                </form>
+                </form>-->
                 <!--<form action="#">
                     <label>Добавить изображение(я) в слайдер</label><br/><br/>
                     <input type="file" multiple class="imageUploadMultiple" />
@@ -273,23 +279,6 @@
             });
         });
     </script>
-    <script type="text/javascript">
-        $('.addChildCat').click(function () {
-            $.ajax({
-                type: 'GET',
-                url: "@Url.Action("GetChilds","Admin")",
-                contentType: 'json',
-                success: function (e) {
-                    console.log(e);
-                    $('.addNewChild').append('<div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childSelect '+counter+'"></select><div class="select-arrow-3"></div><div class="select-arrow-3"></div></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span></div >');
-                    for (let i = 0; i < e.length; i++) {
-                        $('.' + counter).append('<option value="' + e[i].childCategoryId + '">' + e[i].name + '</option>');
-                    }
-                    counter++;
-                }
-            });
-        });
-    </script>
     <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
     <script type="text/javascript" src="~/js/star-rating.js"></script>
     <script type="text/javascript" src="~/js/ru.js"></script>
@@ -299,5 +288,94 @@
     <script type="text/javascript" src="~/libs/FontAwesome/all.min.js"></script>
     <script type="text/javascript" src="~/libs/OwlCarousel/owl.carousel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <script type="text/javascript">
+        $('.adminOption').click(function () {
+            if (!$(this).hasClass('adminOptionSelected')) {
+                let option = $(this).find('span').html();
+                $('.forma').find('form').remove();
+                if (option == "Добавить товар") {
+                    $('.forma').append('<form action="@Url.Action("CreateItem","Admin")" method="post" enctype="multipart/form-data"><label for="newItemName">Название товара</label><br /><input type="text" class="newItemName" name="Name" /><br /><label for="price">Цена товара</label><br /><input type="text" class="price" name="Price" /><br /><label for="warehouseAm">Кол-во товара на складе</label><br /><input type="text" class="warehouseAm" name="WarehouseAmount" /><div class="discContainer"><input type="checkbox" class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br /><input placeholder="Цена со скидкой" type="text" class="priceWithDiscount hidden" name="Discount" /></div><label for="newDescription">Введите описание для товара</label><br /><textarea class="newDescription" name="Description"></textarea><div class="charactLine"><label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span></div><div class="charactsContainer"></div><div class="categsContainer"><label>Выберите категорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="CategoryId" class="categsSelect"></select><div class="select-arrow-3"></div><div class="select-arrow-3"></div></div></div><br /><label>Выберите подкатегорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childCategsSelect"><option value="Нет">Нет</option></select><div class="select-arrow-3"></div><div class="select-arrow-3"></div></div></div></div><br /><label for="imageUpload">Выберите изображение для товара</label><br /><br /><input type="file" class="imageUpload" name="MainFile" /><label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br /><input type="file" multiple class="imageUploadMultiple" name="Files" /><input type="submit" class="createItem" value="Добавить товар" /></form>');
+                    $('.addCharact').click(function () {
+                        $('.charactLine').append('<div class="newCharacteristic"><span class="removeCharact"><i class="fas fa-times"></i></span><label for="charactName">Введите имя для характеристики</label><br/><input class="charactName" type="text" name="CharacsNames"/><br/><label for="charactValue">Введите значение характеристики</label><br/><input class="charactValue" name="CharacsValues" type="text"/></div>')
+                        $('.removeCharact').click(function () {
+                            $(this).parent().remove();
+                        });
+                    });
+                    $('.isOnDiscount').change(function () {
+                        if ($(this).prop('checked')) {
+                            $(this).attr('value', 'true');
+                        } else {
+                            $(this).attr('value', 'false');
+                        }
+                        $('.priceWithDiscount').toggleClass('hidden');
+                    });
+                }
+                else if (option == "Добавить категорию") {
+                    $('.forma').append('<form action="@Url.Action("CreateCategory","Admin")" method="post"><label>Название категории</label><br /><input type="text" class="newCatName" name="Name"/><div class="addNewChild"><label>Добавить подкатегорию</label> <span class="addChildCat"><i class="fas fa-plus"></i></span></div><input type="submit" class="createItem" value="Добавить категорию" /></form>');
+                    $('.addChildCat').click(function () {
+                        $.ajax({
+                            type: 'GET',
+                            url: "@Url.Action("GetChilds","Admin")",
+                            contentType: 'json',
+                            success: function (e) {
+                                console.log(e);
+                                $('.addNewChild').append('<div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childSelect ' + counter + '"></select><div class="select-arrow-3"></div><div class="select-arrow-3"></div></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span></div >');
+                                for (let i = 0; i < e.length; i++) {
+                                    $('.' + counter).append('<option value="' + e[i].childCategoryId + '">' + e[i].name + '</option>');
+                                }
+                                counter++;
+                                $('.removeCharact').click(function () {
+                                    $(this).parent().remove();
+                                });
+                            }
+                        });
+                    });
+                }
+                else if (option == "Добавить подкатегорию") {
+                    $('.forma').append('<form action="@Url.Action("CreateChildCategory","Admin")" method="post"><label>Название подкатегории</label><br/><input type="text" class="newChildName" name="name" /><br/><input type="submit" class="createItem" value="Добавить подкатегории" /></form>');
+                }
+                else if (option == "Добавить характеристику") {
+                    $('.forma').append('<form action="@Url.Action("CreateCharachteristic","Admin")" method="post"><label>Имя характеристики</label><br /><input type="text" class="newCharactName" name="Name"/><br/><input type="checkbox" class="nP" /><label>&nbsp &nbsp Шаблонные значения</label><div class="pat"></div><input type="submit" class="createItem" value="Добавить характеристику"/></form>');
+                    $('.nP').change(function () {
+                        if ($(this).prop('checked')) {
+                            $('.pat').append('<div class="patterns"><label>Добавить шаблонное значение</label><span class="addPattern"><i class="fas fa-plus"></i></span></div>');
+                            $('.addPattern').click(function () {
+                                $('.patterns').append('<div class="patternContainer"><label>Текст шаблона</label><br/><input type="text" name="Value" class="patternValue"/><span class="removeCharact"><i class="fas fa-times"></i></span></div>');
+                                $('.removeCharact').click(function () {
+                                    $(this).parent().remove();
+                                });
+                                $('.patternValue').change(function () {
+                                    $(this).attr('value') = $(this).val();
+                                })
+                            });
+                        }
+                        else {
+                            $('.patterns').remove();
+                        }
+                    });
+                }
+                $('.adminOptions').find('.adminOptionSelected').removeClass('adminOptionSelected');
+                $(this).addClass('adminOptionSelected');
+            }
+        })
+        $(document).ready(function () {
+            $('.forma').append('<form action="@Url.Action("CreateItem","Admin")" method="post" enctype="multipart/form-data"><label for="newItemName">Название товара</label><br /><input type="text" class="newItemName" name="Name" /><br /><label for="price">Цена товара</label><br /><input type="text" class="price" name="Price" /><br /><label for="warehouseAm">Кол-во товара на складе</label><br /><input type="text" class="warehouseAm" name="WarehouseAmount" /><div class="discContainer"><input type="checkbox" class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br /><input placeholder="Цена со скидкой" type="text" class="priceWithDiscount hidden" name="Discount" /></div><label for="newDescription">Введите описание для товара</label><br /><textarea class="newDescription" name="Description"></textarea><div class="charactLine"><label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span></div><div class="charactsContainer"></div><div class="categsContainer"><label>Выберите категорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="CategoryId" class="categsSelect"></select><div class="select-arrow-3"></div><div class="select-arrow-3"></div></div></div><br /><label>Выберите подкатегорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childCategsSelect"><option value="Нет">Нет</option></select><div class="select-arrow-3"></div><div class="select-arrow-3"></div></div></div></div><br /><label for="imageUpload">Выберите изображение для товара</label><br /><br /><input type="file" class="imageUpload" name="MainFile" /><label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br /><input type="file" multiple class="imageUploadMultiple" name="Files" /><input type="submit" class="createItem" value="Добавить товар" /></form>');
+            $('.addCharact').click(function () {
+                $('.charactLine').append('<div class="newCharacteristic"><span class="removeCharact"><i class="fas fa-times"></i></span><label for="charactName">Введите имя для характеристики</label><br/><input class="charactName" type="text" name="CharacsNames"/><br/><label for="charactValue">Введите значение характеристики</label><br/><input class="charactValue" name="CharacsValues" type="text"/></div>')
+                $('.removeCharact').click(function () {
+                    $(this).parent().remove();
+                });
+            });
+            $('.isOnDiscount').change(function () {
+                if ($(this).prop('checked')) {
+                    $(this).attr('value', 'true');
+                } else {
+                    $(this).attr('value', 'false');
+                }
+                $('.priceWithDiscount').toggleClass('hidden');
+            });
+        });
+
+    </script>
 </body>
 </html>

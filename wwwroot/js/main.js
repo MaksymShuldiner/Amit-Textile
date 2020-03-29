@@ -171,55 +171,9 @@
             $('.logedDropdown').css('opacity', '0');
         }
     )
-    if ($('.isOnDiscount').prop('checked')) {
-        $('.priceWithDiscount').removeClass('hidden');
-    }
-    $('.isOnDiscount').change(function () {
-        if ($(this).prop('checked')) {
-            $(this).attr('value', 'true');
-        } else {
-            $(this).attr('value', 'false');
-        }
-        $('.priceWithDiscount').toggleClass('hidden');
-    });
-    $('.addCharact').click(function () {
-        $('.charactLine').append('<div class="newCharacteristic"><span class="removeCharact"><i class="fas fa-times"></i></span><label for="charactName">Введите имя для характеристики</label><br/><input class="charactName" type="text" name="CharacsNames"/><br/><label for="charactValue">Введите значение характеристики</label><br/><input class="charactValue" name="CharacsValues" type="text"/></div>')
-        $('.removeCharact').click(function () {
-            $(this).parent().remove();
-        });
-    });
     $('.removeCharact').click(function () {
         $(this).parent().remove();
     });
-    $('.nP').change(function () {
-        if ($(this).prop('checked')) {
-            $('.pat').append('<div class="patterns"><label>Добавить шаблонное значение</label><span class="addPattern"><i class="fas fa-plus"></i></span></div>');
-            $('.addPattern').click(function () {
-                $('.patterns').append('<div class="patternContainer"><label>Текст шаблона</label><br/><input type="text" name="Value" class="patternValue"/><span class="removeCharact"><i class="fas fa-times"></i></span></div>');
-                $('.removeCharact').click(function () {
-                    $(this).parent().remove();
-                });
-                $('.patternValue').change(function () {
-                    $(this).attr('value') = $(this).val();
-                })
-            });
-        }
-        else {
-            $('.patterns').remove();
-        }
-    });
-    if ($('.nP').prop('checked')) {
-        $('.pat').append('<div class="patterns"><label>Добавить шаблонное значение</label><span class="addPattern"><i class="fas fa-plus"></i></span></div>');
-        $('.addPattern').click(function () {
-            $('.patterns').append('<div class="patternContainer"><label>Текст шаблона</label><br/><input type="text" name="Value" class="patternValue"/><span class="removeCharact"><i class="fas fa-times"></i></span></div>');
-            $('.removeCharact').click(function () {
-                $(this).parent().remove();
-            });
-            $('.patternValue').change(function () {
-                $(this).attr('value', $(this).val());
-            })
-        });
-    }
 });
 window.onscroll = function () { scrollFunction() };
 
