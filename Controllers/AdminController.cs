@@ -168,5 +168,10 @@ namespace AmitTextile.Controllers
         {
             return Ok(_context.Categories.Include(x=>x.ChildCategories).FirstOrDefaultAsync(x=>x.CategoryId==Guid.Parse(CatId)).Result.ChildCategories);
         }
+        [HttpPost]
+        public async Task<IActionResult> GetChilds(string CatId)
+        {
+            return Ok(_context.Categories.Include(x => x.ChildCategories).FirstOrDefaultAsync(x => x.CategoryId == Guid.Parse(CatId)).Result.ChildCategories);
+        }
     }
 }
