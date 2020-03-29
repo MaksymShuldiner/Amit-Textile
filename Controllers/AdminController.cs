@@ -123,6 +123,12 @@ namespace AmitTextile.Controllers
         {
             return Ok(await _context.Charachteristics.Include(x => x.Values).ToListAsync());
         }
+
+        [HttpGet("Childs")]
+        public async Task<IActionResult> GetChilds()
+        {
+            return Ok(await _context.ChildCategories.Where(x => x.CategoryId == null).ToListAsync());
+        }
         [HttpPost]
         public async Task<IActionResult> CreateCharachteristic(CharachteristicsAddModel model)
         {
@@ -132,7 +138,7 @@ namespace AmitTextile.Controllers
             return RedirectToAction("Main", "Admin");
         }
         [HttpPost]
-        public async Task<IActionResult> CreateCategory(string name)
+        public async Task<IActionResult> CreateChildCategory(string name)
         {
             Guid Id = new Guid();
             ChildCategory category = new ChildCategory() {ChildCategoryId = Guid.NewGuid(), Name = name };
