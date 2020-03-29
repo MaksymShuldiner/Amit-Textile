@@ -45,6 +45,7 @@
                         count = 1;
                         line++;
                     }
+                    $('.categsSelect').append('<option value="' + arrCat[i].categoryId + '">' + arrCat[i].name + '</option>')
                 }
             }
         });
@@ -175,6 +176,27 @@
                             <div class="charactsContainer">
 
                             </div>
+                            <div class="categsContainer">
+                                <label>Выберите категорию</label><br />
+                                <div class="selectContainer">
+                                    <div class="select-wrapper createSelect">
+                                        <select class="categsSelect">
+                                        </select>
+                                        <div class="select-arrow-3"></div>
+                                        <div class="select-arrow-3"></div>
+                                    </div>
+                                </div><br/>
+                                <label>Выберите подкатегорию</label><br />
+                                <div class="selectContainer">
+                                    <div class="select-wrapper createSelect">
+                                        <select class="childCategsSelect">
+                                            <option value="None">Нет</option>
+                                        </select>
+                                        <div class="select-arrow-3"></div>
+                                        <div class="select-arrow-3"></div>
+                                    </div>
+                                </div>
+                            </div><br/>
                             <label for="imageUpload">Выберите изображение для товара</label><br /><br />
                             <input type="file" class="imageUpload" name="MainFile"/>
                             <label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br />
@@ -186,6 +208,21 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $('.categsSelect').change(function () {
+            $.ajax({
+                type: 'GET',
+                url:"@Url.Action("GetChilds","Admin")"+"?CatId="+$(this).find(':selected').attr('value'),
+                contentType: 'json',
+                success: function (e) {
+                    console.log(e);
+                    for (let i = 0; i < e.length; i++) {
+                        $('.childCategsSelect').append('<option value="' + e[i].childCategoryId + '">' + e[i].name + '</option>')
+                    }
+                }
+            });
+        });
+    </script>
     <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
     <script type="text/javascript" src="~/js/star-rating.js"></script>
     <script type="text/javascript" src="~/js/ru.js"></script>
