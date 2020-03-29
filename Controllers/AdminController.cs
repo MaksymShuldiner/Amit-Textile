@@ -129,6 +129,11 @@ namespace AmitTextile.Controllers
         {
             return Ok(await _context.ChildCategories.Where(x => x.CategoryId == null).ToListAsync());
         }
+        [HttpGet("NotFilters")]
+        public async Task<IActionResult> GetFilters()
+        {
+            return Ok(await _context.Charachteristics.Include(x => x.Values).Where(x=>!_context.FilterCharachteristicses.Any(x=>x.CharachteristicId==x.CharachteristicId)).ToListAsync());
+        }
         [HttpPost]
         public async Task<IActionResult> CreateCharachteristic(CharachteristicsAddModel model)
         {
