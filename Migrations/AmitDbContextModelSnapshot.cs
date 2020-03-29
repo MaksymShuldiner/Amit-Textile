@@ -364,7 +364,7 @@ namespace AmitTextile.Migrations
 
                     b.HasKey("SliderId");
 
-                    b.ToTable("Slider");
+                    b.ToTable("Sliders");
                 });
 
             modelBuilder.Entity("AmitTextile.Domain.Textile", b =>
