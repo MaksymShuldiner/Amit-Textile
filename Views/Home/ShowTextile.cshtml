@@ -213,12 +213,13 @@
                     <div class="col-md-6">
                         <div class="itemImageFull">
                             <ul class="imgMiniContainer">
-                                <li class="imgMini"><img class="imgMiniimg" src="../images/img1.jpg" alt="imgMini"></li>
-                                <li class="imgMini"><img class="imgMiniimg" src="../images/img2.jpg" alt="imgMini"></li>
-                                <li class="imgMini"><img class="imgMiniimg" src="../images/img3.jpg" alt="imgMini"></li>
-                                <li class="imgMini"><img class="imgMiniimg" src="../images/talon_splash_0.jpg" alt="imgMini"></li>
+                                <li class="imgMini"><img class="imgMiniimg" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Textile.Textile.MainImage.ByteImg))" alt="imgMini"></li>
+                                @foreach(var y in Model.Textile.Textile.Images)
+                                {
+                                    <li class="imgMini"><img class="imgMiniimg" src="data:image/jpeg;base64,@(Convert.ToBase64String(y.ByteImg))" alt="imgMini"></li>
+                                }
                             </ul>
-                            <img src="../images/talon_splash_0.jpg" alt="imgFull" id="imgFull">
+                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Textile.Textile.MainImage.ByteImg))" alt="imgFull" id="imgFull">
                         </div>
                     </div>
                     <div class="col-md-6">

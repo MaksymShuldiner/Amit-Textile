@@ -239,7 +239,7 @@
                                         <div class="line">
                                             <div class="item">
                                                 <div class="item_image">
-                                                    <img src="../images/img1.jpg" alt="ItemImg">
+                                                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(x.Textile.MainImage.ByteImg))" alt="ItemImg">
                                                 </div>
                                                 <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId" class="item_name">
                                                     @x.Textile.Name
@@ -314,7 +314,7 @@
                                                             <div class="row">
                                                                 <div class="col-md-4">
                                                                     <div class="listImgContainer">
-                                                                        <img src="../images/img1.jpg" alt="awd">
+                                                                        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(x.Textile.MainImage.ByteImg))" alt="awd">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -448,7 +448,7 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="listImgContainer">
-                                                        <img src="../images/img1.jpg" alt="awd">
+                                                        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(x.Textile.MainImage.ByteImg))" alt="awd">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">

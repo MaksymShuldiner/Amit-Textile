@@ -222,25 +222,38 @@ namespace AmitTextile.Controllers
         [HttpGet("Popular")]
         public async Task<IActionResult> ShowPopular()
         {
-            List<Textile> textiles = await _context.Textiles.OrderByDescending(x => x.ViewsCounter).Take(12).ToListAsync();
+            List<TextileApiViewModel> textiles = _context.Textiles.Include(x=>x.MainImage).Include(x=>x.ParentCommentReviews).OrderByDescending(x => x.ViewsCounter).Take(12).ToList().Select(x=>new TextileApiViewModel(){Base64StrigImg = Convert.ToBase64String(x.MainImage.ByteImg), Price = x.Price, Name = x.Name, DateWhenAdded = x.DateWhenAdded, Discount = x.Discount, IsOnDiscount = x.IsOnDiscount, PriceWithDiscount = x.PriceWithDiscount, ViewsCounter = x.ViewsCounter, WarehouseAmount = x.WarehouseAmount, ParentCommentReviews = x.ParentCommentReviews, TextileId = x.TextileId }).ToList();
             return Ok(textiles);
         }
         [HttpGet("NewComings")]
         public async Task<IActionResult> ShowNewComings()
         {
-            List<Textile> textiles = await _context.Textiles.OrderByDescending(x => x.DateWhenAdded).Take(12).ToListAsync();
-            int x = 5;
+            List<TextileApiViewModel> textiles = _context.Textiles.Include(x=>x.ParentCommentReviews).OrderByDescending(x => x.DateWhenAdded).Take(12).Select(x => new TextileApiViewModel() { Base64StrigImg = Convert.ToBase64String(x.MainImage.ByteImg), Price = x.Price, Name = x.Name, DateWhenAdded = x.DateWhenAdded, Discount = x.Discount, IsOnDiscount = x.IsOnDiscount, PriceWithDiscount = x.PriceWithDiscount, ViewsCounter = x.ViewsCounter, WarehouseAmount = x.WarehouseAmount, ParentCommentReviews = x.ParentCommentReviews, TextileId = x.TextileId }).ToList();
             return Ok(textiles);
         }
         [HttpGet("SellsLeaders")]
         public async Task<IActionResult> SellsLeaders()
         {
-            return Ok( _context.Items.Include(x=>x.Textile).OrderByDescending(x => _context.Items.Where(y=>y.TextileId == x.TextileId && x.isBought).Count()).Take(12).Select(x => x.Textile).ToList());
+            List<TextileApiViewModel> textiles = new List<TextileApiViewModel>();
+            try
+            {
+                textiles = _context.Items.Include(x => x.Textile).ThenInclude(x=>x.MainImage).Include(x=>x.Textile).ThenInclude(x=>x.ParentCommentReviews)
+                    .OrderByDescending(x =>
+                        _context.Items.Where(y => y.TextileId == x.TextileId && x.isBought).Sum(x => x.ItemsAmount)).ToList()
+                    .GroupBy(X => X.TextileId).Select(x => x.First()).Take(12).Select(x => x.Textile).Select(x => new TextileApiViewModel() { Base64StrigImg = Convert.ToBase64String(x.MainImage.ByteImg), Price = x.Price, Name = x.Name, DateWhenAdded = x.DateWhenAdded, Discount = x.Discount, IsOnDiscount = x.IsOnDiscount, PriceWithDiscount = x.PriceWithDiscount, ViewsCounter = x.ViewsCounter, WarehouseAmount = x.WarehouseAmount, ParentCommentReviews = x.ParentCommentReviews, TextileId = x.TextileId })
+                    .ToList();
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            int x = 5;
+            return Ok(textiles);
         }
         [HttpGet("Discounts")]
         public async Task<IActionResult> Discounts()
         {
-            return Ok(_context.Textiles.Where(x=>x.IsOnDiscount).OrderByDescending(x =>x.Discount).Take(12).ToList());
+            return Ok(_context.Textiles.Include(x=>x.ParentCommentReviews).Where(x=>x.IsOnDiscount).OrderByDescending(x =>x.Discount).Take(12).Select(x => new TextileApiViewModel() { Base64StrigImg = Convert.ToBase64String(x.MainImage.ByteImg), Price = x.Price, Name = x.Name, DateWhenAdded = x.DateWhenAdded, Discount = x.Discount, IsOnDiscount = x.IsOnDiscount, PriceWithDiscount = x.PriceWithDiscount, ViewsCounter = x.ViewsCounter, WarehouseAmount = x.WarehouseAmount, ParentCommentReviews = x.ParentCommentReviews, TextileId = x.TextileId }).ToList());
         }
 
     }

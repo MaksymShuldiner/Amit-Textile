@@ -39,14 +39,14 @@ namespace AmitTextile.Controllers
             List<Item> Items = new List<Item>();
             if (User.Identity.IsAuthenticated)
             {
-                Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile)
+                Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.MainImage)
                     .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result.Cart.Items.ToList();
             }
             else
             {
                 if (Request.Cookies.ContainsKey("Cart"))
                 {
-                    Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile)
+                    Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.MainImage)
                         .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"])).Result.Items
                         .ToList();
                 }
@@ -141,14 +141,14 @@ namespace AmitTextile.Controllers
             List<Item> Items = new List<Item>();
             if (User.Identity.IsAuthenticated)
             {
-                Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile)
+                Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.MainImage)
                     .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result.Cart.Items.ToList();
             }
             else
             {
                 if (Request.Cookies.ContainsKey("Cart"))
                 {
-                    Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile)
+                    Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.MainImage)
                         .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"])).Result.Items
                         .ToList();
                 }
