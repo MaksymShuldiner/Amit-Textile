@@ -1923,6 +1923,7 @@ textarea {
         }
         .charactLine{
             width:500px;
+            margin-bottom:15px;
         }
         .charactLine label{
             margin-top:5px;
@@ -1971,6 +1972,14 @@ textarea {
             color: 	#FFA500;
             transition:0.3s all ease;
         }
+        .categsContainer>.selectContainer>.createSelect{
+            width:500px;
+        }
+        .childCategsSelect{
+            width:500px !important;
+        }
         .charactsContainer{
-            margin-top:15px;
+            border-bottom:1px solid #404040;
+            max-width:510px;
+            margin-bottom:15px;
         }
