@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="~/css/adapt.css">
     <script type="text/javascript" src="~/libs/jquery 3.4.1.min.js"></script>
     <script type="text/javascript" defer>
+        let counter=0;
         let arrCat = [];
         let count = 1;
         let line = 1;
@@ -151,76 +152,85 @@
                            <span>Добавить подкатегорию</span>  <i class="fas fa-chevron-right"></i>
                         </li>
                         <li class="adminOption">
-                           <span>Option 4</span> <i class="fas fa-chevron-right"></i>
+                           <span>Добавить характеристику</span> <i class="fas fa-chevron-right"></i>
                         </li>
                     </ul>
                 </div>
                 <div class="col-md-8">
                     <div class="forma">
                         <!--<form action="@Url.Action("CreateItem","Admin")" method="post" enctype="multipart/form-data">
-                    <label for="newItemName">Название товара</label><br />
-                    <input type="text" class="newItemName" name="Name" /><br />
-                    <label for="price">Цена товара</label><br />
-                    <input type="text" class="price" name="Price" /><br />
-                    <label for="warehouseAm">Кол-во товара на складе</label><br />
-                    <input type="text" class="warehouseAm" name="WarehouseAmount" />
-                    <div class="discContainer">
-                        <input type="checkbox" class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br />
-                        <input placeholder='Цена со скидкой' type='text' class='priceWithDiscount hidden' name="Discount" />
-                    </div>
-                    <label for="newDescription">Введите описание для товара</label><br />
-                    <textarea class="newDescription" name="Description"></textarea>
-                    <div class="charactLine">
-                        <label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span>
-                    </div>
-                    <div class="charactsContainer">
+                            <label for="newItemName">Название товара</label><br />
+                            <input type="text" class="newItemName" name="Name" /><br />
+                            <label for="price">Цена товара</label><br />
+                            <input type="text" class="price" name="Price" /><br />
+                            <label for="warehouseAm">Кол-во товара на складе</label><br />
+                            <input type="text" class="warehouseAm" name="WarehouseAmount" />
+                            <div class="discContainer">
+                                <input type="checkbox" class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br />
+                                <input placeholder='Цена со скидкой' type='text' class='priceWithDiscount hidden' name="Discount" />
+                            </div>
+                            <label for="newDescription">Введите описание для товара</label><br />
+                            <textarea class="newDescription" name="Description"></textarea>
+                            <div class="charactLine">
+                                <label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span>
+                            </div>
+                            <div class="charactsContainer">
 
-                    </div>
-                    <div class="categsContainer">
-                        <label>Выберите категорию</label><br />
-                        <div class="selectContainer">
-                            <div class="select-wrapper createSelect">
-                                <select name="CategoryId" class="categsSelect">
-                                </select>
-                                <div class="select-arrow-3"></div>
-                                <div class="select-arrow-3"></div>
                             </div>
-                        </div><br />
-                        <label>Выберите подкатегорию</label><br />
-                        <div class="selectContainer">
-                            <div class="select-wrapper createSelect">
-                                <select name="ChildCategoryId" class="childCategsSelect">
-                                    <option value="Нет">Нет</option>
-                                </select>
-                                <div class="select-arrow-3"></div>
-                                <div class="select-arrow-3"></div>
-                            </div>
-                        </div>
-                    </div><br />
-                    <label for="imageUpload">Выберите изображение для товара</label><br /><br />
-                    <input type="file" class="imageUpload" name="MainFile" />
-                    <label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br />
-                    <input type="file" multiple class="imageUploadMultiple" name="Files" />
-                    <input type="submit" class="createItem" placeholder="Добавить товар" />
-                </form>
-            </div>
-        </div>
-    </div>-->
-                        <!--<form action="@Url.Action("CreateChildCategory","Admin")" method="post">
-        <label>Название подкатегории</label><br/>
-        <input type="text" class="newChildName" />
-        <input type="submit" class="createItem" placeholder="Добавить подкатегории" />
-    </form>
-        -->
-                        <form action="@Url.Action("CreateCategory","Admin")" method="post">
-                            <label>Название категории</label><br />
-                            <input type="text" class="newCatName" />
-                            <div class="addNewChild">
-                                <label>Добавить подкатегорию</label> <span class="addChildCat"><i class="fas fa-plus"></i></span>
-                            </div>
-                            <input type="submit" class="createItem" placeholder="Добавить категорию" />
+                            <div class="categsContainer">
+                                <label>Выберите категорию</label><br />
+                                <div class="selectContainer">
+                                    <div class="select-wrapper createSelect">
+                                        <select name="CategoryId" class="categsSelect">
+                                        </select>
+                                        <div class="select-arrow-3"></div>
+                                        <div class="select-arrow-3"></div>
+                                    </div>
+                                </div><br />
+                                <label>Выберите подкатегорию</label><br />
+                                <div class="selectContainer">
+                                    <div class="select-wrapper createSelect">
+                                        <select name="ChildCategoryId" class="childCategsSelect">
+                                            <option value="Нет">Нет</option>
+                                        </select>
+                                        <div class="select-arrow-3"></div>
+                                        <div class="select-arrow-3"></div>
+                                    </div>
+                                </div>
+                            </div><br />
+                            <label for="imageUpload">Выберите изображение для товара</label><br /><br />
+                            <input type="file" class="imageUpload" name="MainFile" />
+                            <label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br />
+                            <input type="file" multiple class="imageUploadMultiple" name="Files" />
+                            <input type="submit" class="createItem" value="Добавить товар" />
                         </form>
                     </div>
+                </div>
+            </div>-->
+            <!--<form action="#">
+                <label>Название подкатегории</label><br/>
+                <input type="text" class="newChildName" />
+                <input type="submit" class="createItem" value="Добавить подкатегории" />
+            </form>
+                
+            <form action="#">
+                <label>Название категории</label><br />
+                <input type="text" class="newCatName" />
+                <div class="addNewChild">
+                    <label>Добавить подкатегорию</label> <span class="addChildCat"><i class="fas fa-plus"></i></span>
+                </div>
+                <input type="submit" class="createItem" value="Добавить категорию" />
+            </form>-->
+            <form action="#">
+                <label>Имя характеристики</label><br />
+                <input type="text" class="newCharactName"/><br/>
+                <input type="checkbox" class="nP" /><label>&nbsp &nbsp Шаблонные значения</label>
+                <div class="pat">
+
+                </div>
+                <input type="submit" class="createItem" value="Добавить характеристику"/>
+            </form>
+        </div>
     </div>
     <script type="text/javascript">
         $('.categsSelect').change(function () {
@@ -241,7 +251,16 @@
         $('.addChildCat').click(function () {
             $.ajax({
                 type: 'GET',
-                url:"@Url.Action("","")"
+                url: "@Url.Action("GetChilds","Admin")",
+                contentType: 'json',
+                success: function (e) {
+                    console.log(e);
+                    $('.addNewChild').append('<div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childSelect '+counter+'"></select><div class="select-arrow-3"></div><div class="select-arrow-3"></div></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span></div >');
+                    for (let i = 0; i < e.length; i++) {
+                        $('.' + counter).append('<option value="' + e[i].childCategoryId + '">' + e[i].name + '</option>');
+                    }
+                    counter++;
+                }
             });
         });
     </script>
