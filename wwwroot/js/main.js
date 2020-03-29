@@ -211,7 +211,7 @@
     if ($('.nP').prop('checked')) {
         $('.pat').append('<div class="patterns"><label>Добавить шаблонное значение</label><span class="addPattern"><i class="fas fa-plus"></i></span></div>');
         $('.addPattern').click(function () {
-            $('.patterns').append('<div class="patternContainer"><label>Текст шаблона</label><br/><input type="text" class="patternValue"/><span class="removeCharact"><i class="fas fa-times"></i></span></div>');
+            $('.patterns').append('<div class="patternContainer"><label>Текст шаблона</label><br/><input type="text" name="Value" class="patternValue"/><span class="removeCharact"><i class="fas fa-times"></i></span></div>');
             $('.removeCharact').click(function () {
                 $(this).parent().remove();
             });
