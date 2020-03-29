@@ -216,12 +216,12 @@
             <form action="#">
                 <label>Название категории</label><br />
                 <input type="text" class="newCatName" />
-                <div class="addNewChild">
+                <div class="addNewChild"> 
                     <label>Добавить подкатегорию</label> <span class="addChildCat"><i class="fas fa-plus"></i></span>
                 </div>
                 <input type="submit" class="createItem" value="Добавить категорию" />
             </form>-->
-            <form action="#">
+            <form action="@Url.Action("CreateCharachteristic","Admin")" method="post">
                 <label>Имя характеристики</label><br />
                 <input type="text" class="newCharactName"/><br/>
                 <input type="checkbox" class="nP" /><label>&nbsp &nbsp Шаблонные значения</label>

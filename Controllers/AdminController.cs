@@ -132,6 +132,10 @@ namespace AmitTextile.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCharachteristic(CharachteristicsAddModel model)
         {
+            if (model.Value == null)
+            {
+                model.Value = new string[] { };
+            }
             Charachteristic charact = new Charachteristic() { CharachteristicId = Guid.NewGuid(), Name = model.Name, Values = (ICollection<CharachteristicVariants>)model.Value.ToList() };
             await _context.Charachteristics.AddAsync(charact);
             await _context.SaveChangesAsync();
