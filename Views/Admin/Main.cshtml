@@ -142,22 +142,22 @@
                 <div class="col-md-4">
                     <ul class="adminOptions">
                         <li class="adminOption adminOptionSelected">
-                            Option 1 <i class="fas fa-chevron-right"></i>
+                            <span>Добавить товар</span> <i class="fas fa-chevron-right"></i>
                         </li>
                         <li class="adminOption">
-                            Option 2 <i class="fas fa-chevron-right"></i>
+                            <span>Добавить категорию</span>  <i class="fas fa-chevron-right"></i>
                         </li>
                         <li class="adminOption">
-                            Option 3 <i class="fas fa-chevron-right"></i>
+                           <span>Добавить подкатегорию</span>  <i class="fas fa-chevron-right"></i>
                         </li>
                         <li class="adminOption">
-                            Option 4 <i class="fas fa-chevron-right"></i>
+                           <span>Option 4</span> <i class="fas fa-chevron-right"></i>
                         </li>
                     </ul>
                 </div>
                 <div class="col-md-8">
                     <div class="forma">
-                        <form action="@Url.Action("CreateItem","Admin")" method="post" enctype="multipart/form-data">
+                        <!--<form action="@Url.Action("CreateItem","Admin")" method="post" enctype="multipart/form-data">
                             <label for="newItemName">Название товара</label><br />
                             <input type="text" class="newItemName" name="Name" /><br />
                             <label for="price">Цена товара</label><br />
@@ -185,7 +185,7 @@
                                         <div class="select-arrow-3"></div>
                                         <div class="select-arrow-3"></div>
                                     </div>
-                                </div><br/>
+                                </div><br />
                                 <label>Выберите подкатегорию</label><br />
                                 <div class="selectContainer">
                                     <div class="select-wrapper createSelect">
@@ -196,16 +196,30 @@
                                         <div class="select-arrow-3"></div>
                                     </div>
                                 </div>
-                            </div><br/>
+                            </div><br />
                             <label for="imageUpload">Выберите изображение для товара</label><br /><br />
-                            <input type="file" class="imageUpload" name="MainFile"/>
+                            <input type="file" class="imageUpload" name="MainFile" />
                             <label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br />
                             <input type="file" multiple class="imageUploadMultiple" name="Files" />
                             <input type="submit" class="createItem" placeholder="Добавить товар" />
                         </form>
                     </div>
                 </div>
-            </div>
+            </div>-->
+            <!--<form action="#">
+                <label>Название подкатегории</label><br/>
+                <input type="text" class="newChildName" />
+                <input type="submit" class="createItem" placeholder="Добавить подкатегории" />
+            </form>
+                -->
+            <form action="#">
+                <label>Название категории</label><br />
+                <input type="text" class="newCatName" />
+                <div class="addNewChild">
+                    <label>Добавить подкатегорию</label> <span class="addChildCat"><i class="fas fa-plus"></i></span>
+                </div>
+                <input type="submit" class="createItem" placeholder="Добавить категорию" />
+            </form>
         </div>
     </div>
     <script type="text/javascript">
@@ -220,6 +234,14 @@
                         $('.childCategsSelect').append('<option value="' + e[i].childCategoryId + '">' + e[i].name + '</option>')
                     }
                 }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $('.addChildCat').click(function () {
+            $.ajax({
+                type: 'GET',
+                url:"@Url.Action("","")"
             });
         });
     </script>
