@@ -136,7 +136,14 @@ namespace AmitTextile.Controllers
             {
                 model.Value = new string[] { };
             }
-            Charachteristic charact = new Charachteristic() { CharachteristicId = Guid.NewGuid(), Name = model.Name, Values = (ICollection<CharachteristicVariants>)model.Value.ToList() };
+
+            Guid Id = new Guid();
+            ICollection<CharachteristicVariants> variantses = new List<CharachteristicVariants>();
+            foreach (var x in model.Value)
+            {
+                variantses.Add(new CharachteristicVariants(){CharachteristicVariantsId = new Guid(), CharachteristicId = Id, Value = x});
+            }
+            Charachteristic charact = new Charachteristic() { CharachteristicId = Guid.NewGuid(), Name = model.Name, Values = variantses };
             await _context.Charachteristics.AddAsync(charact);
             await _context.SaveChangesAsync();
             return RedirectToAction("Main", "Admin");
