@@ -1466,6 +1466,7 @@ textarea {
     position: absolute;
     top: 23px;
     z-index: 1000;
+    margin-left:-200px;
 }
     .inCart > svg {
         font-size: 50px;
@@ -1496,7 +1497,7 @@ textarea {
     padding: 30px;
     font-size: 16px;
     height: auto;
-    right: 500px;
+    margin-left:-100px;
 }
 .buy {
     width: 100%;
@@ -1598,6 +1599,7 @@ textarea {
     color: white !important;
     transition: 0.3s all ease!important;
     display:block!important;
+    margin-bottom:3px;
 }
     .orderIt:hover {
         transition: 0.3s all ease !important;
@@ -1609,7 +1611,7 @@ textarea {
    width:180px;
    padding-left:5px;
    padding-right:20px;
-   top:20px;
+   top:18px;
    float:right;
    margin-top:5px;
 }
