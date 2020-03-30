@@ -1591,16 +1591,18 @@ textarea {
         transition: 0.3s all ease;
     }
 .orderIt {
-    padding: 10px;
-    font-size: 20px;
-    background-color: #FF8C00;
-    border:none;
-    color: white;
-    transition: 0.3s all ease;
+    padding: 10px !important;
+    font-size: 20px !important;
+    background-color: #FF8C00 !important;
+    border: none !important;
+    color: white !important;
+    transition: 0.3s all ease!important;
+    display:block!important;
 }
     .orderIt:hover {
-        transition: 0.3s all ease;
-        background-color: #FFA500;
+        transition: 0.3s all ease !important;
+        background-color: #FFA500 !important;
+        text-decoration:none !important;
     }
 .popupCartButtons>div{
     position:relative;
