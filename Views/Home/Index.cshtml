@@ -272,7 +272,7 @@
                 <div class="popupCartButtons">
                     <span class="continue">Продолжить покупки</span>
                     <div>
-                        <label for="orderIt">Итого</label> <label class="summa">@yDecimal грн</label><br>
+                        <label for="orderIt">Итого</label> <label class="summa" value="@yDecimal">@yDecimal грн</label><br>
                         <a class="orderIt" data-fancybox="order" href="#order">Оформить заказ</a>
                     </div>
                 </div>
@@ -468,6 +468,7 @@
                         add0(sum);
                         $('.summa').html(parseFloat($('.summa').html()) - cost);
                         add0('.summa');
+                        $('.summa').attr('value', $('.summa').html());
                         $('.summa').html($('.summa').html() + " грн");
                         if ($(am1).html() == "0") {
                             item.remove();
@@ -479,6 +480,8 @@
                         add0(sum);
                         $('.summa').html(parseFloat($('.summa').html()) + cost);
                         add0('.summa');
+                        $('.summa').attr('value', $('.summa').html());
+                        $('.summa').html($('.summa').html() + " грн");
                     }
                         if ($(form).find('.listItems').length == 0) {
                         $('.inCart').remove();
@@ -518,8 +521,9 @@
                 success: function () {
                     let price1 = parseFloat($(item).find('.sum').find('span').html());
                     let price2 = $(item).parent().find('.popupCartButtons').find('.summa');
-                    let price3= $(item).parent().find('.popupCartButtons').find('.summa').html();
-                    price2.html(parseFloat(price3) - price1+" грн");
+                    let price3 = $(item).parent().find('.popupCartButtons').find('.summa').html();
+                    price2.attr('value', parseFloat(price3) - price1);
+                    price2.html(parseFloat(price3) - price1 + " грн");
                     item.remove();
                     if ($(form).find('.listItems').length == 0) {
                         $('.inCart').remove();
@@ -527,7 +531,7 @@
                     }
                     else {
                         let chPrice = $('.inCart').find('span');
-                        $(chPrice[1]).html("Стоимостью " + parseFloat(parseFloat(price3) - price1) + " грн")
+                        $(chPrice[1]).html("Стоимостью " + parseFloat(parseFloat(price3) - price1) + " грн");
                         $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) - parseInt($(am[1]).html())) + " товаров");
                     }
                 },

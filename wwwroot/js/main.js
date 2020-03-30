@@ -223,7 +223,7 @@
                 $('.city').prev().prev().addClass('hidden');
                 $('.city').addClass('hidden');
                 $('.city').removeAttr('name');
-                $('.shippingMethod').append('<div class="shipMethod"><input type="radio" name="DepartmentName" class="post ukr"/><label>&nbsp &nbsp Укр. почта</label><br/><input type="radio" name="DepartmentName" class="post new"/><label>&nbsp &nbsp Новая почта</label><br/><label>Ваш адрес</label><br/><input type="text" class="address" name="Adress"/></div>');
+                $('.shippingMethod').append('<div class="shipMethod"><input type="radio" name="DepartmentName" class="post ukr"/><label>&nbsp &nbsp Укр. почта</label><br/><input type="radio" name="DepartmentName" class="post new"/><label>&nbsp &nbsp Новая почта</label><br/><label>Ваш адрес</label><br/><input type="text" class="address" name="Address"/></div>');
                 $('.shippingRadio').attr('value', 'toAdress');
                 $('.post').change(function () {
                     if ($(this).is(':checked')) {
@@ -272,7 +272,7 @@
         $('.city').prev().prev().addClass('hidden');
         $('.city').addClass('hidden');
         $('.city').removeAttr('name');
-        $('.shippingMethod').append('<div class="shipMethod"><input type="radio" name="DepartmentName" class="post ukr"/><label>&nbsp &nbsp Укр. почта</label><br/><input type="radio" name="DepartmentName" class="post new"/><label>&nbsp &nbsp Новая почта</label><br/><label>Ваш адрес</label><br/><input type="text" class="address" name="Adress"/></div>');
+        $('.shippingMethod').append('<div class="shipMethod"><input type="radio" name="DepartmentName" class="post ukr"/><label>&nbsp &nbsp Укр. почта</label><br/><input type="radio" name="DepartmentName" class="post new"/><label>&nbsp &nbsp Новая почта</label><br/><label>Ваш адрес</label><br/><input type="text" class="address" name="Address"/></div>');
         $('.shippingRadio').attr('value', 'toAdress');
         $('.post').change(function () {
             if ($(this).is(':checked')) {
