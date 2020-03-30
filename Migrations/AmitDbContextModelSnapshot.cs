@@ -273,11 +273,17 @@ namespace AmitTextile.Migrations
                     b.Property<string>("Fio")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("IsPaid")
+                        .HasColumnType("int");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Sum")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("TimeCreated")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("isDelivery")
                         .HasColumnType("bit");

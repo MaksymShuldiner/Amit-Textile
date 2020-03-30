@@ -1196,11 +1196,11 @@ namespace AmitTextile.Controllers
             Order order = new Order();
             if (model.OrderType == "toAdress")
             { 
-                order = new Order() { OrderId = Id, Address = model.Address, CardNum = model.CardNum, DepartmentNum = model.DepartmentNum, DepartmentName = model.DepartmentName, Email = model.Email, Fio = model.Fio, PhoneNumber = model.PhoneNumber, isDelivery  = true, isToAddress = true, isPaidByCash = model.isPaidByCash, Sum = model.Sum , isPickup = false};
+                order = new Order() { OrderId = Id, Address = model.Address, CardNum = model.CardNum, DepartmentNum = model.DepartmentNum,TimeCreated = DateTime.Now,DepartmentName = model.DepartmentName, Email = model.Email, Fio = model.Fio, PhoneNumber = model.PhoneNumber, isDelivery  = true, isToAddress = true, isPaidByCash = model.isPaidByCash, Sum = model.Sum , isPickup = false};
             }
             else if (model.OrderType == "toDepartment")
             {
-                order = new Order() { OrderId = Id, Address = model.Address, CardNum = model.CardNum, DepartmentNum = model.DepartmentNum, DepartmentName = model.DepartmentName, Email = model.Email, Fio = model.Fio, PhoneNumber = model.PhoneNumber, isDelivery = true, isToAddress = false, isPaidByCash = model.isPaidByCash, Sum = model.Sum, isPickup = false};
+                order = new Order() { OrderId = Id, Address = model.Address, CardNum = model.CardNum, DepartmentNum = model.DepartmentNum, TimeCreated = DateTime.Now,DepartmentName = model.DepartmentName, Email = model.Email, Fio = model.Fio, PhoneNumber = model.PhoneNumber, isDelivery = true, isToAddress = false, isPaidByCash = model.isPaidByCash, Sum = model.Sum, isPickup = false};
             }
             else if (model.OrderType == "pickup")
             {
@@ -1209,7 +1209,8 @@ namespace AmitTextile.Controllers
                     OrderId = Id, Address = model.Address, CardNum = model.CardNum, DepartmentNum = model.DepartmentNum,
                     DepartmentName = model.DepartmentName, Email = model.Email, Fio = model.Fio,
                     PhoneNumber = model.PhoneNumber, isDelivery = false, isToAddress = false,
-                    isPaidByCash = model.isPaidByCash, Sum = model.Sum, isPickup = true
+                    isPaidByCash = model.isPaidByCash, Sum = model.Sum, isPickup = true,
+                    TimeCreated = DateTime.Now
                 };
             }
             List<ItemOrder> itemorders = new List<ItemOrder>();

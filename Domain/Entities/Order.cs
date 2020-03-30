@@ -26,6 +26,10 @@ namespace AmitTextile.Domain
 
         public bool isPaidByCash { get; set; }
 
+        public DateTime TimeCreated { get; set; }
+
+        public int IsPaid { get; set; }
+
         public decimal Sum { get; set; }
         public bool isDelivery { get; set; }
         public ICollection<ItemOrder> ItemOrders { get; set; }

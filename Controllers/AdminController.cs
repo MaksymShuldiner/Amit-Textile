@@ -201,5 +201,18 @@ namespace AmitTextile.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Main", "Admin");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Orders(int page = 1)
+        {
+            if (User.IsInRole("admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            List<Order> Orders = _context.Orders.Include(x => x.ItemOrders).ThenInclude(x => x.Item).ThenInclude(x=>x.Textile).ThenInclude(x=>x.MainImage).OrderByDescending(x=>x.TimeCreated).Skip((page-1)*5).Take(5).ToList();
+            PageViewModel model = new PageViewModel(await _context.Orders.CountAsync(), page,5 );
+            return View(new OrdersModel(){Model = model, Orders = Orders});
+        }
     }
 }
