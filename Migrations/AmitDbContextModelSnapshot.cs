@@ -258,8 +258,8 @@ namespace AmitTextile.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CardNum")
-                        .HasColumnType("int");
+                    b.Property<string>("CardNum")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DepartmentName")
                         .HasColumnType("nvarchar(max)");
