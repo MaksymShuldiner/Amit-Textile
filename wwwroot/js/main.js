@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     let flag = true;
+    let flagg = true;
     function toggle() {
         $("#cats_hdn").toggleClass('hdn');
     }
@@ -291,7 +292,29 @@
         $('.city').prev().prev().addClass('hidden');
         $('.city').addClass('hidden');
         $('.shippingRadio').attr('value', 'pickup');
-    }
+    };
+    $('.showOrder').click(function () {
+        $(this).find('.fa-chevron-up').toggleClass('hidden');
+        $(this).find('.fa-chevron-down').toggleClass('hidden');
+        let table = $(this).next();
+        function tgl() {
+            table.toggleClass('hidden')
+        }
+        if (flagg) {
+            table.toggleClass('hidden');
+            table.animate({
+                opacity: "1"
+            }, 300);
+            flagg = false;
+        }
+        else {
+            setTimeout(tgl, 300);
+            table.animate({
+                opacity: "0"
+            }, 300);
+            flagg = true;
+        }
+    });
 });
 window.onscroll = function () { scrollFunction() };
 
