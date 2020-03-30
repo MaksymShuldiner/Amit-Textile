@@ -163,94 +163,95 @@
                 <div class="col-md-8">
                     <div class="forma">
                         <!--<form action="@Url.Action("CreateItem","Admin")" method="post" enctype="multipart/form-data">
-                                <label for="newItemName">Название товара</label><br />
-                                <input type="text" class="newItemName" name="Name" /><br />
-                                <label for="price">Цена товара</label><br />
-                                <input type="text" class="price" name="Price" /><br />
-                                <label for="warehouseAm">Кол-во товара на складе</label><br />
-                                <input type="text" class="warehouseAm" name="WarehouseAmount" />
-                                <div class="discContainer">
-                                    <input type="checkbox" class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br />
-                                    <input placeholder='Цена со скидкой' type='text' class='priceWithDiscount hidden' name="Discount" />
-                                </div>
-                                <label for="newDescription">Введите описание для товара</label><br />
-                                <textarea class="newDescription" name="Description"></textarea>
-                                <div class="charactLine">
-                                    <label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span>
-                                </div>
-                                <div class="charactsContainer">
+                    <label for="newItemName">Название товара</label><br />
+                    <input type="text" class="newItemName" name="Name" /><br />
+                    <label for="price">Цена товара</label><br />
+                    <input type="text" class="price" name="Price" /><br />
+                    <label for="warehouseAm">Кол-во товара на складе</label><br />
+                    <input type="text" class="warehouseAm" name="WarehouseAmount" />
+                    <div class="discContainer">
+                        <input type="checkbox" class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br />
+                        <input placeholder='Цена со скидкой' type='text' class='priceWithDiscount hidden' name="Discount" />
+                    </div>
+                    <label for="newDescription">Введите описание для товара</label><br />
+                    <textarea class="newDescription" name="Description"></textarea>
+                    <div class="charactLine">
+                        <label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="charactsContainer">
 
-                                </div>
-                                <div class="categsContainer">
-                                    <label>Выберите категорию</label><br />
-                                    <div class="selectContainer">
-                                        <div class="select-wrapper createSelect">
-                                            <select name="CategoryId" class="categsSelect">
-                                            </select>
-                                            <div class="select-arrow-3"></div>
-                                            <div class="select-arrow-3"></div>
-                                        </div>
-                                    </div><br />
-                                    <label>Выберите подкатегорию</label><br />
-                                    <div class="selectContainer">
-                                        <div class="select-wrapper createSelect">
-                                            <select name="ChildCategoryId" class="childCategsSelect">
-                                                <option value="Нет">Нет</option>
-                                            </select>
-                                            <div class="select-arrow-3"></div>
-                                            <div class="select-arrow-3"></div>
-                                        </div>
-                                    </div>
-                                </div><br />
-                                <label for="imageUpload">Выберите изображение для товара</label><br /><br />
-                                <input type="file" class="imageUpload" name="MainFile" />
-                                <label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br />
-                                <input type="file" multiple class="imageUploadMultiple" name="Files" />
-                                <input type="submit" class="createItem" value="Добавить товар" />
-                            </form>
+                    </div>
+                    <div class="categsContainer">
+                        <label>Выберите категорию</label><br />
+                        <div class="selectContainer">
+                            <div class="select-wrapper createSelect">
+                                <select name="CategoryId" class="categsSelect">
+                                </select>
+                                <div class="select-arrow-3"></div>
+                                <div class="select-arrow-3"></div>
+                            </div>
+                        </div><br />
+                        <label>Выберите подкатегорию</label><br />
+                        <div class="selectContainer">
+                            <div class="select-wrapper createSelect">
+                                <select name="ChildCategoryId" class="childCategsSelect">
+                                    <option value="Нет">Нет</option>
+                                </select>
+                                <div class="select-arrow-3"></div>
+                                <div class="select-arrow-3"></div>
+                            </div>
                         </div>
-                    </div>
-                </div>-->
-                <!--<form action="@Url.Action("CreateChildCategory","Admin")" method="post">
-                    <label>Название подкатегории</label><br/>
-                    <input type="text" class="newChildName" name="name" />
-                    <input type="submit" class="createItem" value="Добавить подкатегории" />
-                </form>-->
-                <!--<form action="@Url.Action("CreateCategory","Admin")" method="post">
-                    <label>Название категории</label><br />
-                    <input type="text" class="newCatName" name="Name"/>
-                    <div class="addNewChild">
-                        <label>Добавить подкатегорию</label> <span class="addChildCat"><i class="fas fa-plus"></i></span>
-                    </div>
-                    <input type="submit" class="createItem" value="Добавить категорию" />
+                    </div><br />
+                    <label for="imageUpload">Выберите изображение для товара</label><br /><br />
+                    <input type="file" class="imageUpload" name="MainFile" />
+                    <label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br />
+                    <input type="file" multiple class="imageUploadMultiple" name="Files" />
+                    <input type="submit" class="createItem" value="Добавить товар" />
                 </form>
-                <!--<form action="@Url.Action("CreateCharachteristic","Admin")" method="post">
-                    <label>Имя характеристики</label><br />
-                    <input type="text" class="newCharactName" name="Name"/><br/>
-                    <input type="checkbox" class="nP" /><label>&nbsp &nbsp Шаблонные значения</label>
-                    <div class="pat">
-
-                    </div>
-                    <input type="submit" class="createItem" value="Добавить характеристику"/>
-                </form>-->
-                <!--<form action="#">
-                    <label>Характеристика для фильтров</label><vr/>
-                    <div class="selectContainer">
-                        <div class="select-wrapper createSelect filterSelect">
-                            <select name="" class="filterCharSelect">
-                                
-                            </select>
-                            <div class="select-arrow-3"></div>
-                            <div class="select-arrow-3"></div>
-                        </div>
-                    </div>
-                    <br/><input type="submit" class="createItem" value="Добавить в фильтр"/>
-                </form>-->
-                <!--<form action="#">
-                    <label>Добавить изображение(я) в слайдер</label><br/><br/>
-                    <input type="file" multiple class="imageUploadMultiple" />
-                </form>-->
+            </div>
         </div>
+    </div>-->
+                        <!--<form action="@Url.Action("CreateChildCategory","Admin")" method="post">
+        <label>Название подкатегории</label><br/>
+        <input type="text" class="newChildName" name="name" />
+        <input type="submit" class="createItem" value="Добавить подкатегории" />
+    </form>-->
+                        <!--<form action="@Url.Action("CreateCategory","Admin")" method="post">
+        <label>Название категории</label><br />
+        <input type="text" class="newCatName" name="Name"/>
+        <div class="addNewChild">
+            <label>Добавить подкатегорию</label> <span class="addChildCat"><i class="fas fa-plus"></i></span>
+        </div>
+        <input type="submit" class="createItem" value="Добавить категорию" />
+    </form>
+    <!--<form action="@Url.Action("CreateCharachteristic","Admin")" method="post">
+        <label>Имя характеристики</label><br />
+        <input type="text" class="newCharactName" name="Name"/><br/>
+        <input type="checkbox" class="nP" /><label>&nbsp &nbsp Шаблонные значения</label>
+        <div class="pat">
+
+        </div>
+        <input type="submit" class="createItem" value="Добавить характеристику"/>
+    </form>-->
+                        <!-- <form action="@Url.Action("FilterAdd","Admin")" method="post">
+         <label>Характеристика для фильтров</label><vr/>
+         <div class="selectContainer">
+             <div class="select-wrapper createSelect filterSelect">
+                 <select name="CharactId" class="filterCharSelect">
+
+                 </select>
+                 <div class="select-arrow-3"></div>
+                 <div class="select-arrow-3"></div>
+             </div>
+         </div>
+         <br/><input type="submit" class="createItem" value="Добавить в фильтр"/>
+     </form>-->
+                        <form action="@Url.Action("SliderAdd","Admin")" method="post" enctype="multipart/form-data">
+                            <label>Добавить изображение(я) в слайдер</label><br /><br />
+                            <input type="file" multiple class="imageUploadMultiple" name="files" />
+                            <input type="submit" class="createItem" value="Добавить в слайдер" />
+                        </form>
+                    </div>
     </div>
     <script type="text/javascript">
         $('.categsSelect').change(function () {

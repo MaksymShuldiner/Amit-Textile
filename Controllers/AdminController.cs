@@ -8,6 +8,7 @@ using AmitTextile.Domain;
 using AmitTextile.Domain.Context;
 using AmitTextile.Models;
 using AmitTextile.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -132,7 +133,7 @@ namespace AmitTextile.Controllers
         [HttpGet("NotFilters")]
         public async Task<IActionResult> GetFilters()
         {
-            return Ok(await _context.Charachteristics.Include(x => x.Values).Where(x=>!_context.FilterCharachteristicses.Any(x=>x.CharachteristicId==x.CharachteristicId)).ToListAsync());
+            return Ok(await _context.Charachteristics.Include(x => x.Values).Where(x=>!_context.FilterCharachteristicses.Any(y=>x.CharachteristicId==y.CharachteristicId)).ToListAsync());
         }
         [HttpPost]
         public async Task<IActionResult> CreateCharachteristic(CharachteristicsAddModel model)
@@ -150,7 +151,7 @@ namespace AmitTextile.Controllers
             }
             Charachteristic charact = new Charachteristic() { CharachteristicId = Guid.NewGuid(), Name = model.Name, Values = variantses };
             await _context.Charachteristics.AddAsync(charact);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(); 
             return RedirectToAction("Main", "Admin");
         }
         [HttpPost]
@@ -167,6 +168,38 @@ namespace AmitTextile.Controllers
         public async Task<IActionResult> GetChilds(string CatId)
         {
             return Ok(_context.Categories.Include(x=>x.ChildCategories).FirstOrDefaultAsync(x=>x.CategoryId==Guid.Parse(CatId)).Result.ChildCategories);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FilterAdd(string CharactId)
+        {
+           await _context.FilterCharachteristicses.AddAsync(new FilterCharachteristics()
+                {FilterCharachteristicsId = Guid.NewGuid(), CharachteristicId = Guid.Parse(CharactId)});
+           await _context.SaveChangesAsync();
+           return RedirectToAction("Main", "Admin");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SliderAdd(IFormFile[] files)
+        {
+            List<byte[]> images = new List<byte[]>();
+            List<string> names = new List<string>();
+            foreach (var x in files)
+            {
+                byte[] imageData1 = null;
+                using (var binaryReader = new BinaryReader(x.OpenReadStream()))
+                {
+                    imageData1 = binaryReader.ReadBytes((int)x.Length);
+                }
+                images.Add(imageData1);
+                names.Add(x.Name);
+            }
+            for (int x = 0 ; x<images.Count;x++)
+            {
+                _context.Images.Add(new Image(){ImageId = Guid.NewGuid(), ByteImg = images[x], SliderId = _context.Sliders.First().SliderId, Name = names[x] });
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Main", "Admin");
         }
     }
 }
