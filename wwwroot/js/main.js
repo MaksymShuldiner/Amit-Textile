@@ -258,6 +258,7 @@
         }
         $('.shippingRadio').attr('value', 'pickup');
     }
+
 });
 window.onscroll = function () { scrollFunction() };
 
