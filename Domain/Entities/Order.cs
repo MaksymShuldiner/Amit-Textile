@@ -17,11 +17,14 @@ namespace AmitTextile.Domain
 
         public string DepartmentName { get; set; }
 
+        public bool isPickup { get; set; }
         public int DepartmentNum { get; set; }
 
         public string PhoneNumber { get; set; }
 
         public bool isPaidByCash { get; set; }
+
+        public bool isDelivery { get; set; }
         public ICollection<ItemOrder> ItemOrders { get; set; }
 
         public Order()

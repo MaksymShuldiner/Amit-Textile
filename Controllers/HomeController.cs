@@ -1190,7 +1190,36 @@ namespace AmitTextile.Controllers
             List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
             return View(new SearchModel(){PagesCounterList = newList, Textiles = model.Skip((page - 1) * 9).Take(9).ToList(), Model = pageViewModel, StringQuery = StringQuery});
         }
-        
-        
+        public async Task<IActionResult> MakeOrder(MakeOrderModel model)
+        {
+            Guid Id = Guid.NewGuid();
+            Order order = new Order(){OrderId = Id, Address = model.Address, CardNum = model.CardNum, DepartmentNum = model.DepartmentNum, DepartmentName = model.DepartmentName, Email = model.Email, Fio = model.Fio, PhoneNumber = model.PhoneNumber};
+            List<ItemOrder> itemorders = new List<ItemOrder>();
+            if (User.Identity.IsAuthenticated)
+            {
+                Cart cart = await _context.Carts.FindAsync(_userManager.FindByNameAsync(User.Identity.Name).Result.CartId);
+                foreach (var x in cart.Items )
+                {
+                    itemorders.Add(new ItemOrder(){OrderId = Id, ItemId = x.ItemId});
+                }
+            }
+            else
+            {
+                Cart cart = _context.Carts.FirstOrDefault(x => x.NonAuthorizedId == Guid.Parse(HttpContext.Request.Cookies["Cart"]));
+                if (cart == null)
+                {
+                    return BadRequest();
+                }
+                foreach (var x in cart.Items)
+                {
+                    itemorders.Add(new ItemOrder() { OrderId = Id, ItemId = x.ItemId });
+                }
+            }
+            order.ItemOrders = itemorders;
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
     }
 }
