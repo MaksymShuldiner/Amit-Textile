@@ -335,7 +335,7 @@
         </form>
     </div>
     <div class="hidden">
-        <form id="order">
+        <form id="order" action="@Url.Action("MakeOrder","Home")" method="post">
             <label>ФИО</label><br />
             <input name="Fio" type="text" class="orderFio"/><br/>
             <label>Email</label><br/>
