@@ -11,6 +11,12 @@
     .item_name{
         font-size:13px;
     }
+    .search_container{
+        padding-left:150px;
+    }
+    .logo_container > a{
+        margin-left:30px;
+    }
 }
 @media only screen and (max-width:1100px) {
     .rateItemContainer a {
