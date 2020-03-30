@@ -39,18 +39,17 @@ namespace AmitTextile.Controllers
         public async Task<IActionResult> CreateItem(TextileAddModel model)
         {
             Guid Id = new Guid();
-            Guid ChildCatId;
+            double Discount =
+                (Convert.ToDouble(Math.Round(((model.Price - model.Discount) / model.Price), 3)));
+            Textile textile = new Textile();
             if (model.ChildCategoryId == "Нет")
             {
-                ChildCatId = Guid.Empty;
+                textile = new Textile() { TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description, Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId) };
             }
             else
             {
-                ChildCatId = Guid.Parse(model.ChildCategoryId);
+                 textile = new Textile() { TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description, Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId), ChildCategoryId = Guid.Parse(model.ChildCategoryId) };
             }
-            double Discount =
-                (Convert.ToDouble(Math.Round(((model.Price - model.Discount) / model.Price), 3)));
-            Textile textile = new Textile(){TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description,Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId), ChildCategoryId = ChildCatId};
             if (model.MainFile != null)
             {
                 byte[] imageData = null;
@@ -107,14 +106,15 @@ namespace AmitTextile.Controllers
         {
             Guid Id = new Guid();
             Category category = new Category(){CategoryId = Id, Name = model.Name};
-            _context.Categories.Update(category);
-           
+            List<ChildCategory> Childs = new List<ChildCategory>();
             foreach (var x in model.ChildCategoryId)
             {
               ChildCategory Category = await _context.ChildCategories.FindAsync(Guid.Parse(x));
               Category.CategoryId = Id;
-              _context.ChildCategories.Update(Category);
+              Childs.Add(Category);
             }
+            category.ChildCategories = Childs;
+            await _context.Categories.AddAsync(category);
             await _context.SaveChangesAsync();
             return RedirectToAction("Main", "Admin");
         }
