@@ -273,7 +273,7 @@
                     <span class="continue">Продолжить покупки</span>
                     <div>
                         <label for="orderIt">Итого</label> <label class="summa">@yDecimal грн</label><br>
-                        <input class="orderIt" type="submit" value="Оформить заказ" />
+                        <a class="orderIt" data-fancybox="order" href="#order">Оформить заказ</a>
                     </div>
                 </div>
             </form>
@@ -332,6 +332,30 @@
             <input type="email" class="mail1" /><br />
             <input type="text" class="hidden" />
             <span class="emailChangeButton">Восстановить пароль</span>
+        </form>
+    </div>
+    <div class="hidden">
+        <form id="order">
+            <label>ФИО</label><br />
+            <input type="text" class="orderFio"/><br/>
+            <label>Email</label><br/>
+            <input type="email" class="orderEmail"/><br/>
+            <label>Номер телефона</label><br/>
+            <input type="text" class="orderPhone"/>
+            <label>Выберите метод оплаты</label><br/>
+            <div class="paymentMethod">
+                <input type="radio" class="payment byCard" name="isPaidByCash"/><label>&nbsp &nbsp Оплата картой</label><br/>
+                <input type="radio" class="payment byCash" name="isPaidByCash"/><label>&nbsp &nbsp Оплата наличными</label><br/>
+            </div>
+            <label>Ваш город</label><br/>
+            <input type="text" class="city" name="Adress"/><br/>
+            <label>Выберите метод доставки</label><br/>
+            <div class="shippingMethod">
+                <input type="radio" name="isDelivery" class="shippingRadio pickup" /><label>&nbsp &nbsp Самовывоз из магазина</label><br />
+                <input type="radio" name="isDelivery" class="shippingRadio toDepartment" /><label>&nbsp &nbsp В отделение</label><br />
+                <input type="radio" name="isDelivery" class="shippingRadio toAddress" /><label>&nbsp &nbsp Адресная доставка</label><br />
+            </div>
+            <input type="submit" class="sendOrder createItem" value="Оформить заказ"/>
         </form>
     </div>
     <footer>
