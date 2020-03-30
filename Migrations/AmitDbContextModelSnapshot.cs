@@ -288,6 +288,9 @@ namespace AmitTextile.Migrations
                     b.Property<bool>("isPickup")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("isToAddress")
+                        .HasColumnType("bit");
+
                     b.HasKey("OrderId");
 
                     b.ToTable("Orders");
