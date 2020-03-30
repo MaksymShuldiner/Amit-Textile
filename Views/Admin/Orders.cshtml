@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Интернет-магазин текстиля GlobalTextile</title>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed&display=swap" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="~/css/main.css">
+    <link rel="stylesheet" href="~/libs/FontAwesome/all.min.css">
+    <link rel="stylesheet" href="~/libs/OwlCarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/slider.css" />
+    <link rel="stylesheet" href="~/libs/themes/krajee-svg/theme.min.css">
+    <link rel="stylesheet" href="~/css/star-rating.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="~/css/adapt.css">
+    <script type="text/javascript" src="~/libs/jquery 3.4.1.min.js"></script>
+    <script type="text/javascript" defer>
+        let counter=0;
+        let arrCat = [];
+        let count = 1;
+        let line = 1;
+        $.ajax({
+            type: 'GET',
+            url:'@Url.Action("GetCategories", "TextileApi")',
+            contentType: 'json',
+            success: function (result) {
+                arrCat = result;
+                let Url;
+                for (let i = 0; i < arrCat.length; i++) {
+                    Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId;
+                    if (line % 2 == 0) {
+                        $('#' + count).append('<a class="cats" href="'+Url+'">' + arrCat[i].name + '</a><br>');
+                    }
+                    else {
+                        $('#' + count).append('<a class="cats r" href="'+Url+'">' + arrCat[i].name + '</a><br>');
+                    }
+                     if (arrCat.length - i <= 4) {
+                        $('#' + count).append('<br>');
+                    }
+                    count++;
+                    if (count > 4) {
+                        count = 1;
+                        line++;
+                    }
+                    $('.categsSelect').append('<option value="' + arrCat[i].categoryId + '">' + arrCat[i].name + '</option>')
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="regS"><p>Ваш аккаунт был успешно зарегистрирован, письмо для подтверждения уже было отправлено вам на почту.</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
+    <div id="regS1"><p>Вам на почту было отправлено письмо для восстановления пароля</p><button class="close"><i class="fas fa-times-circle"></i></button></div>
+    <button id="scrollBtn"><i class="fas fa-chevron-up"></i></button>
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2 logo_container">
+                    <a href="#"><img src="~/images/logoReversed.png" /></a>
+                </div>
+                <div class="col-md-5 search_container">
+                    <form class="search_form" action="@Url.Action("Search","Home")" method="get">
+                        <input type="search" class="searchBar" name="StringQuery" placeholder="Я ищу..."><input class="searchButton" value="Поиск" type="submit" />
+                    </form>
+                </div>
+                <div class="col-md-5 cart_container">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="favouriteList" href="@Url.Action("ShowFavourite", "Profile")" title="Избранные товары"><i class="fas fa-heart"></i></a>
+                    }
+                    else
+                    {
+                        <a class="favouriteList" href="#login" title="Избранные товары" data-fancybox="dsf"><i class="fas fa-heart"></i></a>
+                    }
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <a href="#login" class="login admLogin" data-fancybox="pp">Войти</a>
+                    }
+                    else
+                    {
+                        <div class="helloAuth ">
+                            <a href="#" class="login admLogin">Здравствуйте, @ViewBag.Fio</a>
+                            <div class="logedDropdown hidden">
+                                <ul>
+                                    <li class="authOption">
+                                        <a href="#">Личные данные <i class="fas fa-chevron-right"></i></a>
+                                    </li>
+                                    <li class="authOption leave">
+                                        Выход
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="categories">
+        <span id="cat">Категории <i id="arrowDown" class="fas fa-chevron-down"></i><i id="arrowUp" class="fas fa-chevron-up hdn"></i></span>
+        <div id="cats_hdn" class="hdn">
+            <div class="container">
+                <div class="row">
+                    <div id="1" class="col-md-3"></div>
+                    <div id="2" class="col-md-3"></div>
+                    <div id="3" class="col-md-3"></div>
+                    <div id="4" class="col-md-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+    </div>
+    <footer>    
+    </footer>
+</body>
+</html>
