@@ -2038,3 +2038,34 @@ textarea {
         .filterSelect{
             width:500px !important;
         }
+        #order{
+            max-width:400px;
+        }
+        #order>input{
+            width:320px;
+            height:35px;
+        }
+        #order input{
+            margin-bottom:15px;
+        }
+        .paymMethod input,.shipMethod input{
+            width:320px;
+            height:35px;
+        }
+        .post{
+            width:auto !important;
+            height:auto !important;
+        }
+        .shipMethod{
+            border-top:1px solid #404040;
+            padding-top:10px;
+            max-width:350px;
+        }
+        .shippingMethod,.paymentMethod{
+            margin-top:10px;
+        }
+        .sendOrder{
+            background-color:#202020;
+            border:none;
+        }
+        
