@@ -339,7 +339,7 @@
                                     }
                                 }
                                 else {
-                                    $('.charactsContainer').append('<div class="newCharact"><label class="charactName">' + e[i].name + '</label><br /><input class="charactValue" type="text" /><span class="removeCharact"><i class="fas fa-times"></i></span><input type="hidden" value="' + e[i].name + '" name = "CharacsNames"/></div>');
+                                    $('.charactsContainer').append('<div class="newCharact"><label class="charactName">' + e[i].name + '</label><br /><input class="charactValue" type="text" name="CharacsValues" /><span class="removeCharact"><i class="fas fa-times"></i></span><input type="hidden" value="' + e[i].name + '" name = "CharacsNames"/></div>');
                                 }
                                 $('.removeCharact').click(function () {
                                     $(this).parent().remove();

@@ -1190,5 +1190,7 @@ namespace AmitTextile.Controllers
             List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
             return View(new SearchModel(){PagesCounterList = newList, Textiles = model.Skip((page - 1) * 9).Take(9).ToList(), Model = pageViewModel, StringQuery = StringQuery});
         }
+        
+        
     }
 }
