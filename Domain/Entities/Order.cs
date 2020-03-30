@@ -7,7 +7,7 @@ namespace AmitTextile.Domain
     {
         public Guid OrderId { get; set; }
         
-        public int CardNum { get; set; }
+        public string CardNum { get; set; }
 
         public string Email { get; set; }
 

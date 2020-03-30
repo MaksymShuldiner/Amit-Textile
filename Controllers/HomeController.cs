@@ -1196,31 +1196,37 @@ namespace AmitTextile.Controllers
             Order order = new Order();
             if (model.OrderType == "toAdress")
             { 
-                order = new Order() { OrderId = Id, Address = model.Address, CardNum = model.CardNum, DepartmentNum = model.DepartmentNum, DepartmentName = model.DepartmentName, Email = model.Email, Fio = model.Fio, PhoneNumber = model.PhoneNumber, isDelivery  = true, isToAddress = true, isPaidByCash = model.isPaidByCash};
+                order = new Order() { OrderId = Id, Address = model.Address, CardNum = model.CardNum, DepartmentNum = model.DepartmentNum, DepartmentName = model.DepartmentName, Email = model.Email, Fio = model.Fio, PhoneNumber = model.PhoneNumber, isDelivery  = true, isToAddress = true, isPaidByCash = model.isPaidByCash, Sum = model.Sum , isPickup = false};
             }
             else if (model.OrderType == "toDepartment")
             {
-                order = new Order() { OrderId = Id, Address = model.Address, CardNum = model.CardNum, DepartmentNum = model.DepartmentNum, DepartmentName = model.DepartmentName, Email = model.Email, Fio = model.Fio, PhoneNumber = model.PhoneNumber, isDelivery = true, isToAddress = false, isPaidByCash = model.isPaidByCash };
+                order = new Order() { OrderId = Id, Address = model.Address, CardNum = model.CardNum, DepartmentNum = model.DepartmentNum, DepartmentName = model.DepartmentName, Email = model.Email, Fio = model.Fio, PhoneNumber = model.PhoneNumber, isDelivery = true, isToAddress = false, isPaidByCash = model.isPaidByCash, Sum = model.Sum, isPickup = false};
             }
             else if (model.OrderType == "pickup")
             {
-                order = new Order() { OrderId = Id, Address = model.Address, CardNum = model.CardNum, DepartmentNum = model.DepartmentNum, DepartmentName = model.DepartmentName, Email = model.Email, Fio = model.Fio, PhoneNumber = model.PhoneNumber, isDelivery = false, isToAddress = false, isPaidByCash = model.isPaidByCash };
+                order = new Order()
+                {
+                    OrderId = Id, Address = model.Address, CardNum = model.CardNum, DepartmentNum = model.DepartmentNum,
+                    DepartmentName = model.DepartmentName, Email = model.Email, Fio = model.Fio,
+                    PhoneNumber = model.PhoneNumber, isDelivery = false, isToAddress = false,
+                    isPaidByCash = model.isPaidByCash, Sum = model.Sum, isPickup = true
+                };
             }
             List<ItemOrder> itemorders = new List<ItemOrder>();
             if (User.Identity.IsAuthenticated)
             {
-                Cart cart = await _context.Carts.FindAsync(_userManager.FindByNameAsync(User.Identity.Name).Result.CartId);
+                Cart cart = _context.Carts.Include(x=>x.Items).FirstOrDefault(x=> x.CartId == _userManager.FindByNameAsync(User.Identity.Name).Result.CartId);
                 foreach (var x in cart.Items )
-                {
+                {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
                     itemorders.Add(new ItemOrder(){OrderId = Id, ItemId = x.ItemId});
                 }
             }
             else
             {
-                Cart cart = _context.Carts.FirstOrDefault(x => x.NonAuthorizedId == Guid.Parse(HttpContext.Request.Cookies["Cart"]));
+                Cart cart = _context.Carts.Include(x=>x.Items).FirstOrDefault(x => x.NonAuthorizedId == Guid.Parse(HttpContext.Request.Cookies["Cart"]));
                 if (cart == null)
                 {
-                    return BadRequest();
+                    return RedirectToAction("Index", "Home");
                 }
                 foreach (var x in cart.Items)
                 {
@@ -1230,7 +1236,7 @@ namespace AmitTextile.Controllers
             order.ItemOrders = itemorders;
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
-            return Ok();
+            return RedirectToAction("Index", "Home");
         }
 
     }

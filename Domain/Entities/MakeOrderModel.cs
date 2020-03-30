@@ -4,7 +4,7 @@ namespace AmitTextile.Domain
 {
     public class MakeOrderModel
     {
-        public int CardNum { get; set; }
+        public string CardNum { get; set; }
 
         public string Email { get; set; }
 

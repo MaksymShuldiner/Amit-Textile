@@ -202,7 +202,7 @@
                     $('.city').prev().prev().removeClass('hidden');
                     $('.city').next().removeClass('hidden');
                     $('.city').removeClass('hidden');
-                    $('.city').attr('name', 'Adress');
+                    $('.city').attr('name', 'Address');
                 }
                 $('.shippingMethod').append('<div class="shipMethod"><input type="radio" name="DepartmentName" class="post ukr"/><label>&nbsp &nbsp Укр. почта</label><br/><input type="radio" name="DepartmentName" class="post new"/><label>&nbsp &nbsp Новая почта</label><br/><label>Номер отделения</label><br/><input type="text" class="depNumber" name="DepartmentNum"></div>');
                 $('.shippingRadio').attr('value', 'toDepartment');
@@ -251,7 +251,7 @@
             $('.city').prev().removeClass('hidden');
             $('.city').prev().prev().removeClass('hidden');
             $('.city').removeClass('hidden');
-            $('.city').attr('name', 'Adress');
+            $('.city').attr('name', 'Address');
         }
         $('.shippingMethod').append('<div class="shipMethod"><input type="radio" name="DepartmentName" class="post urk"/><label>&nbsp &nbsp Укр. почта</label><br/><input type="radio" name="DepartmentName" class="post new"/><label>&nbsp &nbsp Новая почта</label><br/><label>Номер отделения</label><br/><input type="text" class="depNumber" name="DepartmentNum"></div>');
         $('.shippingRadio').attr('value', 'toDepartment');
