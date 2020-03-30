@@ -178,20 +178,20 @@
         if ($(this).is(':checked')) {
             $('.paymMethod').remove();
             if ($(this).hasClass('byCard')) {
-                $('.paymentMethod').append('<div class="paymMethod"><label>Номер карты</label><br/><input class="cardNumber" type="text"/></div>');
-                $('.payment').attr('value', 'byCard');
+                $('.paymentMethod').append('<div class="paymMethod"><label>Номер карты</label><br/><input name="CardNum" class="cardNumber" type="text"/></div>');
+                $('.payment').attr('value', 'false');
             }
             else {
-                $('.payment').attr('value', 'byCash');
+                $('.payment').attr('value', 'true');
             }
         }
     });
     if ($('.byCard').is(':checked')) {
-        $('.paymentMethod').append('<div class="paymMethod"><label>Номер карты</label><br/><input class="cardNumber" type="text"/></div>');
-        $('.payment').attr('value', 'byCard');
+        $('.paymentMethod').append('<div class="paymMethod"><label>Номер карты</label><br/><input class="cardNumber" name="CardNum" type="text"/></div>');
+        $('.payment').attr('value', 'false');
     }
     else if ($('.byCash').is(':checked')) {
-        $('.payment').attr('value', 'byCash');
+        $('.payment').attr('value', 'true');
     }
     $('.shippingRadio').change(function () {
         if ($(this).is(':checked')) {
@@ -204,7 +204,7 @@
                     $('.city').removeClass('hidden');
                     $('.city').attr('name', 'Adress');
                 }
-                $('.shippingMethod').append('<div class="shipMethod"><input type="radio" name="post" class="post"/><label>&nbsp &nbsp Укр. почта</label><br/><input type="radio" name="post" class="post"/><label>&nbsp &nbsp Новая почта</label><br/><label>Номер отделения</label><br/><input type="text" class="depNumber" name="DepartmentNum"></div>');
+                $('.shippingMethod').append('<div class="shipMethod"><input type="radio" name="DepartmentName" class="post ukr"/><label>&nbsp &nbsp Укр. почта</label><br/><input type="radio" name="DepartmentName" class="post new"/><label>&nbsp &nbsp Новая почта</label><br/><label>Номер отделения</label><br/><input type="text" class="depNumber" name="DepartmentNum"></div>');
                 $('.shippingRadio').attr('value', 'toDepartment');
             }
             else if ($(this).hasClass('toAddress')) {
@@ -213,7 +213,7 @@
                 $('.city').prev().prev().addClass('hidden');
                 $('.city').addClass('hidden');
                 $('.city').removeAttr('name');
-                $('.shippingMethod').append('<div class="shipMethod"><input type="radio" name="post" class="post"/><label>&nbsp &nbsp Укр. почта</label><br/><input type="radio" name="post" class="post"/><label>&nbsp &nbsp Новая почта</label><br/><label>Ваш адрес</label><br/><input type="text" class="address" name="Adress"/></div>');
+                $('.shippingMethod').append('<div class="shipMethod"><input type="radio" name="DepartmentName" class="post ukr"/><label>&nbsp &nbsp Укр. почта</label><br/><input type="radio" name="DepartmentName" class="post new"/><label>&nbsp &nbsp Новая почта</label><br/><label>Ваш адрес</label><br/><input type="text" class="address" name="Adress"/></div>');
                 $('.shippingRadio').attr('value', 'toAdress');
             }
             else {
@@ -236,7 +236,7 @@
             $('.city').removeClass('hidden');
             $('.city').attr('name', 'Adress');
         }
-        $('.shippingMethod').append('<div class="shipMethod"><input type="radio" name="post" class="post"/><label>&nbsp &nbsp Укр. почта</label><br/><input type="radio" name="post" class="post"/><label>&nbsp &nbsp Новая почта</label><br/><label>Номер отделения</label><br/><input type="text" class="depNumber" name="DepartmentNum"></div>');
+        $('.shippingMethod').append('<div class="shipMethod"><input type="radio" name="DepartmentName" class="post urk"/><label>&nbsp &nbsp Укр. почта</label><br/><input type="radio" name="DepartmentName" class="post new"/><label>&nbsp &nbsp Новая почта</label><br/><label>Номер отделения</label><br/><input type="text" class="depNumber" name="DepartmentNum"></div>');
         $('.shippingRadio').attr('value', 'toDepartment');
     }
     else if ($('.toAddress').is(':checked')) {
@@ -245,7 +245,7 @@
         $('.city').prev().prev().addClass('hidden');
         $('.city').addClass('hidden');
         $('.city').removeAttr('name');
-        $('.shippingMethod').append('<div class="shipMethod"><input type="radio" name="post" class="post"/><label>&nbsp &nbsp Укр. почта</label><br/><input type="radio" name="post" class="post"/><label>&nbsp &nbsp Новая почта</label><br/><label>Ваш адрес</label><br/><input type="text" class="address" name="Adress"/></div>');
+        $('.shippingMethod').append('<div class="shipMethod"><input type="radio" name="DepartmentName" class="post ukr"/><label>&nbsp &nbsp Укр. почта</label><br/><input type="radio" name="DepartmentName" class="post new"/><label>&nbsp &nbsp Новая почта</label><br/><label>Ваш адрес</label><br/><input type="text" class="address" name="Adress"/></div>');
         $('.shippingRadio').attr('value', 'toAdress');
     }
     else if ($('.pickup').is(':checked')) {
