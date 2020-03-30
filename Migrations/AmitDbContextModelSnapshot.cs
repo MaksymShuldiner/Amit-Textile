@@ -276,6 +276,9 @@ namespace AmitTextile.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Sum")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<bool>("isDelivery")
                         .HasColumnType("bit");
 

@@ -20,6 +20,8 @@ namespace AmitTextile.Domain
         public bool isPickup { get; set; }
         public int DepartmentNum { get; set; }
 
+        public bool isToAddress { get; set; }
+
         public string PhoneNumber { get; set; }
 
         public bool isPaidByCash { get; set; }

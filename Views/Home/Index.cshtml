@@ -351,10 +351,11 @@
             <input type="text" class="city" name="Adress"/><br/>
             <label>Выберите метод доставки</label><br/>
             <div class="shippingMethod">
-                <input type="radio" name="OrderType" class="shippingRadio pickup" /><label>&nbsp &nbsp Самовывоз из магазина</label><br />
+                <input type="radio" name="OrderType" class="shippingRadio pickup" checked="checked"/><label>&nbsp &nbsp Самовывоз из магазина</label><br />
                 <input type="radio" name="OrderType" class="shippingRadio toDepartment" /><label>&nbsp &nbsp В отделение</label><br />
                 <input type="radio" name="OrderType" class="shippingRadio toAddress" /><label>&nbsp &nbsp Адресная доставка</label><br />
             </div>
+            <input type="hidden" name="Sum" value="@yDecimal"/>
             <input type="submit" class="sendOrder createItem" value="Оформить заказ"/>
         </form>
     </div>
