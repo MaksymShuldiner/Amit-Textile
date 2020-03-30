@@ -1211,7 +1211,7 @@ namespace AmitTextile.Controllers
             {
                 Cart cart = await _context.Carts.FindAsync(_userManager.FindByNameAsync(User.Identity.Name).Result.CartId);
                 foreach (var x in cart.Items )
-                {
+                {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
                     itemorders.Add(new ItemOrder(){OrderId = Id, ItemId = x.ItemId});
                 }
             }
