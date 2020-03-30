@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace AmitTextile.Controllers
 {
@@ -209,10 +210,16 @@ namespace AmitTextile.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
+            ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Admin/Orders";
             List<Order> Orders = _context.Orders.Include(x => x.ItemOrders).ThenInclude(x => x.Item).ThenInclude(x=>x.Textile).ThenInclude(x=>x.MainImage).OrderByDescending(x=>x.TimeCreated).Skip((page-1)*5).Take(5).ToList();
             PageViewModel model = new PageViewModel(await _context.Orders.CountAsync(), page,5 );
-            return View(new OrdersModel(){Model = model, Orders = Orders});
+            List<int> pagesCounterList = new List<int>();
+            for (int i = 1; i <= model.TotalPages; i++)
+            {
+                pagesCounterList.Add(i);
+            }
+            List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
+            return View(new OrdersModel(){Model = model, Orders = Orders, PagesCounterList = newList});
         }
     }
 }

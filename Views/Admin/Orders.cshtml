@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model AmitTextile.Models.OrdersModel
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -115,85 +116,631 @@
     </div>
     <div class="content">
         <div class="order">
-            <div class="orderItem">
-                <table class="orderInfo">
-                    <tr>
-                        <th>
-                            ФИО
-                        </th>
-                        <th>
-                            Эл. почта
-                        </th>
-                        <th>
-                            Моб. телефон
-                        </th>
-                        <th>
-                            Дата заказа
-                        </th>
-                        <th>
-                            Способ доставки
-                        </th>
-                        <th>
-                            Способ доставки
-                        </th>
-                        <th>
-                            Сумма заказа
-                        </th>
-                    </tr>
-                    <tr class="orderInfoRow">
-                        <td>
-                            <span>Великородний Андрей Владимирович</span>
-                        </td>
-                        <td>
-                            <span>razaare02@gmail.com</span>
-                        </td>
-                        <td>
-                            <span>+380989584538</span>
-                        </td>
-                        <td>
-                            <span>30.03.2020</span>
-                        </td>
-                        <td>
-                            <span>Cамовывоз из магазина</span>
-                        </td>
-                        <td>
-                            <span>Оплата наличными</span>
-                        </td>
-                        <td>
-                            <span>550₴</span>
-                        </td>
-                        <td class="wrapTd">
-                            <div class="showOrder">
-                                <span><i class="fas fa-chevron-down"></i><i class="fas fa-chevron-up hidden"></i></span>
-                            </div>
-                            <div class="orderExtra hidden">
-                                <table class="orderDetails">
-                                    <tr>
-                                        <th>Фото товара</th>
-                                        <th>Название товара</th>
-                                        <th>Кол-во товара</th>
-                                        <th>Сумма</th>
-                                    </tr>
-                                    <tr class="orderDetailsRow">
-                                        <td>
-                                            <img class="orderDetailsImg" src="~/images/img1.jpg" alt="orderDetailsImg" />
-                                        </td>
-                                        <td>
-                                            <a class="orderItemName" href="#">OrderItemName</a>
-                                        </td>
-                                        <td>
-                                            <span>3</span>
-                                        </td>
-                                        <td>
-                                            <span>1200₴</span>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            @foreach (var order in Model.Orders)
+            {
+                if (order.isPickup && order.isPaidByCash)
+                {
+                    <div class="orderItem">
+                        <table class="orderInfo">
+                            <tr>
+                                <th>
+                                    ФИО
+                                </th>
+                                <th>
+                                    Эл. почта
+                                </th>
+                                <th>
+                                    Моб. телефон
+                                </th>
+                                <th>
+                                    Дата заказа
+                                </th>
+                                <th>
+                                    Способ доставки
+                                </th>
+                                <th>
+                                    Способ оплаты
+                                </th>
+                                <th>
+                                    Сумма заказа
+                                </th>
+                            </tr>
+                            <tr class="orderInfoRow">
+                                <td>
+                                    <span>@order.Fio</span>
+                                </td>
+                                <td>
+                                    <span>@order.Email</span>
+                                </td>
+                                <td>
+                                    <span>@order.PhoneNumber</span>
+                                </td>
+                                <td>
+                                    <span>@order.TimeCreated.ToString()</span>
+                                </td>
+                                <td>
+                                    <span>Cамовывоз из магазина</span>
+                                </td>
+                                <td>
+                                    <span>Оплата наличными</span>
+                                </td>
+                                <td>
+                                    <span>@order.Sum₴</span>
+                                </td>
+                                <td class="wrapTd">
+                                    <div class="showOrder">
+                                        <span><i class="fas fa-chevron-down"></i><i class="fas fa-chevron-up hidden"></i></span>
+                                    </div>
+                                    <div class="orderExtra hidden">
+                                        <table class="orderDetails">
+                                            <tr>
+                                                <th>Фото товара</th>
+                                                <th>Название товара</th>
+                                                <th>Кол-во товара</th>
+                                                <th>Сумма</th>
+                                            </tr>
+                                            @foreach (var item in order.ItemOrders)
+                                            {
+                                                <tr class="orderDetailsRow">
+                                                    <td>
+                                                        <img class="orderDetailsImg" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Item.Textile.MainImage.ByteImg))" alt="orderDetailsImg" />
+                                                    </td>
+                                                    <td>
+                                                        <a class="orderItemName" href="#">@item.Item.Textile.Name</a>
+                                                    </td>
+                                                    <td>
+                                                        <span>@item.Item.ItemsAmount</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@(item.Item.Textile.Price* item.Item.ItemsAmount)</span>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                }
+                if (order.isPickup && !order.isPaidByCash)
+                {
+                    <div class="orderItem">
+                        <table class="orderInfo">
+                            <tr>
+                                <th>
+                                    ФИО
+                                </th>
+                                <th>
+                                    Эл. почта
+                                </th>
+                                <th>
+                                    Моб. телефон
+                                </th>
+                                <th>
+                                    Дата заказа
+                                </th>
+                                <th>
+                                    Номер карточки
+                                </th>
+                                <th>
+                                    Способ доставки
+                                </th>
+                                <th>
+                                    Способ оплаты
+                                </th>
+                                <th>
+                                    Сумма заказа
+                                </th>
+                            </tr>
+                            <tr class="orderInfoRow">
+                                <td>
+                                    <span>@order.Fio</span>
+                                </td>
+                                <td>
+                                    <span>@order.Email</span>
+                                </td>
+                                <td>
+                                    <span>@order.PhoneNumber</span>
+                                </td>
+                                <td>
+                                    <span>@order.TimeCreated.ToString()</span>
+                                </td>
+                                <td>
+                                    <span>@order.CardNum</span>
+                                </td>
+                                <td>
+                                    <span>Cамовывоз из магазина</span>
+                                </td>
+                                <td>
+                                    <span>Оплата карточкой</span>
+                                </td>
+                                <td>
+                                    <span>@order.Sum₴</span>
+                                </td>
+
+                                <td class="wrapTd">
+                                    <div class="showOrder">
+                                        <span><i class="fas fa-chevron-down"></i><i class="fas fa-chevron-up hidden"></i></span>
+                                    </div>
+                                    <div class="orderExtra hidden">
+                                        <table class="orderDetails">
+                                            <tr>
+                                                <th>Фото товара</th>
+                                                <th>Название товара</th>
+                                                <th>Кол-во товара</th>
+                                                <th>Сумма</th>
+                                            </tr>
+                                            @foreach (var item in order.ItemOrders)
+                                            {
+                                                <tr class="orderDetailsRow">
+                                                    <td>
+                                                        <img class="orderDetailsImg" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Item.Textile.MainImage.ByteImg))" alt="orderDetailsImg" />
+                                                    </td>
+                                                    <td>
+                                                        <a class="orderItemName" href="#">@item.Item.Textile.Name</a>
+                                                    </td>
+                                                    <td>
+                                                        <span>@item.Item.ItemsAmount</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@(item.Item.Textile.Price* item.Item.ItemsAmount)</span>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                }
+                if (order.isDelivery && !order.isPaidByCash && !order.isToAddress)
+                {
+                    <div class="orderItem">
+                        <table class="orderInfo">
+                            <tr>
+                                <th>
+                                    ФИО
+                                </th>
+                                <th>
+                                    Эл. почта
+                                </th>
+                                <th>
+                                    Моб. телефон
+                                </th>
+                                <th>
+                                    Дата заказа
+                                </th>
+                                <th>
+                                    Адрес(город)
+                                </th>
+                                <th>
+                                    Номер карточки
+                                </th>
+                                <th>
+                                    Укр Почта/Новая почта
+                                </th>
+                                <th>
+                                    Номер отделения
+                                </th>
+                                <th>
+                                    Способ доставки
+                                </th>
+                                <th>
+                                    Способ оплаты
+                                </th>
+                                <th>
+                                    Сумма заказа
+                                </th>
+                            </tr>
+                            <tr class="orderInfoRow">
+                                <td>
+                                    <span>@order.Fio</span>
+                                </td>
+                                <td>
+                                    <span>@order.Email</span>
+                                </td>
+                                <td>
+                                    <span>@order.PhoneNumber</span>
+                                </td>
+                                <td>
+                                    <span>@order.TimeCreated.ToString()</span>
+                                </td>
+                                <td>
+                                    <span>@order.Address</span>
+                                </td>
+                                <td>
+                                    <span>@order.CardNum</span>
+                                </td>
+                                <td>
+                                    <span>@order.DepartmentName</span>
+                                </td>
+                                <td>
+                                    <span>@order.DepartmentNum</span>
+                                </td>
+                                <td>
+                                    <span>Доставка в отделение почты</span>
+                                </td>
+                                <td>
+                                    <span>Оплата карточкой</span>
+                                </td>
+                                <td>
+                                    <span>@order.Sum₴</span>
+                                </td>
+                                <td class="wrapTd">
+                                    <div class="showOrder">
+                                        <span><i class="fas fa-chevron-down"></i><i class="fas fa-chevron-up hidden"></i></span>
+                                    </div>
+                                    <div class="orderExtra hidden">
+                                        <table class="orderDetails">
+                                            <tr>
+                                                <th>Фото товара</th>
+                                                <th>Название товара</th>
+                                                <th>Кол-во товара</th>
+                                                <th>Сумма</th>
+                                            </tr>
+                                            @foreach (var item in order.ItemOrders)
+                                            {
+                                                <tr class="orderDetailsRow">
+                                                    <td>
+                                                        <img class="orderDetailsImg" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Item.Textile.MainImage.ByteImg))" alt="orderDetailsImg" />
+                                                    </td>
+                                                    <td>
+                                                        <a class="orderItemName" href="#">@item.Item.Textile.Name</a>
+                                                    </td>
+                                                    <td>
+                                                        <span>@item.Item.ItemsAmount</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@(item.Item.Textile.Price* item.Item.ItemsAmount)</span>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                }
+                if (order.isDelivery && order.isPaidByCash && !order.isToAddress)
+                {
+                    <div class="orderItem">
+                        <table class="orderInfo">
+                            <tr>
+                                <th>
+                                    ФИО
+                                </th>
+                                <th>
+                                    Эл. почта
+                                </th>
+                                <th>
+                                    Моб. телефон
+                                </th>
+                                <th>
+                                    Дата заказа
+                                </th>
+                                <th>
+                                    Адрес(город)
+                                </th>
+                                <th>
+                                    Укр Почта/Новая почта
+                                </th>
+                                <th>
+                                    Номер отделения
+                                </th>
+                                <th>
+                                    Способ доставки
+                                </th>
+                                <th>
+                                    Способ оплаты
+                                </th>
+                                <th>
+                                    Сумма заказа
+                                </th>
+                            </tr>
+                            <tr class="orderInfoRow">
+                                <td>
+                                    <span>@order.Fio</span>
+                                </td>
+                                <td>
+                                    <span>@order.Email</span>
+                                </td>
+                                <td>
+                                    <span>@order.PhoneNumber</span>
+                                </td>
+                                <td>
+                                    <span>@order.TimeCreated.ToString()</span>
+                                </td>
+                                <td>
+                                    <span>@order.Address</span>
+                                </td>
+                                <td>
+                                    <span>@order.DepartmentName</span>
+                                </td>
+                                <td>
+                                    <span>@order.DepartmentNum</span>
+                                </td>
+                                <td>
+                                    <span>Доставка в отделение почты</span>
+                                </td>
+                                <td>
+                                    <span>Оплата наличным расчётом</span>
+                                </td>
+                                <td>
+                                    <span>@order.Sum₴</span>
+                                </td>
+                                <td class="wrapTd">
+                                    <div class="showOrder">
+                                        <span><i class="fas fa-chevron-down"></i><i class="fas fa-chevron-up hidden"></i></span>
+                                    </div>
+                                    <div class="orderExtra hidden">
+                                        <table class="orderDetails">
+                                            <tr>
+                                                <th>Фото товара</th>
+                                                <th>Название товара</th>
+                                                <th>Кол-во товара</th>
+                                                <th>Сумма</th>
+                                            </tr>
+                                            @foreach (var item in order.ItemOrders)
+                                            {
+                                                <tr class="orderDetailsRow">
+                                                    <td>
+                                                        <img class="orderDetailsImg" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Item.Textile.MainImage.ByteImg))" alt="orderDetailsImg" />
+                                                    </td>
+                                                    <td>
+                                                        <a class="orderItemName" href="#">@item.Item.Textile.Name</a>
+                                                    </td>
+                                                    <td>
+                                                        <span>@item.Item.ItemsAmount</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@(item.Item.Textile.Price* item.Item.ItemsAmount)</span>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                }
+                if (order.isToAddress && order.isPaidByCash && order.isDelivery)
+                {
+                    <div class="orderItem">
+                        <table class="orderInfo">
+                            <tr>
+                                <th>
+                                    ФИО
+                                </th>
+                                <th>
+                                    Эл. почта
+                                </th>
+                                <th>
+                                    Моб. телефон
+                                </th>
+                                <th>
+                                    Дата заказа
+                                </th>
+                                <th>
+                                    Адрес
+                                </th>
+                                <th>
+                                    Способ доставки
+                                </th>
+                                <th>
+                                    Способ оплаты
+                                </th>
+                                <th>
+                                    Сумма заказа
+                                </th>
+                            </tr>
+                            <tr class="orderInfoRow">
+                                <td>
+                                    <span>@order.Fio</span>
+                                </td>
+                                <td>
+                                    <span>@order.Email</span>
+                                </td>
+                                <td>
+                                    <span>@order.PhoneNumber</span>
+                                </td>
+                                <td>
+                                    <span>@order.TimeCreated.ToString()</span>
+                                </td>
+                                <td>
+                                    <span>@order.Address</span>
+                                </td>
+                                <td>
+                                    <span>Курьерская доставка по адресу</span>
+                                </td>
+                                <td>
+                                    <span>Оплата наличным расчётом</span>
+                                </td>
+                                <td>
+                                    <span>@order.Sum₴</span>
+                                </td>
+                                <td class="wrapTd">
+                                    <div class="showOrder">
+                                        <span><i class="fas fa-chevron-down"></i><i class="fas fa-chevron-up hidden"></i></span>
+                                    </div>
+                                    <div class="orderExtra hidden">
+                                        <table class="orderDetails">
+                                            <tr>
+                                                <th>Фото товара</th>
+                                                <th>Название товара</th>
+                                                <th>Кол-во товара</th>
+                                                <th>Сумма</th>
+                                            </tr>
+                                            @foreach (var item in order.ItemOrders)
+                                            {
+                                                <tr class="orderDetailsRow">
+                                                    <td>
+                                                        <img class="orderDetailsImg" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Item.Textile.MainImage.ByteImg))" alt="orderDetailsImg" />
+                                                    </td>
+                                                    <td>
+                                                        <a class="orderItemName" href="#">@item.Item.Textile.Name</a>
+                                                    </td>
+                                                    <td>
+                                                        <span>@item.Item.ItemsAmount</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@(item.Item.Textile.Price* item.Item.ItemsAmount)</span>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                }
+                if (order.isToAddress && !order.isPaidByCash && order.isDelivery)
+                {
+                    <div class="orderItem">
+                        <table class="orderInfo">
+                            <tr>
+                                <th>
+                                    ФИО
+                                </th>
+                                <th>
+                                    Эл. почта
+                                </th>
+                                <th>
+                                    Моб. телефон
+                                </th>
+                                <th>
+                                    Дата заказа
+                                </th>
+                                <th>
+                                    Адрес
+                                </th>
+                                <th>
+                                    Номер карточки
+                                </th>
+                                <th>
+                                    Способ доставки
+                                </th>
+                                <th>
+                                    Способ оплаты
+                                </th>
+                                <th>
+                                    Сумма заказа
+                                </th>
+                            </tr>
+                            <tr class="orderInfoRow">
+                                <td>
+                                    <span>@order.Fio</span>
+                                </td>
+                                <td>
+                                    <span>@order.Email</span>
+                                </td>
+                                <td>
+                                    <span>@order.PhoneNumber</span>
+                                </td>
+                                <td>
+                                    <span>@order.TimeCreated.ToString()</span>
+                                </td>
+                                <td>
+                                    <span>@order.Address</span>
+                                </td>
+                                <td>
+                                    <span>@order.CardNum</span>
+                                </td>
+                                <td>
+                                    <span>Курьерская доставка по адресу</span>
+                                </td>
+                                <td>
+                                    <span>Оплата наличным расчётом</span>
+                                </td>
+                                <td>
+                                    <span>@order.Sum₴</span>
+                                </td>
+                                <td class="wrapTd">
+                                    <div class="showOrder">
+                                        <span><i class="fas fa-chevron-down"></i><i class="fas fa-chevron-up hidden"></i></span>
+                                    </div>
+                                    <div class="orderExtra hidden">
+                                        <table class="orderDetails">
+                                            <tr>
+                                                <th>Фото товара</th>
+                                                <th>Название товара</th>
+                                                <th>Кол-во товара</th>
+                                                <th>Сумма</th>
+                                            </tr>
+                                            @foreach (var item in order.ItemOrders)
+                                            {
+                                                <tr class="orderDetailsRow">
+                                                    <td>
+                                                        <img class="orderDetailsImg" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Item.Textile.MainImage.ByteImg))" alt="orderDetailsImg" />
+                                                    </td>
+                                                    <td>
+                                                        <a class="orderItemName" href="#">@item.Item.Textile.Name</a>
+                                                    </td>
+                                                    <td>
+                                                        <span>@item.Item.ItemsAmount</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@(item.Item.Textile.Price* item.Item.ItemsAmount)</span>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                }
+
+            }
+        </div>
+        <div class="navButtons">
+            <ul>
+                @if (Model.Model.HasPreviousPage)
+                {
+                    <text>
+                        <a class="zxc" href="@ViewBag.Url?page=@(Model.Model.PageNumber-1)"><li class="pagButtons"><span><i class="fas fa-chevron-left"></i> Назад</span></li></a>
+                    </text>
+                }
+                else
+                {
+                    <text>
+                        <li class="pagButtons disabled"><span><i class="fas fa-chevron-left"></i> Назад</span></li>
+                    </text>
+                }
+                @foreach (var x in Model.PagesCounterList)
+                {
+                    <text>
+                        <a class="zxc1" href="@ViewBag.Url?page=@x">
+                            <li class="pagButtons number"><span>@x</span></li>
+                        </a>
+                    </text>
+                }
+
+                @if (Model.Model.HasNextPage)
+                {
+                    <text>
+                        <a class="zxc" href="@ViewBag.Url?page=@(Model.Model.PageNumber+1)"><li class="pagButtons"><span>Вперед <i class="fas fa-chevron-right"></i></span></li></a>
+                    </text>
+                }
+                else
+                {
+                    <text>
+                        <li class="pagButtons disabled"><span> Вперед <i class="fas fa-chevron-right"></i></span></li>
+                    </text>
+                }
+
+            </ul>
         </div>
     </div>
     <footer>
