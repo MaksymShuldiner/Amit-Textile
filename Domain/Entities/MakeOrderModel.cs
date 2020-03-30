@@ -16,9 +16,12 @@ namespace AmitTextile.Domain
 
         public int DepartmentNum { get; set; }
 
+        public decimal Sum { get; set; }
         public string PhoneNumber { get; set; }
 
         public string OrderType { get; set; }
+
+        public bool isPaidByCash { get; set; }
 
     }
 }

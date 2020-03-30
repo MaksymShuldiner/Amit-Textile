@@ -276,6 +276,9 @@ namespace AmitTextile.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Sum")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<bool>("isDelivery")
                         .HasColumnType("bit");
 
@@ -283,6 +286,9 @@ namespace AmitTextile.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("isPickup")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isToAddress")
                         .HasColumnType("bit");
 
                     b.HasKey("OrderId");

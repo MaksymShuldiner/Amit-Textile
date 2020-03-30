@@ -1193,7 +1193,19 @@ namespace AmitTextile.Controllers
         public async Task<IActionResult> MakeOrder(MakeOrderModel model)
         {
             Guid Id = Guid.NewGuid();
-            Order order = new Order(){OrderId = Id, Address = model.Address, CardNum = model.CardNum, DepartmentNum = model.DepartmentNum, DepartmentName = model.DepartmentName, Email = model.Email, Fio = model.Fio, PhoneNumber = model.PhoneNumber};
+            Order order = new Order();
+            if (model.OrderType == "toAdress")
+            { 
+                order = new Order() { OrderId = Id, Address = model.Address, CardNum = model.CardNum, DepartmentNum = model.DepartmentNum, DepartmentName = model.DepartmentName, Email = model.Email, Fio = model.Fio, PhoneNumber = model.PhoneNumber, isDelivery  = true, isToAddress = true, isPaidByCash = model.isPaidByCash};
+            }
+            else if (model.OrderType == "toDepartment")
+            {
+                order = new Order() { OrderId = Id, Address = model.Address, CardNum = model.CardNum, DepartmentNum = model.DepartmentNum, DepartmentName = model.DepartmentName, Email = model.Email, Fio = model.Fio, PhoneNumber = model.PhoneNumber, isDelivery = true, isToAddress = false, isPaidByCash = model.isPaidByCash };
+            }
+            else if (model.OrderType == "pickup")
+            {
+                order = new Order() { OrderId = Id, Address = model.Address, CardNum = model.CardNum, DepartmentNum = model.DepartmentNum, DepartmentName = model.DepartmentName, Email = model.Email, Fio = model.Fio, PhoneNumber = model.PhoneNumber, isDelivery = false, isToAddress = false, isPaidByCash = model.isPaidByCash };
+            }
             List<ItemOrder> itemorders = new List<ItemOrder>();
             if (User.Identity.IsAuthenticated)
             {
