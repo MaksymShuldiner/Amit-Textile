@@ -20,5 +20,7 @@ namespace AmitTextile.Domain
 
         public string OrderType { get; set; }
 
+        public bool isPaidByCash { get; set; }
+
     }
 }
