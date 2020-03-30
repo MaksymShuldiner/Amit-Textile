@@ -72,18 +72,6 @@
                 }
             },
         });
-        $.ajax({
-            type: 'GET',
-            url: "@Url.Action("GetFilters", "Admin")",
-            contentType: "json",
-            success: function (e) {
-                if ($('.filterSelect').length != 0) {
-                    for (let i = 0; i < e.length; i++) {
-                        $('.filterCharSelect').append('<option value="' + e[i].charachteristicId + '"> ' + e[i].name + '</option>');
-                    }
-                }
-            }
-        })
     </script>
 </head>
 <body>
@@ -309,6 +297,55 @@
                         }
                         $('.priceWithDiscount').toggleClass('hidden');
                     });
+                    $.ajax({
+                    type: 'GET',
+                    url:'@Url.Action("GetCategories", "TextileApi")',
+                    contentType: 'json',
+                    success: function (result) {
+                        arrCat = result;
+                        let Url;
+                        for (let i = 0; i < arrCat.length; i++) {
+                            Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId;
+                            if (line % 2 == 0) {
+                                $('#' + count).append('<a class="cats" href="'+Url+'">' + arrCat[i].name + '</a><br>');
+                            }
+                            else {
+                                $('#' + count).append('<a class="cats r" href="'+Url+'">' + arrCat[i].name + '</a><br>');
+                            }
+                             if (arrCat.length - i <= 4) {
+                                $('#' + count).append('<br>');
+                            }
+                            count++;
+                            if (count > 4) {
+                                count = 1;
+                                line++;
+                            }
+                            $('.categsSelect').append('<option value="' + arrCat[i].categoryId + '">' + arrCat[i].name + '</option>')
+                            }
+                        }
+                    });
+                    $.ajax({
+                        type: 'GET',
+                        url: "@Url.Action("GetCharachteristics","Admin")",
+                        contentType: 'json',
+                        success: function (e) {
+                            console.log(e);
+                            for (let i = 0; i < e.length; i++) {
+                                if (e[i].values.length != 0) {
+                                    $('.charactsContainer').append('<div class="selectContainer"><label>' + e[i].name + '</label><br/><div class="select-wrapper createSelect"><select name="CharacsValues" class="characteristicSelect ' + i + '"></select><div class="select-arrow-3"></div><div class="select-arrow-3"></div></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span><input type="hidden" name="CharacsNames" value="' + e[i].name + '"/></div >');
+                                    for (let j = 0; j < e[i].values.length; j++) {
+                                        $('.' + i).append('<option value="' + e[i].values[j].value + '"> ' + e[i].values[j].value + '</option>');
+                                    }
+                                }
+                                else {
+                                    $('.charactsContainer').append('<div class="newCharact"><label class="charactName">' + e[i].name + '</label><br /><input class="charactValue" type="text" /><span class="removeCharact"><i class="fas fa-times"></i></span><input type="hidden" value="' + e[i].name + '" name = "CharacsNames"/></div>');
+                                }
+                                $('.removeCharact').click(function () {
+                                    $(this).parent().remove();
+                                });
+                            }
+                        },
+                    });
                 }
                 else if (option == "Добавить категорию") {
                     $('.forma').append('<form action="@Url.Action("CreateCategory","Admin")" method="post"><label>Название категории</label><br /><input type="text" class="newCatName" name="Name"/><div class="addNewChild"><label>Добавить подкатегорию</label> <span class="addChildCat"><i class="fas fa-plus"></i></span></div><input type="submit" class="createItem" value="Добавить категорию" /></form>');
@@ -353,6 +390,20 @@
                             $('.patterns').remove();
                         }
                     });
+                }
+                else if (option == 'Добавить характеристику в фильтры') {
+                    $('.forma').append('<form action="#"><label>Характеристика для фильтров</label><vr/><div class="selectContainer"><div class="select-wrapper createSelect filterSelect"><select name="" class="filterCharSelect"></select><div class="select-arrow-3"></div><div class="select-arrow-3"></div></div></div><br/><input type="submit" class="createItem" value="Добавить в фильтр"/></form>');
+                    $.ajax({
+                        type: 'GET',
+                        url: "@Url.Action("GetFilters", "Admin")",
+                        contentType: "json",
+                        success: function (e) {
+                            console.log(e);
+                            for (let i = 0; i < e.length; i++) {
+                                $('.filterCharSelect').append('<option value="' + e[i].charachteristicId + '"> ' + e[i].name + '</option>');
+                            }
+                        }
+                    })
                 }
                 $('.adminOptions').find('.adminOptionSelected').removeClass('adminOptionSelected');
                 $(this).addClass('adminOptionSelected');
