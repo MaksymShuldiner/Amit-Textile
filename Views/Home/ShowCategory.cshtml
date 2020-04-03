@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="~/css/star-rating.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <link rel="stylesheet" href="~/css/adapt.css">
+    <link rel="stylesheet" href="~/libs/Select/css/select2.min.css" />
     <script type="text/javascript" src="~/libs/jquery 3.4.1.min.js"></script>
     <script type="text/javascript" defer>
         let arrCat = [];
@@ -50,7 +51,6 @@
                 }
             }
         });
-
     </script>
 </head>
 <body>
@@ -232,8 +232,6 @@
                                 <option class="sort" value="6">От А до Я</option>
                                 <option class="sort" value="7">От Я до А</option>
                             </select>
-                            <div class="select-arrow-3"></div>
-                            <div class="select-arrow-3"></div>
                         </div>
                         @if (Model.CookieValue == "List")
                         {
@@ -501,7 +499,7 @@
                     }
                     @{
                         decimal yDecimal = 0;
-                        foreach(var x in ViewBag.Items)
+                        foreach (var x in ViewBag.Items)
                         {
                             yDecimal += x.Textile.Price * x.ItemsAmount;
                         }
@@ -604,7 +602,7 @@
                         $('.cart').append('<div class="inCart hidden"><i class="fas fa-shopping-cart"></i> <span>Ваша корзина пуста</span></div>');
                         }
                         else {
-                            
+
                             let chPrice = $('.inCart').find('span');
                             if (operator == "-") {
                                 $(chPrice[1]).html("Стоимостью " + $('.summa').html())
@@ -954,6 +952,8 @@
         window.location.href = "@ViewBag.Url" + "?CatId=" + "@Model.Category.CategoryId" + "&Filter=" + str + "&page=" + "1" + "&EnumParam=" + "@Model.SortingParams" + "&CookieValue=" + "@Model.CookieValue";
     });
     </script>
+    <script type="text/javascript" src="~/libs/Select/js/select2.min.js"></script>
+    <script type="text/javascript" src="~/libs/Select/js/i18n/ru.js"></script>
     <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
     <script type="text/javascript" src="~/js/star-rating.js"></script>
     <script type="text/javascript" src="~/js/ru.js"></script>

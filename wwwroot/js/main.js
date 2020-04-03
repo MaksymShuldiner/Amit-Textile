@@ -315,6 +315,13 @@
             flagg = true;
         }
     });
+    $('#sort').select2({
+        language: "ru",
+    })
+    $('.adminOption-wrap').click(function () {
+        $(this).find('svg').toggleClass('hidden');
+        $(this).parent().next().find('.adminOption').toggleClass('hidden');
+    });
 });
 window.onscroll = function () { scrollFunction() };
 

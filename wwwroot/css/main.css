@@ -568,54 +568,6 @@ footer {
     color:white;
 }
 
-.select-wrapper {
-    transition: 0.3s all ease;
-    width: 320px;
-    height: 28px;
-    position: relative;
-    left: 120px;
-    bottom: 21px;
-    border: 1px solid #303030;
-    color: white;
-}
-
-    .select-wrapper > select {
-        border: none;
-        height: 28px;
-        width: 320px;
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        background: transparent;
-        cursor: pointer;
-    }
-    .select-wrapper:hover {
-        border: none;
-        box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        transition: 0.3s all ease;
-    }
-
-.select-arrow-3 {
-    position: absolute;
-    z-index: -1000;
-    border: 8px solid transparent;
-    border-bottom: 0;
-    right: 6px;
-    top: 4px;
-    border-top-color: #282828;
-}
-
-    .select-arrow-3:nth-child(1) {
-        top: 11px;
-        border-top-color: #282828;
-        cursor: pointer;
-    }
-
-    .select-arrow-3:nth-child(2) {
-        top: 8px;
-        border-top-color: white;
-    }
-
 .viewButton > svg {
     font-size: 28px;
     color: white;
@@ -1819,13 +1771,30 @@ textarea {
             margin-top:4px;
             font-size:15px;
         }
-        .adminOption:hover {
+        .adminOption:hover{
+            background-color: #404040;
+            color: #FFA500;
+            transition: 0.3s all ease;
+        }
+        .adminOption-wrap{
+            padding:20px;
+            border:1px solid #202020;
+            color:white;
+            cursor:pointer;
+            font-size:20px;
+            transition:0.3s all ease;
+        }
+        .adminOption-wrap>svg{
+            float:right;
+            margin-top:4px;
+            font-size:15px;
+        }
+        .adminOption-wrap:hover{
             background-color: #404040;
             color: #FFA500;
             transition: 0.3s all ease;
         }
         .adminOptions{
-            margin-top:30px;
             margin-left:40%;
         }
         .adminOptionSelected {
@@ -1839,15 +1808,6 @@ textarea {
             top:15px;
             bottom:0;
             left:0;
-        }
-        .createSelect .select-arrow-3:nth-child(1) {
-            top: 15px;
-            border-top-color: #282828;
-            cursor: pointer;
-        }
-        .createSelect .select-arrow-3:nth-child(2) {
-            top: 12px;
-            border-top-color: white;
         }
         .forma>form label{
             color:white;
@@ -1865,20 +1825,6 @@ textarea {
         border: none;
         height: 35px;
         width: 450px;
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        background: transparent;
-        cursor: pointer;
-        }
-        .createSelect .select-arrow-3 {
-            position: absolute;
-            z-index: -1000;
-            border: 8px solid transparent;
-            border-bottom: 0;
-            right: 6px;
-            top: 8px;
-            border-top-color: #282828;
         }
         .forma{
             margin-top:32px;
@@ -2132,4 +2078,15 @@ textarea {
        }
        .wrapTd{
            padding:0 !important;
+       }
+       .forSelect{
+           padding-top:5px !important;
+           padding-bottom:5px !important;
+           bottom:14px !important;
+       }
+       .adminOptions-wrap{
+           margin-left:30%;
+       }
+       .tp{
+           margin-top:30px;
        }
