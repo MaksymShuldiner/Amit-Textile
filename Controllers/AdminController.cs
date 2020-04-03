@@ -225,12 +225,12 @@ namespace AmitTextile.Controllers
         [HttpGet("GetItems")]
         public async Task<IActionResult> GetItems()
         {
-            return Ok(await _context.Textiles.ToListAsync());
+            return Ok(await _context.Textiles.Include(x=>x.Images).Include(x=>x.MainImage).ToListAsync());
         }
         [HttpGet("GetCats")]
         public async Task<IActionResult> GetCats()
         {
-            return Ok(await _context.Categories.ToListAsync());
+            return Ok(await _context.Categories.Include(x=>x.ChildCategories).ToListAsync());
         }
         [HttpGet("GetChildss")]
         public async Task<IActionResult> GetChildss()
@@ -240,7 +240,7 @@ namespace AmitTextile.Controllers
         [HttpGet("GetCharacts")]
         public async Task<IActionResult> GetCharacts()
         {
-            return Ok(await _context.Charachteristics.ToListAsync());
+            return Ok(await _context.Charachteristics.Include(x=>x.Values).ToListAsync());
         }
         [HttpGet("GetFilterss")]
         public async Task<IActionResult> GetFilterss()
