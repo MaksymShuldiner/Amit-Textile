@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
     let flag = true;
-    let flagg = true;
     function toggle() {
         $("#cats_hdn").toggleClass('hdn');
     }
@@ -296,23 +295,26 @@
     $('.showOrder').click(function () {
         $(this).find('.fa-chevron-up').toggleClass('hidden');
         $(this).find('.fa-chevron-down').toggleClass('hidden');
+        let parent = $(this).parent().parent().parent().parent().parent();
         let table = $(this).next();
+        let height;
         function tgl() {
             table.toggleClass('hidden')
         }
-        if (flagg) {
+        if ($(table).hasClass('hidden')) {
             table.toggleClass('hidden');
+            height= table.innerHeight();
             table.animate({
                 opacity: "1"
             }, 300);
-            flagg = false;
+            parent.css("margin-bottom", 10+height + "px");
         }
         else {
             setTimeout(tgl, 300);
             table.animate({
                 opacity: "0"
-            }, 300);
-            flagg = true;
+            }, 200);
+            parent.css("margin-bottom", "20px");
         }
     });
     $('#sort').select2({
