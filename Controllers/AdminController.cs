@@ -311,14 +311,18 @@ namespace AmitTextile.Controllers
             return RedirectToAction("Main", "Admin");
         }
         [HttpPost]
-        public async Task<IActionResult> DeleteSliderImg(string Id)
+        public async Task<IActionResult> DeleteSliderImg(string[] Id)
         {
-            Image image = await _context.Images.FindAsync(Guid.Parse(Id));
-            if (image != null)
+            foreach (var x in Id)
             {
-                _context.Images.Remove(image);
-                await _context.SaveChangesAsync();
+                Image image = await _context.Images.FindAsync(Guid.Parse(x));
+                if (image != null)
+                {
+                    _context.Images.Remove(image);
+                    await _context.SaveChangesAsync();
+                }
             }
+            
             return RedirectToAction("Main", "Admin");
         }
     }
