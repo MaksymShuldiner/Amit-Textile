@@ -350,7 +350,7 @@
                     $('.forma').append('<form action="@Url.Action("SliderAdd","Admin")" method="post" enctype="multipart/form-data"><label>Добавить изображение(я) в слайдер</label><br /><br /><input type="file" multiple class="imageUploadMultiple" name="files" /><input type="submit" class="createItem" value="Добавить в слайдер" /></form>');
                 }
                 else if (option == 'Удалить товар') {
-                    $('.forma').append('<form action="#"><label>Удалить товар</label><br/><div><select class="deleteSelect"></select></div></div><br/><input type="submit" class="createItem" value="Удалить"/></form>');
+                    $('.forma').append('<form action="@Url.Action("DeleteTextile", "Admin")" method="post"><label>Удалить товар</label><br/><div><select name="Id" class="deleteSelect"></select></div></div><br/><input type="submit" class="createItem" value="Удалить"/></form>');
                     $('.deleteSelect').select2({
                         language: "ru",
                         width: "500px"
@@ -361,13 +361,13 @@
                         contentType: "json",
                         success: function (e) {
                             for (let i = 0; i < e.length; i++) {
-                                $('.deleteSelect').append('<option name="Id" value="' + e[i].textileId + '">' + e[i].name + '</option>')
+                                $('.deleteSelect').append('<option value="' + e[i].textileId + '">' + e[i].name + '</option>')
                             }
                         }
                     });
                 }
                 else if (option == 'Удалить категорию') {
-                    $('.forma').append('<form action="#"><label>Удалить категорию</label><br/><div><select class="deleteSelect"></select></div></div><br/><input type="submit" class="createItem" value="Удалить"/></form>');
+                    $('.forma').append('<form action="@Url.Action("DeleteCat", "Admin")"  method="post"><label>Удалить категорию</label><br/><div><select name="Id" class="deleteSelect"></select></div></div><br/><input type="submit" class="createItem" value="Удалить"/></form>');
                     $('.deleteSelect').select2({
                         language: "ru",
                         width: "500px"
@@ -384,7 +384,7 @@
                     });
                 }
                 else if (option == 'Удалить подкатегорию') {
-                    $('.forma').append('<form action="#"><label>Удалить подкатегорию</label><br/><div><select class="deleteSelect"></select></div></div><br/><input type="submit" class="createItem" value="Удалить"/></form>');
+                    $('.forma').append('<form action="@Url.Action("DeleteChild", "Admin")"  method="post"><label>Удалить подкатегорию</label><br/><div><select name="Id" class="deleteSelect"></select></div></div><br/><input type="submit" class="createItem" value="Удалить"/></form>');
                     $('.deleteSelect').select2({
                         language: "ru",
                         width: "500px"
@@ -401,7 +401,7 @@
                     });
                 }
                 else if (option == 'Удалить характеристику') {
-                    $('.forma').append('<form action="#"><label>Удалить характеристику</label><br/><div><select class="deleteSelect"></select></div></div><br/><input type="submit" class="createItem" value="Удалить"/></form>');
+                    $('.forma').append('<form action="@Url.Action("DeleteChar", "Admin")"  method="post"><label>Удалить характеристику</label><br/><div><select name="Id" class="deleteSelect"></select></div></div><br/><input type="submit" class="createItem" value="Удалить"/></form>');
                     $('.deleteSelect').select2({
                         language: "ru",
                         width: "500px"
@@ -418,7 +418,7 @@
                     });
                 }
                 else if (option == 'Удалить характеристику из фильтров') {
-                    $('.forma').append('<form action="#"><label>Удалить характеристику из фильтров</label><br/><div><select class="deleteSelect"></select></div></div><br/><input type="submit" class="createItem" value="Удалить"/></form>');
+                    $('.forma').append('<form action="@Url.Action("DeleteFilter", "Admin")" method="post"><label>Удалить характеристику из фильтров</label><br/><div><select name="Id" class="deleteSelect"></select></div></div><br/><input type="submit" class="createItem" value="Удалить"/></form>');
                     $('.deleteSelect').select2({
                         language: "ru",
                         width: "500px"
