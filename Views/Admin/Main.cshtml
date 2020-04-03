@@ -468,7 +468,7 @@
                     })
                 }
                 else if (option == 'Редактировать товар') {
-                    $('.forma').append('<form action="#"><label>Редактировать товар</label><br/><div><select class="deleteSelect"></select></div></div><br/></form>');
+                    $('.forma').append('<form action="#"><label>Редактировать товар</label><br/><div><select name="Id" class="deleteSelect"><option>Нет</option></select></div></div><br/></form>');
                     $('.deleteSelect').select2({
                         language: "ru",
                         width: "500px"
@@ -479,13 +479,13 @@
                         contentType: "json",
                         success: function (e) {
                             for (let i = 0; i < e.length; i++) {
-                                $('.deleteSelect').append('<option name="Id" value="' + e[i].textileId + '">' + e[i].name + '</option>')
+                                $('.deleteSelect').append('<option" value="' + e[i].textileId + '">' + e[i].name + '</option>')
                             }
                         }
                     });
                 }
                 else if (option == 'Редактировать категорию') {
-                    $('.forma').append('<form action="#"><label>Редактировать категорию</label><br/><div><select class="deleteSelect"></select></div></div><br/></form>');
+                    $('.forma').append('<form action="#"><label>Редактировать категорию</label><br/><div><select class="deleteSelect"><option>Нет</option></select></div></div><br/></form>');
                     $('.deleteSelect').select2({
                         language: "ru",
                         width: "500px"
@@ -495,14 +495,75 @@
                         url: "@Url.Action("GetCats","Admin")",
                         contentType: "json",
                         success: function (e) {
+                            console.log(e);
                             for (let i = 0; i < e.length; i++) {
                                 $('.deleteSelect').append('<option name="Id" value="' + e[i].categoryId + '">' + e[i].name + '</option>')
                             }
+                            $('.deleteSelect').change(function () {
+                                $('.changeThis').remove();
+                                let val = $(this).find(':selected').attr('value');
+                                for (let i = 0; i < e.length; i++) {
+                                    if (e[i].categoryId == val) {
+                                        $('.forma').find('form').append('<div class="changeThis"><label>Название категории</label><br /><input type="text" class="newCatName" value="' + e[i].name + '" name="Name"/><div class="addNewChild"><label>Добавить подкатегорию</label> <span class="addChildCat"><i class="fas fa-plus"></i></span></div><input type="submit" class="createItem" value="Редактировать категорию" /></div>');
+                                        for (let j = 0; j < e[i].childCategories.length; j++) {
+                                            $('.addNewChild').append('<div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childSelect ' + counter + '"></select></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span></div >');
+                                            $('.childSelect').select2({
+                                                language: "ru",
+                                                width: "450px"
+                                            });
+                                            $('.removeCharact').click(function () {
+                                                        $(this).parent().remove();
+                                            });
+                                            $.ajax({
+                                                type: 'GET',
+                                                url: "@Url.Action("GetChilds","Admin")",
+                                                contentType: 'json',
+                                                success: function (z) {
+                                                    for (let i = 0; i < e.length; i++) {
+                                                        $('.' + counter).append('<option value="' + z[i].childCategoryId + '">' + z[i].name + '</option>');
+                                                    }
+                                                    $('.removeCharact').click(function () {
+                                                        $(this).parent().remove();
+                                                    });
+                                                }
+                                            });
+                                            let option = $('.' +counter).find('option');
+                                            for (let q = 0; q < option.length; q++) {
+                                                if (option[q].attr('value') == e[i].childCategories[j].childCategoryId) {
+                                                    option[q].attr('selected', 'selected');
+                                                }
+                                            }
+                                            counter++;
+                                        }
+                                        $('.addChildCat').click(function () {
+                                            $.ajax({
+                                                type: 'GET',
+                                                url: "@Url.Action("GetChilds","Admin")",
+                                                contentType: 'json',
+                                                success: function (e) {
+                                                    $('.addNewChild').append('<div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childSelect ' + counter + '"></select></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span></div >');
+                                                    $('.childSelect').select2({
+                                                        language: "ru",
+                                                        width: "450px"
+                                                    });
+                                                    for (let i = 0; i < e.length; i++) {
+                                                        $('.' + counter).append('<option value="' + e[i].childCategoryId + '">' + e[i].name + '</option>');
+                                                    }
+                                                    counter++;
+                                                    $('.removeCharact').click(function () {
+                                                        $(this).parent().remove();
+                                                    });
+                                                }
+                                            });
+                                        });
+                                    }
+                                }
+                            });
                         }
                     });
                 }
                 else if (option == 'Редактировать подкатегорию') {
-                    $('.forma').append('<form action="#"><label>Редактировать подкатегорию</label><br/><div><select class="deleteSelect"></select></div></div><br/></form>');
+                    $('.forma').append('<form action="#"><label>Редактировать подкатегорию</label><br/><div><select class="deleteSelect"><option>Нет</option></select></div></div><br/></form>');
                     $('.deleteSelect').select2({
                         language: "ru",
                         width: "500px"
@@ -513,13 +574,22 @@
                         contentType: "json",
                         success: function (e) {
                             for (let i = 0; i < e.length; i++) {
-                                $('.deleteSelect').append('<option name="Id" value="' + e[i].childCategoryId + '">' + e[i].name + '</option>')
+                                $('.deleteSelect').append('<option value="' + e[i].childCategoryId + '">' + e[i].name + '</option>')
                             }
+                            $('.deleteSelect').change(function () {
+                                $('.changeThis').remove();
+                                let option = $(this).find(':selected');
+                                for (let i = 0; i < e.length; i++) {
+                                    if (option.attr('value') == e[i].childCategoryId) {
+                                        $('.forma').find('form').append('<div class="changeThis"><label>Название подкатегории</label><br/><input type="text" class="newChildName" name="name" value="'+e[i].name+'"/><br/><input type="submit" class="createItem" value="Добавить подкатегории" /></div>');
+                                    }
+                                }
+                            });
                         }
                     });
                 }
                 else if (option == 'Редактировать характеристику') {
-                    $('.forma').append('<form action="#"><label>Редактировать характеристику</label><br/><div><select class="deleteSelect"></select></div></div><br/></form>');
+                    $('.forma').append('<form action="#"><label>Редактировать характеристику</label><br/><div><select class="deleteSelect"><option>Нет</option></select></div></div><br/></form>');
                     $('.deleteSelect').select2({
                         language: "ru",
                         width: "500px"
@@ -530,8 +600,53 @@
                         contentType: "json",
                         success: function (e) {
                             for (let i = 0; i < e.length; i++) {
-                                $('.deleteSelect').append('<option name="Id" value="' + e[i].charachteristicId + '">' + e[i].name + '</option>')
+                                $('.deleteSelect').append('<option value="' + e[i].charachteristicId + '">' + e[i].name + '</option>')
                             }
+                            $('.deleteSelect').change(function () {
+                                $('.changeThis').remove();
+                                let option = $(this).find(':selected');
+                                for (let i = 0; i < e.length; i++) {
+                                    if (option.attr('value') == e[i].charachteristicId) {
+                                        $('.forma').find('form').append('<div class="changeThis"><label>Имя характеристики</label><br /><input type="text" class="newCharactName" name="Name"/><br/><input type="checkbox" class="nP" /><label>&nbsp &nbsp Шаблонные значения</label><div class="pat"></div><input type="submit" class="createItem" value="Добавить характеристику"/></div>');
+                                        if (e[i].values.length > 0) {
+                                            $('.nP').prop('checked', 'checked');
+                                            $('.pat').append('<div class="patterns"><label>Добавить шаблонное значение</label><span class="addPattern"><i class="fas fa-plus"></i></span></div>');
+                                            for (let j = 0; j < e[i].values.length;j++) {
+                                                ('.patterns').append('<div class="patternContainer"><label>Текст шаблона</label><br/><input type="text" name="Value" value="' + e[i].values[j].value + '" class="patternValue"/><span class="removeCharact"><i class="fas fa-times"></i></span></div>');
+                                                $('.removeCharact').click(function () {
+                                                    $(this).parent().remove();
+                                                });
+                                            }
+                                            $('.addPattern').click(function () {
+                                                $('.patterns').append('<div class="patternContainer"><label>Текст шаблона</label><br/><input type="text" name="Value" class="patternValue"/><span class="removeCharact"><i class="fas fa-times"></i></span></div>');
+                                                $('.removeCharact').click(function () {
+                                                    $(this).parent().remove();
+                                                });
+                                                $('.patternValue').change(function () {
+                                                    $(this).attr('value') = $(this).val();
+                                                })
+                                            });
+                                        }
+                                        $('.nP').change(function () {
+                                            if ($(this).prop('checked')) {
+                                                $('.pat').append('<div class="patterns"><label>Добавить шаблонное значение</label><span class="addPattern"><i class="fas fa-plus"></i></span></div>');
+                                                $('.addPattern').click(function () {
+                                                    $('.patterns').append('<div class="patternContainer"><label>Текст шаблона</label><br/><input type="text" name="Value" class="patternValue"/><span class="removeCharact"><i class="fas fa-times"></i></span></div>');
+                                                    $('.removeCharact').click(function () {
+                                                        $(this).parent().remove();
+                                                    });
+                                                    $('.patternValue').change(function () {
+                                                        $(this).attr('value') = $(this).val();
+                                                    })
+                                                });
+                                            }
+                                            else {
+                                                $('.patterns').remove();
+                                            }
+                                        });
+                                    }
+                                }
+                            });
                         }
                     });
                 }
