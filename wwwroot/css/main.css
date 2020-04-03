@@ -2090,3 +2090,32 @@ textarea {
        .tp{
            margin-top:30px;
        }
+       .removeIt{
+           cursor:pointer;
+           color:white;
+           padding:3px;
+           position:absolute;
+           top:0px;
+           margin-top:40px;
+           margin-left:325px;
+           transition:0.3s all ease;
+       }
+       .removeIt:hover{
+           transition:0.3s all ease;
+           color:#DC143C;
+           background-color:#484848;
+       }
+       .removeImg>img{
+           width:320px;
+           height:200px;
+       }
+       .removeImg{
+           display:inline-block;
+           padding:25px;
+           border:1px solid #303030;
+           transition:0.3s all ease;
+       }
+       .removeImg:hover{
+           border: none;
+           box-shadow: 0 0 10px rgba(0,0,0,0.5);
+       }

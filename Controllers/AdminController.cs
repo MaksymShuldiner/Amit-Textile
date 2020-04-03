@@ -232,7 +232,7 @@ namespace AmitTextile.Controllers
         {
             return Ok(await _context.Categories.ToListAsync());
         }
-        [HttpGet("GetChilds")]
+        [HttpGet("GetChildss")]
         public async Task<IActionResult> GetChildss()
         {
             return Ok(await _context.ChildCategories.ToListAsync());
