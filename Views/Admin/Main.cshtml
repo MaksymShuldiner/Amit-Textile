@@ -425,18 +425,22 @@
                         success: function (e) {
                             console.log(e);
                             for (let i = 0; i < e.length; i++) {
-                                $('.forma').find('form').append('<div class="removeImg"><span value='+e[i].Id+' title="Удалить изображение" class="removeIt"><i class="fas fa-times"></i></span><img src="data:image/jpeg;base64,'+e[i].StringCod+'" /></div>');
+                                $('.forma').find('form').append('<div class="removeImg"><span value='+e[i].id+' title="Удалить изображение" class="removeIt"><i class="fas fa-times"></i></span><img src="data:image/jpeg;base64,'+e[i].stringCode+'" /></div>');
                             }
                             $('.removeIt').click(function () {
                                 let parent = $(this).parent();
-                                let x = { "Id": $(this).attr('value') };
+                                let id = $(this).attr('value');
+                                let x = { "Id": id};
                                 $.ajax({
                                     type: 'POST',
-                                    url: "@Url.Action("","")",
+                                    url: "@Url.Action("DeleteSliderImg","Admin")",
                                     contentType: 'application/json; charset=utf-8',
                                     data: JSON.stringify(x),
                                     success: function () {
                                         parent.remove();
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
                                     }
                                 });
                                 
