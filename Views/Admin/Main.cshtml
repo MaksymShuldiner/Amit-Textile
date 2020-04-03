@@ -141,6 +141,25 @@
                             <span>Удалить изображение из слайдера</span> <i class="fas fa-chevron-right"></i>
                         </li>
                     </ul>
+                    <ul class="adminOptions-wrap">
+                        <li class="adminOption-wrap">
+                            Редактирование <i class="fas fa-chevron-down"></i> <i class="fas fa-chevron-up hidden"></i>
+                        </li>
+                    </ul>
+                    <ul class="adminOptions">
+                        <li class="adminOption hidden">
+                            <span>Редактировать товар</span> <i class="fas fa-chevron-right"></i>
+                        </li>
+                        <li class="adminOption hidden">
+                            <span>Редактировать категорию</span> <i class="fas fa-chevron-right"></i>
+                        </li>
+                        <li class="adminOption hidden">
+                            <span>Редактировать подкатегорию</span> <i class="fas fa-chevron-right"></i>
+                        </li>
+                        <li class="adminOption hidden">
+                            <span>Редактировать характеристику</span> <i class="fas fa-chevron-right"></i>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-md-8">
                     <div class="forma">
@@ -421,16 +440,16 @@
                     $.ajax({
                         type: 'GET',
                         url: "@Url.Action("GetSliderImgs","Admin")",
-                        contentType:'json',
+                        contentType: 'json',
                         success: function (e) {
                             console.log(e);
                             for (let i = 0; i < e.length; i++) {
-                                $('.forma').find('form').append('<div class="removeImg"><span value='+e[i].id+' title="Удалить изображение" class="removeIt"><i class="fas fa-times"></i></span><img src="data:image/jpeg;base64,'+e[i].stringCode+'" /></div>');
+                                $('.forma').find('form').append('<div class="removeImg"><span value=' + e[i].id + ' title="Удалить изображение" class="removeIt"><i class="fas fa-times"></i></span><img src="data:image/jpeg;base64,' + e[i].stringCode + '" /></div>');
                             }
                             $('.removeIt').click(function () {
                                 let parent = $(this).parent();
                                 let id = $(this).attr('value');
-                                let x = { "Id": id};
+                                let x = { "Id": id };
                                 $.ajax({
                                     type: 'POST',
                                     url: "@Url.Action("DeleteSliderImg","Admin")",
@@ -447,6 +466,74 @@
                             })
                         }
                     })
+                }
+                else if (option == 'Редактировать товар') {
+                    $('.forma').append('<form action="#"><label>Редактировать товар</label><br/><div><select class="deleteSelect"></select></div></div><br/></form>');
+                    $('.deleteSelect').select2({
+                        language: "ru",
+                        width: "500px"
+                    });
+                    $.ajax({
+                        type: 'GET',
+                        url: "@Url.Action("GetItems","Admin")",
+                        contentType: "json",
+                        success: function (e) {
+                            for (let i = 0; i < e.length; i++) {
+                                $('.deleteSelect').append('<option name="Id" value="' + e[i].textileId + '">' + e[i].name + '</option>')
+                            }
+                        }
+                    });
+                }
+                else if (option == 'Редактировать категорию') {
+                    $('.forma').append('<form action="#"><label>Редактировать категорию</label><br/><div><select class="deleteSelect"></select></div></div><br/></form>');
+                    $('.deleteSelect').select2({
+                        language: "ru",
+                        width: "500px"
+                    });
+                    $.ajax({
+                        type: 'GET',
+                        url: "@Url.Action("GetCats","Admin")",
+                        contentType: "json",
+                        success: function (e) {
+                            for (let i = 0; i < e.length; i++) {
+                                $('.deleteSelect').append('<option name="Id" value="' + e[i].categoryId + '">' + e[i].name + '</option>')
+                            }
+                        }
+                    });
+                }
+                else if (option == 'Редактировать подкатегорию') {
+                    $('.forma').append('<form action="#"><label>Редактировать подкатегорию</label><br/><div><select class="deleteSelect"></select></div></div><br/></form>');
+                    $('.deleteSelect').select2({
+                        language: "ru",
+                        width: "500px"
+                    });
+                    $.ajax({
+                        type: 'GET',
+                        url: "@Url.Action("GetChildss","Admin")",
+                        contentType: "json",
+                        success: function (e) {
+                            for (let i = 0; i < e.length; i++) {
+                                $('.deleteSelect').append('<option name="Id" value="' + e[i].childCategoryId + '">' + e[i].name + '</option>')
+                            }
+                        }
+                    });
+                }
+                else if (option == 'Редактировать характеристику') {
+                    $('.forma').append('<form action="#"><label>Редактировать характеристику</label><br/><div><select class="deleteSelect"></select></div></div><br/></form>');
+                    $('.deleteSelect').select2({
+                        language: "ru",
+                        width: "500px"
+                    });
+                    $.ajax({
+                        type: 'GET',
+                        url: "@Url.Action("GetCharacts","Admin")",
+                        contentType: "json",
+                        success: function (e) {
+                            for (let i = 0; i < e.length; i++) {
+                                $('.deleteSelect').append('<option name="Id" value="' + e[i].charachteristicId + '">' + e[i].name + '</option>')
+                            }
+                        }
+                    });
                 }
                 $('.adminOptions').find('.adminOptionSelected').removeClass('adminOptionSelected');
                 $(this).addClass('adminOptionSelected');
