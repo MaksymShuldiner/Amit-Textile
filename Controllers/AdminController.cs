@@ -311,9 +311,9 @@ namespace AmitTextile.Controllers
             return RedirectToAction("Main", "Admin");
         }
         [HttpPost("DeleteSlider")]
-        public async Task<IActionResult> DeleteSliderImg(string Id)
+        public async Task<IActionResult> DeleteSliderImg([FromBody]IdModel model)
         {
-            Image image = await _context.Images.FindAsync(Guid.Parse(Id));
+            Image image = await _context.Images.FindAsync(Guid.Parse(model.Id));
             if (image != null) {
                     _context.Images.Remove(image);
                     await _context.SaveChangesAsync();
