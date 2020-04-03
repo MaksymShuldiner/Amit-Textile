@@ -245,7 +245,7 @@ namespace AmitTextile.Controllers
         [HttpGet("GetFilterss")]
         public async Task<IActionResult> GetFilterss()
         {
-            return Ok(await _context.FilterCharachteristicses.ToListAsync());
+            return Ok(await _context.FilterCharachteristicses.Include(x=>x.Charachteristic).ToListAsync());
         }
 
         [HttpGet("GetSliderImgs")]
