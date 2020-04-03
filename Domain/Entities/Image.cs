@@ -21,5 +21,11 @@ namespace AmitTextile.Domain
         public Slider Slider { get; set; }
 
         public Guid? SliderId { get; set; }
+
+        [NotMapped]
+        public string StringImg
+        {
+            get => Convert.ToBase64String(this.ByteImg);
+        }
     }
 }

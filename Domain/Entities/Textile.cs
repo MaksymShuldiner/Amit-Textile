@@ -77,5 +77,6 @@ namespace AmitTextile.Domain
             ParentCommentReviews = new List<ParentCommentReview>();
             Images = new List<Image>();
         }
+        
     }
 }
