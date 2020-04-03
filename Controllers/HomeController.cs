@@ -1221,6 +1221,8 @@ namespace AmitTextile.Controllers
                 {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
                     itemorders.Add(new ItemOrder(){OrderId = Id, ItemId = x.ItemId});
                 }
+                cart.Items = new List<Item>();
+                _context.Carts.Update(cart);
             }
             else
             {
@@ -1233,6 +1235,8 @@ namespace AmitTextile.Controllers
                 {
                     itemorders.Add(new ItemOrder() { OrderId = Id, ItemId = x.ItemId });
                 }
+                cart.Items = new List<Item>();
+                _context.Carts.Update(cart);
             }
             order.ItemOrders = itemorders;
             await _context.Orders.AddAsync(order);
