@@ -252,7 +252,7 @@ namespace AmitTextile.Controllers
         public async Task<IActionResult> GetSliderImgs()
         {
             return Ok(_context.Sliders.Include(x => x.Images).First().Images
-                .Select(x => new {StringCode = Convert.ToBase64String(x.ByteImg), Id = x.ImageId}));
+                .Select(x => new {StringCode = Convert.ToBase64String(x.ByteImg), Id = x.ImageId}).ToList());
         }
 
         [HttpPost]

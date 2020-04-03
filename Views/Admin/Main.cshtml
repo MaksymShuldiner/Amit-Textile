@@ -423,6 +423,7 @@
                         url: "@Url.Action("GetSliderImgs","Admin")",
                         contentType:'json',
                         success: function (e) {
+                            console.log(e);
                             for (let i = 0; i < e.length; i++) {
                                 $('.forma').find('form').append('<div class="removeImg"><span value='+e[i].Id+' title="Удалить изображение" class="removeIt"><i class="fas fa-times"></i></span><img src="data:image/jpeg;base64,'+e[i].StringCod+'" /></div>');
                             }
