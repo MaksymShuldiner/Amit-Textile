@@ -254,10 +254,15 @@ namespace AmitTextile.Controllers
             return Ok(_context.Sliders.Include(x => x.Images).First().Images
                 .Select(x => new ImgModel(){Id=x.ImageId, StringCode = Convert.ToBase64String(x.ByteImg)}).ToList());
         }
-
         [HttpPost]
         public async Task<IActionResult> DeleteTextile(string Id)
         {
+            Image image = _context.Images.FirstOrDefault(x => x.MainTextileId == Guid.Parse(Id));
+            _context.Images.Remove(image);
+            foreach (var x in _context.Images.Where(x=>x.TextileId == Guid.Parse(Id)))
+            {
+                _context.Images.Remove(x);
+            }
             Textile textile = await _context.Textiles.FindAsync(Guid.Parse(Id));
             if (textile != null)
             {
