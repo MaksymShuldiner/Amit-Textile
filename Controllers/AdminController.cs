@@ -221,5 +221,105 @@ namespace AmitTextile.Controllers
             List<int> newList = pagesCounterList.TakeWhile(x => page - x >= 3 || x - page <= 3).ToList();
             return View(new OrdersModel(){Model = model, Orders = Orders, PagesCounterList = newList});
         }
+
+        [HttpGet("GetItems")]
+        public async Task<IActionResult> GetItems()
+        {
+            return Ok(await _context.Textiles.ToListAsync());
+        }
+        [HttpGet("GetCats")]
+        public async Task<IActionResult> GetCats()
+        {
+            return Ok(await _context.Categories.ToListAsync());
+        }
+        [HttpGet("GetChilds")]
+        public async Task<IActionResult> GetChildss()
+        {
+            return Ok(await _context.ChildCategories.ToListAsync());
+        }
+        [HttpGet("GetCharacts")]
+        public async Task<IActionResult> GetCharacts()
+        {
+            return Ok(await _context.Charachteristics.ToListAsync());
+        }
+        [HttpGet("GetFilterss")]
+        public async Task<IActionResult> GetFilterss()
+        {
+            return Ok(await _context.FilterCharachteristicses.ToListAsync());
+        }
+
+        [HttpGet("GetSliderImgs")]
+        public async Task<IActionResult> GetSliderImgs()
+        {
+            return Ok(_context.Sliders.Include(x => x.Images).First().Images
+                .Select(x => new {StringCode = Convert.ToBase64String(x.ByteImg), Id = x.ImageId}));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteTextile(string Id)
+        {
+            Textile textile = await _context.Textiles.FindAsync(Guid.Parse(Id));
+            if (textile != null)
+            {
+                _context.Textiles.Remove(textile);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Main", "Admin");
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteCat(string Id)
+        {
+            Category cat = await _context.Categories.FindAsync(Guid.Parse(Id));
+            if (cat != null)
+            {
+                _context.Categories.Remove(cat);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Main", "Admin");
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteChild(string Id)
+        {
+            ChildCategory cat = await _context.ChildCategories.FindAsync(Guid.Parse(Id));
+            if (cat != null)
+            {
+                _context.ChildCategories.Remove(cat);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Main", "Admin");
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteChar(string Id)
+        {
+            Charachteristic charact = await _context.Charachteristics.FindAsync(Guid.Parse(Id));
+            if (charact != null)
+            {
+                _context.Charachteristics.Remove(charact);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Main", "Admin");
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteFilter(string Id)
+        {
+            FilterCharachteristics filter = await _context.FilterCharachteristicses.FindAsync(Guid.Parse(Id));
+            if (filter != null)
+            {
+                _context.FilterCharachteristicses.Remove(filter);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Main", "Admin");
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteSliderImg(string Id)
+        {
+            Image image = await _context.Images.FindAsync(Guid.Parse(Id));
+            if (image != null)
+            {
+                _context.Images.Remove(image);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Main", "Admin");
+        }
     }
 }
