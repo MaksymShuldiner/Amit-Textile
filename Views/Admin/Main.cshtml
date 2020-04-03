@@ -336,12 +336,32 @@
                         language: "ru",
                         width: "500px"
                     });
+                    $.ajax({
+                        type: 'GET',
+                        url: "@Url.Action("GetItems","Admin")",
+                        contentType: "json",
+                        success: function (e) {
+                            for (let i = 0; i < e.length; i++) {
+                                $('.deleteSelect').append('<option name="Id" value="' + e[i].textileId + '">' + e[i].name + '</option>')
+                            }
+                        }
+                    });
                 }
                 else if (option == 'Удалить категорию') {
                     $('.forma').append('<form action="#"><label>Удалить категорию</label><br/><div><select class="deleteSelect"></select></div></div><br/><input type="submit" class="createItem" value="Удалить"/></form>');
                     $('.deleteSelect').select2({
                         language: "ru",
                         width: "500px"
+                    });
+                    $.ajax({
+                        type: 'GET',
+                        url: "@Url.Action("GetCats","Admin")",
+                        contentType: "json",
+                        success: function (e) {
+                            for (let i = 0; i < e.length; i++) {
+                                $('.deleteSelect').append('<option name="Id" value="' + e[i].categoryId + '">' + e[i].name + '</option>')
+                            }
+                        }
                     });
                 }
                 else if (option == 'Удалить подкатегорию') {
@@ -350,6 +370,16 @@
                         language: "ru",
                         width: "500px"
                     });
+                    $.ajax({
+                        type: 'GET',
+                        url: "@Url.Action("GetChildss","Admin")",
+                        contentType: "json",
+                        success: function (e) {
+                            for (let i = 0; i < e.length; i++) {
+                                $('.deleteSelect').append('<option name="Id" value="' + e[i].childCategoryId + '">' + e[i].name + '</option>')
+                            }
+                        }
+                    });
                 }
                 else if (option == 'Удалить характеристику') {
                     $('.forma').append('<form action="#"><label>Удалить характеристику</label><br/><div><select class="deleteSelect"></select></div></div><br/><input type="submit" class="createItem" value="Удалить"/></form>');
@@ -357,12 +387,32 @@
                         language: "ru",
                         width: "500px"
                     });
+                    $.ajax({
+                        type: 'GET',
+                        url: "@Url.Action("GetCharacts","Admin")",
+                        contentType: "json",
+                        success: function (e) {
+                            for (let i = 0; i < e.length; i++) {
+                                $('.deleteSelect').append('<option name="Id" value="' + e[i].charachteristicId + '">' + e[i].name + '</option>')
+                            }
+                        }
+                    });
                 }
                 else if (option == 'Удалить характеристику из фильтров') {
                     $('.forma').append('<form action="#"><label>Удалить характеристику из фильтров</label><br/><div><select class="deleteSelect"></select></div></div><br/><input type="submit" class="createItem" value="Удалить"/></form>');
                     $('.deleteSelect').select2({
                         language: "ru",
                         width: "500px"
+                    });
+                    $.ajax({
+                        type: 'GET',
+                        url: "@Url.Action("GetFilterss","Admin")",
+                        contentType: "json",
+                        success: function (e) {
+                            for (let i = 0; i < e.length; i++) {
+                                $('.deleteSelect').append('<option name="Id" value="' + e[i].filterCharachteristicsId + '">' + e[i].name + '</option>')
+                            }
+                        }
                     });
                 }
                 else if (option == 'Удалить изображение из слайдера') {
