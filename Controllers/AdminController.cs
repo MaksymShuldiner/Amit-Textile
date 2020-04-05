@@ -225,22 +225,9 @@ namespace AmitTextile.Controllers
         [HttpGet("GetItems")]
         public async Task<IActionResult> GetItems()
         {
-            List<Textile> textiles = _context.Textiles.Include(x => x.Images).Include(x => x.MainImage).ToList().Select(
-                x =>
-                {
-                    x.MainImgString = Convert.ToBase64String(x.MainImage.ByteImg);
-                    x.StringImgs = new List<string>();
-                    x.ImgIdStrings = new List<string>();
-                    foreach (var y in x.Images)
-                    {
-                        x.StringImgs.Add(Convert.ToBase64String(y.ByteImg));
-                        x.ImgIdStrings.Add(y.StringImg);
-                    }
-
-                    return x;
-                }).ToList();
+            List<Textile> textiles = _context.Textiles.Include(x => x.Images).Include(x => x.MainImage).ToList();
             int x = 5;
-            return Ok();
+            return Ok(textiles);
         }
         [HttpGet("GetCats")]
         public async Task<IActionResult> GetCats()
