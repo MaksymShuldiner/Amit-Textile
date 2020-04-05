@@ -225,7 +225,17 @@ namespace AmitTextile.Controllers
         [HttpGet("GetItems")]
         public async Task<IActionResult> GetItems()
         {
-            return Ok(await _context.Textiles.Include(x=>x.Images).Include(x=>x.MainImage).ToListAsync());
+            return Ok(_context.Textiles.Include(x=>x.Images).Include(x=>x.MainImage).ToList().Select(x =>
+                {
+                    x.MainImgString = Convert.ToBase64String(x.MainImage.ByteImg);
+                    x.StringImgs = new List<string>();
+                    foreach (var y in x.Images)
+                    {
+                        x.StringImgs.Add(Convert.ToBase64String(y.ByteImg));
+                        x.ImgIdStrings.Add(y.StringImg);
+                    }
+                    return x;
+                }).ToList());
         }
         [HttpGet("GetCats")]
         public async Task<IActionResult> GetCats()
@@ -323,6 +333,12 @@ namespace AmitTextile.Controllers
                     _context.Images.Remove(image);
                     await _context.SaveChangesAsync();
             }
+            return Ok();
+        }
+
+        [HttpPost("RedactTex")]
+        public async Task<IActionResult> TextileEdit([FromBody] TextileAddModel model)
+        {
             return Ok();
         }
 

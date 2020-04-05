@@ -77,6 +77,13 @@ namespace AmitTextile.Domain
             ParentCommentReviews = new List<ParentCommentReview>();
             Images = new List<Image>();
         }
+        [NotMapped]
+        public string MainImgString { get; set; }
+        [NotMapped]
+        public List<string> StringImgs { get; set; }
+        [NotMapped]
+        public List<string> ImgIdStrings { get; set; }
+       
         
     }
 }
