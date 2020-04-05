@@ -232,6 +232,7 @@ namespace AmitTextile.Controllers
                     foreach (var y in x.Images)
                     {
                         x.StringImgs.Add(Convert.ToBase64String(y.ByteImg));
+                        x.ImgIdStrings.Add(y.StringImg);
                     }
                     return x;
                 }).ToList());
