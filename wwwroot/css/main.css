@@ -2123,8 +2123,10 @@ textarea {
            margin-bottom:20px;
        }
        .mainImage{
-           margin-top:1020px;
+           top:unset;
+           margin-top:-20px;
        }
        .extra{
-           margin-top:1308px;
+           top:unset;
+           margin-top:-20px;
        }
