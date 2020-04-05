@@ -10,6 +10,10 @@ namespace AmitTextile.Domain
         
         public Guid CategoryId { get; set; }
 
+        [NotMapped]
+
+        public string Id { get; set; }
+
         public string Name { get; set; }
 
         public ICollection<Textile> TextilesOfThisCategory { get; set; }

@@ -334,7 +334,7 @@ namespace AmitTextile.Controllers
         [HttpPost("RedactTex")]
         public async Task<IActionResult> TextileEdit(TextileAddModel model)
         {
-            Textile toUpdateTextile = await _context.Textiles.Include(x=>x.MainImage).FirstOrDefaultAsync(x=>x.TextileId== Guid.Parse(model.Id));
+            Textile toUpdateTextile = await _context.Textiles.Include(x=>x.MainImage).Include(x=>x.Charachteristics).Include(x=>x.Category).Include(x=>x.ChildCategory).Include(x=>x.Images).FirstOrDefaultAsync(x=>x.TextileId== Guid.Parse(model.Id));
             Guid Id = new Guid();
             double Discount =
                 (Convert.ToDouble(Math.Round(((model.Price - model.Discount) / model.Price), 3)));
@@ -347,8 +347,7 @@ namespace AmitTextile.Controllers
             {
                 textile = new Textile() { TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description, Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId), ChildCategoryId = Guid.Parse(model.ChildCategoryId) };
             }
-
-            if (model.MainFile != null && toUpdateTextile.MainImage!=null)
+            if (model.MainFile != null && toUpdateTextile.MainImage==null)
             {
                 byte[] imageData = null;
                 using (var binaryReader = new BinaryReader(model.MainFile.OpenReadStream()))
@@ -357,11 +356,11 @@ namespace AmitTextile.Controllers
                 }
 
                 Image image = new Image()
-                { Name = model.MainFile.FileName, MainTextileId = Id, ByteImg = imageData, ImageId = Guid.NewGuid() };
-                textile.MainImage = image;
-            }
+                { Name = model.MainFile.FileName, MainTextileId = toUpdateTextile.TextileId, ByteImg = imageData, ImageId = Guid.NewGuid() };
+                _context.Images.Add(image);
 
-            ICollection<Image> Image = new List<Image>();
+            }
+            ICollection<Image> Images = new List<Image>();
             for (int i = 0; i < 3; i++)
             {
                 try
@@ -376,11 +375,11 @@ namespace AmitTextile.Controllers
                         Image image2 = new Image()
                         {
                             Name = model.Files[i].FileName,
-                            TextileId = Id,
+                            TextileId = toUpdateTextile.TextileId,
                             ByteImg = imageData1,
                             ImageId = Guid.NewGuid()
                         };
-                        Image.Add(image2);
+                        Images.Add(image2);
                     }
                 }
                 catch
@@ -388,42 +387,58 @@ namespace AmitTextile.Controllers
 
                 }
             }
-            textile.Images = Image;
+            for (int i = toUpdateTextile.Images.Count;i<3;i++)
+            {
+                try
+                {
+                    _context.Images.Add(((List<Image>) Images)[i - toUpdateTextile.Images.Count]);
+                }
+                catch
+                {
+
+                }
+            }
             ICollection<CharachteristicValues> values = new List<CharachteristicValues>();
+            toUpdateTextile.Charachteristics = new List<CharachteristicValues>();
             for (int i = 0; i < model.CharacsNames.Length; i++)
             {
-                values.Add(new CharachteristicValues()
+                _context.CharachteristicValues.Add(new CharachteristicValues()
                 {
                     CharachteristicValuesId = Guid.NewGuid(),
                     Value = model.CharacsValues[i],
                     Name = model.CharacsNames[i],
-                    TextileId = Id
+                    TextileId = toUpdateTextile.TextileId
                 });
             }
-            textile.Charachteristics = values;
             toUpdateTextile.Name = textile.Name;
-            toUpdateTextile.Charachteristics = textile.Charachteristics;
-            toUpdateTextile.MainImage = textile.MainImage;
-            toUpdateTextile.Images = textile.Images;
             toUpdateTextile.CategoryId = textile.CategoryId;
-            toUpdateTextile.ChildCategoryId = textile.ChildCategoryId;
-            toUpdateTextile.Charachteristics = textile.Charachteristics;
+            if (textile.ChildCategoryId == Guid.Empty)
+            {
+                toUpdateTextile.ChildCategoryId = textile.ChildCategoryId;
+            }
             toUpdateTextile.Description = textile.Description;
             toUpdateTextile.Discount = textile.Discount;
             toUpdateTextile.IsOnDiscount = textile.IsOnDiscount;
             toUpdateTextile.Price = textile.Price;
             toUpdateTextile.WarehouseAmount = textile.WarehouseAmount; 
-            _context.Textiles.Update(toUpdateTextile);
-            await _context.SaveChangesAsync();
+            _context.Textiles.Update(toUpdateTextile); 
+            _context.SaveChanges();
             return RedirectToAction("Main", "Admin");
         }
 
         [HttpPost("UpdateCat")]
-        public async Task<IActionResult> UpdateCat(Category model)
+        public async Task<IActionResult> UpdateCat(CatAddModel model)
         {
-            Category category = await _context.Categories.FindAsync(model.CategoryId);
+            Category category = _context.Categories.Include(x=>x.ChildCategories).FirstOrDefault(x=> x.CategoryId == Guid.Parse(model.Id));
             category.Name = model.Name;
-            category.ChildCategories = model.ChildCategories;
+            List<ChildCategory> Childs = new List<ChildCategory>();
+            foreach (var x in model.ChildCategoryId)
+            {
+                ChildCategory Category = await _context.ChildCategories.FindAsync(Guid.Parse(x));
+                Childs.Add(Category);
+            }
+
+            category.ChildCategories = Childs;
             _context.Categories.Update(category);
             await _context.SaveChangesAsync();
             return RedirectToAction("Main", "Admin");
@@ -431,7 +446,7 @@ namespace AmitTextile.Controllers
         [HttpPost("UpdateChildCat")]
         public async Task<IActionResult> UpdateChildCat(ChildCategory childCat)
         {
-            ChildCategory category = await _context.ChildCategories.FindAsync(childCat.ChildCategoryId);
+            ChildCategory category = await _context.ChildCategories.FindAsync(Guid.Parse(childCat.Id));
             category.Name = childCat.Name;
             _context.ChildCategories.Update(category);
             await _context.SaveChangesAsync();
@@ -440,20 +455,24 @@ namespace AmitTextile.Controllers
         [HttpPost("UpdateCharacteristics")]
         public async Task<IActionResult> UpdateChar(CharachteristicsAddModel charct)
         {
-            Charachteristic charachteristic = await _context.Charachteristics.FindAsync(charct.Id);
+            Charachteristic charachteristic = _context.Charachteristics.Include(x=>x.Values).FirstOrDefault(x=>x.CharachteristicId == Guid.Parse(charct.Id));
             if (charct.Value == null)
             {
                 charct.Value = new string[] { };
             }
             ICollection<CharachteristicVariants> variantses = new List<CharachteristicVariants>();
+            charachteristic.Values = new List<CharachteristicVariants>();
+            charachteristic.Name = charct.Name;
+            _context.Charachteristics.Update(charachteristic);
+            _context.SaveChangesAsync();
             foreach (var x in charct.Value)
             {
-                variantses.Add(new CharachteristicVariants() { CharachteristicVariantsId = Guid.NewGuid(), CharachteristicId = Guid.Parse(charct.Id), Value = x });
+                CharachteristicVariants variant = new CharachteristicVariants() { CharachteristicVariantsId = Guid.NewGuid(), CharachteristicId = Guid.Parse(charct.Id),Value = x };
+                variantses.Add(variant);
+                _context.CharachteristicVariants.Add(variant);
+
             }
-            charachteristic.Name = charct.Name;
-            charachteristic.Values = variantses;
-            _context.Charachteristics.Update(charachteristic);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return RedirectToAction("Main", "Admin");
         }
     }

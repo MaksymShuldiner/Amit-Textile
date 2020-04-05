@@ -6,6 +6,7 @@ namespace AmitTextile.Models
     {
         public string Name { get; set; }
 
+        public string Id { get; set; }
         public List<string> ChildCategoryId { get; set; } = new List<string>();
     }
 }

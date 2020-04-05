@@ -8,6 +8,10 @@ namespace AmitTextile.Domain
     {
         public Guid ChildCategoryId { get; set; }
 
+        [NotMapped]
+
+        public string Id { get; set; }
+
         public Category Category { get; set; }
 
         [ForeignKey("Category")] 
