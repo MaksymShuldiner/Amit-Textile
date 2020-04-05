@@ -199,7 +199,7 @@
                 let option = $(this).find('span').html();
                 $('.forma').find('form').remove();
                 if (option == "Добавить товар") {
-                    $('.forma').append('<form action="@Url.Action("CreateItem","Admin")" method="post" enctype="multipart/form-data"><label for="newItemName">Название товара</label><br /><input type="text" class="newItemName" name="Name" /><br /><label for="price">Цена товара</label><br /><input type="text" class="price" name="Price" /><br /><label for="warehouseAm">Кол-во товара на складе</label><br /><input type="text" class="warehouseAm" name="WarehouseAmount" /><div class="discContainer"><input type="checkbox" class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br /><input placeholder="Цена со скидкой" type="text" class="priceWithDiscount hidden" name="Discount" /></div><label for="newDescription">Введите описание для товара</label><br /><textarea class="newDescription" name="Description"></textarea><div class="charactLine"><label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span></div><div class="charactsContainer"></div><div class="categsContainer"><label>Выберите категорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="CategoryId" class="categsSelect"></select></div></div><br /><label>Выберите подкатегорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childCategsSelect"><option value="Нет">Нет</option></select></div></div></div><br /><label for="imageUpload">Выберите изображение для товара</label><br /><br /><input type="file" class="imageUpload" name="MainFile" /><label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br /><input type="file" multiple class="imageUploadMultiple" name="Files" /><input type="submit" class="createItem" value="Добавить товар" /></form>');
+                    $('.forma').append('<form action="@Url.Action("CreateItem","Admin")" method="post" enctype="multipart/form-data"><label for="newItemName">Название товара</label><br /><input type="text" class="newItemName" name="Name" /><br /><label for="price">Цена товара</label><br /><input type="text" class="price" name="Price" /><br /><label for="warehouseAm">Кол-во товара на складе</label><br /><input type="text" class="warehouseAm" name="WarehouseAmount" /><div class="discContainer"><input type="checkbox" value="false" class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br /><input placeholder="Цена со скидкой" type="text" class="priceWithDiscount hidden" name="Discount" /></div><label for="newDescription">Введите описание для товара</label><br /><textarea class="newDescription" name="Description"></textarea><div class="charactLine"><label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span></div><div class="charactsContainer"></div><div class="categsContainer"><label>Выберите категорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="CategoryId" class="categsSelect"></select></div></div><br /><label>Выберите подкатегорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childCategsSelect"><option value="Нет">Нет</option></select></div></div></div><br /><label for="imageUpload">Выберите изображение для товара</label><br /><br /><input type="file" class="imageUpload" name="MainFile" /><label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br /><input type="file" multiple class="imageUploadMultiple" name="Files" /><input type="submit" class="createItem" value="Добавить товар" /></form>');
                     $('.childCategsSelect').select2({
                         language: "ru",
                         width: "500px"
@@ -231,26 +231,36 @@
                             let Url;
                             for (let i = 0; i < arrCat.length; i++) {
                                 Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId;
-                                if (line % 2 == 0) {
-                                    $('#' + count).append('<a class="cats" href="' + Url + '">' + arrCat[i].name + '</a><br>');
-                                }
-                                else {
-                                    $('#' + count).append('<a class="cats r" href="' + Url + '">' + arrCat[i].name + '</a><br>');
-                                }
-                                if (arrCat.length - i <= 4) {
-                                    $('#' + count).append('<br>');
-                                }
-                                count++;
-                                if (count > 4) {
-                                    count = 1;
-                                    line++;
-                                }
                                 $('.categsSelect').append('<option value="' + arrCat[i].categoryId + '">' + arrCat[i].name + '</option>')
                                 $('.categsSelect').select2({
                                     language: "ru",
                                     width: "500px"
                                 });
                             }
+                                let sel = $('.categsSelect').find(':selected');
+                                for (let x = 0; x < arrCat.length; x++) {
+                                    if (arrCat[x].categoryId == sel.attr('value')) {
+                                        for (let m = 0; m < arrCat[x].childCategories.length; m++) {
+                                            $('.childCategsSelect').append('<option value="' + arrCat[x].childCategories[m].childCategoryId + '">'+arrCat[x].childCategories[m].name+'</option>')
+                                        }
+                                    }
+                                }
+                                $('.categsSelect').change(function () {
+                                    let opts = $('.childCategsSelect').find('option');
+                                    let sel = $('.categsSelect').find(':selected');
+                                    for (let p = 0; p < opts.length; p++) {
+                                        opts[p].remove();
+                                    }
+                                    $('.childCategsSelect').append('<option value="Нет">Нет</option>');
+                                    for (let x = 0; x < arrCat.length; x++) {
+                                        if (arrCat[x].categoryId == sel.attr('value')) {
+                                            for (let m = 0; m < arrCat[x].childCategories.length; m++) {
+                                                console.log(arrCat[x].childCategories[m]);
+                                                $('.childCategsSelect').append('<option value="' + arrCat[x].childCategories[m].childCategoryId + '">'+arrCat[x].childCategories[m].name+'</option>')
+                                            }
+                                        }
+                                    }
+                                });
                         }
                     });
                     $.ajax({
@@ -487,11 +497,58 @@
                                 let option = $(this).find(':selected');
                                 for (let i = 0; i < e.length; i++) {
                                     if ($(option).attr('value') == e[i].textileId) {
-                                        $('.forma').find('form').append('<div class="changeThis"><label for="newItemName">Название товара</label><br /><input type="text" class="newItemName" name="Name" value="' + e[i].name + '" /><br /><label for="price">Цена товара</label><br /><input type="text" class="price" value="'+e[i].price+'" name="Price" /><br /><label for="warehouseAm">Кол-во товара на складе</label><br /><input type="text" class="warehouseAm" value="'+e[i].warehouseAmount+'" name="WarehouseAmount" /><div class="discContainer"><input type="checkbox" class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br /><input placeholder="Цена со скидкой" type="text" class="priceWithDiscount hidden" name="Discount" /></div><label for="newDescription">Введите описание для товара</label><br /><textarea class="newDescription" name="Description">'+e[i].description+'</textarea><div class="charactLine"><label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span></div><div class="charactsContainer"></div><div class="categsContainer"><label>Выберите категорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="CategoryId" class="categsSelect"></select></div></div><br /><label>Выберите подкатегорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childCategsSelect"><option value="Нет">Нет</option></select></div></div></div><br /><label for="imageUpload">Выберите изображение для товара</label><br /><br /><input type="file" class="imageUpload" name="MainFile" /><label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br /><input type="file" multiple class="imageUploadMultiple" name="Files" /><input type="submit" class="createItem" value="Добавить товар" /></div>');
+                                        if (e[i].isOnDiscount) {
+                                            if (e[i].mainImage == null) {
+                                                $('.forma').find('form').append('<div class="changeThis"><label for="newItemName">Название товара</label><br /><input type="text" class="newItemName" name="Name" value="' + e[i].name + '" /><br /><label for="price">Цена товара</label><br /><input type="text" class="price" value="' + e[i].price + '" name="Price" /><br /><label for="warehouseAm">Кол-во товара на складе</label><br /><input type="text" class="warehouseAm" value="' + e[i].warehouseAmount + '" name="WarehouseAmount" /><div class="discContainer"><input type="checkbox" value="true" checked class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br /><input type="text" value="' + e[i].costWithDiscount + '" class="priceWithDiscount " name="Discount" /></div><label for="newDescription">Введите описание для товара</label><br /><textarea class="newDescription" name="Description">' + e[i].description + '</textarea><div class="charactLine"><label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span></div><div class="charactsContainer"></div><div class="categsContainer"><label>Выберите категорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="CategoryId" class="categsSelect"></select></div></div><br /><label>Выберите подкатегорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childCategsSelect"><option value="Нет">Нет</option></select></div></div></div><br /><label for="imageUpload">Выберите изображение для товара</label><br /><br /><input type="file" class="imageUpload" name="MainFile" /><label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br /><div class="extraImgs"></div><input type="file" multiple class="imageUploadMultiple" name="Files" /><input type="submit" class="createItem" value="Изменить товар" /><input type="hidden" value=' + e[i].textileId + '/></div>');
+                                            }
+                                            else {
+                                                $('.forma').find('form').append('<div class="changeThis"><label for="newItemName">Название товара</label><br /><input type="text" class="newItemName" name="Name" value="' + e[i].name + '" /><br /><label for="price">Цена товара</label><br /><input type="text" class="price" value="' + e[i].price + '" name="Price" /><br /><label for="warehouseAm">Кол-во товара на складе</label><br /><input type="text" class="warehouseAm" value="' + e[i].warehouseAmount + '" name="WarehouseAmount" /><div class="discContainer"><input type="checkbox" value="true" checked class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br /><input type="text" value="' + e[i].costWithDiscount + '" class="priceWithDiscount " name="Discount" /></div><label for="newDescription">Введите описание для товара</label><br /><textarea class="newDescription" name="Description">' + e[i].description + '</textarea><div class="charactLine"><label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span></div><div class="charactsContainer"></div><div class="categsContainer"><label>Выберите категорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="CategoryId" class="categsSelect"></select></div></div><br /><label>Выберите подкатегорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childCategsSelect"><option value="Нет">Нет</option></select></div></div></div><br /><label for="imageUpload">Изображение для товара</label></br></br><div class="upload></div><div class="removeImg"><span value=' + e[i].mainImage.imageId + ' title="Удалить изображение" class="mainImage removeIt"><i class="fas fa-times"></i></span><img src="data:image/jpeg;base64,' + e[i].mainImage.byteImg + '" /></div></br><div class="extraImgs"></div><label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br /><input type="file" multiple class="imageUploadMultiple" name="Files" /><input type="submit" class="createItem" value="Изменить товар" /><input type="hidden" value=' + e[i].textileId + '/></div>');
+                                                $('.mainImage').click(function () {
+                                                    let x = { "Id": $(this).attr('value') };
+                                                    let parent = $(this).parent();
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: '@Url.Action("DeleteSliderImg","Admin")',
+                                                        contentType: 'application/json; charset=utf-8',
+                                                        data: JSON.stringify(x),
+                                                        success: function () {
+                                                            parent.remove();
+                                                            $('.upload').append('<input type="file" class="imageUpload" name="MainFile" />');
+                                                        }
+                                                    });
+                                                });
+                                            }
+                                        }
+                                        else {
+                                            if (e[i].mainImage == null) {
+                                                $('.forma').find('form').append('<div class="changeThis"><label for="newItemName">Название товара</label><br /><input type="text" class="newItemName" name="Name" value="' + e[i].name + '" /><br /><label for="price">Цена товара</label><br /><input type="text" class="price" value="' + e[i].price + '" name="Price" /><br /><label for="warehouseAm">Кол-во товара на складе</label><br /><input type="text" class="warehouseAm" value="' + e[i].warehouseAmount + '" name="WarehouseAmount" /><div class="discContainer"><input type="checkbox" value="false" class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br /><input placeholder="Цена со скидкой" type="text" class="priceWithDiscount hidden" name="Discount" /></div><label for="newDescription">Введите описание для товара</label><br /><textarea class="newDescription" name="Description">' + e[i].description + '</textarea><div class="charactLine"><label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span></div><div class="charactsContainer"></div><div class="categsContainer"><label>Выберите категорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="CategoryId" class="categsSelect"></select></div></div><br /><label>Выберите подкатегорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childCategsSelect"><option value="Нет">Нет</option></select></div></div></div><br /><label for="imageUpload">Выберите изображение для товара</label><br /><br /><input type="file" class="imageUpload" name="MainFile" /><label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br /><div class="extraImgs"></div><input type="file" multiple class="imageUploadMultiple" name="Files" /><input type="submit" class="createItem" value="Изменить товар" /><input type="hidden" value=' + e[i].textileId + '/></div>');
+                                            }
+                                            else {
+                                                $('.forma').find('form').append('<div class="changeThis"><label for="newItemName">Название товара</label><br /><input type="text" class="newItemName" name="Name" value="' + e[i].name + '" /><br /><label for="price">Цена товара</label><br /><input type="text" class="price" value="' + e[i].price + '" name="Price" /><br /><label for="warehouseAm">Кол-во товара на складе</label><br /><input type="text" class="warehouseAm" value="' + e[i].warehouseAmount + '" name="WarehouseAmount" /><div class="discContainer"><input type="checkbox" value="false" class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br /><input placeholder="Цена со скидкой" type="text" class="priceWithDiscount hidden" name="Discount" /></div><label for="newDescription">Введите описание для товара</label><br /><textarea class="newDescription" name="Description">' + e[i].description + '</textarea><div class="charactLine"><label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span></div><div class="charactsContainer"></div><div class="categsContainer"><label>Выберите категорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="CategoryId" class="categsSelect"></select></div></div><br /><label>Выберите подкатегорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childCategsSelect"><option value="Нет">Нет</option></select></div></div></div><br /><label for="imageUpload">Изображение для товара</label><br /><br />div class="upload></div><div class="removeImg"><span value=' + e[i].mainImage.imageId + ' title="Удалить изображение" class="mainImage removeIt"><i class="fas fa-times"></i></span><img src="data:image/jpeg;base64,' + e[i].mainImage.byteImg + '" /></div></br></br><label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br /><div class="extraImgs"></div><input type="file" multiple class="imageUploadMultiple" name="Files" /><input type="submit" class="createItem" value="Изменить товар" /><input type="hidden" value=' + e[i].textileId + '/></div>');
+                                                $('.mainImage').click(function () {
+                                                    let x = { "Id": $(this).attr('value') };
+                                                    let parent = $(this).parent();
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: '@Url.Action("DeleteSliderImg","Admin")',
+                                                        contentType: 'application/json; charset=utf-8',
+                                                        data: JSON.stringify(x),
+                                                        success: function () {
+                                                            parent.remove();
+                                                            $('.upload').append('<input type="file" class="imageUpload" name="MainFile" />');
+                                                        }
+                                                    });
+                                                });
+                                            }
+                                        }
                                         $('.childCategsSelect').select2({
-                                        language: "ru",
-                                        width: "500px"
-                                    });
+                                            language: "ru",
+                                            width: "500px"
+                                        });
+                                        $('.categsSelect').select2({
+                                            language: "ru",
+                                            width: "500px"
+                                        });
                                     $('.addCharact').click(function () {
                                         $('.charactLine').append('<div class="newCharacteristic"><span class="removeCharact"><i class="fas fa-times"></i></span><label for="charactName">Введите имя для характеристики</label><br/><input class="charactName" type="text" name="CharacsNames"/><br/><label for="charactValue">Введите значение характеристики</label><br/><input class="charactValue" name="CharacsValues" type="text"/></div>')
                                         $('.removeCharact').click(function () {
@@ -516,29 +573,36 @@
                                         contentType: 'json',
                                         success: function (result) {
                                             arrCat = result;
+                                            console.log(arrCat);
                                             let Url;
                                             for (let i = 0; i < arrCat.length; i++) {
                                                 Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId;
-                                                if (line % 2 == 0) {
-                                                    $('#' + count).append('<a class="cats" href="' + Url + '">' + arrCat[i].name + '</a><br>');
-                                                }
-                                                else {
-                                                    $('#' + count).append('<a class="cats r" href="' + Url + '">' + arrCat[i].name + '</a><br>');
-                                                }
-                                                if (arrCat.length - i <= 4) {
-                                                    $('#' + count).append('<br>');
-                                                }
-                                                count++;
-                                                if (count > 4) {
-                                                    count = 1;
-                                                    line++;
-                                                }
                                                 $('.categsSelect').append('<option value="' + arrCat[i].categoryId + '">' + arrCat[i].name + '</option>')
                                                 $('.categsSelect').select2({
                                                     language: "ru",
-                                                    width: "500px"
-                                                });
+                                                    width:"500px"
+                                                })
                                             }
+                                            for (let z = 0; z < arrCat.length; z++) {
+                                                if (arrCat[z].categoryId == e[i].categoryId) {
+                                                    $('.categsSelect').val(arrCat[z].categoryId);
+                                                    $('.categsSelect').select2({
+                                                        language: "ru",
+                                                        width:"500px"
+                                                    });
+                                                    for (let o = 0; o < arrCat[z].childCategories.length; o++) {
+                                                        $('.childCategsSelect').append('<option value="' + arrCat[z].childCategories[o].childCategoryId + '">' + arrCat[z].childCategories[o].name + '</option>')
+                                                        if (arrCat[z].childCategories[o].childCategoryId == e[i].childCategoryId) {
+                                                            $('.childCategsSelect').val(arrCat[z].childCategories[o].childCategoryId);
+                                                            $('.childCategsSelect').select2({
+                                                                language: "ru",
+                                                                width:"500px"
+                                                            });
+                                                        }
+                                                    }
+                                                    break;
+                                                }
+                                            }     
                                         }
                                     });
                                     $.ajax({
@@ -567,9 +631,30 @@
                                             }
                                         },
                                     });
+                                        $('.extraImgs').append('<label>Дополнительные изображения</label></br></br>');
+                                        for (let t = 0; t < e[i].images.length; t++) {
+                                            $('.extraImgs').append('<div class="removeImg"><span value=' + e[i].images[t].imageId + ' title="Удалить изображение" class="extra removeIt"><i class="fas fa-times"></i></span> <img src="data:image/jpeg;base64,' + e[i].images[t].byteImg + '" /></div >');
+                                            $('.extra').click(function () {
+                                                let x = { "Id": $(this).attr('value') };
+                                                let parent = $(this).parent();
+                                                $.ajax({
+                                                    type: 'POST',
+                                                    url: '@Url.Action("DeleteSliderImg","Admin")',
+                                                    contentType: 'application/json; charset=utf-8',
+                                                    data: JSON.stringify(x),
+                                                    success: function () {
+                                                        parent.remove();
+                                                    }
+                                                });
+                                            });
+                                        }
                                     }
                                 }
+                                
                             });
+                        },
+                        error: function (e) {
+                            console.log(e);
                         }
                     });
                 }
@@ -593,21 +678,21 @@
                                 let val = $(this).find(':selected').attr('value');
                                 for (let i = 0; i < e.length; i++) {
                                     if (e[i].categoryId == val) {
-                                        $('.forma').find('form').append('<div class="changeThis"><label>Название категории</label><br /><input type="text" class="newCatName" value="' + e[i].name + '" name="Name"/><div class="addNewChild"><label>Добавить подкатегорию</label> <span class="addChildCat"><i class="fas fa-plus"></i></span></div><input type="submit" class="createItem" value="Редактировать категорию" /></div>');
-                                        for (let j = 0; j < e[i].childCategories.length; j++) {
-                                            $('.addNewChild').append('<div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childSelect ' + counter + '"></select></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span></div >');
-                                            $('.childSelect').select2({
-                                                language: "ru",
-                                                width: "450px"
-                                            });
-                                            $('.removeCharact').click(function () {
-                                                        $(this).parent().remove();
-                                            });
-                                            $.ajax({
+                                        $('.forma').find('form').append('<div class="changeThis"><label>Название категории</label><br /><input type="text" class="newCatName" value="' + e[i].name + '" name="Name"/><div class="addNewChild"><label>Добавить подкатегорию</label> <span class="addChildCat"><i class="fas fa-plus"></i></span></div><input type="submit" class="createItem" value="Редактировать категорию" /><input type="hidden" value=' + e[i].categoryId + '/></div>');
+                                        $.ajax({
                                                 type: 'GET',
                                                 url: "@Url.Action("GetChildss","Admin")",
                                                 contentType: 'json',
                                                 success: function (z) {
+                                                    for (let j = 0; j < e[i].childCategories.length; j++) {
+                                                        $('.addNewChild').append('<div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childSelect ' + counter + '"></select></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span><input type="hidden" value="' + e[i].categoryId + '"/></div >');
+                                                    $('.childSelect').select2({
+                                                        language: "ru",
+                                                        width: "450px"
+                                                    });
+                                                    $('.removeCharact').click(function () {
+                                                                $(this).parent().remove();
+                                                    });
                                                     console.log(z);
                                                     for (let i = 0; i < z.length; i++) {
                                                         $('.' + counter).append('<option value="' + z[i].childCategoryId + '">' + z[i].name + '</option>');
@@ -618,17 +703,21 @@
                                                     let option = $('.' +counter).find('option');
                                                     for (let q = 0; q < option.length; q++) {
                                                         if ($(option[q]).attr('value') == e[i].childCategories[j].childCategoryId) {
-                                                            $(option[q]).attr('selected', 'selected');
+                                                            $('.' + counter).val($(option[q]).attr('value'));
+                                                            $('.' + counter).select2({
+                                                                width: "450px",
+                                                                language:"ru"
+                                                            })
                                                         }
                                                     }
                                                     counter++;
                                                 }
-                                            });
-                                        }
+                                            }
+                                        });
                                         $('.addChildCat').click(function () {
                                             $.ajax({
                                                 type: 'GET',
-                                                url: "@Url.Action("GetChilds","Admin")",
+                                                url: "@Url.Action("GetChildss","Admin")",
                                                 contentType: 'json',
                                                 success: function (e) {
                                                     $('.addNewChild').append('<div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childSelect ' + counter + '"></select></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span></div >');
@@ -671,7 +760,7 @@
                                 let option = $(this).find(':selected');
                                 for (let i = 0; i < e.length; i++) {
                                     if (option.attr('value') == e[i].childCategoryId) {
-                                        $('.forma').find('form').append('<div class="changeThis"><label>Название подкатегории</label><br/><input type="text" class="newChildName" name="name" value="'+e[i].name+'"/><br/><input type="submit" class="createItem" value="Добавить подкатегории" /></div>');
+                                        $('.forma').find('form').append('<div class="changeThis"><label>Название подкатегории</label><br/><input type="text" class="newChildName" name="name" value="' + e[i].name + '"/><br/><input type="submit" class="createItem" value="Добавить подкатегории" /><input type="hidden" value="' + e[i].childCategoryId + '"/></div>');
                                     }
                                 }
                             });
@@ -697,7 +786,7 @@
                                 let option = $(this).find(':selected');
                                 for (let i = 0; i < e.length; i++) {
                                     if (option.attr('value') == e[i].charachteristicId) {
-                                        $('.forma').find('form').append('<div class="changeThis"><label>Имя характеристики</label><br /><input type="text" value="'+e[i].name+'" class="newCharactName" name="Name"/><br/><input type="checkbox" class="nP" /><label>&nbsp &nbsp Шаблонные значения</label><div class="pat"></div><input type="submit" class="createItem" value="Добавить характеристику"/></div>');
+                                        $('.forma').find('form').append('<div class="changeThis"><label>Имя характеристики</label><br /><input type="text" value="' + e[i].name + '" class="newCharactName" name="Name"/><br/><input type="checkbox" class="nP" /><label>&nbsp &nbsp Шаблонные значения</label><div class="pat"></div><input type="submit" class="createItem" value="Добавить характеристику"/><input type="hidden" value="' + e[i].charachteristicId + '"/></div>');
                                         if (e[i].values.length > 0) {
                                             $('.nP').prop('checked', 'checked');
                                             $('.pat').append('<div class="patterns"><label>Добавить шаблонное значение</label><span class="addPattern"><i class="fas fa-plus"></i></span></div>');
@@ -752,7 +841,7 @@
 
         })
         $(document).ready(function () {
-            $('.forma').append('<form action="@Url.Action("CreateItem","Admin")" method="post" enctype="multipart/form-data"><label for="newItemName">Название товара</label><br /><input type="text" class="newItemName" name="Name" /><br /><label for="price">Цена товара</label><br /><input type="text" class="price" name="Price" /><br /><label for="warehouseAm">Кол-во товара на складе</label><br /><input type="text" class="warehouseAm" name="WarehouseAmount" /><div class="discContainer"><input type="checkbox" class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br /><input placeholder="Цена со скидкой" type="text" class="priceWithDiscount hidden" name="Discount" /></div><label for="newDescription">Введите описание для товара</label><br /><textarea class="newDescription" name="Description"></textarea><div class="charactLine"><label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span></div><div class="charactsContainer"></div><div class="categsContainer"><label>Выберите категорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="CategoryId" class="categsSelect"></select></div></div><br /><label>Выберите подкатегорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childCategsSelect"><option value="Нет">Нет</option></select></div></div></div><br /><label for="imageUpload">Выберите изображение для товара</label><br /><br /><input type="file" class="imageUpload" name="MainFile" /><label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br /><input type="file" multiple class="imageUploadMultiple" name="Files" /><input type="submit" class="createItem" value="Добавить товар" /></form>');
+            $('.forma').append('<form action="@Url.Action("CreateItem","Admin")" method="post" enctype="multipart/form-data"><label for="newItemName">Название товара</label><br /><input type="text" class="newItemName" name="Name" /><br /><label for="price">Цена товара</label><br /><input type="text" class="price" name="Price" /><br /><label for="warehouseAm">Кол-во товара на складе</label><br /><input type="text" class="warehouseAm" name="WarehouseAmount" /><div class="discContainer"><input type="checkbox" value="false" class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br /><input placeholder="Цена со скидкой" type="text" class="priceWithDiscount hidden" name="Discount" /></div><label for="newDescription">Введите описание для товара</label><br /><textarea class="newDescription" name="Description"></textarea><div class="charactLine"><label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span></div><div class="charactsContainer"></div><div class="categsContainer"><label>Выберите категорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="CategoryId" class="categsSelect"></select></div></div><br /><label>Выберите подкатегорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childCategsSelect"><option value="Нет">Нет</option></select></div></div></div><br /><label for="imageUpload">Выберите изображение для товара</label><br /><br /><input type="file" class="imageUpload" name="MainFile" /><label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br /><input type="file" multiple class="imageUploadMultiple" name="Files" /><input type="submit" class="createItem" value="Добавить товар" /></form>');
             $('.childCategsSelect').select2({
                 language: "ru",
                 width:"500px"
@@ -777,7 +866,7 @@
             });
             $.ajax({
                 type: 'GET',
-                url:'@Url.Action("GetCategories", "TextileApi")',
+                url:'@Url.Action("GetCats", "Admin")',
                 contentType: 'json',
                 success: function (result) {
                     arrCat = result;
@@ -799,11 +888,35 @@
                             line++;
                         }
                         $('.categsSelect').append('<option value="' + arrCat[i].categoryId + '">' + arrCat[i].name + '</option>');
+                        $('.categsSelect').select2({
+                            language: "ru",
+                            width:"500px"
+                        });
                     }
-                    $('.categsSelect').select2({
-                        language: "ru",
-                        width:"500px"
-                    });
+                    let sel = $('.categsSelect').find(':selected');
+                                for (let x = 0; x < arrCat.length; x++) {
+                                    if (arrCat[x].categoryId == sel.attr('value')) {
+                                        for (let m = 0; m < arrCat[x].childCategories.length; m++) {
+                                            $('.childCategsSelect').append('<option value="' + arrCat[x].childCategories[m].childCategoryId + '">'+arrCat[x].childCategories[m].name+'</option>')
+                                        }
+                                    }
+                                }
+                                $('.categsSelect').change(function () {
+                                    let opts = $('.childCategsSelect').find('option');
+                                    let sel = $('.categsSelect').find(':selected');
+                                    for (let p = 0; p < opts.length; p++) {
+                                        opts[p].remove();
+                                    }
+                                    $('.childCategsSelect').append('<option value="Нет">Нет</option>');
+                                    for (let x = 0; x < arrCat.length; x++) {
+                                        if (arrCat[x].categoryId == sel.attr('value')) {
+                                            for (let m = 0; m < arrCat[x].childCategories.length; m++) {
+                                                console.log(arrCat[x].childCategories[m]);
+                                                $('.childCategsSelect').append('<option value="' + arrCat[x].childCategories[m].childCategoryId + '">'+arrCat[x].childCategories[m].name+'</option>')
+                                            }
+                                        }
+                                    }
+                                });
                 }
             });
             $.ajax({
