@@ -231,20 +231,6 @@
                             let Url;
                             for (let i = 0; i < arrCat.length; i++) {
                                 Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId;
-                                if (line % 2 == 0) {
-                                    $('#' + count).append('<a class="cats" href="' + Url + '">' + arrCat[i].name + '</a><br>');
-                                }
-                                else {
-                                    $('#' + count).append('<a class="cats r" href="' + Url + '">' + arrCat[i].name + '</a><br>');
-                                }
-                                if (arrCat.length - i <= 4) {
-                                    $('#' + count).append('<br>');
-                                }
-                                count++;
-                                if (count > 4) {
-                                    count = 1;
-                                    line++;
-                                }
                                 $('.categsSelect').append('<option value="' + arrCat[i].categoryId + '">' + arrCat[i].name + '</option>')
                                 $('.categsSelect').select2({
                                     language: "ru",
@@ -487,7 +473,12 @@
                                 let option = $(this).find(':selected');
                                 for (let i = 0; i < e.length; i++) {
                                     if ($(option).attr('value') == e[i].textileId) {
-                                        $('.forma').find('form').append('<div class="changeThis"><label for="newItemName">Название товара</label><br /><input type="text" class="newItemName" name="Name" value="' + e[i].name + '" /><br /><label for="price">Цена товара</label><br /><input type="text" class="price" value="'+e[i].price+'" name="Price" /><br /><label for="warehouseAm">Кол-во товара на складе</label><br /><input type="text" class="warehouseAm" value="'+e[i].warehouseAmount+'" name="WarehouseAmount" /><div class="discContainer"><input type="checkbox" class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br /><input placeholder="Цена со скидкой" type="text" class="priceWithDiscount hidden" name="Discount" /></div><label for="newDescription">Введите описание для товара</label><br /><textarea class="newDescription" name="Description">'+e[i].description+'</textarea><div class="charactLine"><label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span></div><div class="charactsContainer"></div><div class="categsContainer"><label>Выберите категорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="CategoryId" class="categsSelect"></select></div></div><br /><label>Выберите подкатегорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childCategsSelect"><option value="Нет">Нет</option></select></div></div></div><br /><label for="imageUpload">Выберите изображение для товара</label><br /><br /><input type="file" class="imageUpload" name="MainFile" /><label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br /><input type="file" multiple class="imageUploadMultiple" name="Files" /><input type="submit" class="createItem" value="Добавить товар" /></div>');
+                                        if (e[i].isOnDiscount) {
+                                            $('.forma').find('form').append('<div class="changeThis"><label for="newItemName">Название товара</label><br /><input type="text" class="newItemName" name="Name" value="' + e[i].name + '" /><br /><label for="price">Цена товара</label><br /><input type="text" class="price" value="' + e[i].price + '" name="Price" /><br /><label for="warehouseAm">Кол-во товара на складе</label><br /><input type="text" class="warehouseAm" value="' + e[i].warehouseAmount + '" name="WarehouseAmount" /><div class="discContainer"><input type="checkbox" value="true" checked class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br /><input type="text" value="'+e[i].priceWithDoscount+'" class="priceWithDiscount " name="Discount" /></div><label for="newDescription">Введите описание для товара</label><br /><textarea class="newDescription" name="Description">' + e[i].description + '</textarea><div class="charactLine"><label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span></div><div class="charactsContainer"></div><div class="categsContainer"><label>Выберите категорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="CategoryId" class="categsSelect"></select></div></div><br /><label>Выберите подкатегорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childCategsSelect"><option value="Нет">Нет</option></select></div></div></div><br /><label for="imageUpload">Выберите изображение для товара</label><br /><br /><input type="file" class="imageUpload" name="MainFile" /><label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br /><input type="file" multiple class="imageUploadMultiple" name="Files" /><input type="submit" class="createItem" value="Изменить товар" /></div>');
+                                        }
+                                        else {
+                                            $('.forma').find('form').append('<div class="changeThis"><label for="newItemName">Название товара</label><br /><input type="text" class="newItemName" name="Name" value="' + e[i].name + '" /><br /><label for="price">Цена товара</label><br /><input type="text" class="price" value="' + e[i].price + '" name="Price" /><br /><label for="warehouseAm">Кол-во товара на складе</label><br /><input type="text" class="warehouseAm" value="' + e[i].warehouseAmount + '" name="WarehouseAmount" /><div class="discContainer"><input type="checkbox" value="false" class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br /><input placeholder="Цена со скидкой" type="text" class="priceWithDiscount hidden" name="Discount" /></div><label for="newDescription">Введите описание для товара</label><br /><textarea class="newDescription" name="Description">' + e[i].description + '</textarea><div class="charactLine"><label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span></div><div class="charactsContainer"></div><div class="categsContainer"><label>Выберите категорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="CategoryId" class="categsSelect"></select></div></div><br /><label>Выберите подкатегорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childCategsSelect"><option value="Нет">Нет</option></select></div></div></div><br /><label for="imageUpload">Выберите изображение для товара</label><br /><br /><input type="file" class="imageUpload" name="MainFile" /><label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br /><input type="file" multiple class="imageUploadMultiple" name="Files" /><input type="submit" class="createItem" value="Изменить товар" /></div>');
+                                        }
                                         $('.childCategsSelect').select2({
                                         language: "ru",
                                         width: "500px"
@@ -519,20 +510,6 @@
                                             let Url;
                                             for (let i = 0; i < arrCat.length; i++) {
                                                 Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId;
-                                                if (line % 2 == 0) {
-                                                    $('#' + count).append('<a class="cats" href="' + Url + '">' + arrCat[i].name + '</a><br>');
-                                                }
-                                                else {
-                                                    $('#' + count).append('<a class="cats r" href="' + Url + '">' + arrCat[i].name + '</a><br>');
-                                                }
-                                                if (arrCat.length - i <= 4) {
-                                                    $('#' + count).append('<br>');
-                                                }
-                                                count++;
-                                                if (count > 4) {
-                                                    count = 1;
-                                                    line++;
-                                                }
                                                 $('.categsSelect').append('<option value="' + arrCat[i].categoryId + '">' + arrCat[i].name + '</option>')
                                                 $('.categsSelect').select2({
                                                     language: "ru",
@@ -570,6 +547,9 @@
                                     }
                                 }
                             });
+                        },
+                        error: function (e) {
+                            console.log(e);
                         }
                     });
                 }
