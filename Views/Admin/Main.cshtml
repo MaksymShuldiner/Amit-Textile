@@ -224,7 +224,7 @@
                     });
                     $.ajax({
                         type: 'GET',
-                        url: '@Url.Action("GetCategories", "TextileApi")',
+                        url: '@Url.Action("GetCats", "Admin")',
                         contentType: 'json',
                         success: function (result) {
                             arrCat = result;
@@ -478,9 +478,98 @@
                         url: "@Url.Action("GetItems","Admin")",
                         contentType: "json",
                         success: function (e) {
+                            console.log(e);
                             for (let i = 0; i < e.length; i++) {
-                                $('.deleteSelect').append('<option" value="' + e[i].textileId + '">' + e[i].name + '</option>')
+                                $('.deleteSelect').append('<option value="' + e[i].textileId + '">' + e[i].name + '</option>')
                             }
+                            $('.deleteSelect').change(function () {
+                                $('.changeThis').remove();
+                                let option = $(this).find(':selected');
+                                for (let i = 0; i < e.length; i++) {
+                                    if ($(option).attr('value') == e[i].textileId) {
+                                        $('.forma').find('form').append('<div class="changeThis"><label for="newItemName">Название товара</label><br /><input type="text" class="newItemName" name="Name" value="' + e[i].name + '" /><br /><label for="price">Цена товара</label><br /><input type="text" class="price" value="'+e[i].price+'" name="Price" /><br /><label for="warehouseAm">Кол-во товара на складе</label><br /><input type="text" class="warehouseAm" value="'+e[i].warehouseAmount+'" name="WarehouseAmount" /><div class="discContainer"><input type="checkbox" class="isOnDiscount" name="IsOnDiscount" /><label>&nbsp &nbspТовар со скидкой</label><br /><input placeholder="Цена со скидкой" type="text" class="priceWithDiscount hidden" name="Discount" /></div><label for="newDescription">Введите описание для товара</label><br /><textarea class="newDescription" name="Description">'+e[i].description+'</textarea><div class="charactLine"><label>Характеристики</label><span class="addCharact"><i class="fas fa-plus"></i></span></div><div class="charactsContainer"></div><div class="categsContainer"><label>Выберите категорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="CategoryId" class="categsSelect"></select></div></div><br /><label>Выберите подкатегорию</label><br /><div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childCategsSelect"><option value="Нет">Нет</option></select></div></div></div><br /><label for="imageUpload">Выберите изображение для товара</label><br /><br /><input type="file" class="imageUpload" name="MainFile" /><label for="imageUploadMultiple">(Не обязательно)Выберите дополнительные изображение для товара(до 3 штук)</label><br /><br /><input type="file" multiple class="imageUploadMultiple" name="Files" /><input type="submit" class="createItem" value="Добавить товар" /></div>');
+                                        $('.childCategsSelect').select2({
+                                        language: "ru",
+                                        width: "500px"
+                                    });
+                                    $('.addCharact').click(function () {
+                                        $('.charactLine').append('<div class="newCharacteristic"><span class="removeCharact"><i class="fas fa-times"></i></span><label for="charactName">Введите имя для характеристики</label><br/><input class="charactName" type="text" name="CharacsNames"/><br/><label for="charactValue">Введите значение характеристики</label><br/><input class="charactValue" name="CharacsValues" type="text"/></div>')
+                                        $('.removeCharact').click(function () {
+                                            $(this).parent().remove();
+                                        });
+                                        $('.categsSelect').select2({
+                                            language: "ru",
+                                            width: "500px"
+                                        });
+                                    });
+                                    $('.isOnDiscount').change(function () {
+                                        if ($(this).prop('checked')) {
+                                            $(this).attr('value', 'true');
+                                        } else {
+                                            $(this).attr('value', 'false');
+                                        }
+                                        $('.priceWithDiscount').toggleClass('hidden');
+                                    });
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: '@Url.Action("GetCats", "Admin")',
+                                        contentType: 'json',
+                                        success: function (result) {
+                                            arrCat = result;
+                                            let Url;
+                                            for (let i = 0; i < arrCat.length; i++) {
+                                                Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId;
+                                                if (line % 2 == 0) {
+                                                    $('#' + count).append('<a class="cats" href="' + Url + '">' + arrCat[i].name + '</a><br>');
+                                                }
+                                                else {
+                                                    $('#' + count).append('<a class="cats r" href="' + Url + '">' + arrCat[i].name + '</a><br>');
+                                                }
+                                                if (arrCat.length - i <= 4) {
+                                                    $('#' + count).append('<br>');
+                                                }
+                                                count++;
+                                                if (count > 4) {
+                                                    count = 1;
+                                                    line++;
+                                                }
+                                                $('.categsSelect').append('<option value="' + arrCat[i].categoryId + '">' + arrCat[i].name + '</option>')
+                                                $('.categsSelect').select2({
+                                                    language: "ru",
+                                                    width: "500px"
+                                                });
+                                            }
+                                        }
+                                    });
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: "@Url.Action("GetCharachteristics","Admin")",
+                                        contentType: 'json',
+                                        success: function (e) {
+                                            console.log(e);
+                                            for (let i = 0; i < e.length; i++) {
+                                                if (e[i].values.length != 0) {
+                                                    $('.charactsContainer').append('<div class="selectContainer"><label>' + e[i].name + '</label><br/><div class="select-wrapper createSelect"><select name="CharacsValues" class="characteristicSelect ' + i + '"></select></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span><input type="hidden" name="CharacsNames" value="' + e[i].name + '"/></div >');
+                                                    $('.characteristicSelect').select2({
+                                                        language: "ru",
+                                                        width: "450px"
+                                                    });
+                                                    for (let j = 0; j < e[i].values.length; j++) {
+                                                        $('.' + i).append('<option value="' + e[i].values[j].value + '"> ' + e[i].values[j].value + '</option>');
+                                                    }
+                                                }
+                                                else {
+                                                    $('.charactsContainer').append('<div class="newCharact"><label class="charactName">' + e[i].name + '</label><br /><input class="charactValue" type="text" name="CharacsValues" /><span class="removeCharact"><i class="fas fa-times"></i></span><input type="hidden" value="' + e[i].name + '" name = "CharacsNames"/></div>');
+                                                }
+                                                $('.removeCharact').click(function () {
+                                                    $(this).parent().remove();
+                                                });
+                                            }
+                                        },
+                                    });
+                                    }
+                                }
+                            });
                         }
                     });
                 }
@@ -516,24 +605,25 @@
                                             });
                                             $.ajax({
                                                 type: 'GET',
-                                                url: "@Url.Action("GetChilds","Admin")",
+                                                url: "@Url.Action("GetChildss","Admin")",
                                                 contentType: 'json',
                                                 success: function (z) {
-                                                    for (let i = 0; i < e.length; i++) {
+                                                    console.log(z);
+                                                    for (let i = 0; i < z.length; i++) {
                                                         $('.' + counter).append('<option value="' + z[i].childCategoryId + '">' + z[i].name + '</option>');
                                                     }
                                                     $('.removeCharact').click(function () {
                                                         $(this).parent().remove();
                                                     });
+                                                    let option = $('.' +counter).find('option');
+                                                    for (let q = 0; q < option.length; q++) {
+                                                        if ($(option[q]).attr('value') == e[i].childCategories[j].childCategoryId) {
+                                                            $(option[q]).attr('selected', 'selected');
+                                                        }
+                                                    }
+                                                    counter++;
                                                 }
                                             });
-                                            let option = $('.' +counter).find('option');
-                                            for (let q = 0; q < option.length; q++) {
-                                                if (option[q].attr('value') == e[i].childCategories[j].childCategoryId) {
-                                                    option[q].attr('selected', 'selected');
-                                                }
-                                            }
-                                            counter++;
                                         }
                                         $('.addChildCat').click(function () {
                                             $.ajax({
@@ -607,12 +697,12 @@
                                 let option = $(this).find(':selected');
                                 for (let i = 0; i < e.length; i++) {
                                     if (option.attr('value') == e[i].charachteristicId) {
-                                        $('.forma').find('form').append('<div class="changeThis"><label>Имя характеристики</label><br /><input type="text" class="newCharactName" name="Name"/><br/><input type="checkbox" class="nP" /><label>&nbsp &nbsp Шаблонные значения</label><div class="pat"></div><input type="submit" class="createItem" value="Добавить характеристику"/></div>');
+                                        $('.forma').find('form').append('<div class="changeThis"><label>Имя характеристики</label><br /><input type="text" value="'+e[i].name+'" class="newCharactName" name="Name"/><br/><input type="checkbox" class="nP" /><label>&nbsp &nbsp Шаблонные значения</label><div class="pat"></div><input type="submit" class="createItem" value="Добавить характеристику"/></div>');
                                         if (e[i].values.length > 0) {
                                             $('.nP').prop('checked', 'checked');
                                             $('.pat').append('<div class="patterns"><label>Добавить шаблонное значение</label><span class="addPattern"><i class="fas fa-plus"></i></span></div>');
                                             for (let j = 0; j < e[i].values.length;j++) {
-                                                ('.patterns').append('<div class="patternContainer"><label>Текст шаблона</label><br/><input type="text" name="Value" value="' + e[i].values[j].value + '" class="patternValue"/><span class="removeCharact"><i class="fas fa-times"></i></span></div>');
+                                                $('.patterns').append('<div class="patternContainer"><label>Текст шаблона</label><br/><input type="text" name="Value" value="' + e[i].values[j].value + '" class="patternValue"/><span class="removeCharact"><i class="fas fa-times"></i></span></div>');
                                                 $('.removeCharact').click(function () {
                                                     $(this).parent().remove();
                                                 });
@@ -630,6 +720,12 @@
                                         $('.nP').change(function () {
                                             if ($(this).prop('checked')) {
                                                 $('.pat').append('<div class="patterns"><label>Добавить шаблонное значение</label><span class="addPattern"><i class="fas fa-plus"></i></span></div>');
+                                                for (let j = 0; j < e[i].values.length;j++) {
+                                                    $('.patterns').append('<div class="patternContainer"><label>Текст шаблона</label><br/><input type="text" name="Value" value="' + e[i].values[j].value + '" class="patternValue"/><span class="removeCharact"><i class="fas fa-times"></i></span></div>');
+                                                    $('.removeCharact').click(function () {
+                                                        $(this).parent().remove();
+                                                    });
+                                                }
                                                 $('.addPattern').click(function () {
                                                     $('.patterns').append('<div class="patternContainer"><label>Текст шаблона</label><br/><input type="text" name="Value" class="patternValue"/><span class="removeCharact"><i class="fas fa-times"></i></span></div>');
                                                     $('.removeCharact').click(function () {
