@@ -1248,7 +1248,7 @@ namespace AmitTextile.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 foreach (var x in cart.Items)
-                {
+                {   
                     itemorders.Add(new ItemOrder() { OrderId = Id, ItemId = x.ItemId });
                 }
                 cart.Items = new List<Item>();

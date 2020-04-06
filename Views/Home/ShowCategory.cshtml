@@ -63,7 +63,7 @@
             <span class="closeSide"><i class="fas fa-times"></i></span>
             <ul>
                 <li>
-                    <a href="#" class="logoMainSide"><img src="~/images/logoReversed.png" /></a>
+                    <a href="@Url.Action("Index","Home")" class="logoMainSide"><img src="~/images/logoReversed.png" /></a>
                 </li>
                 <li>
                     @if (!User.Identity.IsAuthenticated)
@@ -103,8 +103,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-2 logo_container">
-                    <a href="#" class="logoMain"><img src="~/images/logoReversed.png" /></a>
-                    <a href="#" class="logoWithoutName"><img src="~/images/logoAdapt.png" /></a>
+                    <a href="@Url.Action("Index","Home")" class="logoMain"><img src="~/images/logoReversed.png" /></a>
+                    <a href="@Url.Action("Index","Home")" class="logoWithoutName"><img src="~/images/logoAdapt.png" /></a>
                 </div>
                 <div class="col-md-5 search_container">
                     <span class="openSide"><i class="fas fa-bars"></i></span>
