@@ -7,27 +7,73 @@
         margin-left:0;
     }
 }
-@media only screen and (max-width:1199px){
-    .item_name{
-        font-size:13px;
+@media only screen and (max-width:1338px) {
+    .cart_container{
+        padding-left:2%;
     }
-    .search_container{
-        padding-left:150px;
+    .first {
+        margin-left: 10px;
     }
-    .logo_container > a{
+    .nFirst {
+        margin-left:93px;
+    }
+}
+@media only screen and (max-width:1217px) {
+    .item_cost {
+        font-size: 20px;
+    }
+    .first {
+        display: none;
+    }
+    .filterField{
+        margin-left:15%;
+    }
+    .submitFilters{
         margin-left:30px;
+    }
+    .nFirst {
+        display: none;
+    }
+
+    .helloAuth > .login {
+        width: 235px;
+        position: relative;
+        left: 100px;
+        bottom: 40px;
+    }
+
+    .logedDropdown {
+        margin-left: 100px;
+    }
+
+    .item_name {
+        font-size: 13px;
+    }
+
+    .search_container {
+        padding-left: 150px;
+    }
+
+    .logo_container > a {
+        margin-left: 30px;
     }
 }
 @media only screen and (max-width:1100px) {
+    .buyItem > a{
+        font-size:14px;
+    }
     .rateItemContainer a {
         font-size: 12px;
     }
 }
 @media only screen and (max-width:1086px) {
-    .item_cells .fav{
-        position:relative;
-        right:25px;
-        bottom:32px;
+    .buttonsItemList>.fav{
+        position:unset!important;
+    }
+    .item_cells .fav {
+        position: relative;
+        right: 25px;
+        bottom: 32px;
     }
     .item:hover>.itm_field>.row>.col-md-6>.fav{
         right:0px;
@@ -35,12 +81,10 @@
     }
 }
 @media only screen and (max-width:1075px) {
+
     .item:hover > .itm_field > .row > .col-md-6 > .fav {
         right: 25px;
         bottom: 32px;
-    }
-    .item_cost{
-        font-size:22px;
     }
     .inStock, notInStock, lowAm{
         font-size:12px;
@@ -49,7 +93,41 @@
         padding-right:0px;
     }
     }
+    @media only screen and (max-width:1000px){
+        .logoWithoutName {
+            display:block;
+        }
+        .logoMain{
+            display:none;
+        }
+        .search_container{
+            margin-top:35px;
+            padding-left:20px;
+        }
+        .cart_container{
+            margin-top:35px;
+            padding-left:0;
+        }
+    }
     @media only screen and (max-width:991px) {
+        .buyItemList>.buyItem > a>svg {
+            display:none;
+        }
+        .buyItemList > .buyItem > a{
+            font-size:16px;
+        }
+        .buyItem {
+            padding: 10px;
+        }
+        .item:hover > .itm_field > .row > .col-md-6 > .fav:hover {
+            background: none;
+        }
+        .item_cells .fav:hover {
+            background: none;
+        }
+        .item_cost{
+            font-size:17px;
+        }
         .f {
             padding-left: 30px;
             padding-right: 30px;
@@ -60,29 +138,87 @@
         .item_image > img {
             height: 125px;
         }
-
-        .item_cost {
-            font-size: 20px;
+        .item{
+            height:250px;
+            padding:12px;
         }
-    }
-
-    @media only screen and (max-width:991px) {
+        .lowAm, .notInStock, .inStock {
+            font-size: 12px;
+        }
+        .helloAuth > .login {
+            left: 85px;
+            width: 230px;
+        }
         .rateItemContainer a {
             font-size: 12px;
         }
     }
-
-    @media only screen and (max-width:793px) {
-        .cart_container {
-            padding-left: 3%;
-        }
-
-        .search_container {
-            padding: 0px;
-        }
-    }
-
     @media only screen and (max-width:767px) {
+        .buttonsItemList .fav {
+            position: relative !important;
+            left: 90px !important;
+            bottom: 45px !important;
+        }
+        item:hover > .itm_field > .row > .col-md-6 > .fav:hover {
+            background: #303030!important;
+        }
+
+        .item_cells .fav:hover {
+            background: #303030!important;
+        }
+        .listItem .lowAm, .inStock,.notInStock{
+            font-size:20px;
+        }
+        .catItemImgHolder {
+            height: 70px;
+        }
+        .item:hover > .itm_field > .row > .col-md-6 > .fav {
+            bottom: 42px;
+        }
+        .item_cells .fav{
+            bottom:42px;
+        }
+        .propButtons {
+            padding-bottom: 20px;
+        }
+        .view {
+            display: none;
+        }
+        #grid{
+            display:none;
+        }
+        #list{
+            display:none;
+        }
+        .filterFieldContainer {
+            margin-top: 0px;
+        }
+        .filterField{
+            margin-left:10px;
+        }
+        .submitFilters{
+            margin-left:10px;
+        }
+        .helloAuth > .login {
+            position: unset;
+            width: 100%;
+            overflow: unset;
+            height: unset;
+        }
+        .side{
+            display:unset;
+        }
+        .side-menu {
+            display: block;
+        }
+        .helloAuth{
+            width:100%;
+        }
+        .helloAuth svg{
+            font-size:24px;
+            position:relative;
+            bottom:5px;
+        }
         .search_form {
             display: flex;
             flex-wrap: wrap;
@@ -102,4 +238,42 @@
         .item_image > img {
             height: auto;
         }
+        .logo_container{ 
+            display: none;
+        }
+        .cart_container {
+            display: none;
+        }
+        .search_container{
+            margin-top:0px;
+            margin-bottom:25px;
+        }
+        .openSide{
+            display:unset;
+        }
     }
+     @media only screen and (max-width:600px) {
+        .catItemImgHolder{
+            height:50px;
+        }
+        .tps span {
+            margin-right: 15px;
+        }
+    }
+    @media only screen and (max-width:500px) {
+        .searchBar{
+            width:60%;
+        }
+    }
+@media only screen and (max-width:420px) {
+    .catItemImgHolder {
+        height: 35px;
+    }
+    .containr > a{
+        width:20%;
+    }
+    .tps span {
+        margin-right: 5px;
+        font-size: 12px;
+    }
+}

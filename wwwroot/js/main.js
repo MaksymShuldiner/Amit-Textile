@@ -326,7 +326,32 @@
     });
 });
 window.onscroll = function () { scrollFunction() };
-
+$(document).ready(function () {
+    $('.openSide').click(function () {
+        $('.side-menu').animate({
+            left: "0px",
+        }, 300);
+        $('.zatem').css('display', 'block');
+        $('body').css('overflow-y', 'hidden');
+        $('html').css('overflow-y', 'hidden');
+    });
+    $('.closeSide').click(function () {
+        $('.side-menu').animate({
+            left: "-300px",
+        }, 300);
+        $('body').css('overflow-y', 'unset');
+        $('html').css('overflow-y', 'unset');
+        $('.zatem').css('display', 'none');
+    });
+    $('.zatem').click(function () {
+        $('.side-menu').animate({
+            left: "-300px",
+        }, 300);
+        $('body').css('overflow-y', 'unset');
+        $('html').css('overflow-y', 'unset');
+        $('.zatem').css('display', 'none');
+    });
+});
 function scrollFunction() {
     let mybutton = document.getElementById('scrollBtn');
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {

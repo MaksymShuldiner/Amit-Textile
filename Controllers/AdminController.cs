@@ -228,8 +228,7 @@ namespace AmitTextile.Controllers
         [HttpGet("GetItems")]
         public async Task<IActionResult> GetItems()
         {
-            List<Textile> textiles = _context.Textiles.Include(x => x.Images).Include(x => x.MainImage).ToList();
-            int x = 5;
+            List<Textile> textiles = _context.Textiles.Include(x => x.Images).Include(x => x.MainImage).Include(x=>x.Charachteristics).ToList();
             return Ok(textiles);
         }
         [HttpGet("GetCats")]

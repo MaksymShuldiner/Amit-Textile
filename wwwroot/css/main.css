@@ -446,7 +446,7 @@ footer {
     }
 
 .fav:hover {
-    background: #303030;
+    background-color: #303030;
 }
 
 .selected {
@@ -523,12 +523,12 @@ footer {
 
 .containr > a {
     display: inline-block;
-    width: 10%;
+    width: 15%;
 }
 
 .catItemImgHolder {
     width: 100%;
-    height: 100px;
+    height: 95px;
 }
 
 .catItem {
@@ -2130,3 +2130,125 @@ textarea {
            top:unset;
            margin-top:-20px;
        }
+       .logoWithoutName{
+           margin-top:8px;
+           display:none;
+            width:60px;
+           height:48px;
+       }
+       header .logoWithoutName>img{
+            width:60px!important;
+           height:48px!important;
+       }
+       .side{
+           position:absolute;
+           width:100%;
+           display:none;
+       }
+       .side-menu{
+           display:none;
+           width:300px;
+           position:absolute;
+           left:-300px;
+           top:0px;
+           background-color:#080808;
+           z-index:100;
+           color:white;
+           height:1080px;
+       }
+        .side-menu .logoMainSide > img {
+            width: 220px;
+            height: 55px;
+            margin-top: 15px;
+            margin-bottom:15px;
+        }
+        .side-menu .logoMainSide{
+            
+            margin-left:10px;
+        }
+        .side-menu .login {
+            position: unset;
+        }
+        .sideOption{
+            width:100%;
+            padding:25px;
+            display:block;
+            font-size:20px;
+            border:1px solid #383838;
+            color:white;
+            transition:0.3s all ease;
+        }
+            .sideOption:link {
+                width: 100%;
+                padding: 25px;
+                display: block;
+                font-size: 24px;
+                border: 1px solid #383838;
+                color: white;
+                transition: 0.3s all ease;
+            }
+        .sideOption:hover{
+            background-color:#383838;
+            color: 	#FFA500;
+            transition:0.3s all ease;
+        }
+        .sideOptionNH{
+            width:100%;
+            padding:22px;
+            padding-top:10px;
+            display:block;
+            font-size:18px;
+            border:1px solid #383838;
+            color:white;
+        }
+        .sideOption>svg{
+            float:right;
+        }
+        .sideOptionNH>h1 {
+            font-size:22px;
+            margin-bottom:10px;
+        }
+        .closeSide{
+            font-size:20px;
+            position:absolute;
+            margin-left:275px;
+            margin-top:10px;
+            cursor:pointer;
+            transition:0.3s all ease;
+        }
+        .closeSide:hover{
+            transition:0.3s all ease;
+            color:#FFA500;
+        }
+        .zatem{
+            width:100%;
+            height:1080px;
+            background:url("../images/zatem.png");
+            opacity:0.4;
+            z-index:99;
+            position:absolute;
+            display:none;
+        }
+        .openSide{
+            font-size:25px;
+            color:white;
+            transition:0.3s all ease;
+            position:relative;
+            top:30px;
+            cursor:pointer;
+            display:none;
+        }
+        .openSide:hover{
+            color:#FFA500;
+            transition:0.3s all ease;
+        }
+        .helloAuth>.login{
+            display:block;
+            overflow:hidden;
+            width:240px;
+            height:17px;
+        }
+        .helloAuth>.sideOption{
+            font-size:15px;
+            width:100%;
+        }

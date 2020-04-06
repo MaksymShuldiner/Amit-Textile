@@ -65,7 +65,7 @@ namespace AmitTextile.Controllers
             }
 
             User user = _context.Users.Include(x => x.UserChosenTextiles).ThenInclude(x => x.Textile)
-                .ThenInclude(x => x.ParentCommentReviews)
+                .ThenInclude(x => x.ParentCommentReviews).Include(x => x.UserChosenTextiles).ThenInclude(x => x.Textile).ThenInclude(x => x.MainImage)
                 .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result;
             List<Textile> Textiles = new List<Textile>();
             user.UserChosenTextiles.ToList().ForEach(x => Textiles.Add(x.Textile));
