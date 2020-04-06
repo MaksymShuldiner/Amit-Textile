@@ -1128,35 +1128,51 @@ namespace AmitTextile.Controllers
             {
                 ViewBag.Fio = _userManager.FindByNameAsync(User.Identity.Name).Result.Fio;
             }
+
             List<Item> Items = new List<Item>();
             if (User.Identity.IsAuthenticated)
             {
-                Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x=>x.MainImage)
+                Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile)
+                    .ThenInclude(x => x.MainImage)
                     .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result.Cart.Items.ToList();
             }
             else
             {
                 if (Request.Cookies.ContainsKey("Cart"))
                 {
-                    Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.MainImage)
+                    Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile)
+                        .ThenInclude(x => x.MainImage)
                         .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"])).Result.Items
                         .ToList();
                 }
-                else { Items = new List<Item>(); }
+                else
+                {
+                    Items = new List<Item>();
+                }
 
             }
+
             ViewBag.Items = Items;
             decimal sum = 0;
-            Items.ForEach(x => sum += (x.Textile.Price * (decimal)x.ItemsAmount));
+            Items.ForEach(x => sum += (x.Textile.Price * (decimal) x.ItemsAmount));
             ViewBag.Sum = sum;
             ViewBag.UrlCat = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowTextile";
             ViewBag.SearchUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/Search";
             ViewBag.BookUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowTextile";
-            List<Textile> Textiles = _context.Textiles.Include(x => x.Category).Include(x => x.ChildCategory)
-                .Include(x => x.ParentCommentReviews).Include(x=>x.MainImage)
-                .Where(x => x.Category.Name.Replace(" ", "").Contains(StringQuery.Replace(" ", "")) || x.ChildCategory.Name.Replace(" ", "").Contains(StringQuery.Replace(" ", "")) ||
-                            x.Name.Replace(" ", "").Contains(StringQuery.Replace(" ", ""))).ToList();
+            List<Textile> Textiles;
+            if (StringQuery == null)
+            {
+                Textiles = _context.Textiles.Include(x => x.Category).Include(x => x.ChildCategory)
+                    .Include(x => x.ParentCommentReviews).Include(x => x.MainImage).ToList();
+            }
+            else
+            { 
+                Textiles = _context.Textiles.Include(x => x.Category).Include(x => x.ChildCategory)
+                    .Include(x => x.ParentCommentReviews).Include(x => x.MainImage)
+                    .Where(x => x.Category.Name.Replace(" ", "").Contains(StringQuery.Replace(" ", "")) || x.ChildCategory.Name.Replace(" ", "").Contains(StringQuery.Replace(" ", "")) ||
+                                x.Name.Replace(" ", "").Contains(StringQuery.Replace(" ", ""))).ToList();
+            }
             List<TextileForFavViewModel> model = new List<TextileForFavViewModel>();
             if (User.Identity.IsAuthenticated)
             {
