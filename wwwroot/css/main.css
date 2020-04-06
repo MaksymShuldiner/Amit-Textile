@@ -1764,7 +1764,7 @@ textarea {
             border:1px solid #202020;
             color:white;
             cursor:pointer;
-            font-size:20px;
+            font-size:15px;
             transition:0.3s all ease;
         }
         .adminOption>svg{
@@ -1782,7 +1782,7 @@ textarea {
             border:1px solid #202020;
             color:white;
             cursor:pointer;
-            font-size:20px;
+            font-size:15px;
             transition:0.3s all ease;
         }
         .adminOption-wrap>svg{
@@ -1795,8 +1795,38 @@ textarea {
             color: #FFA500;
             transition: 0.3s all ease;
         }
+        .toOrder>a:link{
+            padding:20px;
+            border:1px solid #202020;
+            color:white;
+            cursor:pointer;
+            font-size:15px;
+            transition:0.3s all ease;
+            text-decoration:none;
+        }
+        .toOrder>a{
+            display:block;
+            padding:20px;
+            border:1px solid #202020;
+            color:white;
+            cursor:pointer;
+            font-size:20px;
+            transition:0.3s all ease;
+            text-decoration:none;
+        }
+        .toOrder>a>svg{
+            float:right;
+            margin-top:4px;
+            font-size:15px;
+        }
+        .toOrder>a:hover{
+            background-color: #404040;
+            color: #FFA500;
+            transition: 0.3s all ease;
+            text-decoration:none;
+        }
         .adminOptions{
-            margin-left:40%;
+            margin-left:35%;
         }
         .adminOptionSelected {
             background-color: #404040;
@@ -2086,7 +2116,7 @@ textarea {
            bottom:14px !important;
        }
        .adminOptions-wrap{
-           margin-left:30%;
+           margin-left:25%;
        }
        .tp{
            margin-top:30px;

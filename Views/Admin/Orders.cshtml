@@ -222,6 +222,7 @@
                                                 <th>Название товара</th>
                                                 <th>Кол-во товара</th>
                                                 <th>Сумма</th>
+                                                <th>Опт</th>
                                             </tr>
                                             @foreach (var item in order.ItemOrders)
                                             {
@@ -237,6 +238,9 @@
                                                     </td>
                                                     <td>
                                                         <span>@(item.Item.Textile.Price* item.Item.ItemsAmount)</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>Да</span>
                                                     </td>
                                                 </tr>
                                             }
