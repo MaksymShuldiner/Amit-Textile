@@ -60,7 +60,7 @@
                     }
                     else
                     {
-                        <a class="favouriteList sideOption" href="#login" title="Избранные товары" data-fancybox="dsf"><span>Избранное</span> <i class="fas fa-heart"></i></a>
+                        <a class="favouriteList sideOption" href="#login" title="Избранные товары" data-fancybox="dssf"><span>Избранное</span> <i class="fas fa-heart"></i></a>
                     }
                 </li>
                 <li class="sideOptionNH">
@@ -299,7 +299,6 @@
                                     for (let x = 0; x < arrCat.length; x++) {
                                         if (arrCat[x].categoryId == sel.attr('value')) {
                                             for (let m = 0; m < arrCat[x].childCategories.length; m++) {
-                                                console.log(arrCat[x].childCategories[m]);
                                                 $('.childCategsSelect').append('<option value="' + arrCat[x].childCategories[m].childCategoryId + '">'+arrCat[x].childCategories[m].name+'</option>')
                                             }
                                         }
@@ -312,7 +311,6 @@
                         url: "@Url.Action("GetCharachteristics","Admin")",
                         contentType: 'json',
                         success: function (e) {
-                            console.log(e);
                             for (let i = 0; i < e.length; i++) {
                                 if (e[i].values.length != 0) {
                                     $('.charactsContainer').append('<div class="selectContainer"><label>' + e[i].name + '</label><br/><div class="select-wrapper createSelect"><select name="CharacsValues" class="characteristicSelect ' + i + '"></select></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span><input type="hidden" name="CharacsNames" value="' + e[i].name + '"/></div >');
@@ -342,7 +340,6 @@
                             url: "@Url.Action("GetChilds","Admin")",
                             contentType: 'json',
                             success: function (e) {
-                                console.log(e);
                                 $('.addNewChild').append('<div class="selectContainer"><div class="select-wrapper createSelect"><select name="ChildCategoryId" class="childSelect ' + counter + '"></select></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span></div >');
                                 $('.childSelect').select2({
                                     language: "ru",
@@ -393,7 +390,6 @@
                         url: "@Url.Action("GetFilters", "Admin")",
                         contentType: "json",
                         success: function (e) {
-                            console.log(e);
                             for (let i = 0; i < e.length; i++) {
                                 $('.filterCharSelect').append('<option value="' + e[i].charachteristicId + '"> ' + e[i].name + '</option>');
                             }
@@ -482,7 +478,6 @@
                         url: "@Url.Action("GetFilterss","Admin")",
                         contentType: "json",
                         success: function (e) {
-                            console.log(e);
                             for (let i = 0; i < e.length; i++) {
                                 $('.deleteSelect').append('<option name="Id" value="' + e[i].filterCharachteristicsId + '">' + e[i].charachteristic.name + '</option>')
                             }
@@ -496,7 +491,6 @@
                         url: "@Url.Action("GetSliderImgs","Admin")",
                         contentType: 'json',
                         success: function (e) {
-                            console.log(e);
                             for (let i = 0; i < e.length; i++) {
                                 $('.forma').find('form').append('<div class="removeImg"><span value=' + e[i].id + ' title="Удалить изображение" class="removeIt"><i class="fas fa-times"></i></span><img src="data:image/jpeg;base64,' + e[i].stringCode + '" /></div>');
                             }
@@ -511,9 +505,6 @@
                                     data: JSON.stringify(x),
                                     success: function () {
                                         parent.remove();
-                                    },
-                                    error: function (e) {
-                                        console.log(e);
                                     }
                                 });
 
@@ -532,7 +523,6 @@
                         url: "@Url.Action("GetItems","Admin")",
                         contentType: "json",
                         success: function (e) {
-                            console.log(e);
                             for (let i = 0; i < e.length; i++) {
                                 $('.deleteSelect').append('<option value="' + e[i].textileId + '">' + e[i].name + '</option>')
                             }
@@ -617,7 +607,6 @@
                                         contentType: 'json',
                                         success: function (result) {
                                             arrCat = result;
-                                            console.log(arrCat);
                                             let Url;
                                             for (let i = 0; i < arrCat.length; i++) {
                                                 Url = "@ViewBag.Url" + "?CatId=" + arrCat[i].categoryId;
@@ -654,7 +643,6 @@
                                         url: "@Url.Action("GetCharachteristics","Admin")",
                                         contentType: 'json',
                                         success: function (q) {
-                                            console.log(q);
                                             for (let d = 0; d < q.length; d++) {
                                                 if (q[d].values.length != 0) {
                                                     $('.charactsContainer').append('<div class="selectContainer"><label>' + q[d].name + '</label><br/><div class="select-wrapper createSelect"><select name="CharacsValues" class="characteristicSelect ' + d + '"></select></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span><input type="hidden" name="CharacsNames" value="' + q[d].name + '"/></div >');
@@ -706,9 +694,6 @@
                                 }
 
                             });
-                        },
-                        error: function (e) {
-                            console.log(e);
                         }
                     });
                 }
@@ -723,7 +708,6 @@
                         url: "@Url.Action("GetCats","Admin")",
                         contentType: "json",
                         success: function (e) {
-                            console.log(e);
                             for (let i = 0; i < e.length; i++) {
                                 $('.deleteSelect').append('<option name="Id" value="' + e[i].categoryId + '">' + e[i].name + '</option>')
                             }
@@ -747,7 +731,6 @@
                                                     $('.removeCharact').click(function () {
                                                                 $(this).parent().remove();
                                                     });
-                                                    console.log(z);
                                                     for (let i = 0; i < z.length; i++) {
                                                         $('.' + counter).append('<option value="' + z[i].childCategoryId + '">' + z[i].name + '</option>');
                                                     }
@@ -965,7 +948,6 @@
                                     for (let x = 0; x < arrCat.length; x++) {
                                         if (arrCat[x].categoryId == sel.attr('value')) {
                                             for (let m = 0; m < arrCat[x].childCategories.length; m++) {
-                                                console.log(arrCat[x].childCategories[m]);
                                                 $('.childCategsSelect').append('<option value="' + arrCat[x].childCategories[m].childCategoryId + '">'+arrCat[x].childCategories[m].name+'</option>')
                                             }
                                         }
@@ -978,7 +960,6 @@
                 url: "@Url.Action("GetCharachteristics","Admin")",
                 contentType: 'json',
                 success: function (e) {
-                    console.log(e);
                     for (let i = 0; i < e.length; i++) {
                         if (e[i].values.length != 0) {
                             $('.charactsContainer').append('<div class="selectContainer"><label>' + e[i].name + '</label><br/><div class="select-wrapper createSelect"><select name="CharacsValues" class="characteristicSelect ' + i + '"></select></div> <span class="removeCharact forSelect"><i class="fas fa-times"></i></span><input type="hidden" name="CharacsNames" value="' + e[i].name + '"/></div >');
@@ -997,9 +978,6 @@
                             $(this).parent().remove();
                         });
                     }
-                },
-                error: function (e) {
-                    console.log(e);
                 }
             });
         });

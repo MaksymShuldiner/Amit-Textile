@@ -87,7 +87,7 @@
                     }
                     else
                     {
-                        <a class="favouriteList sideOption" href="#login" title="Избранные товары" data-fancybox="dsf"><span>Избранное</span> <i class="fas fa-heart"></i></a>
+                        <a class="favouriteList sideOption" href="#login" title="Избранные товары" data-fancybox="dssf"><span>Избранное</span> <i class="fas fa-heart"></i></a>
                     }
                 </li>
                 <li class="sideOptionNH">
@@ -433,9 +433,6 @@
                                 $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) + 1) + " товаров");
                             }
                         }
-                },
-                error: function (e) {
-                    console.log(e);
                 }
             })
         });

@@ -169,9 +169,6 @@
         .listItem .lowAm, .inStock,.notInStock{
             font-size:20px;
         }
-        .catItemImgHolder {
-            height: 70px;
-        }
         .item:hover > .itm_field > .row > .col-md-6 > .fav {
             bottom: 42px;
         }
@@ -253,24 +250,38 @@
         }
     }
      @media only screen and (max-width:600px) {
-        .catItemImgHolder{
-            height:50px;
-        }
         .tps span {
             margin-right: 15px;
         }
     }
     @media only screen and (max-width:500px) {
-        .searchBar{
-            width:60%;
+        .catItemImgHolder{
+            display:block;
+        }
+        .inputFields > input {
+            width: 250px;
+        }
+        .registerButton{
+            width:250px;
+        }
+        .searchBar {
+            width: 60%;
         }
     }
 @media only screen and (max-width:420px) {
-    .catItemImgHolder {
-        height: 35px;
+    
+    #register {
+        padding: 20px;
     }
-    .containr > a{
-        width:20%;
+    .inputFields > input {
+        width: 210px;
+    }
+
+    .registerButton {
+        width: 210px;
+    }
+    #login{
+        padding:20px;
     }
     .tps span {
         margin-right: 5px;

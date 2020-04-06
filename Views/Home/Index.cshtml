@@ -116,7 +116,7 @@
                     }
                     else
                     {
-                        <a class="favouriteList sideOption" href="#login" title="Избранные товары" data-fancybox="dsf"><span>Избранное</span> <i class="fas fa-heart"></i></a>
+                        <a class="favouriteList sideOption" href="#login" title="Избранные товары" data-fancybox="dssf"><span>Избранное</span> <i class="fas fa-heart"></i></a>
                     }
                 </li>
                 <li class="sideOptionNH">
@@ -544,9 +544,6 @@
                                 $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) + 1) + " товаров");
                             }
                         }
-                },
-                error: function (e) {
-                    console.log(e);
                 }
             })
         });
@@ -699,7 +696,6 @@
                 url: url,
                 contentType: 'json',
                 success: function (e) {
-                    console.log(e);
                     for (let i = 0; i < e.length; i++) {
                         if (e[i].warehouseAmount >= 30) {
                             $(lines[count]).append("<div class='item'><div class='item_image'><img src='data:image/jpeg;base64," + e[i].base64StrigImg + "' alt='ItemImg'></div><a href='@ViewBag.BookUrl?TextileId=" + e[i].textileId + "' class='item_name'>" + e[i].name + "</a><div class='rateItemContainer'><input class='rateItem' value='" + e[i].stars + "'/> <a href='@ViewBag.BookUrl?TextileId=" + e[i].textileId + "&page=1&Section=CommentsReviews'>" + e[i].parentCommentReviews + " Отзывов</a></div><div class='container-fluid itm_field'><div class='row'><div class='col-md-6'><span class='item_cost'>" + e[i].price +" ₴</span><br/><span class='inStock'>В наличии</span></div><div class='col-md-6'><a href='@ViewBag.CartUrl?TextileId="+e[i].textileId+"' class='buy_item'><i class='fas fa-shopping-cart'0></i></a></div></div></div></div>")
@@ -718,9 +714,6 @@
                             count++;
                         }
                     }
-                },
-                error: function(e) {
-                    console.log(e);
                 }
             });
         }

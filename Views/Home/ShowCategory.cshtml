@@ -87,7 +87,7 @@
                     }
                     else
                     {
-                        <a class="favouriteList sideOption" href="#login" title="Избранные товары" data-fancybox="dsf"><span>Избранное</span> <i class="fas fa-heart"></i></a>
+                        <a class="favouriteList sideOption" href="#login" title="Избранные товары" data-fancybox="dssf"><span>Избранное</span> <i class="fas fa-heart"></i></a>
                     }
                 </li>
                 <li class="sideOptionNH">
@@ -253,7 +253,7 @@
                                     <a href="@Url.Action("ShowChildCategory", "Home", new { ChildCatId = x.ChildCategoryId, CookieValue=Model.CookieValue })">
                                         <li class="catItem">
                                             <div class="catItemImgHolder">
-                                                <img src="../images/img1.jpg" alt="CategoryImage">
+                                                <img class="catItemImgHolder" src="../images/img1.jpg" alt="CategoryImage">
                                             </div>
                                             <div class="catItemNameHolder">
                                                 <span>@x.Name</span>
@@ -657,9 +657,6 @@
                                 $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) + 1) + " товаров");
                             }
                         }
-                },
-                error: function (e) {
-                    console.log(e);
                 }
             })
         });
@@ -728,9 +725,6 @@
                             data: JSON.stringify(x),
                             success: function (e){
                                 f.find('.toFavourite').toggleClass('selected');
-                            },
-                            error: function (e) {
-                                console.log(e);
                             }
                         })
                     }

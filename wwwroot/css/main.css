@@ -523,7 +523,6 @@ footer {
 
 .containr > a {
     display: inline-block;
-    width: 15%;
 }
 
 .catItemImgHolder {
@@ -537,6 +536,8 @@ footer {
     margin-right: 10px;
     transition: 0.3s all ease;
     border: 1px solid #303030;
+    width:180px;
+    margin-bottom:10px;
 }
 
     .catItem:hover {

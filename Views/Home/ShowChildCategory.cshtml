@@ -120,7 +120,7 @@
                     }
                     else
                     {
-                        <a class="favouriteList" href="#login" title="Избранные товары" data-fancybox="dsf"><i class="fas fa-heart"></i></a>
+                        <a class="favouriteList" href="#login" title="Избранные товары" data-fancybox="dssf"><i class="fas fa-heart"></i></a>
                     }
                     @{
                         int count3 = 0;
@@ -642,9 +642,6 @@
                                 $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) + 1) + " товаров");
                             }
                         }
-                },
-                error: function (e) {
-                    console.log(e);
                 }
             })
         });
@@ -713,9 +710,6 @@
                             data: JSON.stringify(x),
                             success: function (e){
                                 f.find('.toFavourite').toggleClass('selected');
-                            },
-                            error: function (e) {
-                                console.log(e);
                             }
                         })
                     }
