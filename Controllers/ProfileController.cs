@@ -135,15 +135,12 @@ namespace AmitTextile.Controllers
                     return BadRequest("Отправлять письмо о смене пароля на почту можно лишь раз в 6 часов");
                 }
         }
-
-        [HttpGet]
-        public async Task<IActionResult> SignOutAsync()
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
-        }
         public async Task<IActionResult> Profile()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.Fio = _userManager.FindByNameAsync(User.Identity.Name).Result.Fio;
+            }
             ViewBag.ProfileUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Profile/Profile";
             List<Item> Items = new List<Item>();
             if (User.Identity.IsAuthenticated)
@@ -277,6 +274,10 @@ namespace AmitTextile.Controllers
         }
         public async Task<IActionResult> OnChangingEmail(string code, string email, string name)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.Fio = _userManager.FindByNameAsync(User.Identity.Name).Result.Fio;
+            }
             User user = await _userManager.FindByNameAsync(name);
             if (((DateTime.Now) - (user.LastTimeEmailChanged)).Days >
                 1)
