@@ -216,6 +216,9 @@ namespace AmitTextile.Migrations
                     b.Property<Guid?>("CartId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("IsWithWholesale")
+                        .HasColumnType("bit");
+
                     b.Property<int>("ItemsAmount")
                         .HasColumnType("int");
 
@@ -396,6 +399,9 @@ namespace AmitTextile.Migrations
 
                     b.Property<Guid?>("ChildCategoryId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("CostWithWholeCost")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("DateWhenAdded")
                         .HasColumnType("datetime2");

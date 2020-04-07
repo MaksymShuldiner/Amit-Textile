@@ -10,11 +10,9 @@ namespace AmitTextile.Domain
 
         public ICollection<CharachteristicValues> Charachteristics { get; set; }
 
-        [NotMapped]
-        public decimal CostWithDiscount
-        {
-            get => Price * Convert.ToDecimal(Discount);
-        }
+        
+
+        public decimal CostWithWholeCost { get; set; }
         public string Name { get; set; }
         [ForeignKey("TextileId")]
         public ICollection<Image> Images { get; set; }  

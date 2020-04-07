@@ -135,6 +135,13 @@ namespace AmitTextile.Controllers
                     return BadRequest("Отправлять письмо о смене пароля на почту можно лишь раз в 6 часов");
                 }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> SignOutAsync()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
         public async Task<IActionResult> Profile()
         {
             ViewBag.ProfileUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Profile/Profile";
@@ -171,7 +178,6 @@ namespace AmitTextile.Controllers
             }
 
         }
-        
         [HttpPost]
         public async Task<IActionResult> ResetPassword([FromBody]PasswordResetViewModel model)
         {
