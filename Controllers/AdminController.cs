@@ -30,6 +30,8 @@ namespace AmitTextile.Controllers
 
         public async Task<IActionResult> Main()
         {
+            ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
+
             if (User.IsInRole("admin"))
             {
                 return RedirectToAction("Index", "Home");
@@ -38,6 +40,7 @@ namespace AmitTextile.Controllers
             {
                 ViewBag.Fio = _userManager.FindByNameAsync(User.Identity.Name).Result.Fio;
             }
+            ViewBag.ProfileUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Profile/Profile";
             return View();
         }
         [HttpPost]
