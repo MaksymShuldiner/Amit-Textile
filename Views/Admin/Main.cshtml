@@ -46,7 +46,7 @@
                     else
                     {
                         <div class="helloAuth ">
-                            <a href="#" class="sideOption login">@ViewBag.Fio <i class="fas fa-user"></i></a>
+                            <a href="@ViewBag.ProfileUrl" class="sideOption login">@ViewBag.Fio <i class="fas fa-user"></i></a>
                         </div>
                     }
                 </li>
@@ -101,7 +101,7 @@
                     else
                     {
                         <div class="helloAuth ">
-                            <a href="#" class="login admLogin">Здравствуйте, @ViewBag.Fio</a>
+                            <a href="@ViewBag.ProfileUrl" class="login admLogin">Здравствуйте, @ViewBag.Fio</a>
                             <div class="logedDropdown hidden">
                                 <ul>
                                     <li class="authOption">

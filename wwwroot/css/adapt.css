@@ -61,7 +61,7 @@
         width: 235px;
         position: relative;
         left: 100px;
-        bottom: 40px;
+        bottom: 37px;
     }
 
     .logedDropdown {
@@ -141,6 +141,12 @@
         }
     }
     @media only screen and (max-width:991px) {
+        .personalInfo > tbody > tr > td:nth-child(3) {
+            display:none;
+        }
+        .buttonsAdapt {
+            display:block;
+        }
         .nPad {
             padding: 0px;
         }
@@ -199,6 +205,17 @@
         }
     }
     @media only screen and (max-width:767px) {
+        #cartPopup .buyItemList span {
+            left: 50%;
+        }
+        .sum{
+            left:80%;
+            bottom:95px;
+        }
+        #cartPopup .buyItemList {
+            position: relative;
+            bottom:83px;
+        }
         .sc{
             font-size:17px;
         }
@@ -385,8 +402,28 @@
         }
     }
     @media only screen and (max-width:500px) {
-        .sc>span{
+        #cartPopup .continue{
             display:none;
+        }
+        #cartPopup .itemPriceList {
+            font-size: 28px;
+        }
+        .sum {
+            bottom: 87px;
+        }
+
+        #cartPopup .buyItemList {
+            position: relative;
+            bottom: 79px;
+        }
+        .buyItemList > .changeAm{
+            font-size:38px;
+        }
+        .buyItemList span {
+            font-size: 28px;
+        }
+        .sc > span {
+            display: none;
         }
         .sc{
             padding:20px;
@@ -444,11 +481,33 @@
         }
     }
 @media only screen and (max-width:420px) {
+    .mail1{
+        min-width:200px;
+    }
+    #changeInform {
+        padding: 20px;
+    }
+    #order > input, .paymMethod input, .shipMethod input {
+        width: 260px;
+    }
+    #order{
+        padding:15px;
+    }
+    #cartPopup .itemPriceList {
+        font-size: 18px;
+    }
+    #cartPopup .itemNameList h2 {
+        font-size: 16px;
+    }
+
+    #cartPopup .buyItemList, .sum {
+        position: static;
+    }
     .replyButton>span{
         display:none;
     }
     textarea {
-        width: 240px;
+        width: 240px!important;
     }
     #popupCommentForm, #popupQuestionForm {
         padding: 20px;
@@ -481,8 +540,15 @@
     }
 }
 @media only screen and (max-width:300px) {
-    .itemInfo{
-        margin-left:0;
+    #order > input, .paymMethod input, .shipMethod input {
+        width: 240px;
+    }
+    #cartPopup .buyItemList span{
+        top:38px;
+        left:65%;
+    }
+    .itemInfo {
+        margin-left: 0;
     }
     .openSide {
         right: 5px;

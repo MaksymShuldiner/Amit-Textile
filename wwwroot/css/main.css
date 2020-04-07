@@ -1389,15 +1389,18 @@ textarea {
 .lic{
     margin-top:0px;
 }
+#cartPopup .fancybox-close-small{
+    color:white!important;
+}
 .close1 {
     position: absolute;
-    right: -15px;
+    right: 0px;
     top: -10px;
     background: none;
     border: none;
     font-size: 25px;
     transition: 0.3s all ease;
-    color :#A9A9A9;
+    color: #A9A9A9;
 }
 
     .close1:hover {
@@ -1496,7 +1499,7 @@ textarea {
     position: relative;
     top: 30px;
     right: 20px;
-    color:white;
+    color: white;
 }
 .buyItemList > .changeAm {
     font-size: 45px;
@@ -1516,8 +1519,9 @@ textarea {
 }
 .sum{
     position:relative;
-    left:80px;
+    left:100px;
     bottom:15px;
+    max-width:60%;
 }
 .sum> span{
     font-size:20px;
@@ -1616,17 +1620,60 @@ textarea {
         color: white;
         transition: 0.3s all ease;
     }
+.buttonsAdapt{
+    display:none;
+}
+.buttonsAdapt > button {
+    width: 250px;
+    height: 35px;
+    font-size: 20px;
+    background-color: #FF8C00;
+    border: none;
+    color: white;
+    transition: 0.3s all ease;
+    margin-bottom: 15px;
+    display: block;
+}
 .title{
     margin-top:10px;
     font-size:28px;
     margin-bottom:25px;
     color:white;
 }
-.exit {
+#popupQuestionForm textarea, #popupReplyForm textarea {
+    width: 280px;
+}
+.exit:link {
+    width: 250px;
+    height: 35px;
+    font-size: 20px;
+    background-color: #FF8C00;
+    border: none;
+    color: white;
+    transition: 0.3s all ease;
+    display: block;
+    text-align: center;
+    padding-top: 5px;
+    background-color: #DC143C !important;
+    transition: 0.3s all ease !important;
+}
+.exit:visited {
+    width: 250px;
+    height: 35px;
+    font-size: 20px;
+    background-color: #FF8C00;
+    border: none;
+    color: white;
+    transition: 0.3s all ease;
+    text-align: center;
+    padding-top: 5px;
+    display: block;
     background-color: #DC143C !important;
     transition: 0.3s all ease !important;
 }
     .exit:hover {
+        color:white;
+        text-decoration:none;
         background-color: #CD5C5C !important;
         transition: 0.3s all ease !important;
     }
