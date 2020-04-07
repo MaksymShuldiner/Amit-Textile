@@ -101,7 +101,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-2 logo_container">
-                    <a href="@Url.Action("Index","Home")"><img src="~/images/logoReversed.png" /></a>
+                    <a href="@Url.Action("Index","Home")" class="logoMain"><img src="~/images/logoReversed.png" /></a>
                     <a href="@Url.Action("Index","Home")" class="logoWithoutName"><img src="~/images/logoAdapt.png" /></a>
                 </div>
                 <div class="col-md-5 search_container">
@@ -149,7 +149,7 @@
                     <span class="first">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span>
                     @if (!User.Identity.IsAuthenticated)
                     {
-                        <a href="#login" class="login" data-fancybox="pp">Войти</a>
+                        <a href="#login" class="login lgn" data-fancybox="pp">Войти</a>
                     }
                     else
                     {
@@ -426,7 +426,8 @@
                 <form id="popupCommentForm" action="@Url.Action("PostCommentReview", "Home")" method="post">
                     <h1 class="formName">Написать отзыв</h1>
                     <label for="ratingComment"></label>
-                    <input id="ratingComment" name="Stars">
+                    <div class="big"><input id="ratingComment" name="Stars"></div>
+                    <div class="hideIt"><input id="ratingCommentS" name="Stars"></div>
                     <label for="pros">Достоинства</label><br>
                     <input class="pros" type="text" name="Advantages"><br>
                     <label for="cons">Недостатки</label><br>
@@ -460,15 +461,15 @@
                         </span>
                         <br><br><label for="pros">Достоинства:</label><br>
                         <div class="pros">
-                            <span>
+                            <p>
                                 @x.Advantages
-                            </span>
+                            </p>
                         </div>
                         <label for="cons">Недостатки:</label>
                         <div class="cons">
-                            <span>
+                            <p>
                                 @x.DrawBacks
-                            </span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -555,7 +556,7 @@
                         <span class="commentUserName">
                             @x.Fio
                         </span>
-                        <a href="#" class="replyButton" parentId="@x.ParentCommentQuestionId"><i class="fas fa-reply"></i> Ответить</a>
+                        <a href="#" class="replyButton" parentId="@x.ParentCommentQuestionId"><i class="fas fa-reply"></i> <span>Ответить</span></a>
                         <span class="commentDate">
                             @x.DatePosted.ToString()
                         </span>
@@ -574,7 +575,7 @@
                                     <span class="commentUserName">
                                         @y.Fio
                                     </span>
-                                    <a href="#" parentId="@x.ParentCommentQuestionId" class="replyButton"><i class="fas fa-reply"></i> Ответить</a>
+                                    <a href="#" parentId="@x.ParentCommentQuestionId" class="replyButton"><i class="fas fa-reply"></i> <span>Ответить</span></a>
                                     <span class="commentDate">
                                         @y.DatePosted.ToString()
                                     </span>

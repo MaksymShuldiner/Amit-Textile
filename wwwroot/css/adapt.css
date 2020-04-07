@@ -26,6 +26,11 @@
         margin-left:93px;
     }
 }
+@media only screen and (max-width:1280px) {
+    .characteristics {
+        margin-left: 9%;
+    }
+}
 @media only screen and (max-width:1217px) {
     .lgn{
         left:120px!important;
@@ -82,6 +87,12 @@
     .rateItemContainer a {
         font-size: 12px;
     }
+    .fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > .buyItem {
+        bottom: 22px;
+    }
+    .fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > .fixCost{
+        right:170px;
+    }
 }
 @media only screen and (max-width:1086px) {
     .buttonsItemList>.fav{
@@ -111,8 +122,11 @@
     }
     }
     @media only screen and (max-width:1000px){
+        .sc, .commentPosted, .navBcomments{
+            width:80%;
+        }
         .logoWithoutName {
-            display:block;
+            display: block;
         }
         .logoMain{
             display:none;
@@ -127,8 +141,8 @@
         }
     }
     @media only screen and (max-width:991px) {
-        .nPad{
-            padding:0px;
+        .nPad {
+            padding: 0px;
         }
         .adminOption, .adminOption-wrap, .toOrder {
             font-size: 11.5px;
@@ -185,8 +199,14 @@
         }
     }
     @media only screen and (max-width:767px) {
-        .selectContainer{
-            width:250px;
+        .sc{
+            font-size:17px;
+        }
+        .itemDescription, .itemInfo{
+            margin-left:5%;
+        }
+        .selectContainer {
+            width: 250px;
         }
         .nPad {
             padding-left: 10px;
@@ -300,6 +320,12 @@
         }
     }
      @media only screen and (max-width:600px) {
+         .sc{
+             font-size:15px;
+         }
+        .commentUserName{
+            font-size:18px;
+        }
         .adminOption, .adminOption-wrap, .toOrder {
             font-size: 14px;
         }
@@ -359,7 +385,52 @@
         }
     }
     @media only screen and (max-width:500px) {
-        .catItemImgHolder{
+        .sc>span{
+            display:none;
+        }
+        .sc{
+            padding:20px;
+        }
+        .commentSend, .questionSend {
+            float: unset;
+            position: unset;
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+        .fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > .buyItem {
+           right:30px;
+        }
+
+        .fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > .fixCost {
+            right: 110px;
+            bottom:27px;
+        }
+        .fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > span{
+            display:none;
+        }
+        .characteristics {
+            margin-left: 2%;
+        }
+        .buttonSelected{
+            font-weight:unset;
+        }
+        .button:hover {
+            font-weight: unset;
+        }
+        .button{
+            margin-right:3px;
+        }
+        .buttonBar,.name,.ratingContainer {
+            padding-left: 5%;
+        }
+        .imgMini {
+            left: 10px;
+        }
+        #imgFull {
+            padding-left:30px;
+        }
+        catItemImgHolder{
             display:block;
         }
         .inputFields > input {
@@ -373,7 +444,24 @@
         }
     }
 @media only screen and (max-width:420px) {
-    
+    .replyButton>span{
+        display:none;
+    }
+    textarea {
+        width: 240px;
+    }
+    #popupCommentForm, #popupQuestionForm {
+        padding: 20px;
+    }
+    .big {
+        display: none;
+    }
+    .hideIt{
+        display:block;
+    }
+    .commentDate{
+        display:none;
+    }
     #register {
         padding: 20px;
     }
@@ -390,5 +478,16 @@
     .tps span {
         margin-right: 5px;
         font-size: 12px;
+    }
+}
+@media only screen and (max-width:300px) {
+    .itemInfo{
+        margin-left:0;
+    }
+    .openSide {
+        right: 5px;
+    }
+    #imgFull {
+        margin-top: 30px;
     }
 }

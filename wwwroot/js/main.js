@@ -92,6 +92,7 @@
     });
     $('#rating').rating({ displayOnly: true, language: 'ru' });
     $('#ratingComment').rating({ step: 0.1, language: 'ru', showClear: false, size: 'xl' });
+    $('#ratingCommentS').rating({ step: 0.1, language: 'ru', showClear: false, size: 'sm' });
     $(window).on('resize', function () {
         let aa = $('.charact').find('.container-fluid').find('.row').find('.col-md-4');
         if ($(window).width() > 1280 && aa.length == 0) {
@@ -327,6 +328,17 @@
 });
 window.onscroll = function () { scrollFunction() };
 $(document).ready(function () {
+    if ($('.itemMini').length > 0) {
+        let aa = $('.charact').find('.container-fluid').find('.row').find('.col-md-4');
+        if ($(window).width() > 1280 && aa.length == 0) {
+            $('.fix').toggleClass('fix').toggleClass('col-md-4');
+            $('.charact').find('.container-fluid').find('.row').find('.col-md-12').toggleClass('col-md-12').toggleClass('col-md-8');
+        }
+        else if ($(window).width() <= 1280 && aa.length == 1) {
+            $(aa[0]).toggleClass('col-md-4').toggleClass('fix');
+            $('.charact').find('.container-fluid').find('.row').find('.col-md-8').toggleClass('col-md-8').toggleClass('col-md-12');
+        }
+    }
     $('.openSide').click(function () {
         $('.side-menu').animate({
             left: "0px",
