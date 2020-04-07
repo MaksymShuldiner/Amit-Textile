@@ -189,10 +189,10 @@
                             <div class="logedDropdown hidden">
                                 <ul>
                                     <li class="authOption">
-                                        <a href="#">Личные данные <i class="fas fa-chevron-right"></i></a>
+                                        <a href="@ViewBag.ProfileUrl">Личные данные <i class="fas fa-chevron-right"></i></a>
                                     </li>
                                     <li class="authOption leave">
-                                        Выход
+                                        <a href="@Url.Action("SignOutAsync","Profile")">Выход</a>
                                     </li>
                                 </ul>
                             </div>
