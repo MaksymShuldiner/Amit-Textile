@@ -1128,7 +1128,7 @@ namespace AmitTextile.Controllers
             {
                 ViewBag.Fio = _userManager.FindByNameAsync(User.Identity.Name).Result.Fio;
             }
-
+            ViewBag.ProfileUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Profile/Profile";
             List<Item> Items = new List<Item>();
             if (User.Identity.IsAuthenticated)
             {
@@ -1230,6 +1230,7 @@ namespace AmitTextile.Controllers
                 };
             }
             List<ItemOrder> itemorders = new List<ItemOrder>();
+
             if (User.Identity.IsAuthenticated)
             {
                 Cart cart = _context.Carts.Include(x=>x.Items).FirstOrDefault(x=> x.CartId == _userManager.FindByNameAsync(User.Identity.Name).Result.CartId);

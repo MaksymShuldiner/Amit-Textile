@@ -34,6 +34,10 @@ namespace AmitTextile.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.Fio = _userManager.FindByNameAsync(User.Identity.Name).Result.Fio;
+            }
             return View();
         }
         [HttpPost]
@@ -208,6 +212,10 @@ namespace AmitTextile.Controllers
         [HttpGet]
         public async Task<IActionResult> Orders(int page = 1)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.Fio = _userManager.FindByNameAsync(User.Identity.Name).Result.Fio;
+            }
             if (User.IsInRole("admin"))
             {
                 return RedirectToAction("Index", "Home");
