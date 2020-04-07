@@ -8,6 +8,14 @@
     }
 }
 @media only screen and (max-width:1338px) {
+    .adminOption,.adminOption-wrap,.toOrder{
+        font-size:13px;
+    }
+    .adminOption svg, .adminOption-wrap svg, .toOrder>a>svg{
+        font-size:13px;
+        position:relative;
+        bottom:3px;
+    }
     .cart_container{
         padding-left:2%;
     }
@@ -19,6 +27,15 @@
     }
 }
 @media only screen and (max-width:1217px) {
+    .lgn{
+        left:120px!important;
+    }
+    .adminOptions-wrap{
+        margin-left:5%;
+    }
+    .adminOptions{
+        margin-left:10%;
+    }
     .item_cost {
         font-size: 20px;
     }
@@ -110,6 +127,20 @@
         }
     }
     @media only screen and (max-width:991px) {
+        .nPad{
+            padding:0px;
+        }
+        .adminOption, .adminOption-wrap, .toOrder {
+            font-size: 11.5px;
+        }
+        .adminOptions-wrap {
+            margin-left: 0;
+        }
+
+        .adminOptions {
+            font-size:11px;
+            margin-left:7px;
+        }
         .buyItemList>.buyItem > a>svg {
             display:none;
         }
@@ -154,6 +185,25 @@
         }
     }
     @media only screen and (max-width:767px) {
+        .selectContainer{
+            width:250px;
+        }
+        .nPad {
+            padding-left: 10px;
+            padding-right: 10px;
+        } 
+
+        .adminOption, .adminOption-wrap, .toOrder {
+            font-size: 16px;
+        }
+
+        .adminOptions-wrap {
+            margin-left: 0;
+        }
+
+        .adminOptions {
+            margin-left: 5%;
+        }
         .buttonsItemList .fav {
             position: relative !important;
             left: 90px !important;
@@ -250,6 +300,60 @@
         }
     }
      @media only screen and (max-width:600px) {
+        .adminOption, .adminOption-wrap, .toOrder {
+            font-size: 14px;
+        }
+        .patternContainer input{
+            width:210px!important;
+        }
+        .addPattern {
+            left: 15px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .addChildCat {
+            left: 73px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .addCharact {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .removeCharact {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .removeIt {
+            margin-left: 225px;
+        }
+        .removeImg > img {
+            width: 220px;
+        }
+        .createSelect {
+            width: 230px !important;
+        }
+        .charactLine {
+            width: 270px;
+        }
+        .addCharact {
+            left: 130px;
+        }
+        .selectContainer > .removeCharact {
+            left: 230px;
+        }
+        .forma{
+            margin-left:5%;
+        }
+        .forma > form input{
+            width:230px;
+        }
+        .forma textarea{
+            width:230px;
+        }
+        .select2 {
+            width: 230px !important;
+        }
         .tps span {
             margin-right: 15px;
         }
