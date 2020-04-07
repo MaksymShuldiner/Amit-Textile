@@ -157,7 +157,7 @@
                                     <a href="@ViewBag.ProfileUrl">Личные данные <i class="fas fa-chevron-right"></i></a>
                                 </li>
                                 <li class="authOption leave">
-                                    Выход
+                                    <a href="@Url.Action("LogOff","Admin")">Выход</a>
                                 </li>
                             </ul>
                         </div>
@@ -226,7 +226,7 @@
                                 @Model.Address
                             </td>
                             <td>
-                                <a href="@Url.Action("SignOutAsync","Profile")" class="exit">Выйти</a>
+                                <a href="@Url.Action("LogOff","Admin")" class="exit">Выйти</a>
                             </td>
                         </tr>
                     </table>
@@ -234,7 +234,7 @@
                         <button class="changeInfo" data-fancybox="changeInformA" href="#changeInform">Изменить личные данные</button>
                         <button class="changePass">Изменить пароль</button>
                         <button class="changeMail">Изменить почту</button>
-                        <a href="@Url.Action("SignOutAsync","Profile")" class="exit">Выйти</a>
+                        <a href="@Url.Action("LogOff","Admin")" class="exit">Выйти</a>
                     </div>
                 </div>
             </div>
