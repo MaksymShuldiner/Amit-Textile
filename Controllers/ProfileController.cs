@@ -137,6 +137,7 @@ namespace AmitTextile.Controllers
         }
         public async Task<IActionResult> Profile()
         {
+            ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             if (User.Identity.IsAuthenticated)
             {
                 ViewBag.Fio = _userManager.FindByNameAsync(User.Identity.Name).Result.Fio;
