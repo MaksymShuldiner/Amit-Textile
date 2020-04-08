@@ -484,5 +484,21 @@ namespace AmitTextile.Controllers
             _context.SaveChanges();
             return RedirectToAction("Main", "Admin");
         }
+        [HttpPost]
+        public async Task<IActionResult> DeleteOrder(string OrderId)
+        {
+            Order order = await _context.Orders.Include(x => x.ItemOrders).ThenInclude(x => x.Item).FirstOrDefaultAsync(x => x.OrderId == Guid.Parse(OrderId));
+            if (order != null)
+            {
+                List<Item> items = order.ItemOrders.Select(x => x.Item).ToList();
+                foreach (var x in items)
+                {
+                    x.isBought = true;
+                    _context.Items.Update(x);
+                }
+                _context.Orders.Remove(order);
+            }
+            return Ok();
+        }
     }
 }
