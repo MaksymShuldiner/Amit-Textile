@@ -201,17 +201,19 @@ header {
 
 .item {
     padding: 17px;
-    border: 1px solid #303030;
+    border: 1px solid #282828;
     width: 100%;
     height: 300px;
+    background-color: #484848;
 }
-
+.notFirstItem{
+    border-left:none;
+}
 .item_image > img {
     width: 100%;
     padding-bottom: 15px;
     height: 160px;
 }
-
 .item_name:visited {
     font-size: 16px;
     color: white;
@@ -316,7 +318,7 @@ header {
 
 .item:hover {
     border: none;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
 footer {
@@ -684,9 +686,6 @@ footer {
 .mrg {
     margin-bottom: 60px;
 }
-.listImgContainer{
-    margin-top:15px;
-}
 .listImgContainer > img {
     width: 100%;
 }
@@ -712,10 +711,11 @@ footer {
 }
 
 .listItems {
-    border: 1px solid #d3d3d3;
+    border: 1px solid #282828;
     width: 100%;
     padding-top: 20px;
     padding-bottom: 20px;
+    background-color: #484848;
 }
 
 .itemPriceList {
@@ -1418,8 +1418,8 @@ textarea {
     font-size: 25px;
     transition: 0.3s all ease;
     color: #A9A9A9;
+    z-index:20;
 }
-
     .close1:hover {
         color: #FFA500;
         transition: 0.3s all ease;
@@ -1537,6 +1537,13 @@ textarea {
     top: 30px;
     right: 20px;
     color: white;
+}
+.buyItemList input {
+    font-size: 35px;
+    position: relative;
+    top: 30px;
+    right: 20px;
+    max-width:80px;
 }
 .buyItemList > .changeAm {
     font-size: 45px;

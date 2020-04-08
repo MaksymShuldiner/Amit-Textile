@@ -1,10 +1,11 @@
-@media only screen and (max-width:1508px){
-    .l{
-        padding-right:0;
+@media only screen and (max-width:1526px) {
+    .l {
+        padding-right: 0;
     }
-    .contentM{
-        margin-right:0;
-        margin-left:0;
+
+    .contentM {
+        margin-right: 0;
+        margin-left: 0;
     }
 }
 @media only screen and (max-width:1338px) {
@@ -114,16 +115,27 @@
         right: 25px;
         bottom: 32px;
     }
-    .inStock, notInStock, lowAm{
+    .inStock, .notInStock, .lowAm{
         font-size:12px;
+    }
+    .itemDescriptionList .lowAm {
+        font-size: 18px;
+    }
+
+    .itemDescriptionList .inStock {
+        font-size: 18px;
+    }
+
+    .itemDescriptionList .notInStock {
+        font-size: 18px;
     }
     .itm_field>.row>.col-md-6:nth-child(1){
         padding-right:0px;
     }
     }
     @media only screen and (max-width:1000px){
-        #imgFull{
-            max-height:250px;
+        #imgFull {
+            max-height: 250px;
         }
         .sc, .commentPosted, .navBcomments{
             width:80%;
@@ -196,9 +208,6 @@
             height:250px;
             padding:12px;
         }
-        .lowAm, .notInStock, .inStock {
-            font-size: 12px;
-        }
         .helloAuth > .login {
             left: 85px;
             width: 230px;
@@ -256,8 +265,16 @@
         .item_cells .fav:hover {
             background: #303030!important;
         }
-        .listItem .lowAm, .inStock,.notInStock{
-            font-size:20px;
+        .itemDescriptionList .lowAm {
+            font-size: 20px;
+        }
+
+        .itemDescriptionList .inStock {
+            font-size: 20px;
+        }
+
+        .itemDescriptionList .notInStock {
+            font-size: 20px;
         }
         .item:hover > .itm_field > .row > .col-md-6 > .fav {
             bottom: 42px;

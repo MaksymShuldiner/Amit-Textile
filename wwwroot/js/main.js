@@ -334,6 +334,9 @@
 });
 window.onscroll = function () { scrollFunction() };
 $(document).ready(function () {
+    $('[data-fancybox="2"]').fancybox({
+        touch: false
+    });
     $('[data-fancybox="itemPics"]').fancybox({
         loop: true,
         infobat: true,
