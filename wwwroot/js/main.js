@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    let prev = $('.miniMainImg');
     let flag = true;
     function toggle() {
         $("#cats_hdn").toggleClass('hdn');
@@ -89,6 +90,11 @@
     });
     $('.imgMiniimg').mouseover(function () {
         $('#imgFull').attr('src', $(this).attr('src'));
+        $('#imgFull').attr('href', $(this).attr('href'));
+        prev = $(this);
+    });
+    $('#imgFull').click(function () {
+        $.fancybox.open($(prev));
     });
     $('#rating').rating({ displayOnly: true, language: 'ru' });
     $('#ratingComment').rating({ step: 0.1, language: 'ru', showClear: false, size: 'xl' });
@@ -328,6 +334,16 @@
 });
 window.onscroll = function () { scrollFunction() };
 $(document).ready(function () {
+    $('[data-fancybox="itemPics"]').fancybox({
+        loop: true,
+        infobat: true,
+        buttons: [
+            "zoom",
+            "slideShow",
+            "thums",
+            "close"
+        ]
+    });
     if ($('.itemMini').length > 0) {
         let aa = $('.charact').find('.container-fluid').find('.row').find('.col-md-4');
         if ($(window).width() > 1280 && aa.length == 0) {

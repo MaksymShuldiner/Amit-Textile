@@ -122,6 +122,9 @@
     }
     }
     @media only screen and (max-width:1000px){
+        #imgFull{
+            max-height:250px;
+        }
         .sc, .commentPosted, .navBcomments{
             width:80%;
         }
@@ -457,6 +460,12 @@
         }
         .button{
             margin-right:3px;
+        }
+        .button:link {
+            margin-right: 3px;
+        }
+        .button:visited {
+            margin-right: 3px;
         }
         .buttonBar,.name,.ratingContainer {
             padding-left: 5%;

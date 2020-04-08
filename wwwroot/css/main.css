@@ -814,8 +814,10 @@ footer {
     }
 
 #imgFull {
-    max-width: 90%;
-    padding-left: 80px;
+    width:90%;
+    max-width: 950px;
+    max-height:450px;
+    padding-left:85px;
 }
 
 .imgMini:nth-child(1) {
@@ -909,6 +911,22 @@ footer {
     color: white;
     transition: 0.1s all ease;
 }
+    .button:visited {
+        display: inline-block;
+        margin-right: 30px;
+        padding-bottom: 20px;
+        cursor: pointer;
+        color: white;
+        transition: 0.1s all ease;
+    }
+    .button:link {
+        display: inline-block;
+        margin-right: 30px;
+        padding-bottom: 20px;
+        cursor: pointer;
+        color: white;
+        transition: 0.1s all ease;
+    }
         .button:hover {
             text-decoration: none;
         }
@@ -921,9 +939,8 @@ footer {
     }
 
 .buttonSelected {
-    border-bottom: 3px solid #FFA500;
-    font-weight:bold;
-    color: #FFA500;
+    border-bottom: 3px solid #FFA500!important;
+    color: #FFA500!important;
 }
 .ratingContainer {
     padding-bottom: 20px;
@@ -1467,6 +1484,26 @@ textarea {
     color: white;
     background-color: #FF8C00;
     border:none;
+    transition: 0.3s all ease;
+    padding: 10px;
+    display: block;
+    margin-bottom: 10px;
+}
+.buy:link {
+    width: 100%;
+    color: white;
+    background-color: #FF8C00;
+    border: none;
+    transition: 0.3s all ease;
+    padding: 10px;
+    display: block;
+    margin-bottom: 10px;
+}
+.buy:visited {
+    width: 100%;
+    color: white;
+    background-color: #FF8C00;
+    border: none;
     transition: 0.3s all ease;
     padding: 10px;
     display: block;

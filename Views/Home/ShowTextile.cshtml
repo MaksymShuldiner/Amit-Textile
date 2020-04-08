@@ -257,10 +257,10 @@
                     <div class="col-md-6">
                         <div class="itemImageFull">
                             <ul class="imgMiniContainer">
-                                <li class="imgMini"><img class="imgMiniimg" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Textile.Textile.MainImage.ByteImg))" alt="imgMini"></li>
+                                <li class="imgMini"><img data-fancybox="itemPics" href="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Textile.Textile.MainImage.ByteImg))" class="imgMiniimg miniMainImg" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Textile.Textile.MainImage.ByteImg))" alt="imgMini"></li>
                                 @foreach(var y in Model.Textile.Textile.Images)
                                 {
-                                    <li class="imgMini"><img class="imgMiniimg" src="data:image/jpeg;base64,@(Convert.ToBase64String(y.ByteImg))" alt="imgMini"></li>
+                                    <li class="imgMini"><img data-fancybox="itemPics" href="data:image/jpeg;base64,@(Convert.ToBase64String(y.ByteImg))" class="imgMiniimg" src="data:image/jpeg;base64,@(Convert.ToBase64String(y.ByteImg))" alt="imgMini"></li>
                                 }
                             </ul>
                             <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Textile.Textile.MainImage.ByteImg))" alt="imgFull" id="imgFull">
@@ -354,7 +354,7 @@
                                         <div class="row">
                                             <div class="col-md-5">
                                                 <div class="itemMiniImgContainer">
-                                                    <img src="../images/img1.jpg" alt="awdwadwadawd">
+                                                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Textile.Textile.MainImage.ByteImg)" alt="awdwadwadawd">
                                                 </div>
                                             </div>
                                             <div class="col-md-7">
@@ -506,7 +506,7 @@
                     else
                     {
                         <text>
-                            <li class="pagButtons disabled"><span> Вперед<i class="fas fa-chevron-right"></i></span></li>
+                            <li class="pagButtons disabled"><span> Вперед <i class="fas fa-chevron-right"></i></span></li>
                         </text>
                     }
                 </ul>
@@ -624,7 +624,7 @@
                     else
                     {
                         <text>
-                            <li class="pagButtons disabled"><span> Вперед<i class="fas fa-chevron-right"></i></span></li>
+                            <li class="pagButtons disabled"><span> Вперед <i class="fas fa-chevron-right"></i></span></li>
                         </text>
                     }
                 </ul>
