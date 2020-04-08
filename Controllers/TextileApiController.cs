@@ -237,7 +237,7 @@ namespace AmitTextile.Controllers
             List<TextileApiViewModel> textiles = new List<TextileApiViewModel>();
             try
             {
-                textiles = _context.Items.Include(x => x.Textile).ThenInclude(x=>x.MainImage).Include(x=>x.Textile).ThenInclude(x=>x.ParentCommentReviews)
+                textiles = _context.Items.Include(x => x.Textile).ThenInclude(x=>x.MainImage).Include(x=>x.Textile).ThenInclude(x=>x.ParentCommentReviews).Where(x=>x.isBought)
                     .OrderByDescending(x =>
                         _context.Items.Where(y => y.TextileId == x.TextileId && x.isBought).Sum(x => x.ItemsAmount)).ToList()
                     .GroupBy(X => X.TextileId).Select(x => x.First()).Take(12).Select(x => x.Textile).Select(x => new TextileApiViewModel() { Base64StrigImg = Convert.ToBase64String(x.MainImage.ByteImg), Price = x.Price, Name = x.Name, DateWhenAdded = x.DateWhenAdded, Discount = x.Discount, IsOnDiscount = x.IsOnDiscount, PriceWithDiscount = x.PriceWithDiscount, ViewsCounter = x.ViewsCounter, WarehouseAmount = x.WarehouseAmount, ParentCommentReviews = x.ParentCommentReviews, TextileId = x.TextileId })
