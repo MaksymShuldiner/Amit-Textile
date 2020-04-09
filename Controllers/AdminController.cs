@@ -498,6 +498,7 @@ namespace AmitTextile.Controllers
                     _context.Items.Update(x);
                 }
                 _context.Orders.Remove(order);
+                await _context.SaveChangesAsync();
             }
             return Ok();
         }
