@@ -350,11 +350,11 @@ namespace AmitTextile.Controllers
             Textile textile = new Textile();
             if (model.ChildCategoryId == "Нет")
             {
-                textile = new Textile() { TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description, Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId) };
+                textile = new Textile() { TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description, Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId), PriceWithDiscount = model.Discount};
             }
             else
             {
-                textile = new Textile() { TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description, Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId), ChildCategoryId = Guid.Parse(model.ChildCategoryId) };
+                textile = new Textile() { TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description, Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId), ChildCategoryId = Guid.Parse(model.ChildCategoryId), PriceWithDiscount = model.Discount};
             }
             if (model.MainFile != null && toUpdateTextile.MainImage==null)
             {
@@ -426,6 +426,7 @@ namespace AmitTextile.Controllers
                 toUpdateTextile.ChildCategoryId = textile.ChildCategoryId;
             }
             toUpdateTextile.Description = textile.Description;
+            toUpdateTextile.PriceWithDiscount = textile.PriceWithDiscount;
             toUpdateTextile.Discount = textile.Discount;
             toUpdateTextile.IsOnDiscount = textile.IsOnDiscount;
             toUpdateTextile.Price = textile.Price;
@@ -485,9 +486,9 @@ namespace AmitTextile.Controllers
             return RedirectToAction("Main", "Admin");
         }
         [HttpPost]
-        public async Task<IActionResult> DeleteOrder(string OrderId)
+        public async Task<IActionResult> DeleteOrder([FromBody]OrderIdModel model)
         {
-            Order order = await _context.Orders.Include(x => x.ItemOrders).ThenInclude(x => x.Item).FirstOrDefaultAsync(x => x.OrderId == Guid.Parse(OrderId));
+            Order order = await _context.Orders.Include(x => x.ItemOrders).ThenInclude(x => x.Item).FirstOrDefaultAsync(x => x.OrderId == Guid.Parse(model.OrderId));
             if (order != null)
             {
                 List<Item> items = order.ItemOrders.Select(x => x.Item).ToList();

@@ -9,7 +9,7 @@ namespace AmitTextile.Services
     {
        
         
-        private EmailAuthData Data { get; set; } = new EmailAuthData();
+        private EmailAuthData Data { get; } = new EmailAuthData();
 
         public EmailService(IConfiguration configuration)
         {
