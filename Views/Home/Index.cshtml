@@ -490,13 +490,15 @@
             previous = $(this).val();
         });
         $('.buyItemList').find('input').focusout(function () {
+            let all = $('.buyItemList').find('input');
+            let wholeAm = 0;
             let id = $(this).parent().parent().prev().prev().prev().attr('data');
             let x = { ItemId:id , Amount: $(this).val() };
             let parent = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent();
             let th = $(this);
             let price = $(this).parent().parent().prev().find('.itemPriceList').find('span');
             let sum = $(th).parent().next().find('span');
-            let bSum = $(parent).next().find('div').find('.summa');
+            let bSum = $('.popupCartButtons').find('div').find('.summa');
             let warehouse = $(this).attr('data');
             let value = $(th).val();
             if (parseInt(value) > parseInt(warehouse)) {
@@ -516,7 +518,10 @@
                         $(bSum).html($(bSum).html() + ' грн');
                         let chPrice = $('.inCart').find('span');
                         $(chPrice[1]).html("Стоимостью " + $('.summa').html())
-                        $(chPrice[0]).html("В корзине " + th.val() + " товаров");  
+                        for (let i = 0; i < all.length; i++) {
+                            wholeAm += parseInt($(all[i]).val());
+                        }
+                        $(chPrice[0]).html("В корзине " + wholeAm + " товаров");  
                     }
                 });
             }
@@ -537,7 +542,10 @@
                         $(bSum).html($(bSum).html() + ' грн');
                         let chPrice = $('.inCart').find('span');
                         $(chPrice[1]).html("Стоимостью " + $('.summa').html())
-                        $(chPrice[0]).html("В корзине " + th.val() + " товаров");
+                        for (let i = 0; i < all.length; i++) {
+                            wholeAm += parseInt($(all[i]).val());
+                        }
+                        $(chPrice[0]).html("В корзине " + wholeAm + " товаров");  
                     }
                 });
             }
@@ -556,7 +564,10 @@
                         $(bSum).html($(bSum).html() + ' грн');
                         let chPrice = $('.inCart').find('span');
                         $(chPrice[1]).html("Стоимостью " + $('.summa').html())
-                        $(chPrice[0]).html("В корзине " + th.val() + " товаров");
+                        for (let i = 0; i < all.length; i++) {
+                            wholeAm += parseInt($(all[i]).val());
+                        }
+                        $(chPrice[0]).html("В корзине " + wholeAm + " товаров");  
                     }
                 });
             }
