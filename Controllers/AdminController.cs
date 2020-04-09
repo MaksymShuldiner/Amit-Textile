@@ -486,9 +486,9 @@ namespace AmitTextile.Controllers
             return RedirectToAction("Main", "Admin");
         }
         [HttpPost]
-        public async Task<IActionResult> DeleteOrder(string OrderId)
+        public async Task<IActionResult> DeleteOrder([FromBody]OrderIdModel model)
         {
-            Order order = await _context.Orders.Include(x => x.ItemOrders).ThenInclude(x => x.Item).FirstOrDefaultAsync(x => x.OrderId == Guid.Parse(OrderId));
+            Order order = await _context.Orders.Include(x => x.ItemOrders).ThenInclude(x => x.Item).FirstOrDefaultAsync(x => x.OrderId == Guid.Parse(model.OrderId));
             if (order != null)
             {
                 List<Item> items = order.ItemOrders.Select(x => x.Item).ToList();
