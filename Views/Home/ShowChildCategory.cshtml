@@ -488,6 +488,7 @@
                                     <div class="col-md-12">
                                         <div class="container-fluid">
                                             <div class="row">
+                                                <button data="@x.ItemId" class="close1"><i class="fas fa-times-circle"></i></button>
                                                 <div class="col-md-4">
                                                     <div class="listImgContainer">
                                                         <img src="data:image/jpeg;base64,@(Convert.ToBase64String(x.Textile.MainImage.ByteImg))" alt="awd">
@@ -506,14 +507,13 @@
                                                 <div class="col-md-2">
                                                     <div class="buyItemList">
                                                         <span class="changeAm minus" data1="@x.Textile.TextileId" data="@x.ItemId">-</span>
-                                                        <span>@x.ItemsAmount</span>
+                                                        <input type="text" data="@x.Textile.WarehouseAmount" value="@x.ItemsAmount" />
                                                         <span class="changeAm plus" data1="@x.Textile.TextileId" data="@x.ItemId">+</span>
                                                     </div>
                                                     <div class="sum">
                                                         <label>Сумма</label><br>
                                                         <span>@(x.ItemsAmount * x.Textile.Price)</span>
                                                     </div>
-                                                    <button data="@x.ItemId" class="close1"><i class="fas fa-times-circle"></i></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -600,6 +600,92 @@
     <footer>
     </footer>
     <script type="text/javascript">
+        function add0(e) {
+                if ((parseFloat($(e).html()) * 10) % 10 == 0) {
+                    $(e).html($(e).html() + ",00");
+                }
+                else {
+                    $(e).html($(e).html().replace('.', ','));
+                }
+        }
+        let previous;
+        $('.buyItemList').find('input').focus(function () {
+            previous = $(this).val();
+        });
+        $('.buyItemList').find('input').focusout(function () {
+            let id = $(this).parent().parent().prev().prev().prev().attr('data');
+            let x = { ItemId:id , Amount: $(this).val() };
+            let parent = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent();
+            let th = $(this);
+            let price = $(this).parent().parent().prev().find('.itemPriceList').find('span');
+            let sum = $(th).parent().next().find('span');
+            let bSum = $(parent).next().find('div').find('.summa');
+            let warehouse = $(this).attr('data');
+            let value = $(th).val();
+            if (parseInt(value) > parseInt(warehouse)) {
+                x = { ItemId: id, Amount: parseInt(warehouse) };
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("ChangeAmount", "Cart")",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(x),
+                    success: function () {
+                        $(th).val(warehouse);
+                        $(sum).html(parseFloat($(price).html()) * warehouse);
+                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) - parseFloat($(price).html()) * previous + parseFloat($(sum).html()));
+                        add0(sum);
+                        add0(bSum);
+                        $('#sum').attr('value', $('.summa').html());
+                        $(bSum).html($(bSum).html() + ' грн');
+                        let chPrice = $('.inCart').find('span');
+                        $(chPrice[1]).html("Стоимостью " + $('.summa').html())
+                        $(chPrice[0]).html("В корзине " + th.val() + " товаров");
+                    }
+                });
+            }
+            else if ($(th).val() <= 0) {
+                x = { ItemId: id, Amount: 1 };
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("ChangeAmount", "Cart")",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(x),
+                    success: function () {
+                        $(th).val(1);
+                        $(sum).html(parseFloat($(price).html()));
+                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) - parseFloat($(price).html()) * previous + parseFloat($(sum).html()));
+                        add0(sum);
+                        add0(bSum);
+                        $('#sum').attr('value', $('.summa').html());
+                        $(bSum).html($(bSum).html() + ' грн');
+                        let chPrice = $('.inCart').find('span');
+                        $(chPrice[1]).html("Стоимостью " + $('.summa').html())
+                        $(chPrice[0]).html("В корзине " + th.val() + " товаров");
+                    }
+                });
+            }
+            else {
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("ChangeAmount", "Cart")",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(x),
+                    success: function () {
+                        $(sum).html(parseFloat($(price).html()) * th.val());
+                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) - parseFloat($(price).html()) * previous + parseFloat($(sum).html()));
+                        add0(sum);
+                        add0(bSum);
+                        $('#sum').attr('value', $('.summa').html());
+                        $(bSum).html($(bSum).html() + ' грн');
+                        let chPrice = $('.inCart').find('span');
+                        $(chPrice[1]).html("Стоимостью " + $('.summa').html())
+                        $(chPrice[0]).html("В корзине " + th.val() + " товаров");
+                    }
+                });
+            }
+        });
+    </script>
+    <script type="text/javascript">
         $('.changeAm').click(function () {
             function add0(e) {
                 if ((parseFloat($(e).html()) * 10) % 10 == 0) {
@@ -617,6 +703,7 @@
             let am1 = $(this).next();
             let am = $(this).prev();
             let operator = $(this).html();
+            let warehouse = $(this).attr('data2');
             let url;
             if (operator == "-") {
                 url = '@Url.Action("MinusItemInCart","Cart")'+"?ItemId="+id;
@@ -631,26 +718,35 @@
                 contentType: 'json',
                 success: function () {
                     if (operator == "-") {
-                        $(am1).html(parseInt($(am1).html()) - 1);
+                        $(am1).val(parseInt($(am1).val()) - 1);
                         $(sum).html(parseFloat(parseFloat($(sum).html()) - cost));
                         add0(sum);
                         $('.summa').html(parseFloat($('.summa').html()) - cost);
                         add0('.summa');
+                        $('#sum').attr('value', $('.summa').html());
                         $('.summa').html($('.summa').html() + " грн");
-                        if ($(am1).html() == "0") {
+                        if ($(am1).val() == "0") {
                             item.remove();
                         }
                     }
                     else {
-                        $(am).html(parseInt($(am).html()) + 1);
-                        $(sum).html(parseFloat(parseFloat($(sum).html()) + cost));
-                        add0(sum);
-                        $('.summa').html(parseFloat($('.summa').html()) + cost);
-                        add0('.summa');
+                        $(am).val(parseInt($(am).val()) + 1);
+                        if (parseInt($(am).val()) > parseInt(warehouse)) {
+                            $(am).val(warehouse);
+                        }
+                        else {
+                            $(sum).html(parseFloat(parseFloat($(sum).html()) + cost));
+                            add0(sum);
+                            $('.summa').html(parseFloat($('.summa').html()) + cost);
+                            add0('.summa');
+                            $('#sum').attr('value', $('.summa').html());
+                            $('.summa').html($('.summa').html() + " грн");
+                        }
                     }
+                    if (parseInt($(am).val()) <= parseInt(warehouse)) {
                         if ($(form).find('.listItems').length == 0) {
-                        $('.inCart').remove();
-                        $('.cart').append('<div class="inCart hidden"><i class="fas fa-shopping-cart"></i> <span>Ваша корзина пуста</span></div>');
+                            $('.inCart').remove();
+                            $('.cart').append('<div class="inCart hidden"><i class="fas fa-shopping-cart"></i> <span>Ваша корзина пуста</span></div>');
                         }
                         else {
 
@@ -664,6 +760,7 @@
                                 $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) + 1) + " товаров");
                             }
                         }
+                    }
                 }
             })
         });
@@ -672,10 +769,10 @@
         let url= "@Url.Action("RemoveFromCart", "TextileApi")";
         $('.close1').click(function (e) {
             e.preventDefault();
-            let item = $(this).parent().parent().parent().parent().parent().parent().parent().parent();
+            let item = $(this).parent().parent().parent().parent().parent().parent().parent();
             let form = $(item).parent();
             let id = $(this).attr('data');
-            let am = $(this).parent().find('.buyItemList').find('span');
+            let am = $(this).next().next().next().find('.buyItemList').find('span');
             $.ajax({
                 type: 'GET',
                 url: url + "?ItemId=" + id,
@@ -683,8 +780,9 @@
                 success: function () {
                     let price1 = parseFloat($(item).find('.sum').find('span').html());
                     let price2 = $(item).parent().find('.popupCartButtons').find('.summa');
-                    let price3= $(item).parent().find('.popupCartButtons').find('.summa').html();
-                    price2.html(parseFloat(price3) - price1+" грн");
+                    let price3 = $(item).parent().find('.popupCartButtons').find('.summa').html();
+                    $('#sum').attr('value', parseFloat(price3) - price1);
+                    price2.html(parseFloat(price3) - price1 + " грн");
                     item.remove();
                     if ($(form).find('.listItems').length == 0) {
                         $('.inCart').remove();
@@ -692,7 +790,7 @@
                     }
                     else {
                         let chPrice = $('.inCart').find('span');
-                        $(chPrice[1]).html("Стоимостью " + parseFloat(parseFloat(price3) - price1) + " грн")
+                        $(chPrice[1]).html("Стоимостью " + parseFloat(parseFloat(price3) - price1) + " грн");
                         $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) - parseInt($(am[1]).html())) + " товаров");
                     }
                 },

@@ -188,7 +188,7 @@ namespace AmitTextile.Controllers
             if (item != null)
             {
                 item.ItemsAmount = model.Amount;
-                _context.Update(item);
+                _context.Items.Update(item);
                 await _context.SaveChangesAsync();
                 return Ok();
             }

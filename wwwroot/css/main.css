@@ -2156,9 +2156,7 @@ textarea {
            border:1px solid #383838;
        }
        .orderItem{
-           display: flex;
-           flex-wrap: wrap;
-           justify-content: center;
+           margin-left:10px;
        }
        .orderItem th{
            padding:15px;
@@ -2380,4 +2378,23 @@ textarea {
         .helloAuth>.sideOption{
             font-size:15px;
             width:100%;
+        }
+        .removeOrder{
+            margin-left:10px;
+            width:280px;
+            color:white;
+            transition:0.3s all ease;
+            background-color:transparent;
+            padding:10px;
+            border:1px solid #404040;
+        }
+        .removeOrder:hover{
+            background-color:#404040;
+            color: 	#FFA500;
+            transition:0.3s all ease;
+        }
+        .orderBorder{
+            width:100%;
+            padding-bottom:10px;
+            border-bottom:1px solid #484848;
         }
