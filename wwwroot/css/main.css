@@ -720,7 +720,6 @@ footer {
 
 .itemPriceList {
     color:white;
-    margin-top: 20px;
     margin-bottom: 10px;
     font-size: 30px;
 }
@@ -874,13 +873,6 @@ footer {
     padding-top: 20px;
     padding-bottom: 20px;
 }
-
-.itemPriceList {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    font-size: 30px;
-}
-
 .buttonsItemList {
     margin-top: 10px;
 }
@@ -2412,11 +2404,10 @@ textarea {
             margin-bottom:8px;
         }
         .cross{
-            background-color: 	#FF4500;
-            width:42px;
+            background-color:#FF4500;
+            width:60px;
             margin-top:-9px;
             height:2px;
             z-index:10;
             position:absolute;
-            
         }
