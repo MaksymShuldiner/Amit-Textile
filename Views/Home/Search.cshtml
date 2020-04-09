@@ -221,7 +221,20 @@
                                                             <div class="itemDescrList">
                                                                 <span>@x.Textile.Description</span>
                                                             </div>
-                                                            <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
+                                                            @if (x.Textile.IsOnDiscount)
+                                                            {
+                                                                <div class="crossContainer">
+                                                                    <span class="priceBeforeDiscount">
+                                                                        @(x.Textile.Price + " ₴")
+                                                                    </span>
+                                                                    <div class="cross"></div>
+                                                                </div>
+                                                                <div class="itemPriceList"><span>@(x.Textile.PriceWithDiscount + " ₴")</span></div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
+                                                            }
                                                             @if (x.Textile.WarehouseAmount >= 30)
                                                             {
                                                                 <span class="inStock">
@@ -344,7 +357,20 @@
                                                                 <h2>@x.Textile.Name</h2>
                                                             </a>
                                                         </div>
-                                                        <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
+                                                        @if (x.Textile.IsOnDiscount)
+                                                        {
+                                                            <div class="crossContainer">
+                                                                <span class="priceBeforeDiscount">
+                                                                    @(x.Textile.Price + " ₴")
+                                                                </span>
+                                                                <div class="cross"></div>
+                                                            </div>
+                                                            <div class="itemPriceList"><span>@(x.Textile.PriceWithDiscount + " ₴")</span></div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
+                                                        }
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
