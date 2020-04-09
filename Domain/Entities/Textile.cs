@@ -61,6 +61,8 @@ namespace AmitTextile.Domain
 
         public Guid? ChildCategoryId { get; set; }
 
+        public ICollection<Item> Items { get; set; }
+
         public string Description { get; set; }
 
         public ICollection<ChildCommentQuestion> ChildCommentQuestions { get; set; }
@@ -69,6 +71,7 @@ namespace AmitTextile.Domain
         public ChildCategory ChildCategory { get; set; }
         public Textile()
         {
+            Items = new List<Item>();
             Charachteristics = new List<CharachteristicValues>();
             ChildCommentQuestions = new List<ChildCommentQuestion>();
             ParentCommentQuestions = new List<ParentCommentQuestion>();
