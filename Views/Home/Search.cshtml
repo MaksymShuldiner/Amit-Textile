@@ -337,7 +337,7 @@
                                                         <img src="data:image/jpeg;base64,@(Convert.ToBase64String(x.Textile.MainImage.ByteImg))" alt="awd">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="itemDescriptionList">
                                                         <div class="itemNameList">
                                                             <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId">
@@ -347,11 +347,11 @@
                                                         <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2">
+                                                <div class="col-md-4">
                                                     <div class="buyItemList">
-                                                        <span class="changeAm minus" data1="@x.Textile.TextileId" data="@x.ItemId">-</span>
+                                                        <span class="changeAm minus" data2="@x.Textile.WarehouseAmount" data1="@x.Textile.TextileId" data="@x.ItemId">-</span>
                                                         <input type="text" data="@x.Textile.WarehouseAmount" value="@x.ItemsAmount" />
-                                                        <span class="changeAm plus" data1="@x.Textile.TextileId" data="@x.ItemId">+</span>
+                                                        <span class="changeAm plus" data2="@x.Textile.WarehouseAmount" data1="@x.Textile.TextileId" data="@x.ItemId">+</span>
                                                     </div>
                                                     <div class="sum">
                                                         <label>Сумма</label><br>
@@ -453,13 +453,15 @@
             previous = $(this).val();
         });
         $('.buyItemList').find('input').focusout(function () {
+            let all = $('.buyItemList').find('input');
+            let wholeAm = 0;
             let id = $(this).parent().parent().prev().prev().prev().attr('data');
             let x = { ItemId:id , Amount: $(this).val() };
             let parent = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent();
             let th = $(this);
             let price = $(this).parent().parent().prev().find('.itemPriceList').find('span');
             let sum = $(th).parent().next().find('span');
-            let bSum = $(parent).next().find('div').find('.summa');
+            let bSum = $('.popupCartButtons').find('div').find('.summa');
             let warehouse = $(this).attr('data');
             let value = $(th).val();
             if (parseInt(value) > parseInt(warehouse)) {
@@ -479,7 +481,10 @@
                         $(bSum).html($(bSum).html() + ' грн');
                         let chPrice = $('.inCart').find('span');
                         $(chPrice[1]).html("Стоимостью " + $('.summa').html())
-                        $(chPrice[0]).html("В корзине " + th.val() + " товаров");
+                        for (let i = 0; i < all.length; i++) {
+                            wholeAm += parseInt($(all[i]).val());
+                        }
+                        $(chPrice[0]).html("В корзине " + wholeAm + " товаров");
                     }
                 });
             }
@@ -500,7 +505,10 @@
                         $(bSum).html($(bSum).html() + ' грн');
                         let chPrice = $('.inCart').find('span');
                         $(chPrice[1]).html("Стоимостью " + $('.summa').html())
-                        $(chPrice[0]).html("В корзине " + th.val() + " товаров");
+                        for (let i = 0; i < all.length; i++) {
+                            wholeAm += parseInt($(all[i]).val());
+                        }
+                        $(chPrice[0]).html("В корзине " + wholeAm + " товаров");
                     }
                 });
             }
@@ -519,7 +527,10 @@
                         $(bSum).html($(bSum).html() + ' грн');
                         let chPrice = $('.inCart').find('span');
                         $(chPrice[1]).html("Стоимостью " + $('.summa').html())
-                        $(chPrice[0]).html("В корзине " + th.val() + " товаров");
+                        for (let i = 0; i < all.length; i++) {
+                            wholeAm += parseInt($(all[i]).val());
+                        }
+                        $(chPrice[0]).html("В корзине " + wholeAm + " товаров");
                     }
                 });
             }

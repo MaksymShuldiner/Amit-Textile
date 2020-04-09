@@ -2157,6 +2157,7 @@ textarea {
        }
        .orderItem{
            margin-left:10px;
+           max-width:1660px;
        }
        .orderItem th{
            padding:15px;
@@ -2199,6 +2200,7 @@ textarea {
        .orderExtra{
            position:absolute;
            margin-left:-381px;
+           margin-top:19px;
        }
        .orderDetails{
            border:1px solid #383838;
