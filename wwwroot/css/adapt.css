@@ -5,6 +5,9 @@
     .wrapTd{
         display:none;
     }
+    .orderDetailsA{
+        display:block;
+    }
 }
 @media only screen and (max-width:1526px) {
     .l {
@@ -213,7 +216,7 @@
             height: 125px;
         }
         .item{
-            height:250px;
+            height:280px;
             padding:12px;
         }
         .helloAuth > .login {

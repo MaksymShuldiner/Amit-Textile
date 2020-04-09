@@ -203,7 +203,7 @@ header {
     padding: 17px;
     border: 1px solid #282828;
     width: 100%;
-    height: 300px;
+    height: 330px;
     background-color: #484848;
 }
 .notFirstItem{
@@ -236,7 +236,7 @@ header {
     }
     
     .item_cost {
-        font-size: 24px;
+        font-size: 21px;
         color: white;
     }
 
@@ -2205,6 +2205,9 @@ textarea {
        .orderDetails{
            border:1px solid #383838;
        }
+       .orderDetailsA{
+           display:none;
+       }
        .wrapTd{
            padding:0 !important;
        }
@@ -2399,4 +2402,21 @@ textarea {
             width:100%;
             padding-bottom:10px;
             border-bottom:1px solid #484848;
+        }
+        .crossContainer>span{
+            color:#BEBEBE;
+            font-size:18px;
+            margin-left:2px;
+        }
+        .crossContainer{
+            margin-bottom:8px;
+        }
+        .cross{
+            background-color: 	#FF4500;
+            width:42px;
+            margin-top:-9px;
+            height:2px;
+            z-index:10;
+            position:absolute;
+            
         }

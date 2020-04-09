@@ -311,6 +311,12 @@
                                                 <div class="container-fluid itm_field">
                                                     <div class="row">
                                                         <div class="col-md-6">
+                                                            <div class="crossContainer">
+                                                                <span class="priceBeforeDiscount">
+                                                                    500 ₴
+                                                                </span>
+                                                                <div class="cross"></div>
+                                                            </div>
                                                             <span class="item_cost">
                                                                 @(x.Textile.Price + " ₴")
                                                             </span>
@@ -388,6 +394,12 @@
                                                                         </div>
                                                                         <div class="rateItemContainer">
                                                                             <input class="rateItem" value="@x.Textile.Stars.ToString().Replace(",",".")" /> <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId&page=1&Section=CommentsReviews"> @x.Textile.ParentCommentReviews.Count отзывов</a>
+                                                                        </div>
+                                                                        <div class="crossContainer">
+                                                                            <span class="priceBeforeDiscount">
+                                                                                500 ₴
+                                                                            </span>
+                                                                            <div class="cross"></div>
                                                                         </div>
                                                                         <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
                                                                         @if (x.Textile.WarehouseAmount >= 30)
@@ -890,7 +902,7 @@
                             for (let i = 0; i < errors.length; i++) {
                                 errors[i].remove();
                                 i--;
-                            }#cartPopup
+                            }
                         }
                         if (errorArr[0] != undefined) {
                             for (let i = 1; i < errorArr.length - 1; i++) {
