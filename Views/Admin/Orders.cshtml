@@ -790,6 +790,22 @@
     </div>
     <footer>
     </footer>
+    <script type="text/javascript">
+        $('.removeOrder').click(function () {
+            let th = $(this);
+            let x = { OrderId: $(this).attr('data') };
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("DeleteOrder","Admin")',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(x),
+                success: function () {
+                    $(th).parent().prev().remove();
+                    $(th).parent().remove();
+                }
+            })
+        });
+    </script>
     <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
     <script type="text/javascript" src="~/js/star-rating.js"></script>
     <script type="text/javascript" src="~/js/ru.js"></script>
