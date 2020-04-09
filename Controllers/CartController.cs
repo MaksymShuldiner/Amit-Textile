@@ -38,7 +38,6 @@ namespace AmitTextile.Controllers
                         break;
                     }
                 }
-
                 if (!flag)
                 {
                     if (_context.Textiles.Find(Guid.Parse(TextileId)).WarehouseAmount >= 1)

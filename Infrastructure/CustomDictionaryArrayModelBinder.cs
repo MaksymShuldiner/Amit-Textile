@@ -23,7 +23,6 @@ namespace AmitTextile.Infrastructure
             {
                 throw new ArgumentNullException(nameof(bindingContext));
             }
-
             var DictionaryValues = bindingContext.ValueProvider.GetValue("Filter");
             if (DictionaryValues == ValueProviderResult.None)
             {
