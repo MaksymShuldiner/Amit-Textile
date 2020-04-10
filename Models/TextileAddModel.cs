@@ -9,6 +9,8 @@ namespace AmitTextile.Models
         public string Id { get; set; }
         public string Name { get; set; }
 
+        public decimal CostWithWholeCost { get; set; }
+
         public decimal Price { get; set; }
 
         public int WarehouseAmount { get; set; }

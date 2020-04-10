@@ -560,7 +560,7 @@
                                                     <div class="col-md-4">
                                                         <div class="buyItemList">
                                                             <span class="changeAm minus" data2="@x.Textile.WarehouseAmount" data1="@x.Textile.TextileId" data="@x.ItemId" >-</span>
-                                                            <input type="text" data="@x.Textile.WarehouseAmount" value="@x.ItemsAmount" needforOpt="@Enumerable.FirstOrDefault(x.Textile.Charachteristics,(Func<CharachteristicValues,bool>)(x=>x.Name == "Оптовое количество")).Value"/>
+                                                            <input type="text" data="@x.Textile.WarehouseAmount" value="@x.ItemsAmount" needforOpt="@Enumerable.FirstOrDefault(x.Textile.Charachteristics,(Func<CharachteristicValues,bool>)(x=>x.Name == "Оптовое количество")).Value" optPrice="@x.Textile.CostWithWholeCost"/>
                                                             <span class="changeAm plus" data2="@x.Textile.WarehouseAmount" data1="@x.Textile.TextileId" data="@x.ItemId">+</span>
                                                         </div>
                                                         <div class="sum">
