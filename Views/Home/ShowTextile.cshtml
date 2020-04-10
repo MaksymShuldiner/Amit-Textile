@@ -458,7 +458,7 @@
                     <input class="cons" type="text" name="Drawbacks"><br>
                     <label for="commentText">Ваш комментарий</label><br>
                     <input type="hidden" name="TextileId" value="@Model.Textile.Textile.TextileId" />
-                    <textarea name="Message"></textarea> <br>
+                    <textarea wrap="hard" cols="20" name="Message"></textarea> <br>
                     <label for="userNameField">Ваше имя и фамилия</label><br>
                     <input type="text" class="userNameField" name="Fio" value="@Model.Fio"><br><br>
                     <input type="hidden" name="Datetime" value="@DateTime.Now.ToString()" />
@@ -480,9 +480,9 @@
                     <div class="commentTextContainer">
                         <input class="postedCommentRating" name="postedCommentRating" value="@x.Stars.ToString().Replace(",",".")">
                         <br>
-                        <span class="commentText">
-                            @x.Text
-                        </span>
+                        <div class="commentText">
+                            <span>@x.Text</span>
+                        </div>
                         <br><br><label for="pros">Достоинства:</label><br>
                         <div class="pros">
                             <p>
@@ -550,7 +550,7 @@
                     <h1 class="formName">Задать вопрос</h1>
                     <label for="commentText">Ваш вопрос</label><br>
                     <input type="hidden" name="TextileId" value="@Model.Textile.Textile.TextileId" />
-                    <textarea name="Message"></textarea><br><br>
+                    <textarea name="Message" wrap="hard" cols="20"></textarea><br><br>
                     <label for="userNameField">Ваше имя и фамилия</label><br>
                     <input type="text" class="userNameField" value="@Model.Fio" name="Fio"><br><br>
                     <input type="button" class="declineComment" value="Отменить">
@@ -564,7 +564,7 @@
                     <label for="commentText">Ваш ответ</label><br>
                     <input type="hidden" name="TextileId" value="@Model.Textile.Textile.TextileId" />
                     <input type="hidden" value="@Model.PageViewModel.PageNumber" name="page" />
-                    <textarea name="Message"></textarea><br><br>
+                    <textarea wrap="hard" cols="20" name="Message"></textarea><br><br>
                     <label for="userNameField">Ваше имя и фамилия</label><br>
                     <input type="text" class="userNameField" value="@Model.Fio" name="Fio"><br><br>
                     <input type="hidden" name="Datetime" value="@DateTime.Now.ToString()" />
@@ -587,9 +587,7 @@
                     </div>
                     <div class="commentTextContainer">
                         <br>
-                        <span class="commentText">
-                            @x.Text
-                        </span>
+                        <div class="commentText"><span>@x.Text</span></div>
                     </div>
                     @foreach (var y in x.ChildComments.OrderBy(x => x.DatePosted))
                     {
