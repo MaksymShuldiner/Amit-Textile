@@ -559,9 +559,9 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="buyItemList">
-                                                            <span class="changeAm minus" data2="@x.Textile.WarehouseAmount" data1="@x.Textile.TextileId" data="@x.ItemId" >-</span>
-                                                            <input type="text" data="@x.Textile.WarehouseAmount" value="@x.ItemsAmount" needforOpt="@Enumerable.FirstOrDefault(x.Textile.Charachteristics,(Func<CharachteristicValues,bool>)(x=>x.Name == "Оптовое количество")).Value" optPrice="@x.Textile.CostWithWholeCost"/>
-                                                            <span class="changeAm plus" data2="@x.Textile.WarehouseAmount" data1="@x.Textile.TextileId" data="@x.ItemId">+</span>
+                                                            <span class="changeAm minus" price="@x.Textile.Price" priceDiscount="@x.Textile.PriceWithDiscount" data2="@x.Textile.WarehouseAmount" data1="@x.Textile.TextileId" data="@x.ItemId" needforOpt="@Enumerable.FirstOrDefault(x.Textile.Charachteristics,(Func<CharachteristicValues,bool>)(x=>x.Name == "Оптовое количество")).Value" optPrice="@x.Textile.CostWithWholeCost">-</span>
+                                                            <input type="text" price="@x.Textile.Price" priceDiscount="@x.Textile.PriceWithDiscount" data="@x.Textile.WarehouseAmount" value="@x.ItemsAmount" needforOpt="@Enumerable.FirstOrDefault(x.Textile.Charachteristics,(Func<CharachteristicValues,bool>)(x=>x.Name == "Оптовое количество")).Value" optPrice="@x.Textile.CostWithWholeCost"/>
+                                                            <span class="changeAm plus" price="@x.Textile.Price" priceDiscount="@x.Textile.PriceWithDiscount" data2="@x.Textile.WarehouseAmount" data1="@x.Textile.TextileId" data="@x.ItemId" needforOpt="@Enumerable.FirstOrDefault(x.Textile.Charachteristics,(Func<CharachteristicValues,bool>)(x=>x.Name == "Оптовое количество")).Value" optPrice="@x.Textile.CostWithWholeCost">+</span>
                                                         </div>
                                                         <div class="sum">
                                                             <label>Сумма</label><br>
@@ -705,10 +705,14 @@
             previous = $(this).val();
         });
         $('.buyItemList').find('input').focusout(function () {
+            let fullPrice = $(this).attr('price');
+            let discountPrice = $(this).attr('pricediscount');
+            let opt = $(this).attr('needforOpt');
+            let optPrice = $(this).attr('optPrice');
             let all = $('.buyItemList').find('input');
             let wholeAm = 0;
             let id = $(this).parent().parent().prev().prev().prev().attr('data');
-            let x = { ItemId:id , Amount: $(this).val() };
+            let x = { ItemId: id, Amount: $(this).val() };
             let parent = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent();
             let th = $(this);
             let price = $(this).parent().parent().prev().find('.itemPriceList').find('span');
@@ -725,8 +729,20 @@
                     data: JSON.stringify(x),
                     success: function () {
                         $(th).val(warehouse);
+                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) - parseFloat($(price).html()) * previous);
+                        if (parseInt($(th).val()) >= parseInt(opt)) {
+                            $(price).html(optPrice + " ₴");
+                        }
+                        else {
+                            if (parseInt(discountPrice) == 0) {
+                                $(price).html(fullPrice + " ₴");
+                            }
+                            else {
+                                $(price).html(discountPrice + " ₴");
+                            }
+                        }
                         $(sum).html(parseFloat($(price).html()) * warehouse);
-                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) - parseFloat($(price).html()) * previous + parseFloat($(sum).html()));
+                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) + parseFloat($(sum).html()));
                         add0(sum);
                         add0(bSum);
                         $('#sum').attr('value', $('.summa').html());
@@ -749,8 +765,15 @@
                     data: JSON.stringify(x),
                     success: function () {
                         $(th).val(1);
+                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) - parseFloat($(price).html()) * previous)
+                        if (parseInt(discountPrice) == 0) {
+                            $(price).html(fullPrice + " ₴");
+                        }
+                        else {
+                            $(price).html(discountPrice + " ₴");
+                        }
                         $(sum).html(parseFloat($(price).html()));
-                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) - parseFloat($(price).html()) * previous + parseFloat($(sum).html()));
+                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) + parseFloat($(sum).html()));
                         add0(sum);
                         add0(bSum);
                         $('#sum').attr('value', $('.summa').html());
@@ -771,8 +794,20 @@
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(x),
                     success: function () {
+                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) - parseFloat($(price).html()) * previous);
+                        if (parseInt($(th).val()) >= parseInt(opt)) {
+                            $(price).html(optPrice + " ₴");
+                        }
+                        else {
+                            if (parseInt(discountPrice) == 0) {
+                                $(price).html(fullPrice + " ₴");
+                            }
+                            else {
+                                $(price).html(discountPrice + " ₴");
+                            }
+                        }
                         $(sum).html(parseFloat($(price).html()) * th.val());
-                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) - parseFloat($(price).html()) * previous + parseFloat($(sum).html()));
+                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) + parseFloat($(sum).html()));
                         add0(sum);
                         add0(bSum);
                         $('#sum').attr('value', $('.summa').html());
@@ -798,6 +833,10 @@
                     $(e).html($(e).html().replace('.', ','));
                 }
             }
+            let fullPrice = $(this).attr('price');
+            let discountPrice = $(this).attr('pricediscount');
+            let opt = $(this).attr('needforOpt');
+            let optPrice = $(this).attr('optPrice');
             let all = $('.buyItemList').find('input');
             let wholeAm = 0;
             let item = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent();
@@ -817,6 +856,7 @@
                 url = '@Url.Action("AddToCart","Cart")'+"?Api=1&TextileId="+id1;
             }
             let cost = parseFloat($(this).parent().parent().prev().find('.itemDescriptionList').find('.itemPriceList').find('span').html());
+            let costBlock = $(this).parent().parent().prev().find('.itemDescriptionList').find('.itemPriceList').find('span');
             $.ajax({
                 type: 'GET',
                 url: url,
@@ -824,12 +864,38 @@
                 success: function () {
                     if (operator == "-") {
                         $(am1).val(parseInt($(am1).val()) - 1);
-                        $(sum).html(parseFloat(parseFloat($(sum).html()) - cost));
-                        add0(sum);
-                        $('.summa').html(parseFloat($('.summa').html()) - cost);
-                        add0('.summa');
-                        $('#sum').attr('value', $('.summa').html());
-                        $('.summa').html($('.summa').html() + " грн");
+                        if (parseInt($(am1).val()) < parseInt(opt)) {
+                            if (discountPrice != 0) {
+                                costBlock.html(discountPrice + ' ₴');
+                                cost = parseFloat(discountPrice)
+                                $('.summa').html(parseFloat($('.summa').html()) - parseFloat($(sum).html()));
+                                $(sum).html(parseFloat(cost) * parseInt($(am1).val()));
+                                $('.summa').html(parseFloat($('.summa').html()) + parseFloat($(sum).html()));
+                                add0(sum);
+                                add0('.summa');
+                                $('#sum').attr('value', $('.summa').html());
+                                $('.summa').html($('.summa').html() + " грн");
+                            }
+                            else {
+                                costBlock.html(fullPrice + ' ₴');
+                                cost = parseFloat(fullPrice);
+                                $('.summa').html(parseFloat($('.summa').html()) - parseFloat($(sum).html()));
+                                $(sum).html(parseFloat(cost) * parseInt($(am1).val()));
+                                $('.summa').html(parseFloat($('.summa').html()) + parseFloat($(sum).html()));
+                                add0(sum);
+                                add0('.summa');
+                                $('#sum').attr('value', $('.summa').html());
+                                $('.summa').html($('.summa').html() + " грн");
+                            }
+                        }
+                        else {
+                            $(sum).html(parseFloat(parseFloat($(sum).html()) - cost));
+                            add0(sum);
+                            $('.summa').html(parseFloat($('.summa').html()) - cost);
+                            add0('.summa');
+                            $('#sum').attr('value', $('.summa').html());
+                            $('.summa').html($('.summa').html() + " грн");
+                        }
                         if ($(am1).val() == "0") {
                             item.remove();
                         }
@@ -840,12 +906,25 @@
                             $(am).val(warehouse);
                         }
                         else {
-                            $(sum).html(parseFloat(parseFloat($(sum).html()) + cost));
-                            add0(sum);
-                            $('.summa').html(parseFloat($('.summa').html()) + cost);
-                            add0('.summa');
-                            $('#sum').attr('value', $('.summa').html());
-                            $('.summa').html($('.summa').html() + " грн");
+                            if (parseInt($(am).val()) >= parseInt(opt)) {
+                                costBlock.html(optPrice + ' ₴');
+                                cost = parseFloat(optPrice);
+                                $('.summa').html(parseFloat($('.summa').html()) - parseFloat($(sum).html()));
+                                $(sum).html(parseFloat(cost)*parseInt($(am).val()));
+                                $('.summa').html(parseFloat($('.summa').html()) + parseFloat($(sum).html()));
+                                add0(sum);
+                                add0('.summa');
+                                $('#sum').attr('value', $('.summa').html());
+                                $('.summa').html($('.summa').html() + " грн");
+                            }
+                            else {
+                                $(sum).html(parseFloat(parseFloat($(sum).html()) + cost));
+                                add0(sum);
+                                $('.summa').html(parseFloat($('.summa').html()) + cost);
+                                add0('.summa');
+                                $('#sum').attr('value', $('.summa').html());
+                                $('.summa').html($('.summa').html() + " грн");
+                            }
                         }
                     }
                     if (parseInt($(am).val()) <= parseInt(warehouse)) {
