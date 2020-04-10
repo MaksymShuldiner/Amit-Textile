@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AmitTextile.Domain
 {
@@ -14,6 +15,11 @@ namespace AmitTextile.Domain
 
         public ICollection<ItemOrder> ItemOrders { get; set; }
 
+        public bool isWithWholePrice
+        {
+            get => Convert.ToInt32(Textile.Charachteristics.FirstOrDefault(X => X.Name == "Оптовая цена").Value) >=
+                   Textile.CostWithWholeCost;
+        }
         public Guid? CartId { get; set; }
 
         public Cart Cart { get; set; }
