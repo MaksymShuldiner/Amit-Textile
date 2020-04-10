@@ -1,8 +1,8 @@
-body {
+body,html {
     font-family: 'Ubuntu Condensed';
     background-color: #282828;
     min-height:100vh;
-    position:relative;  
+    position:relative;
 }
 body a:link{
     text-decoration:none;
@@ -538,7 +538,7 @@ footer {
     height: 95px;
 }
 .item_cellsMain, .navButtons {
-    margin-bottom: 100px;
+    margin-bottom: 60px;
 }
 
 .catItem {
@@ -777,6 +777,9 @@ footer {
 .contentM{
     margin-left:10%;
     margin-right:10%;
+}
+.content{
+    min-height:1080px;
 }
 .filterFieldContainer{
     margin-top:257px;
@@ -2425,6 +2428,14 @@ textarea {
             z-index:10;
             position:absolute;
         }
+        .crossMain{
+            background-color:#FF4500;
+            width:40px;
+            margin-top:-9px;
+            height:2px;
+            z-index:10;
+            position:absolute;
+        }
         footer{
             background-color:#181818;
             color:white;
@@ -2434,7 +2445,8 @@ textarea {
             padding-bottom:30px;
             width:100%;
             position:absolute;
-            bottom:0;
+            bottom:-100px;
+            overflow:hidden;
         }
         footer>a:link{
             color:#C0C0C0;
@@ -2448,4 +2460,8 @@ textarea {
             color: 	#FFA500;
             text-decoration:none;
             transition:0.3s all ease;
+        }
+        #aboutUsPopup, #guaranteesPopup,#shippingPopup{
+            font-size:20px;
+            max-width:70%;
         }

@@ -229,6 +229,7 @@
         }
     }
     @media only screen and (max-width:767px) {
+
         .col-md-9{
             padding-left:0px;
         }

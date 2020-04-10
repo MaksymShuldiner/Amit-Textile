@@ -662,7 +662,25 @@
             <input type="submit" class="sendOrder createItem" value="Оформить заказ" />
         </form>
     </div>
+    <div class="hidden">
+        <div id="aboutUsPopup">
+            <span>Приветствуем вас в интернет-магазине Global Textile! Уже 20 лет мы успешно занимаемся поставками и продажей тканей из Китая и Кореи. В нашем интернет-магазине вы найдёте широкий ассортимент товара по самым доступным ценам. Предлагаем приобрести ткани оптом, а также в розницу от 1 метра.</span>
+        </div>
+    </div>
+    <div class="hidden">
+        <div id="guaranteesPopup">
+            <span>Мы предоставляем гарантию на 2 недели при покупке от одного рулона ткани(размер рулона указан в характеристиках товара) и при условии того, что вы не отрезали ткань от рулона</span>
+        </div>
+    </div>
+    <div class="hidden">
+        <div id="shippingPopup">
+            <span>Мы предлагаем вам 4 способа доставки:<br>1.Доставка новой почтой(Адресная или в отделение)<br>2.Доставка укрпочтой(Адресная или в отделение)<br>3.Доставка justin(В отделение)<br>4.Самовывоз со склада(О деталях доставки вы договариваетесь с представителем магазина(Вам позвонят по номеру телефона, указанному в заказе))</span>
+        </div>
+    </div>
     <footer>
+        <a href="#aboutUsPopup" data-fancybox="aboutUsPopup" class="aboutUs">О нас</a>
+        <a href="#guaranteesPopup" data-fancybox="guaranteesPopup" class="guarantees">Гарантии</a>
+        <a href="#shippingPopup" data-fancybox="shippingPopup" class="shipping">Доставка</a>
     </footer>
     <script type="text/javascript">
         function add0(e) {
@@ -771,6 +789,8 @@
                     $(e).html($(e).html().replace('.', ','));
                 }
             }
+            let all = $('.buyItemList').find('input');
+            let wholeAm = 0;
             let item = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent();
             let form = $(item).parent();
             let id = $(this).attr('data');
@@ -829,11 +849,17 @@
                             let chPrice = $('.inCart').find('span');
                             if (operator == "-") {
                                 $(chPrice[1]).html("Стоимостью " + $('.summa').html())
-                                $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) - 1) + " товаров");
+                                for (let i = 0; i < all.length; i++) {
+                                    wholeAm += parseInt($(all[i]).val());
+                                }
+                                $(chPrice[0]).html("В корзине " + wholeAm + " товаров");
                             }
                             else {
                                 $(chPrice[1]).html("Стоимостью " + $('.summa').html())
-                                $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) + 1) + " товаров");
+                                for (let i = 0; i < all.length; i++) {
+                                    wholeAm += parseInt($(all[i]).val());
+                                }
+                                $(chPrice[0]).html("В корзине " + wholeAm + " товаров");
                             }
                         }
                     }
