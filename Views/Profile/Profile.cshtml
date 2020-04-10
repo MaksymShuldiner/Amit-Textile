@@ -275,7 +275,14 @@
                                                 </div>
                                                 <div class="sum">
                                                     <label>Сумма</label><br>
-                                                    <span>@(x.ItemsAmount * x.Textile.Price)</span>
+                                                    @if (x.Textile.IsOnDiscount)
+                                                    {
+                                                        <span>@(x.ItemsAmount * x.Textile.PriceWithDiscount)</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>@(x.ItemsAmount * x.Textile.Price)</span>
+                                                    }
                                                 </div>
                                                 <button data="@x.ItemId" class="close1"><i class="fas fa-times-circle"></i></button>
                                             </div>
@@ -291,7 +298,14 @@
                 decimal yDecimal = 0;
                 foreach (var x in ViewBag.Items)
                 {
-                    yDecimal += x.Textile.Price * x.ItemsAmount;
+                    if (x.Textile.IsOnDiscount)
+                    {
+                        yDecimal += x.Textile.PriceWithDiscount * x.ItemsAmount;
+                    }
+                    else
+                    {
+                        yDecimal += x.Textile.Price * x.ItemsAmount;
+                    }
                 }
             }
             <div class="popupCartButtons">

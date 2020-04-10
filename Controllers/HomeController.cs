@@ -60,7 +60,18 @@ namespace AmitTextile.Controllers
             }
             ViewBag.Items = Items;
             decimal sum = 0;
-            Items.ForEach(x => sum += (x.Textile.Price * (decimal)x.ItemsAmount));
+            Items.ForEach(x =>
+            {
+                if (x.Textile.IsOnDiscount)
+                {
+                    sum += (x.Textile.PriceWithDiscount * (decimal)x.ItemsAmount);
+                }
+                else
+                {
+                    sum += (x.Textile.Price * (decimal)x.ItemsAmount);
+                }
+                
+            });
             ViewBag.Sum = sum;
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             ViewBag.name = name;
@@ -94,7 +105,18 @@ namespace AmitTextile.Controllers
             }
             ViewBag.Items = Items;
             decimal sum = 0;
-            Items.ForEach(x => sum += (x.Textile.Price * (decimal)x.ItemsAmount));
+            Items.ForEach(x =>
+            {
+                if (x.Textile.IsOnDiscount)
+                {
+                    sum += (x.Textile.PriceWithDiscount * (decimal)x.ItemsAmount);
+                }
+                else
+                {
+                    sum += (x.Textile.Price * (decimal)x.ItemsAmount);
+                }
+
+            });
             ViewBag.Sum = sum;
             ViewBag.BookUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowTextile";
             if (!HttpContext.Request.Cookies.ContainsKey("Form"))
@@ -508,7 +530,18 @@ namespace AmitTextile.Controllers
             }
             ViewBag.Items = Items;
             decimal sum = 0;
-            Items.ForEach(x => sum += (x.Textile.Price * (decimal)x.ItemsAmount));
+            Items.ForEach(x =>
+            {
+                if (x.Textile.IsOnDiscount)
+                {
+                    sum += (x.Textile.PriceWithDiscount * (decimal)x.ItemsAmount);
+                }
+                else
+                {
+                    sum += (x.Textile.Price * (decimal)x.ItemsAmount);
+                }
+
+            });
             ViewBag.Sum = sum;
             ViewBag.BookUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowTextile";
             string FilterQuery = Request.Query["Filter"];
@@ -937,7 +970,18 @@ namespace AmitTextile.Controllers
             }
             ViewBag.Items = Items;
             decimal sum = 0;
-            Items.ForEach(x => sum += (x.Textile.Price * (decimal)x.ItemsAmount));
+          Items.ForEach(x =>
+            {
+                if (x.Textile.IsOnDiscount)
+                {
+                    sum += (x.Textile.PriceWithDiscount * (decimal)x.ItemsAmount);
+                }
+                else
+                {
+                    sum += (x.Textile.Price * (decimal)x.ItemsAmount);
+                }
+                
+            });
             ViewBag.Sum = sum;
             if (Section == "AboutItem")
             {
@@ -1154,7 +1198,18 @@ namespace AmitTextile.Controllers
 
             ViewBag.Items = Items;
             decimal sum = 0;
-            Items.ForEach(x => sum += (x.Textile.Price * (decimal) x.ItemsAmount));
+            Items.ForEach(x =>
+            {
+                if (x.Textile.IsOnDiscount)
+                {
+                    sum += (x.Textile.PriceWithDiscount * (decimal)x.ItemsAmount);
+                }
+                else
+                {
+                    sum += (x.Textile.Price * (decimal)x.ItemsAmount);
+                }
+
+            });
             ViewBag.Sum = sum;
             ViewBag.UrlCat = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowTextile";

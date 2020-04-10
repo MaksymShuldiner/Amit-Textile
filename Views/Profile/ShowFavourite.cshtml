@@ -221,7 +221,20 @@
                                                             <div class="itemDescrList">
                                                                 <span>@x.Description</span>
                                                             </div>
-                                                            <div class="itemPriceList"><span>@(x.Price + " ₴")</span></div>
+                                                            @if (x.IsOnDiscount)
+                                                            {
+                                                                <div class="crossContainer">
+                                                                    <span class="priceBeforeDiscount">
+                                                                        @(x.Price + " ₴")
+                                                                    </span>
+                                                                    <div class="cross"></div>
+                                                                </div>
+                                                                <div class="itemPriceList"><span>@(x.PriceWithDiscount + " ₴")</span></div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="itemPriceList"><span>@(x.Price + " ₴")</span></div>
+                                                            }
                                                             @if (x.WarehouseAmount >= 30)
                                                             {
                                                                 <span class="inStock">
