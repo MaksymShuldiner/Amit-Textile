@@ -319,13 +319,12 @@
                                                                     </span>
                                                                     <div class="cross"></div>
                                                                 </div>
-                                                                <div class="itemPriceList"><span>@(x.Textile.PriceWithDiscount + " ₴")</span></div>
+                                                                <div class="item_cost"><span>@(x.Textile.PriceWithDiscount + " ₴")</span></div>
                                                             }
                                                             else
                                                             {
-                                                                <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
+                                                                <span class="item_cost">@(x.Textile.Price + " ₴")</span>
                                                             }
-                                                            <br>
                                                             @if (x.Textile.WarehouseAmount >= 30)
                                                             {
                                                                 <span class="inStock">
@@ -385,6 +384,7 @@
                                                     <div class="col-md-12">
                                                         <div class="container-fluid">
                                                             <div class="row">
+
                                                                 <div class="col-md-4">
                                                                     <div class="listImgContainer">
                                                                         <img src="data:image/jpeg;base64,@Convert.ToBase64String(x.Textile.MainImage.ByteImg)" alt="awd">
