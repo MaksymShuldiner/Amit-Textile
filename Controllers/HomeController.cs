@@ -110,7 +110,11 @@ namespace AmitTextile.Controllers
             decimal sum = 0;
             Items.ForEach(x =>
             {
-                if (x.Textile.IsOnDiscount)
+                if (x.isWithWholePrice)
+                {
+                    sum += (x.Textile.CostWithWholeCost * (decimal) x.ItemsAmount);
+                }
+                else if (x.Textile.IsOnDiscount)
                 {
                     sum += (x.Textile.PriceWithDiscount * (decimal)x.ItemsAmount);
                 }

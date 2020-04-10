@@ -565,7 +565,11 @@
                                                         </div>
                                                         <div class="sum">
                                                             <label>Сумма</label><br>
-                                                            @if (x.Textile.IsOnDiscount)
+                                                            @if (x.isWithWholePrice)
+                                                            {
+                                                                <span>@(x.ItemsAmount * x.Textile.CostWithWholeCost)</span>
+                                                            }
+                                                            else if (x.Textile.IsOnDiscount)
                                                             {
                                                                 <span>@(x.ItemsAmount * x.Textile.PriceWithDiscount)</span>
                                                             }
@@ -587,7 +591,11 @@
                         decimal yDecimal = 0;
                         foreach (var x in ViewBag.Items)
                         {
-                            if (x.Textile.IsOnDiscount)
+                            if (x.isWithWholePrice)
+                            {
+                                yDecimal += x.Textile.CostWithWholeCost * x.ItemsAmount;
+                            }
+                            else if (x.Textile.IsOnDiscount)
                             {
                                 yDecimal += x.Textile.PriceWithDiscount * x.ItemsAmount;
                             }

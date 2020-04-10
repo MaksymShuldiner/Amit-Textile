@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace AmitTextile.Domain
@@ -14,7 +15,7 @@ namespace AmitTextile.Domain
         public int ItemsAmount { get; set; }
 
         public ICollection<ItemOrder> ItemOrders { get; set; }
-
+        [NotMapped]
         public bool isWithWholePrice
         {
             get => Convert.ToInt32(Textile.Charachteristics.FirstOrDefault(X => X.Name == "Оптовая цена").Value) >=
@@ -24,7 +25,6 @@ namespace AmitTextile.Domain
 
         public Cart Cart { get; set; }
 
-        public bool IsWithWholesale { get; set; }
 
         public bool isBought { get; set; }
 
