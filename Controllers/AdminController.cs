@@ -52,11 +52,11 @@ namespace AmitTextile.Controllers
             Textile textile = new Textile();
             if (model.ChildCategoryId == "Нет")
             {
-                textile = new Textile() { TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description, Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId), PriceWithDiscount = model.Discount};
+                textile = new Textile() { TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description, Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId), PriceWithDiscount = model.Discount, CostWithWholeCost = model.CostWithWholeCost};
             }
             else
             {
-                 textile = new Textile() { TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description, Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId), ChildCategoryId = Guid.Parse(model.ChildCategoryId) ,PriceWithDiscount = model.Discount};
+                 textile = new Textile() { TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description, Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId), ChildCategoryId = Guid.Parse(model.ChildCategoryId) ,PriceWithDiscount = model.Discount, CostWithWholeCost = model.CostWithWholeCost };
             }
             if (model.MainFile != null)
             {
@@ -350,11 +350,11 @@ namespace AmitTextile.Controllers
             Textile textile = new Textile();
             if (model.ChildCategoryId == "Нет")
             {
-                textile = new Textile() { TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description, Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId), PriceWithDiscount = model.Discount};
+                textile = new Textile() { TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description, Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId), PriceWithDiscount = model.Discount, CostWithWholeCost = model.CostWithWholeCost };
             }
             else
             {
-                textile = new Textile() { TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description, Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId), ChildCategoryId = Guid.Parse(model.ChildCategoryId), PriceWithDiscount = model.Discount};
+                textile = new Textile() { TextileId = Id, WarehouseAmount = model.WarehouseAmount, Name = model.Name, Price = model.Price, Description = model.Description, Discount = Discount, DateWhenAdded = DateTime.Now, IsOnDiscount = model.IsOnDiscount, CategoryId = Guid.Parse(model.CategoryId), ChildCategoryId = Guid.Parse(model.ChildCategoryId), PriceWithDiscount = model.Discount, CostWithWholeCost = model.CostWithWholeCost };
             }
             if (model.MainFile != null && toUpdateTextile.MainImage==null)
             {
@@ -426,6 +426,7 @@ namespace AmitTextile.Controllers
                 toUpdateTextile.ChildCategoryId = textile.ChildCategoryId;
             }
             toUpdateTextile.Description = textile.Description;
+            toUpdateTextile.CostWithWholeCost = textile.CostWithWholeCost;
             toUpdateTextile.PriceWithDiscount = textile.PriceWithDiscount;
             toUpdateTextile.Discount = textile.Discount;
             toUpdateTextile.IsOnDiscount = textile.IsOnDiscount;
