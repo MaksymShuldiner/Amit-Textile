@@ -1150,6 +1150,8 @@ textarea {
     max-width: 500px;
     height: 200px;
     padding: 10px;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
 }
 
 .sendComment {

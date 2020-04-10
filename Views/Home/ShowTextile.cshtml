@@ -458,7 +458,7 @@
                     <input class="cons" type="text" name="Drawbacks"><br>
                     <label for="commentText">Ваш комментарий</label><br>
                     <input type="hidden" name="TextileId" value="@Model.Textile.Textile.TextileId" />
-                    <textarea wrap="hard" cols="20" name="Message"></textarea> <br>
+                    <textarea wrap="hard" rows="5" name="Message"></textarea> <br>
                     <label for="userNameField">Ваше имя и фамилия</label><br>
                     <input type="text" class="userNameField" name="Fio" value="@Model.Fio"><br><br>
                     <input type="hidden" name="Datetime" value="@DateTime.Now.ToString()" />
@@ -550,7 +550,7 @@
                     <h1 class="formName">Задать вопрос</h1>
                     <label for="commentText">Ваш вопрос</label><br>
                     <input type="hidden" name="TextileId" value="@Model.Textile.Textile.TextileId" />
-                    <textarea name="Message" wrap="hard" cols="20"></textarea><br><br>
+                    <textarea name="Message" wrap="hard" rows="5"></textarea><br><br>
                     <label for="userNameField">Ваше имя и фамилия</label><br>
                     <input type="text" class="userNameField" value="@Model.Fio" name="Fio"><br><br>
                     <input type="button" class="declineComment" value="Отменить">
@@ -564,7 +564,7 @@
                     <label for="commentText">Ваш ответ</label><br>
                     <input type="hidden" name="TextileId" value="@Model.Textile.Textile.TextileId" />
                     <input type="hidden" value="@Model.PageViewModel.PageNumber" name="page" />
-                    <textarea wrap="hard" cols="20" name="Message"></textarea><br><br>
+                    <textarea wrap="hard" rows="5" name="Message"></textarea><br><br>
                     <label for="userNameField">Ваше имя и фамилия</label><br>
                     <input type="text" class="userNameField" value="@Model.Fio" name="Fio"><br><br>
                     <input type="hidden" name="Datetime" value="@DateTime.Now.ToString()" />
