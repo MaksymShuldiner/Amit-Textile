@@ -1,6 +1,8 @@
 body {
     font-family: 'Ubuntu Condensed';
     background-color: #282828;
+    min-height:100vh;
+    position:relative;  
 }
 body a:link{
     text-decoration:none;
@@ -271,16 +273,19 @@ header {
 .inStock {
     color: #00a046;
     font-size: 14px;
+    display:block;
 }
 
 .lowAm {
     color: #ff5c00;
     font-size: 14px;
+    display: block;
 }
 
 .notInStock {
     color: #797878;
     font-size: 14px;
+    display: block;
 }
 .cats:visited {
     color: white;
@@ -532,6 +537,9 @@ footer {
     width: 100%;
     height: 95px;
 }
+.item_cellsMain, .navButtons {
+    margin-bottom: 100px;
+}
 
 .catItem {
     cursor: pointer;
@@ -703,7 +711,9 @@ footer {
 .itemDescriptionList .rateItemContainer {
     margin-bottom: 20px;
 }
-
+.itemDescription{
+    margin-bottom:100px;
+}
 .itemNameList a:hover {
     color: #FFA500;
     text-decoration: none;
@@ -973,10 +983,11 @@ footer {
 
 .fix {
     position: fixed;
-    bottom: 0px;
+    bottom: 60px;
     background-color: #fff;
     width: 100%;
     padding-top: 20px;
+    z-index:19;
 }
 
 .characteristics {
@@ -1053,6 +1064,8 @@ footer {
 
 .itemMiniName {
     font-size: 20px;
+    text-overflow:ellipsis;
+    width:130px;
 }
 
 .itemMini {
@@ -1064,7 +1077,7 @@ footer {
     white-space: nowrap;
     position: fixed;
     left: 100px;
-    bottom: 27px;
+    bottom: 87px;
     text-overflow: ellipsis;
     overflow: hidden;
 }
@@ -1101,6 +1114,7 @@ footer {
     display: inline-block;
     position: fixed;
     right: 200px;
+    bottom:86px;
 }
 
 .fixed {
@@ -1118,7 +1132,7 @@ footer {
     font-size: 12px;
     position: fixed;
     right: 70px;
-    bottom: 18px;
+    bottom: 80px;
 }
 
 .comment {
@@ -2410,4 +2424,28 @@ textarea {
             height:2px;
             z-index:10;
             position:absolute;
+        }
+        footer{
+            background-color:#181818;
+            color:white;
+            margin-top:32px;
+            text-align:center;
+            padding-top:30px;
+            padding-bottom:30px;
+            width:100%;
+            position:absolute;
+            bottom:0;
+        }
+        footer>a:link{
+            color:#C0C0C0;
+            margin-left:80px;
+            margin-right:80px;
+        }
+        footer>a:visited{
+            color:#C0C0C0;
+        }
+        footer>a:hover{
+            color: 	#FFA500;
+            text-decoration:none;
+            transition:0.3s all ease;
         }

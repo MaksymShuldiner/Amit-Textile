@@ -100,10 +100,11 @@
         font-size: 12px;
     }
     .fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > .buyItem {
-        bottom: 22px;
+        bottom: 82px;
     }
     .fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > .fixCost{
         right:170px;
+        bottom:86px;
     }
 }
 @media only screen and (max-width:1086px) {
@@ -228,6 +229,9 @@
         }
     }
     @media only screen and (max-width:767px) {
+        .col-md-9{
+            padding-left:0px;
+        }
         #cartPopup .buyItemList span {
             left: 50%;
         }
@@ -433,8 +437,11 @@
         }
     }
     @media only screen and (max-width:500px) {
-        #cartPopup .continue{
+        .commentDate {
             display:none;
+        }
+        #cartPopup .continue {
+            display: none;
         }
         #cartPopup .itemPriceList {
             font-size: 28px;
@@ -472,10 +479,11 @@
 
         .fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > .fixCost {
             right: 110px;
-            bottom:27px;
+            bottom:87px;
         }
         .fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > span{
             display:none;
+            bottom:60px;
         }
         .characteristics {
             margin-left: 2%;
