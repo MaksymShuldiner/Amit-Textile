@@ -28,7 +28,7 @@ namespace AmitTextile.Controllers
             bool flag = false;
             if (User.Identity.IsAuthenticated)
             {
-                Cart cart = await _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).Include(x => x.User)
+                Cart cart = await _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x=>x.Charachteristics).Include(x => x.User)
                     .FirstOrDefaultAsync(x => x.User.UserName == User.Identity.Name);
                 foreach (var x in cart.Items)
                 {
@@ -84,7 +84,7 @@ namespace AmitTextile.Controllers
                 {
                     bool flag2 = false;
                     Guid Id = Guid.Parse(HttpContext.Request.Cookies["Cart"]);
-                    Cart Cart = await _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile)
+                    Cart Cart = await _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x=>x.Charachteristics)
                         .FirstOrDefaultAsync(x => x.NonAuthorizedId == Id);
                     foreach (var x in Cart.Items)
                     {

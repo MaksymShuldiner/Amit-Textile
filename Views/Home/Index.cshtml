@@ -299,7 +299,17 @@
                                                                 <h2>@x.Textile.Name</h2>
                                                             </a>
                                                         </div>
-                                                        @if (x.Textile.IsOnDiscount)
+                                                        @if (x.isWithWholePrice)
+                                                        {
+                                                            <div class="crossContainer">
+                                                                <span class="priceBeforeDiscount">
+                                                                    @(x.Textile.Price + " ₴")
+                                                                </span>
+                                                                <div class="cross"></div>
+                                                            </div>
+                                                            <div class="itemPriceList"><span>@(x.Textile.CostWithWholeCost + " ₴")</span></div>
+                                                        }
+                                                        else if (x.Textile.IsOnDiscount)
                                                         {
                                                             <div class="crossContainer">
                                                                 <span class="priceBeforeDiscount">
@@ -323,7 +333,11 @@
                                                     </div>
                                                     <div class="sum">
                                                         <label>Сумма</label><br>
-                                                        @if (x.Textile.IsOnDiscount)
+                                                        @if (x.isWithWholePrice)
+                                                        {
+                                                            <span>@(x.ItemsAmount * x.Textile.CostWithWholeCost)</span>
+                                                        }
+                                                        else if (x.Textile.IsOnDiscount)
                                                         {
                                                             <span>@(x.ItemsAmount * x.Textile.PriceWithDiscount)</span>
                                                         }
@@ -343,18 +357,23 @@
                 }
                 @{
                     decimal yDecimal = 0;
-                        foreach (var x in ViewBag.Items)
+                    foreach (var x in ViewBag.Items)
+                    {
+
+                        if (x.isWithWholePrice)
                         {
-                            if (x.Textile.IsOnDiscount)
-                            {
-                                yDecimal += x.Textile.PriceWithDiscount * x.ItemsAmount;
-                            }
-                            else
-                            {
-                                yDecimal += x.Textile.Price * x.ItemsAmount;
-                            }
+                            yDecimal += x.Textile.CostWithWholeCost * x.ItemsAmount;
                         }
-                    
+                        else if (x.Textile.IsOnDiscount)
+                        {
+                            yDecimal += x.Textile.PriceWithDiscount * x.ItemsAmount;
+                        }
+                        else
+                        {
+                            yDecimal += x.Textile.Price * x.ItemsAmount;
+                        }
+                    }
+
                 }
                 <div class="popupCartButtons">
                     <span class="continue">Продолжить покупки</span>

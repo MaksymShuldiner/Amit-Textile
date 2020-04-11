@@ -59,7 +59,11 @@ namespace AmitTextile.Controllers
             decimal sum = 0;
             Items.ForEach(x =>
             {
-                if (x.Textile.IsOnDiscount)
+                if (x.isWithWholePrice)
+                {
+                    sum += (x.Textile.CostWithWholeCost * (decimal)x.ItemsAmount);
+                }
+                else if (x.Textile.IsOnDiscount)
                 {
                     sum += (x.Textile.PriceWithDiscount * (decimal)x.ItemsAmount);
                 }
@@ -71,7 +75,7 @@ namespace AmitTextile.Controllers
             });
             ViewBag.Sum = sum;
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
-            ViewBag.BookUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
+            ViewBag.BookUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowTextile";
             if (!User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
@@ -178,7 +182,11 @@ namespace AmitTextile.Controllers
             decimal sum = 0;
             Items.ForEach(x =>
             {
-                if (x.Textile.IsOnDiscount)
+                if (x.isWithWholePrice)
+                {
+                    sum += (x.Textile.CostWithWholeCost * (decimal)x.ItemsAmount);
+                }
+                else if (x.Textile.IsOnDiscount)
                 {
                     sum += (x.Textile.PriceWithDiscount * (decimal)x.ItemsAmount);
                 }

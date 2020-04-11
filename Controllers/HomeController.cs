@@ -63,7 +63,11 @@ namespace AmitTextile.Controllers
             decimal sum = 0;
             Items.ForEach(x =>
             {
-                if (x.Textile.IsOnDiscount)
+                if (x.isWithWholePrice)
+                {
+                    sum += (x.Textile.CostWithWholeCost * (decimal)x.ItemsAmount);
+                }
+                else if (x.Textile.IsOnDiscount)
                 {
                     sum += (x.Textile.PriceWithDiscount * (decimal)x.ItemsAmount);
                 }
@@ -71,7 +75,7 @@ namespace AmitTextile.Controllers
                 {
                     sum += (x.Textile.Price * (decimal)x.ItemsAmount);
                 }
-                
+
             });
             ViewBag.Sum = sum;
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
@@ -110,7 +114,11 @@ namespace AmitTextile.Controllers
             decimal sum = 0;
             Items.ForEach(x =>
             {
-                if (x.Textile.IsOnDiscount)
+                if (x.isWithWholePrice)
+                {
+                    sum += (x.Textile.CostWithWholeCost * (decimal) x.ItemsAmount);
+                }
+                else if (x.Textile.IsOnDiscount)
                 {
                     sum += (x.Textile.PriceWithDiscount * (decimal)x.ItemsAmount);
                 }
@@ -537,7 +545,11 @@ namespace AmitTextile.Controllers
             decimal sum = 0;
             Items.ForEach(x =>
             {
-                if (x.Textile.IsOnDiscount)
+                if (x.isWithWholePrice)
+                {
+                    sum += (x.Textile.CostWithWholeCost * (decimal)x.ItemsAmount);
+                }
+                else if (x.Textile.IsOnDiscount)
                 {
                     sum += (x.Textile.PriceWithDiscount * (decimal)x.ItemsAmount);
                 }
@@ -977,9 +989,13 @@ namespace AmitTextile.Controllers
             }
             ViewBag.Items = Items;
             decimal sum = 0;
-          Items.ForEach(x =>
+            Items.ForEach(x =>
             {
-                if (x.Textile.IsOnDiscount)
+                if (x.isWithWholePrice)
+                {
+                    sum += (x.Textile.CostWithWholeCost * (decimal)x.ItemsAmount);
+                }
+                else if (x.Textile.IsOnDiscount)
                 {
                     sum += (x.Textile.PriceWithDiscount * (decimal)x.ItemsAmount);
                 }
@@ -987,7 +1003,7 @@ namespace AmitTextile.Controllers
                 {
                     sum += (x.Textile.Price * (decimal)x.ItemsAmount);
                 }
-                
+
             });
             ViewBag.Sum = sum;
             if (Section == "AboutItem")
@@ -1209,7 +1225,11 @@ namespace AmitTextile.Controllers
             decimal sum = 0;
             Items.ForEach(x =>
             {
-                if (x.Textile.IsOnDiscount)
+                if (x.isWithWholePrice)
+                {
+                    sum += (x.Textile.CostWithWholeCost * (decimal)x.ItemsAmount);
+                }
+                else if (x.Textile.IsOnDiscount)
                 {
                     sum += (x.Textile.PriceWithDiscount * (decimal)x.ItemsAmount);
                 }
