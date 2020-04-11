@@ -40,6 +40,7 @@ namespace AmitTextile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.MainImage)
+                    .Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
                     .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result.Cart.Items.ToList();
             }
             else
@@ -47,6 +48,7 @@ namespace AmitTextile.Controllers
                 if (Request.Cookies.ContainsKey("Cart"))
                 {
                     Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.MainImage)
+                        .Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
                         .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"])).Result.Items
                         .ToList();
                 }
@@ -55,10 +57,25 @@ namespace AmitTextile.Controllers
             }
             ViewBag.Items = Items;
             decimal sum = 0;
-            Items.ForEach(x => sum += (x.Textile.Price * (decimal)x.ItemsAmount));
+            Items.ForEach(x =>
+            {
+                if (x.isWithWholePrice)
+                {
+                    sum += (x.Textile.CostWithWholeCost * (decimal)x.ItemsAmount);
+                }
+                else if (x.Textile.IsOnDiscount)
+                {
+                    sum += (x.Textile.PriceWithDiscount * (decimal)x.ItemsAmount);
+                }
+                else
+                {
+                    sum += (x.Textile.Price * (decimal)x.ItemsAmount);
+                }
+
+            });
             ViewBag.Sum = sum;
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
-            ViewBag.BookUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowBook";
+            ViewBag.BookUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowTextile";
             if (!User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
@@ -101,7 +118,6 @@ namespace AmitTextile.Controllers
         [HttpGet]
         public async Task<IActionResult> LogOff()
         {
-
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
@@ -147,6 +163,7 @@ namespace AmitTextile.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.MainImage)
+                    .Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
                     .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result.Cart.Items.ToList();
             }
             else
@@ -154,6 +171,7 @@ namespace AmitTextile.Controllers
                 if (Request.Cookies.ContainsKey("Cart"))
                 {
                     Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.MainImage)
+                        .Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
                         .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"])).Result.Items
                         .ToList();
                 }
@@ -162,7 +180,22 @@ namespace AmitTextile.Controllers
             }
             ViewBag.Items = Items;
             decimal sum = 0;
-            Items.ForEach(x => sum += (x.Textile.Price * (decimal)x.ItemsAmount));
+            Items.ForEach(x =>
+            {
+                if (x.isWithWholePrice)
+                {
+                    sum += (x.Textile.CostWithWholeCost * (decimal)x.ItemsAmount);
+                }
+                else if (x.Textile.IsOnDiscount)
+                {
+                    sum += (x.Textile.PriceWithDiscount * (decimal)x.ItemsAmount);
+                }
+                else
+                {
+                    sum += (x.Textile.Price * (decimal)x.ItemsAmount);
+                }
+
+            });
             ViewBag.Sum = sum;
             if (!User.Identity.IsAuthenticated)
             {
@@ -353,23 +386,7 @@ namespace AmitTextile.Controllers
             }
             return BadRequest(errors);
         }
-
-        public async Task<IActionResult> DeleteOrder(string OrderId)
-        {
-            Order order = await _context.Orders.Include(x=>x.ItemOrders).ThenInclude(x=>x.Item).FirstOrDefaultAsync(x=>x.OrderId == Guid.Parse(OrderId));
-            if (order != null)
-            {
-                List<Item> items = order.ItemOrders.Select(x=>x.Item).ToList();
-                foreach (var x in items)
-                {
-                    x.isBought = true;
-                    _context.Items.Update(x);
-                }
-
-                _context.Orders.Remove(order);
-            }
-            return Ok();
-        }
+        
 
 
 

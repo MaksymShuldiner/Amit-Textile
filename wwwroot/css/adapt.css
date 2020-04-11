@@ -1,10 +1,22 @@
-@media only screen and (max-width:1508px){
-    .l{
-        padding-right:0;
+@media only screen and (max-width:1660px) {
+    .orderItem {
+        overflow-x: scroll;
     }
-    .contentM{
-        margin-right:0;
-        margin-left:0;
+    .wrapTd{
+        display:none;
+    }
+    .orderDetailsA{
+        display:block;
+    }
+}
+@media only screen and (max-width:1526px) {
+    .l {
+        padding-right: 0;
+    }
+
+    .contentM {
+        margin-right: 0;
+        margin-left: 0;
     }
 }
 @media only screen and (max-width:1338px) {
@@ -92,6 +104,7 @@
     }
     .fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > .fixCost{
         right:170px;
+        bottom:26px;
     }
 }
 @media only screen and (max-width:1086px) {
@@ -114,14 +127,28 @@
         right: 25px;
         bottom: 32px;
     }
-    .inStock, notInStock, lowAm{
+    .inStock, .notInStock, .lowAm{
         font-size:12px;
+    }
+    .itemDescriptionList .lowAm {
+        font-size: 18px;
+    }
+
+    .itemDescriptionList .inStock {
+        font-size: 18px;
+    }
+
+    .itemDescriptionList .notInStock {
+        font-size: 18px;
     }
     .itm_field>.row>.col-md-6:nth-child(1){
         padding-right:0px;
     }
     }
     @media only screen and (max-width:1000px){
+        #imgFull {
+            max-height: 250px;
+        }
         .sc, .commentPosted, .navBcomments{
             width:80%;
         }
@@ -190,11 +217,8 @@
             height: 125px;
         }
         .item{
-            height:250px;
+            height:300px;
             padding:12px;
-        }
-        .lowAm, .notInStock, .inStock {
-            font-size: 12px;
         }
         .helloAuth > .login {
             left: 85px;
@@ -205,6 +229,16 @@
         }
     }
     @media only screen and (max-width:767px) {
+        .buyItemList input {
+            right:-50%;
+        }
+        footer > a:link {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        .col-md-9 {
+            padding-left: 0px;
+        }
         #cartPopup .buyItemList span {
             left: 50%;
         }
@@ -253,8 +287,16 @@
         .item_cells .fav:hover {
             background: #303030!important;
         }
-        .listItem .lowAm, .inStock,.notInStock{
-            font-size:20px;
+        .itemDescriptionList .lowAm {
+            font-size: 20px;
+        }
+
+        .itemDescriptionList .inStock {
+            font-size: 20px;
+        }
+
+        .itemDescriptionList .notInStock {
+            font-size: 20px;
         }
         .item:hover > .itm_field > .row > .col-md-6 > .fav {
             bottom: 42px;
@@ -337,9 +379,15 @@
         }
     }
      @media only screen and (max-width:600px) {
-         .sc{
-             font-size:15px;
-         }
+        .buyItemList input {
+            right: -35%;
+        }
+        #cartPopup .buyItemList span{
+            left:35%;
+        }
+        .sc {
+            font-size: 15px;
+        }
         .commentUserName{
             font-size:18px;
         }
@@ -402,8 +450,15 @@
         }
     }
     @media only screen and (max-width:500px) {
-        #cartPopup .continue{
+        #aboutUsPopup, #guaranteesPopup, #shippingPopup {
+            font-size: 14px;
+            padding:20px;
+        }
+        .commentDate {
             display:none;
+        }
+        #cartPopup .continue {
+            display: none;
         }
         #cartPopup .itemPriceList {
             font-size: 28px;
@@ -445,6 +500,7 @@
         }
         .fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > span{
             display:none;
+            bottom:0px;
         }
         .characteristics {
             margin-left: 2%;
@@ -457,6 +513,12 @@
         }
         .button{
             margin-right:3px;
+        }
+        .button:link {
+            margin-right: 3px;
+        }
+        .button:visited {
+            margin-right: 3px;
         }
         .buttonBar,.name,.ratingContainer {
             padding-left: 5%;
@@ -540,12 +602,11 @@
     }
 }
 @media only screen and (max-width:300px) {
+    #aboutUsPopup, #guaranteesPopup, #shippingPopup {
+        font-size: 13px;
+    }
     #order > input, .paymMethod input, .shipMethod input {
         width: 240px;
-    }
-    #cartPopup .buyItemList span{
-        top:38px;
-        left:65%;
     }
     .itemInfo {
         margin-left: 0;

@@ -1,6 +1,8 @@
-body {
+body,html {
     font-family: 'Ubuntu Condensed';
     background-color: #282828;
+    min-height:100vh;
+    position:relative;
 }
 body a:link{
     text-decoration:none;
@@ -201,17 +203,19 @@ header {
 
 .item {
     padding: 17px;
-    border: 1px solid #303030;
+    border: 1px solid #282828;
     width: 100%;
-    height: 300px;
+    height: 330px;
+    background-color: #484848;
 }
-
+.notFirstItem{
+    border-left:none;
+}
 .item_image > img {
     width: 100%;
     padding-bottom: 15px;
     height: 160px;
 }
-
 .item_name:visited {
     font-size: 16px;
     color: white;
@@ -234,7 +238,7 @@ header {
     }
     
     .item_cost {
-        font-size: 24px;
+        font-size: 21px;
         color: white;
     }
 
@@ -269,16 +273,19 @@ header {
 .inStock {
     color: #00a046;
     font-size: 14px;
+    display:block;
 }
 
 .lowAm {
     color: #ff5c00;
     font-size: 14px;
+    display: block;
 }
 
 .notInStock {
     color: #797878;
     font-size: 14px;
+    display: block;
 }
 .cats:visited {
     color: white;
@@ -316,7 +323,7 @@ header {
 
 .item:hover {
     border: none;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
 footer {
@@ -530,6 +537,9 @@ footer {
     width: 100%;
     height: 95px;
 }
+.item_cellsMain, .navButtons {
+    margin-bottom: 60px;
+}
 
 .catItem {
     cursor: pointer;
@@ -684,9 +694,6 @@ footer {
 .mrg {
     margin-bottom: 60px;
 }
-.listImgContainer{
-    margin-top:15px;
-}
 .listImgContainer > img {
     width: 100%;
 }
@@ -704,7 +711,13 @@ footer {
 .itemDescriptionList .rateItemContainer {
     margin-bottom: 20px;
 }
-
+.itemDescription{
+    margin-bottom:100px;
+}
+.itemDescription>span{
+    max-width:100%;
+    display:block;
+}
 .itemNameList a:hover {
     color: #FFA500;
     text-decoration: none;
@@ -712,15 +725,15 @@ footer {
 }
 
 .listItems {
-    border: 1px solid #d3d3d3;
+    border: 1px solid #282828;
     width: 100%;
     padding-top: 20px;
     padding-bottom: 20px;
+    background-color: #484848;
 }
 
 .itemPriceList {
     color:white;
-    margin-top: 20px;
     margin-bottom: 10px;
     font-size: 30px;
 }
@@ -769,6 +782,9 @@ footer {
     margin-left:10%;
     margin-right:10%;
 }
+.content{
+    min-height:1080px;
+}
 .filterFieldContainer{
     margin-top:257px;
 }
@@ -814,8 +830,10 @@ footer {
     }
 
 #imgFull {
-    max-width: 90%;
-    padding-left: 80px;
+    width:90%;
+    max-width: 950px;
+    max-height:450px;
+    padding-left:85px;
 }
 
 .imgMini:nth-child(1) {
@@ -872,13 +890,6 @@ footer {
     padding-top: 20px;
     padding-bottom: 20px;
 }
-
-.itemPriceList {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    font-size: 30px;
-}
-
 .buttonsItemList {
     margin-top: 10px;
 }
@@ -909,6 +920,22 @@ footer {
     color: white;
     transition: 0.1s all ease;
 }
+    .button:visited {
+        display: inline-block;
+        margin-right: 30px;
+        padding-bottom: 20px;
+        cursor: pointer;
+        color: white;
+        transition: 0.1s all ease;
+    }
+    .button:link {
+        display: inline-block;
+        margin-right: 30px;
+        padding-bottom: 20px;
+        cursor: pointer;
+        color: white;
+        transition: 0.1s all ease;
+    }
         .button:hover {
             text-decoration: none;
         }
@@ -921,9 +948,8 @@ footer {
     }
 
 .buttonSelected {
-    border-bottom: 3px solid #FFA500;
-    font-weight:bold;
-    color: #FFA500;
+    border-bottom: 3px solid #FFA500!important;
+    color: #FFA500!important;
 }
 .ratingContainer {
     padding-bottom: 20px;
@@ -968,6 +994,7 @@ footer {
     background-color: #fff;
     width: 100%;
     padding-top: 20px;
+    z-index:19;
 }
 
 .characteristics {
@@ -1044,6 +1071,8 @@ footer {
 
 .itemMiniName {
     font-size: 20px;
+    text-overflow:ellipsis;
+    width:130px;
 }
 
 .itemMini {
@@ -1092,6 +1121,7 @@ footer {
     display: inline-block;
     position: fixed;
     right: 200px;
+    bottom:26px;
 }
 
 .fixed {
@@ -1109,7 +1139,7 @@ footer {
     font-size: 12px;
     position: fixed;
     right: 70px;
-    bottom: 18px;
+    bottom: 20px;
 }
 
 .comment {
@@ -1117,10 +1147,12 @@ footer {
 }
 
 textarea {
-    width:100%;
+    width: 100%;
     max-width: 500px;
     height: 200px;
     padding: 10px;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
 }
 
 .sendComment {
@@ -1183,7 +1215,11 @@ textarea {
     .questionPosted > .commentTextContainer {
         border: 1px solid #303030;
     }
-
+.commentText>span{
+    width:100%;
+    display:block;
+    overflow:inherit;
+}
 #popupCommentForm > label {
     margin-top: 20px;
 }
@@ -1401,8 +1437,8 @@ textarea {
     font-size: 25px;
     transition: 0.3s all ease;
     color: #A9A9A9;
+    z-index:20;
 }
-
     .close1:hover {
         color: #FFA500;
         transition: 0.3s all ease;
@@ -1472,6 +1508,26 @@ textarea {
     display: block;
     margin-bottom: 10px;
 }
+.buy:link {
+    width: 100%;
+    color: white;
+    background-color: #FF8C00;
+    border: none;
+    transition: 0.3s all ease;
+    padding: 10px;
+    display: block;
+    margin-bottom: 10px;
+}
+.buy:visited {
+    width: 100%;
+    color: white;
+    background-color: #FF8C00;
+    border: none;
+    transition: 0.3s all ease;
+    padding: 10px;
+    display: block;
+    margin-bottom: 10px;
+}
     .buy:hover {
         background-color: #FFA500;
         transition: 0.3s all ease;
@@ -1500,6 +1556,13 @@ textarea {
     top: 30px;
     right: 20px;
     color: white;
+}
+.buyItemList input {
+    font-size: 35px;
+    position: relative;
+    top: 30px;
+    right: 20px;
+    max-width:80px;
 }
 .buyItemList > .changeAm {
     font-size: 45px;
@@ -2112,9 +2175,8 @@ textarea {
            border:1px solid #383838;
        }
        .orderItem{
-           display: flex;
-           flex-wrap: wrap;
-           justify-content: center;
+           margin-left:10px;
+           max-width:1660px;
        }
        .orderItem th{
            padding:15px;
@@ -2157,9 +2219,13 @@ textarea {
        .orderExtra{
            position:absolute;
            margin-left:-381px;
+           margin-top:19px;
        }
        .orderDetails{
            border:1px solid #383838;
+       }
+       .orderDetailsA{
+           display:none;
        }
        .wrapTd{
            padding:0 !important;
@@ -2336,4 +2402,79 @@ textarea {
         .helloAuth>.sideOption{
             font-size:15px;
             width:100%;
+        }
+        .removeOrder{
+            margin-left:10px;
+            width:280px;
+            color:white;
+            transition:0.3s all ease;
+            background-color:transparent;
+            padding:10px;
+            border:1px solid #404040;
+        }
+        .removeOrder:hover{
+            background-color:#404040;
+            color: 	#FFA500;
+            transition:0.3s all ease;
+        }
+        .orderBorder{
+            width:100%;
+            padding-bottom:10px;
+            border-bottom:1px solid #484848;
+        }
+        .crossContainer>span{
+            color:#BEBEBE;
+            font-size:18px;
+            margin-left:2px;
+        }
+        .crossContainer{
+            margin-bottom:8px;
+        }
+        .cross{
+            background-color:#FF4500;
+            width:60px;
+            margin-top:-9px;
+            height:2px;
+            z-index:10;
+            position:absolute;
+        }
+        .crossMain{
+            background-color:#FF4500;
+            width:40px;
+            margin-top:-9px;
+            height:2px;
+            z-index:10;
+            position:absolute;
+        }
+        footer{
+            background-color:#181818;
+            color:white;
+            margin-top:32px;
+            text-align:center;
+            padding-top:30px;
+            padding-bottom:30px;
+            width:100%;
+            position:absolute;
+            bottom:-100px;
+            overflow:hidden;
+        }
+        .footerForFix{
+            padding-bottom:120px;
+        }
+        footer>a:link{
+            color:#C0C0C0;
+            margin-left:80px;
+            margin-right:80px;
+        }
+        footer>a:visited{
+            color:#C0C0C0;
+        }
+        footer>a:hover{
+            color: 	#FFA500;
+            text-decoration:none;
+            transition:0.3s all ease;
+        }
+        #aboutUsPopup, #guaranteesPopup,#shippingPopup{
+            font-size:20px;
+            max-width:70%;
         }

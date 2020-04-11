@@ -222,7 +222,6 @@
                                                 <th>Название товара</th>
                                                 <th>Кол-во товара</th>
                                                 <th>Сумма</th>
-                                                <th>Опт</th>
                                             </tr>
                                             @foreach (var item in order.ItemOrders)
                                             {
@@ -237,10 +236,7 @@
                                                         <span>@item.Item.ItemsAmount</span>
                                                     </td>
                                                     <td>
-                                                        <span>@(item.Item.Textile.Price* item.Item.ItemsAmount)</span>
-                                                    </td>
-                                                    <td>
-                                                        <span>Да</span>
+                                                        <span>@(item.Item.Textile.Price * item.Item.ItemsAmount)</span>
                                                     </td>
                                                 </tr>
                                             }
@@ -249,6 +245,31 @@
                                 </td>
                             </tr>
 
+                        </table>
+                        <table class="orderDetailsA">
+                            <tr>
+                                <th>Фото товара</th>
+                                <th>Название товара</th>
+                                <th>Кол-во товара</th>
+                                <th>Сумма</th>
+                            </tr>
+                            @foreach (var item in order.ItemOrders)
+                            {
+                                <tr class="orderDetailsRow">
+                                    <td>
+                                        <img class="orderDetailsImg" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Item.Textile.MainImage.ByteImg))" alt="orderDetailsImg" />
+                                    </td>
+                                    <td>
+                                        <a class="orderItemName" href="#">@item.Item.Textile.Name</a>
+                                    </td>
+                                    <td>
+                                        <span>@item.Item.ItemsAmount</span>
+                                    </td>
+                                    <td>
+                                        <span>@(item.Item.Textile.Price * item.Item.ItemsAmount)</span>
+                                    </td>
+                                </tr>
+                            }
                         </table>
                     </div>
                 }
@@ -333,7 +354,7 @@
                                                         <span>@item.Item.ItemsAmount</span>
                                                     </td>
                                                     <td>
-                                                        <span>@(item.Item.Textile.Price* item.Item.ItemsAmount)</span>
+                                                        <span>@(item.Item.Textile.Price * item.Item.ItemsAmount)</span>
                                                     </td>
                                                 </tr>
                                             }
@@ -342,6 +363,31 @@
                                 </td>
                             </tr>
 
+                        </table>
+                        <table class="orderDetailsA">
+                            <tr>
+                                <th>Фото товара</th>
+                                <th>Название товара</th>
+                                <th>Кол-во товара</th>
+                                <th>Сумма</th>
+                            </tr>
+                            @foreach (var item in order.ItemOrders)
+                            {
+                                <tr class="orderDetailsRow">
+                                    <td>
+                                        <img class="orderDetailsImg" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Item.Textile.MainImage.ByteImg))" alt="orderDetailsImg" />
+                                    </td>
+                                    <td>
+                                        <a class="orderItemName" href="#">@item.Item.Textile.Name</a>
+                                    </td>
+                                    <td>
+                                        <span>@item.Item.ItemsAmount</span>
+                                    </td>
+                                    <td>
+                                        <span>@(item.Item.Textile.Price * item.Item.ItemsAmount)</span>
+                                    </td>
+                                </tr>
+                            }
                         </table>
                     </div>
                 }
@@ -443,7 +489,7 @@
                                                         <span>@item.Item.ItemsAmount</span>
                                                     </td>
                                                     <td>
-                                                        <span>@(item.Item.Textile.Price* item.Item.ItemsAmount)</span>
+                                                        <span>@(item.Item.Textile.Price * item.Item.ItemsAmount)</span>
                                                     </td>
                                                 </tr>
                                             }
@@ -452,6 +498,31 @@
                                 </td>
                             </tr>
 
+                        </table>
+                        <table class="orderDetailsA">
+                            <tr>
+                                <th>Фото товара</th>
+                                <th>Название товара</th>
+                                <th>Кол-во товара</th>
+                                <th>Сумма</th>
+                            </tr>
+                            @foreach (var item in order.ItemOrders)
+                            {
+                                <tr class="orderDetailsRow">
+                                    <td>
+                                        <img class="orderDetailsImg" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Item.Textile.MainImage.ByteImg))" alt="orderDetailsImg" />
+                                    </td>
+                                    <td>
+                                        <a class="orderItemName" href="#">@item.Item.Textile.Name</a>
+                                    </td>
+                                    <td>
+                                        <span>@item.Item.ItemsAmount</span>
+                                    </td>
+                                    <td>
+                                        <span>@(item.Item.Textile.Price * item.Item.ItemsAmount)</span>
+                                    </td>
+                                </tr>
+                            }
                         </table>
                     </div>
                 }
@@ -547,7 +618,7 @@
                                                         <span>@item.Item.ItemsAmount</span>
                                                     </td>
                                                     <td>
-                                                        <span>@(item.Item.Textile.Price* item.Item.ItemsAmount)</span>
+                                                        <span>@(item.Item.Textile.Price * item.Item.ItemsAmount)</span>
                                                     </td>
                                                 </tr>
                                             }
@@ -556,6 +627,31 @@
                                 </td>
                             </tr>
 
+                        </table>
+                        <table class="orderDetailsA">
+                            <tr>
+                                <th>Фото товара</th>
+                                <th>Название товара</th>
+                                <th>Кол-во товара</th>
+                                <th>Сумма</th>
+                            </tr>
+                            @foreach (var item in order.ItemOrders)
+                            {
+                                <tr class="orderDetailsRow">
+                                    <td>
+                                        <img class="orderDetailsImg" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Item.Textile.MainImage.ByteImg))" alt="orderDetailsImg" />
+                                    </td>
+                                    <td>
+                                        <a class="orderItemName" href="#">@item.Item.Textile.Name</a>
+                                    </td>
+                                    <td>
+                                        <span>@item.Item.ItemsAmount</span>
+                                    </td>
+                                    <td>
+                                        <span>@(item.Item.Textile.Price * item.Item.ItemsAmount)</span>
+                                    </td>
+                                </tr>
+                            }
                         </table>
                     </div>
                 }
@@ -639,7 +735,7 @@
                                                         <span>@item.Item.ItemsAmount</span>
                                                     </td>
                                                     <td>
-                                                        <span>@(item.Item.Textile.Price* item.Item.ItemsAmount)</span>
+                                                        <span>@(item.Item.Textile.Price * item.Item.ItemsAmount)</span>
                                                     </td>
                                                 </tr>
                                             }
@@ -648,6 +744,31 @@
                                 </td>
                             </tr>
 
+                        </table>
+                        <table class="orderDetailsA">
+                            <tr>
+                                <th>Фото товара</th>
+                                <th>Название товара</th>
+                                <th>Кол-во товара</th>
+                                <th>Сумма</th>
+                            </tr>
+                            @foreach (var item in order.ItemOrders)
+                            {
+                                <tr class="orderDetailsRow">
+                                    <td>
+                                        <img class="orderDetailsImg" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Item.Textile.MainImage.ByteImg))" alt="orderDetailsImg" />
+                                    </td>
+                                    <td>
+                                        <a class="orderItemName" href="#">@item.Item.Textile.Name</a>
+                                    </td>
+                                    <td>
+                                        <span>@item.Item.ItemsAmount</span>
+                                    </td>
+                                    <td>
+                                        <span>@(item.Item.Textile.Price * item.Item.ItemsAmount)</span>
+                                    </td>
+                                </tr>
+                            }
                         </table>
                     </div>
                 }
@@ -737,7 +858,7 @@
                                                         <span>@item.Item.ItemsAmount</span>
                                                     </td>
                                                     <td>
-                                                        <span>@(item.Item.Textile.Price* item.Item.ItemsAmount)</span>
+                                                        <span>@(item.Item.Textile.Price * item.Item.ItemsAmount)</span>
                                                     </td>
                                                 </tr>
                                             }
@@ -747,10 +868,36 @@
                             </tr>
 
                         </table>
+                        <table class="orderDetailsA">
+                            <tr>
+                                <th>Фото товара</th>
+                                <th>Название товара</th>
+                                <th>Кол-во товара</th>
+                                <th>Сумма</th>
+                            </tr>
+                            @foreach (var item in order.ItemOrders)
+                            {
+                                <tr class="orderDetailsRow">
+                                    <td>
+                                        <img class="orderDetailsImg" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Item.Textile.MainImage.ByteImg))" alt="orderDetailsImg" />
+                                    </td>
+                                    <td>
+                                        <a class="orderItemName" href="#">@item.Item.Textile.Name</a>
+                                    </td>
+                                    <td>
+                                        <span>@item.Item.ItemsAmount</span>
+                                    </td>
+                                    <td>
+                                        <span>@(item.Item.Textile.Price * item.Item.ItemsAmount)</span>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
                     </div>
                 }
-
+                <div class="orderBorder"><button data="@order.OrderId" class="removeOrder">Удалить заказ</button></div>
             }
+
         </div>
         <div class="navButtons">
             <ul>
@@ -791,8 +938,42 @@
             </ul>
         </div>
     </div>
+    <div class="hidden">
+        <div id="aboutUsPopup">
+            <span>Приветствуем вас в интернет-магазине Global Textile! Уже 20 лет мы успешно занимаемся поставками и продажей тканей из Китая и Кореи. В нашем интернет-магазине вы найдёте широкий ассортимент товара по самым доступным ценам. Предлагаем приобрести ткани оптом, а также в розницу от 1 метра.</span>
+        </div>
+    </div>
+    <div class="hidden">
+        <div id="guaranteesPopup">
+            <span>Мы предоставляем гарантию на 2 недели при покупке от одного рулона ткани(размер рулона указан в характеристиках товара) и при условии того, что вы не отрезали ткань от рулона</span>
+        </div>
+    </div>
+    <div class="hidden">
+        <div id="shippingPopup">
+            <span>Мы предлагаем вам 4 способа доставки:<br>1.Доставка новой почтой(Адресная или в отделение)<br>2.Доставка укрпочтой(Адресная или в отделение)<br>3.Доставка justin(В отделение)<br>4.Самовывоз со склада(О деталях доставки вы договариваетесь с представителем магазина(Вам позвонят по номеру телефона, указанному в заказе))</span>
+        </div>
+    </div>
     <footer>
+        <a href="#aboutUsPopup" data-fancybox="aboutUsPopup" class="aboutUs">О нас</a>
+        <a href="#guaranteesPopup" data-fancybox="guaranteesPopup" class="guarantees">Гарантии</a>
+        <a href="#shippingPopup" data-fancybox="shippingPopup" class="shipping">Доставка</a>
     </footer>
+    <script type="text/javascript">
+        $('.removeOrder').click(function () {
+            let th = $(this);
+            let x = { OrderId: $(this).attr('data') };
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("DeleteOrder","Admin")',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(x),
+                success: function () {
+                    $(th).parent().prev().remove();
+                    $(th).parent().remove();
+                }
+            })
+        });
+    </script>
     <script type="text/javascript" src="~/libs/themes/krajee-svg/theme.min.js"></script>
     <script type="text/javascript" src="~/js/star-rating.js"></script>
     <script type="text/javascript" src="~/js/ru.js"></script>
