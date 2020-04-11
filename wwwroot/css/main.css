@@ -905,6 +905,7 @@ footer {
 .itemCost {
     font-size: 27px;
     color:white;
+    margin-right:50px;
 }
 
 .buttonBar {
@@ -989,7 +990,7 @@ footer {
 
 .fix {
     position: fixed;
-    bottom: 60px;
+    bottom: 0px;
     background-color: #fff;
     width: 100%;
     padding-top: 20px;
@@ -1083,7 +1084,7 @@ footer {
     white-space: nowrap;
     position: fixed;
     left: 100px;
-    bottom: 87px;
+    bottom: 27px;
     text-overflow: ellipsis;
     overflow: hidden;
 }
@@ -1120,7 +1121,7 @@ footer {
     display: inline-block;
     position: fixed;
     right: 200px;
-    bottom:86px;
+    bottom:26px;
 }
 
 .fixed {
@@ -1138,7 +1139,7 @@ footer {
     font-size: 12px;
     position: fixed;
     right: 70px;
-    bottom: 80px;
+    bottom: 20px;
 }
 
 .comment {
@@ -2456,6 +2457,9 @@ textarea {
             position:absolute;
             bottom:-100px;
             overflow:hidden;
+        }
+        .footerForFix{
+            padding-bottom:120px;
         }
         footer>a:link{
             color:#C0C0C0;

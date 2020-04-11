@@ -100,11 +100,11 @@
         font-size: 12px;
     }
     .fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > .buyItem {
-        bottom: 82px;
+        bottom: 22px;
     }
     .fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > .fixCost{
         right:170px;
-        bottom:86px;
+        bottom:26px;
     }
 }
 @media only screen and (max-width:1086px) {
@@ -229,9 +229,15 @@
         }
     }
     @media only screen and (max-width:767px) {
-
-        .col-md-9{
-            padding-left:0px;
+        .buyItemList input {
+            right:-50%;
+        }
+        footer > a:link {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        .col-md-9 {
+            padding-left: 0px;
         }
         #cartPopup .buyItemList span {
             left: 50%;
@@ -373,9 +379,15 @@
         }
     }
      @media only screen and (max-width:600px) {
-         .sc{
-             font-size:15px;
-         }
+        .buyItemList input {
+            right: -35%;
+        }
+        #cartPopup .buyItemList span{
+            left:35%;
+        }
+        .sc {
+            font-size: 15px;
+        }
         .commentUserName{
             font-size:18px;
         }
@@ -438,6 +450,10 @@
         }
     }
     @media only screen and (max-width:500px) {
+        #aboutUsPopup, #guaranteesPopup, #shippingPopup {
+            font-size: 14px;
+            padding:20px;
+        }
         .commentDate {
             display:none;
         }
@@ -480,11 +496,11 @@
 
         .fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > .fixCost {
             right: 110px;
-            bottom:87px;
+            bottom:27px;
         }
         .fix > .itemMini > .itemInfoMini > .container-fluid > .row > .col-md-7 > .itemMiniName > span{
             display:none;
-            bottom:60px;
+            bottom:0px;
         }
         .characteristics {
             margin-left: 2%;
@@ -586,12 +602,11 @@
     }
 }
 @media only screen and (max-width:300px) {
+    #aboutUsPopup, #guaranteesPopup, #shippingPopup {
+        font-size: 13px;
+    }
     #order > input, .paymMethod input, .shipMethod input {
         width: 240px;
-    }
-    #cartPopup .buyItemList span{
-        top:38px;
-        left:65%;
     }
     .itemInfo {
         margin-left: 0;
