@@ -951,10 +951,12 @@
         let url= "@Url.Action("RemoveFromCart", "TextileApi")";
         $('.close1').click(function (e) {
             e.preventDefault();
+            let all;
             let item = $(this).parent().parent().parent().parent().parent().parent().parent();
             let form = $(item).parent();
             let id = $(this).attr('data');
-            let am = $(this).next().next().next().find('.buyItemList').find('span');
+            let am = $(this).next().next().next().find('.buyItemList').find('input');
+            let wholeam = 0;
             $.ajax({
                 type: 'GET',
                 url: url + "?ItemId=" + id,
@@ -971,9 +973,13 @@
                         $('.cart').append('<div class="inCart hidden"><i class="fas fa-shopping-cart"></i> <span>Ваша корзина пуста</span></div>');
                     }
                     else {
+                        all = $('.buyItemList').find('input');
+                        for (let i = 0; i < all.length; i++) {
+                            wholeam += parseInt($(all[i]).val());
+                        }
                         let chPrice = $('.inCart').find('span');
                         $(chPrice[1]).html("Стоимостью " + parseFloat(parseFloat(price3) - price1) + " грн");
-                        $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) - parseInt($(am[1]).html())) + " товаров");
+                        $(chPrice[0]).html("В корзине " + wholeam + " товаров");
                     }
                 },
             })

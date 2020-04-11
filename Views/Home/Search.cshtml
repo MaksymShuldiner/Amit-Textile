@@ -218,9 +218,6 @@
                                                             <div class="rateItemContainer">
                                                                 <input class="rateItem" value="@x.Textile.Stars.ToString().Replace(",", ".")" /> <a href="@ViewBag.Url?TextileId=@x.Textile.TextileId&page=1&Section=CommentsReviews"> @x.Textile.ParentCommentReviews.Count отзывов</a>
                                                             </div>
-                                                            <div class="itemDescrList">
-                                                                <span>@x.Textile.Description</span>
-                                                            </div>
                                                             @if (x.Textile.IsOnDiscount)
                                                             {
                                                                 <div class="crossContainer">

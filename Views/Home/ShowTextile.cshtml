@@ -289,7 +289,6 @@
                                 </h2>
                             }
                             <br />
-                            <span class="itemCost">
                                 @if (Model.Textile.Textile.IsOnDiscount)
                                 {
                                     <div class="crossContainer">
@@ -298,13 +297,12 @@
                                         </span>
                                         <div class="cross"></div>
                                     </div>
-                                    <div class="itemPriceList"><span>@(Model.Textile.Textile.PriceWithDiscount + " ₴")</span></div>
+                                    <span class="itemCost">@(Model.Textile.Textile.PriceWithDiscount + " ₴")</span>
                                 }
                                 else
                                 {
-                                    <div class="itemPriceList"><span>@(Model.Textile.Textile.Price + " ₴")</span></div>
+                                    <span class="itemCost">@(Model.Textile.Textile.Price + " ₴")</span>
                                 }
-                            </span>
                             <button class="buyItem">
                                 <a href="@Url.Action("AddToCart","Cart", new {TextileId = Model.Textile.Textile.TextileId})">
                                     <i class="fas fa-shopping-cart"></i> Купить
@@ -375,7 +373,14 @@
                                                     <span>
                                                         @Model.Textile.Textile.Name
                                                     </span>
-                                                    <span class="fixCost">ItemFixCost</span>
+                                                    @if (Model.Textile.Textile.IsOnDiscount)
+                                                    {
+                                                        <span class="fixCost">@(Model.Textile.Textile.PriceWithDiscount+"₴")</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="fixCost">@(Model.Textile.Textile.Price+"₴")</span>
+                                                    }
                                                     <button class="buyItem fixed">
                                                         <a href="@Url.Action("AddToCart","Cart", new {TextileId = Model.Textile.Textile.TextileId})">
                                                             <i class="fas fa-shopping-cart"></i> Купить
@@ -416,11 +421,11 @@
                                             </span>
                                             <div class="cross"></div>
                                         </div>
-                                        <div class="itemPriceList"><span>@(Model.Textile.Textile.PriceWithDiscount + " ₴")</span></div>
+                                        <span class="itemCost">@(Model.Textile.Textile.PriceWithDiscount + " ₴")</span>
                                     }
                                     else
                                     {
-                                        <div class="itemPriceList"><span>@(Model.Textile.Textile.Price + " ₴")</span></div>
+                                       <span class="itemCost">@(Model.Textile.Textile.Price + " ₴")</span>
                                     }
                                     <button class="fav">
                                         <a href="#" value="0" class="toFavourite selected">
