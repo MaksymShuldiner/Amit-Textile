@@ -505,74 +505,72 @@
                 <h1>Корзина</h1>
                 @foreach (var x in ViewBag.Items)
                 {
-                    <div class="listItems">
-                        <div class="listItem">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                <button data="@x.ItemId" class="close1"><i class="fas fa-times-circle"></i></button>
-                                                <div class="col-md-4">
-                                                    <div class="listImgContainer">
-                                                        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(x.Textile.MainImage.ByteImg))" alt="awd">
-                                                    </div>
+            <div class="listItems">
+                <div class="listItem">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <button data="@x.ItemId" class="close1"><i class="fas fa-times-circle"></i></button>
+                                        <div class="col-md-4">
+                                            <div class="listImgContainer">
+                                                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(x.Textile.MainImage.ByteImg))" alt="awd">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="itemDescriptionList">
+                                                <div class="itemNameList">
+                                                    <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId">
+                                                        <h2>@x.Textile.Name</h2>
+                                                    </a>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="itemDescriptionList">
-                                                        <div class="itemNameList">
-                                                            <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId">
-                                                                <h2>@x.Textile.Name</h2>
-                                                            </a>
-                                                        </div>
-                                                        @if (x.isWithWholePrice)
-                                                        {
-                                                            <div class="crossContainer">
-                                                                <span class="priceBeforeDiscount">
-                                                                    @(x.Textile.Price + " ₴")
-                                                                </span>
-                                                                <div class="cross"></div>
-                                                            </div>
-                                                            <div class="itemPriceList"><span>@(x.Textile.CostWithWholeCost + " ₴")</span></div>
-                                                        }
-                                                        else if (x.Textile.IsOnDiscount)
-                                                        {
-                                                            <div class="crossContainer">
-                                                                <span class="priceBeforeDiscount">
-                                                                    @(x.Textile.Price + " ₴")
-                                                                </span>
-                                                                <div class="cross"></div>
-                                                            </div>
-                                                            <div class="itemPriceList"><span>@(x.Textile.PriceWithDiscount + " ₴")</span></div>
-                                                        }
-                                                        else
-                                                        {
-                                                            <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
-                                                        }
+                                                @if (x.isWithWholePrice)
+                                                {
+                                                    <div class="crossContainer">
+                                                        <span class="priceBeforeDiscount">
+                                                            @(x.Textile.Price + " ₴")
+                                                        </span>
+                                                        <div class="cross"></div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="buyItemList">
-                                                        <span class="changeAm minus" data2="@x.Textile.WarehouseAmount" data1="@x.Textile.TextileId" data="@x.ItemId">-</span>
-                                                        <input type="text" data="@x.Textile.WarehouseAmount" value="@x.ItemsAmount" />
-                                                        <span class="changeAm plus" data2="@x.Textile.WarehouseAmount" data1="@x.Textile.TextileId" data="@x.ItemId">+</span>
+                                                    <div class="itemPriceList"><span>@(x.Textile.CostWithWholeCost + " ₴")</span></div>
+                                                }
+                                                else if (x.Textile.IsOnDiscount)
+                                                {
+                                                    <div class="crossContainer">
+                                                        <span class="priceBeforeDiscount">
+                                                            @(x.Textile.Price + " ₴")
+                                                        </span>
+                                                        <div class="cross"></div>
                                                     </div>
-                                                    <div class="sum">
-                                                        <label>Сумма</label><br>
-                                                        @if (x.isWithWholePrice)
-                                                        {
-                                                            <span>@(x.ItemsAmount * x.Textile.CostWithWholeCost)</span>
-                                                        }
-                                                        else if (x.Textile.IsOnDiscount)
-                                                        {
-                                                            <span>@(x.ItemsAmount * x.Textile.PriceWithDiscount)</span>
-                                                        }
-                                                        else
-                                                        {
-                                                            <span>@(x.ItemsAmount * x.Textile.Price)</span>
-                                                        }
-                                                    </div>
-                                                </div>
+                                                    <div class="itemPriceList"><span>@(x.Textile.PriceWithDiscount + " ₴")</span></div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="itemPriceList"><span>@(x.Textile.Price + " ₴")</span></div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="buyItemList">
+                                                <span class="changeAm minus" price="@x.Textile.Price" priceDiscount="@x.Textile.PriceWithDiscount" data2="@x.Textile.WarehouseAmount" data1="@x.Textile.TextileId" data="@x.ItemId" needforOpt="@Enumerable.FirstOrDefault(x.Textile.Charachteristics,(Func<CharachteristicValues,bool>)(x=>x.Name == "Оптовое количество")).Value" optPrice="@x.Textile.CostWithWholeCost">-</span>
+                                                <input type="text" price="@x.Textile.Price" priceDiscount="@x.Textile.PriceWithDiscount" data="@x.Textile.WarehouseAmount" value="@x.ItemsAmount" needforOpt="@Enumerable.FirstOrDefault(x.Textile.Charachteristics,(Func<CharachteristicValues,bool>)(x=>x.Name == "Оптовое количество")).Value" optPrice="@x.Textile.CostWithWholeCost" />
+                                                <span class="changeAm plus" price="@x.Textile.Price" priceDiscount="@x.Textile.PriceWithDiscount" data2="@x.Textile.WarehouseAmount" data1="@x.Textile.TextileId" data="@x.ItemId" needforOpt="@Enumerable.FirstOrDefault(x.Textile.Charachteristics,(Func<CharachteristicValues,bool>)(x=>x.Name == "Оптовое количество")).Value" optPrice="@x.Textile.CostWithWholeCost">+</span>
+                                            </div>
+                                            <div class="sum">
+                                                <label>Сумма</label><br>
+                                                @if (x.isWithWholePrice)
+                                                {
+                                                    <span>@(x.ItemsAmount * x.Textile.CostWithWholeCost)</span>
+                                                }
+                                                else if (x.Textile.IsOnDiscount)
+                                                {
+                                                    <span>@(x.ItemsAmount * x.Textile.PriceWithDiscount)</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>@(x.ItemsAmount * x.Textile.Price)</span>
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -580,6 +578,8 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
                 }
                 @{
                     decimal yDecimal = 0;
@@ -701,10 +701,14 @@
             previous = $(this).val();
         });
         $('.buyItemList').find('input').focusout(function () {
+            let fullPrice = $(this).attr('price');
+            let discountPrice = $(this).attr('pricediscount');
+            let opt = $(this).attr('needforOpt');
+            let optPrice = $(this).attr('optPrice');
             let all = $('.buyItemList').find('input');
             let wholeAm = 0;
             let id = $(this).parent().parent().prev().prev().prev().attr('data');
-            let x = { ItemId:id , Amount: $(this).val() };
+            let x = { ItemId: id, Amount: $(this).val() };
             let parent = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent();
             let th = $(this);
             let price = $(this).parent().parent().prev().find('.itemPriceList').find('span');
@@ -721,8 +725,20 @@
                     data: JSON.stringify(x),
                     success: function () {
                         $(th).val(warehouse);
+                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) - parseFloat($(price).html()) * previous);
+                        if (parseInt($(th).val()) >= parseInt(opt)) {
+                            $(price).html(optPrice + " ₴");
+                        }
+                        else {
+                            if (parseInt(discountPrice) == 0) {
+                                $(price).html(fullPrice + " ₴");
+                            }
+                            else {
+                                $(price).html(discountPrice + " ₴");
+                            }
+                        }
                         $(sum).html(parseFloat($(price).html()) * warehouse);
-                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) - parseFloat($(price).html()) * previous + parseFloat($(sum).html()));
+                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) + parseFloat($(sum).html()));
                         add0(sum);
                         add0(bSum);
                         $('#sum').attr('value', $('.summa').html());
@@ -745,8 +761,15 @@
                     data: JSON.stringify(x),
                     success: function () {
                         $(th).val(1);
+                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) - parseFloat($(price).html()) * previous)
+                        if (parseInt(discountPrice) == 0) {
+                            $(price).html(fullPrice + " ₴");
+                        }
+                        else {
+                            $(price).html(discountPrice + " ₴");
+                        }
                         $(sum).html(parseFloat($(price).html()));
-                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) - parseFloat($(price).html()) * previous + parseFloat($(sum).html()));
+                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) + parseFloat($(sum).html()));
                         add0(sum);
                         add0(bSum);
                         $('#sum').attr('value', $('.summa').html());
@@ -767,8 +790,20 @@
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(x),
                     success: function () {
+                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) - parseFloat($(price).html()) * previous);
+                        if (parseInt($(th).val()) >= parseInt(opt)) {
+                            $(price).html(optPrice + " ₴");
+                        }
+                        else {
+                            if (parseInt(discountPrice) == 0) {
+                                $(price).html(fullPrice + " ₴");
+                            }
+                            else {
+                                $(price).html(discountPrice + " ₴");
+                            }
+                        }
                         $(sum).html(parseFloat($(price).html()) * th.val());
-                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) - parseFloat($(price).html()) * previous + parseFloat($(sum).html()));
+                        $(bSum).html(parseFloat(parseFloat($(bSum).html())) + parseFloat($(sum).html()));
                         add0(sum);
                         add0(bSum);
                         $('#sum').attr('value', $('.summa').html());
@@ -794,6 +829,10 @@
                     $(e).html($(e).html().replace('.', ','));
                 }
             }
+            let fullPrice = $(this).attr('price');
+            let discountPrice = $(this).attr('pricediscount');
+            let opt = $(this).attr('needforOpt');
+            let optPrice = $(this).attr('optPrice');
             let all = $('.buyItemList').find('input');
             let wholeAm = 0;
             let item = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent();
@@ -813,6 +852,7 @@
                 url = '@Url.Action("AddToCart","Cart")'+"?Api=1&TextileId="+id1;
             }
             let cost = parseFloat($(this).parent().parent().prev().find('.itemDescriptionList').find('.itemPriceList').find('span').html());
+            let costBlock = $(this).parent().parent().prev().find('.itemDescriptionList').find('.itemPriceList').find('span');
             $.ajax({
                 type: 'GET',
                 url: url,
@@ -820,12 +860,38 @@
                 success: function () {
                     if (operator == "-") {
                         $(am1).val(parseInt($(am1).val()) - 1);
-                        $(sum).html(parseFloat(parseFloat($(sum).html()) - cost));
-                        add0(sum);
-                        $('.summa').html(parseFloat($('.summa').html()) - cost);
-                        add0('.summa');
-                        $('#sum').attr('value', $('.summa').html());
-                        $('.summa').html($('.summa').html() + " грн");
+                        if (parseInt($(am1).val()) < parseInt(opt)) {
+                            if (discountPrice != 0) {
+                                costBlock.html(discountPrice + ' ₴');
+                                cost = parseFloat(discountPrice)
+                                $('.summa').html(parseFloat($('.summa').html()) - parseFloat($(sum).html()));
+                                $(sum).html(parseFloat(cost) * parseInt($(am1).val()));
+                                $('.summa').html(parseFloat($('.summa').html()) + parseFloat($(sum).html()));
+                                add0(sum);
+                                add0('.summa');
+                                $('#sum').attr('value', $('.summa').html());
+                                $('.summa').html($('.summa').html() + " грн");
+                            }
+                            else {
+                                costBlock.html(fullPrice + ' ₴');
+                                cost = parseFloat(fullPrice);
+                                $('.summa').html(parseFloat($('.summa').html()) - parseFloat($(sum).html()));
+                                $(sum).html(parseFloat(cost) * parseInt($(am1).val()));
+                                $('.summa').html(parseFloat($('.summa').html()) + parseFloat($(sum).html()));
+                                add0(sum);
+                                add0('.summa');
+                                $('#sum').attr('value', $('.summa').html());
+                                $('.summa').html($('.summa').html() + " грн");
+                            }
+                        }
+                        else {
+                            $(sum).html(parseFloat(parseFloat($(sum).html()) - cost));
+                            add0(sum);
+                            $('.summa').html(parseFloat($('.summa').html()) - cost);
+                            add0('.summa');
+                            $('#sum').attr('value', $('.summa').html());
+                            $('.summa').html($('.summa').html() + " грн");
+                        }
                         if ($(am1).val() == "0") {
                             item.remove();
                         }
@@ -836,12 +902,25 @@
                             $(am).val(warehouse);
                         }
                         else {
-                            $(sum).html(parseFloat(parseFloat($(sum).html()) + cost));
-                            add0(sum);
-                            $('.summa').html(parseFloat($('.summa').html()) + cost);
-                            add0('.summa');
-                            $('#sum').attr('value', $('.summa').html());
-                            $('.summa').html($('.summa').html() + " грн");
+                            if (parseInt($(am).val()) >= parseInt(opt)) {
+                                costBlock.html(optPrice + ' ₴');
+                                cost = parseFloat(optPrice);
+                                $('.summa').html(parseFloat($('.summa').html()) - parseFloat($(sum).html()));
+                                $(sum).html(parseFloat(cost)*parseInt($(am).val()));
+                                $('.summa').html(parseFloat($('.summa').html()) + parseFloat($(sum).html()));
+                                add0(sum);
+                                add0('.summa');
+                                $('#sum').attr('value', $('.summa').html());
+                                $('.summa').html($('.summa').html() + " грн");
+                            }
+                            else {
+                                $(sum).html(parseFloat(parseFloat($(sum).html()) + cost));
+                                add0(sum);
+                                $('.summa').html(parseFloat($('.summa').html()) + cost);
+                                add0('.summa');
+                                $('#sum').attr('value', $('.summa').html());
+                                $('.summa').html($('.summa').html() + " грн");
+                            }
                         }
                     }
                     if (parseInt($(am).val()) <= parseInt(warehouse)) {
@@ -876,10 +955,12 @@
         let url= "@Url.Action("RemoveFromCart", "TextileApi")";
         $('.close1').click(function (e) {
             e.preventDefault();
+            let all;
             let item = $(this).parent().parent().parent().parent().parent().parent().parent();
             let form = $(item).parent();
             let id = $(this).attr('data');
-            let am = $(this).next().next().next().find('.buyItemList').find('span');
+            let am = $(this).next().next().next().find('.buyItemList').find('input');
+            let wholeam = 0;
             $.ajax({
                 type: 'GET',
                 url: url + "?ItemId=" + id,
@@ -896,9 +977,13 @@
                         $('.cart').append('<div class="inCart hidden"><i class="fas fa-shopping-cart"></i> <span>Ваша корзина пуста</span></div>');
                     }
                     else {
+                        all = $('.buyItemList').find('input');
+                        for (let i = 0; i < all.length; i++) {
+                            wholeam += parseInt($(all[i]).val());
+                        }
                         let chPrice = $('.inCart').find('span');
                         $(chPrice[1]).html("Стоимостью " + parseFloat(parseFloat(price3) - price1) + " грн");
-                        $(chPrice[0]).html("В корзине " + parseInt(parseInt($(chPrice[0]).attr('data')) - parseInt($(am[1]).html())) + " товаров");
+                        $(chPrice[0]).html("В корзине " + wholeam + " товаров");
                     }
                 },
             })
