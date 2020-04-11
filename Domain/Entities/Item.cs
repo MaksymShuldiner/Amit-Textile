@@ -18,9 +18,24 @@ namespace AmitTextile.Domain
         [NotMapped]
         public bool isWithWholePrice
         {
-            get => Convert.ToInt32(Textile.Charachteristics.FirstOrDefault(X => X.Name == "Оптовое количество").Value) <=
-                   ItemsAmount;
+            get
+            {
+                bool res = false;
+                try
+                {
+                    res = Convert.ToInt32(Textile.Charachteristics.FirstOrDefault(X => X.Name == "Оптовое количество")
+                              .Value) <=
+                          ItemsAmount;
+                }
+                catch
+                {
+
+                }
+
+                return res;
+            }
         }
+        
         public Guid? CartId { get; set; }
 
         public Cart Cart { get; set; }

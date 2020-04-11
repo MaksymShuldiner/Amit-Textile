@@ -44,7 +44,9 @@ namespace AmitTextile.Controllers
             List<Item> Items = new List<Item>();
             if (User.Identity.IsAuthenticated)
             {
-                Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x=>x.MainImage).Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x=>x.Textile).ThenInclude(x=>x.Charachteristics)
+                Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x=>x.MainImage)
+                    .Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x=>x.Textile)
+                    .ThenInclude(x=>x.Charachteristics)
                     .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result.Cart.Items.ToList();
             }
             else
