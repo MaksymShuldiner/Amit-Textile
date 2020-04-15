@@ -41,7 +41,7 @@ namespace AmitTextile.Controllers
             {
                 Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.MainImage)
                     .Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
-                    .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result.Cart.Items.ToList();
+                    .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name)?.Result.Cart.Items.ToList();
             }
             else
             {
@@ -49,11 +49,15 @@ namespace AmitTextile.Controllers
                 {
                     Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.MainImage)
                         .Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
-                        .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"])).Result.Items
+                        .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"]))?.Result.Items
                         .ToList();
                 }
                 else { Items = new List<Item>(); }
 
+            }
+            if (Items == null)
+            {
+                Items = new List<Item>();
             }
             ViewBag.Items = Items;
             decimal sum = 0;
@@ -164,7 +168,7 @@ namespace AmitTextile.Controllers
             {
                 Items = _context.Users.Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.MainImage)
                     .Include(x => x.Cart).ThenInclude(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
-                    .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name).Result.Cart.Items.ToList();
+                    .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name)?.Result.Cart.Items.ToList();
             }
             else
             {
@@ -172,11 +176,15 @@ namespace AmitTextile.Controllers
                 {
                     Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.MainImage)
                         .Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
-                        .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"])).Result.Items
+                        .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"]))?.Result.Items
                         .ToList();
                 }
                 else { Items = new List<Item>(); }
 
+            }
+            if (Items == null)
+            {
+                Items = new List<Item>();
             }
             ViewBag.Items = Items;
             decimal sum = 0;
