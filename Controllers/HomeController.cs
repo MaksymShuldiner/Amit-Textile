@@ -53,10 +53,19 @@ namespace AmitTextile.Controllers
             {
                 if (Request.Cookies.ContainsKey("Cart"))
                 {
-                    Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.MainImage)
-                        .Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
-                        .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"]))?.Result?.Items
-                        .ToList();
+                    try
+                    {
+                        Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile)
+                            .ThenInclude(x => x.MainImage)
+                            .Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
+                            .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"]))?.Result
+                            ?.Items
+                            .ToList();
+                    }
+                    catch
+                    {
+
+                    }
                 }
                 else { Items = new List<Item>(); }
 
@@ -109,10 +118,19 @@ namespace AmitTextile.Controllers
             {
                 if (Request.Cookies.ContainsKey("Cart"))
                 {
-                    Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.MainImage)
-                        .Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
-                        .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"]))?.Result?.Items
-                        .ToList();
+                    try
+                    {
+                        Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile)
+                            .ThenInclude(x => x.MainImage)
+                            .Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
+                            .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"]))?.Result
+                            ?.Items
+                            .ToList();
+                    }
+                    catch
+                    {
+
+                    }
                 }
                 else { Items = new List<Item>(); }
                 
@@ -572,10 +590,19 @@ namespace AmitTextile.Controllers
             {
                 if (Request.Cookies.ContainsKey("Cart"))
                 {
-                    Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.MainImage)
-                        .Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
-                        .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"]))?.Result?.Items
-                        .ToList();
+                    try
+                    {
+                        Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile)
+                            .ThenInclude(x => x.MainImage)
+                            .Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
+                            .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"]))?.Result
+                            ?.Items
+                            .ToList();
+                    }
+                    catch
+                    {
+
+                    }
                 }
                 else { Items = new List<Item>(); }
 
@@ -1050,10 +1077,19 @@ namespace AmitTextile.Controllers
             {
                 if (Request.Cookies.ContainsKey("Cart"))
                 {
-                    Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x=>x.MainImage)
-                        .Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
-                        .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"]))?.Result?.Items
-                        .ToList();
+                    try
+                    {
+                        Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile)
+                            .ThenInclude(x => x.MainImage)
+                            .Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
+                            .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"]))?.Result
+                            ?.Items
+                            .ToList();
+                    }
+                    catch
+                    {
+
+                    }
                 }
                 else { Items = new List<Item>(); }
 
@@ -1283,11 +1319,19 @@ namespace AmitTextile.Controllers
             {
                 if (Request.Cookies.ContainsKey("Cart"))
                 {
-                    Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile)
-                        .ThenInclude(x => x.MainImage)
-                        .Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
-                        .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"]))?.Result?.Items
-                        .ToList();
+                    try
+                    {
+                        Items = _context.Carts.Include(x => x.Items).ThenInclude(x => x.Textile)
+                            .ThenInclude(x => x.MainImage)
+                            .Include(x => x.Items).ThenInclude(x => x.Textile).ThenInclude(x => x.Charachteristics)
+                            .FirstOrDefaultAsync(x => x.NonAuthorizedId == Guid.Parse(Request.Cookies["Cart"]))?.Result
+                            ?.Items
+                            .ToList();
+                    }
+                    catch
+                    {
+
+                    }
                 }
                 else
                 {
