@@ -73,8 +73,13 @@ namespace AmitTextile.Controllers
                     Guid CartId = Guid.NewGuid();
                     Cart Cart = new Cart() {CartId = CartId, NonAuthorizedId = Id};
                     await _context.Carts.AddAsync(Cart);
-                    await _context.Items.AddAsync(new Item()
-                        {ItemId = Guid.NewGuid(), CartId = CartId, TextileId = Guid.Parse(TextileId), ItemsAmount = 1});
+                    if (_context.Textiles.Find(Guid.Parse(TextileId)).WarehouseAmount >= 1)
+                    {
+                        await _context.Items.AddAsync(new Item()
+                        {
+                            ItemId = Guid.NewGuid(), CartId = CartId, TextileId = Guid.Parse(TextileId), ItemsAmount = 1
+                        });
+                    }
                     await _context.SaveChangesAsync();
                     HttpContext.Response.Cookies.Append("Cart", Id.ToString(),
                         new Microsoft.AspNetCore.Http.CookieOptions()
