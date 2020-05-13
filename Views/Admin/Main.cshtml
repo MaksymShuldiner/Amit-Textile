@@ -387,7 +387,7 @@
                     });
                 }
                 else if (option == "Добавить подкатегорию") {
-                    $('.forma').append('<form action="@Url.Action("CreateChildCategory","Admin")" method="post"><label>Название подкатегории</label><br/><input type="text" class="newChildName" required name="name" /><br/><input type="submit" class="createItem" value="Добавить подкатегории" /></form>');
+                    $('.forma').append('<form action="@Url.Action("CreateChildCategory","Admin")" enctype="multipart/form-data" method="post"><label>Название подкатегории</label><br/><input type="text" class="newChildName" required name="name" /><br/>Добавить фотографию для подкатегории<br/><input type="file" class="imageUpload" name="file" required/><input type="submit" class="createItem" value="Добавить подкатегории" /></form>');
                 }
                 else if (option == "Добавить характеристику") {
                     $('.forma').append('<form action="@Url.Action("CreateCharachteristic","Admin")" method="post"><label>Имя характеристики</label><br /><input type="text" class="newCharactName" required name="Name"/><br/><input type="checkbox" class="nP" /><label>&nbsp &nbsp Шаблонные значения</label><div class="pat"></div><input type="submit" class="createItem" value="Добавить характеристику"/></form>');

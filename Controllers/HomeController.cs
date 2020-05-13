@@ -592,8 +592,7 @@ namespace AmitTextile.Controllers
                         break;
                 }
             }
-
-            List<ChildCategory> childCategories = _context.Categories.Include(x => x.ChildCategories).FirstOrDefaultAsync(x => x.CategoryId == Guid.Parse(CatId)).Result.ChildCategories.ToList();
+            List<ChildCategory> childCategories = _context.Categories.Include(x => x.ChildCategories).ThenInclude(x=>x.Image).FirstOrDefaultAsync(x => x.CategoryId == Guid.Parse(CatId)).Result.ChildCategories.ToList();
             PageViewModel pageViewModel = new PageViewModel(count, page, textilesForPage);
             List<int> pagesCounterList = new List<int>();
             for (int i = 1; i <= pageViewModel.TotalPages; i++)

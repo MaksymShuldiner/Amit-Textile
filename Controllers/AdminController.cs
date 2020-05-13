@@ -166,10 +166,26 @@ namespace AmitTextile.Controllers
             return RedirectToAction("Main", "Admin");
         }
         [HttpPost]
-        public async Task<IActionResult> CreateChildCategory(string name)
+        public async Task<IActionResult> CreateChildCategory(string name, IFormFile file)
         {
-            Guid Id = new Guid();
-            ChildCategory category = new ChildCategory() {ChildCategoryId = Guid.NewGuid(), Name = name };
+            Guid Id = Guid.NewGuid();
+            ChildCategory category = new ChildCategory() {ChildCategoryId = Guid.NewGuid(), Name = name, ImageId = Id};
+            Image image2 = null;
+            if (file != null)
+            {
+                byte[] imageData1 = null;
+                using (var binaryReader = new BinaryReader(file.OpenReadStream()))
+                {
+                    imageData1 = binaryReader.ReadBytes((int)file.Length);
+                }
+                image2 = new Image()
+                {
+                    Name = file.FileName,
+                    ByteImg = imageData1,
+                    ImageId = Id
+                };
+            }
+            await _context.Images.AddAsync(image2);
             await  _context.ChildCategories.AddAsync(category);
             await _context.SaveChangesAsync();
             return RedirectToAction("Main", "Admin");

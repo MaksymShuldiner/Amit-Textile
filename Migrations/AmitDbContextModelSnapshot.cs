@@ -111,12 +111,19 @@ namespace AmitTextile.Migrations
                     b.Property<Guid?>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ImageId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ChildCategoryId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("ImageId")
+                        .IsUnique()
+                        .HasFilter("[ImageId] IS NOT NULL");
 
                     b.ToTable("ChildCategories");
                 });
@@ -215,9 +222,6 @@ namespace AmitTextile.Migrations
 
                     b.Property<Guid?>("CartId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsWithWholesale")
-                        .HasColumnType("bit");
 
                     b.Property<int>("ItemsAmount")
                         .HasColumnType("int");
@@ -720,6 +724,10 @@ namespace AmitTextile.Migrations
                     b.HasOne("AmitTextile.Domain.Category", "Category")
                         .WithMany("ChildCategories")
                         .HasForeignKey("CategoryId");
+
+                    b.HasOne("AmitTextile.Domain.Image", "Image")
+                        .WithOne("ChildCategory")
+                        .HasForeignKey("AmitTextile.Domain.ChildCategory", "ImageId");
                 });
 
             modelBuilder.Entity("AmitTextile.Domain.ChildCommentQuestion", b =>
@@ -772,7 +780,7 @@ namespace AmitTextile.Migrations
                         .HasForeignKey("CartId");
 
                     b.HasOne("AmitTextile.Domain.Textile", "Textile")
-                        .WithMany()
+                        .WithMany("Items")
                         .HasForeignKey("TextileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
