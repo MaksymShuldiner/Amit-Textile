@@ -37,6 +37,13 @@ namespace AmitTextile.Controllers
             ViewBag.ProfileUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Profile/Profile";
             ViewBag.Urling = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/Index";
             ViewBag.CartUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Cart/AddToCart";
+            if (User.IsInRole("admin"))
+            {
+                ViewBag.AdminPanel = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Admin/Main";
+            }
+            List<Image> image = _context.Sliders.Include(X => X.Images).First()
+                .Images.ToList();
+            ViewBag.SliderImgs = image.Select(x => x.StringImg);
             if (User.Identity.IsAuthenticated)
             {
                 ViewBag.Fio = _userManager.FindByNameAsync(User.Identity.Name).Result.Fio;
@@ -254,11 +261,18 @@ namespace AmitTextile.Controllers
                                 {
                                     for (int i = 0; i < Filter[charact].Count; i++)
                                     {
-                                        if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                        if ((object)(x.Charachteristics.FirstOrDefault(x => x.Name == charact)) != null)
                                         {
-                                            flag = true;
-                                            result.Add(true);
-                                            break;
+                                            if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                            {
+                                                flag = true;
+                                                result.Add(true);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                flag = false;
+                                            }
                                         }
                                         else
                                         {
@@ -292,11 +306,18 @@ namespace AmitTextile.Controllers
                                 {
                                     for (int i = 0; i < Filter[charact].Count; i++)
                                     {
-                                        if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                        if ((object)(x.Charachteristics.FirstOrDefault(x => x.Name == charact)) != null)
                                         {
-                                            flag = true;
-                                            result.Add(true);
-                                            break;
+                                            if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                            {
+                                                flag = true;
+                                                result.Add(true);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                flag = false;
+                                            }
                                         }
                                         else
                                         {
@@ -334,12 +355,18 @@ namespace AmitTextile.Controllers
                                 {
                                     for (int i = 0; i < Filter[charact].Count; i++)
                                     {
-                                        if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value ==
-                                            Filter[charact][i])
+                                        if ((object)(x.Charachteristics.FirstOrDefault(x => x.Name == charact)) != null)
                                         {
-                                            flag = true;
-                                            result.Add(true);
-                                            break;
+                                            if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                            {
+                                                flag = true;
+                                                result.Add(true);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                flag = false;
+                                            }
                                         }
                                         else
                                         {
@@ -376,11 +403,18 @@ namespace AmitTextile.Controllers
                                 {
                                     for (int i = 0; i < Filter[charact].Count; i++)
                                     {
-                                        if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                        if ((object)(x.Charachteristics.FirstOrDefault(x => x.Name == charact)) != null)
                                         {
-                                            flag = true;
-                                            result.Add(true);
-                                            break;
+                                            if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                            {
+                                                flag = true;
+                                                result.Add(true);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                flag = false;
+                                            }
                                         }
                                         else
                                         {
@@ -421,11 +455,18 @@ namespace AmitTextile.Controllers
                                 {
                                     for (int i = 0; i < Filter[charact].Count; i++)
                                     {
-                                        if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                        if ((object)(x.Charachteristics.FirstOrDefault(x => x.Name == charact)) != null)
                                         {
-                                            flag = true;
-                                            result.Add(true);
-                                            break;
+                                            if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                            {
+                                                flag = true;
+                                                result.Add(true);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                flag = false;
+                                            }
                                         }
                                         else
                                         {
@@ -467,11 +508,18 @@ namespace AmitTextile.Controllers
                                 {
                                     for (int i = 0; i < Filter[charact].Count; i++)
                                     {
-                                        if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                        if ((object)(x.Charachteristics.FirstOrDefault(x => x.Name == charact)) != null)
                                         {
-                                            flag = true;
-                                            result.Add(true);
-                                            break;
+                                            if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                            {
+                                                flag = true;
+                                                result.Add(true);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                flag = false;
+                                            }
                                         }
                                         else
                                         {
@@ -506,11 +554,18 @@ namespace AmitTextile.Controllers
                                 {
                                     for (int i = 0; i < Filter[charact].Count; i++)
                                     {
-                                        if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                        if ((object)(x.Charachteristics.FirstOrDefault(x => x.Name == charact)) != null)
                                         {
-                                            flag = true;
-                                            result.Add(true);
-                                            break;
+                                            if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                            {
+                                                flag = true;
+                                                result.Add(true);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                flag = false;
+                                            }
                                         }
                                         else
                                         {
@@ -725,12 +780,18 @@ namespace AmitTextile.Controllers
                                 {
                                     for (int i = 0; i < Filter[charact].Count; i++)
                                     {
-                                        if (x.Charachteristics.FirstOrDefault(y => y.Name == charact).Value ==
-                                            Filter[charact][i])
+                                        if ((object)(x.Charachteristics.FirstOrDefault(x => x.Name == charact)) != null)
                                         {
-                                            flag = true;
-                                            result.Add(true);
-                                            break;
+                                            if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                            {
+                                                flag = true;
+                                                result.Add(true);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                flag = false;
+                                            }
                                         }
                                         else
                                         {
@@ -768,11 +829,18 @@ namespace AmitTextile.Controllers
                                 {
                                     for (int i = 0; i < Filter[charact].Count; i++)
                                     {
-                                        if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                        if ((object)(x.Charachteristics.FirstOrDefault(x => x.Name == charact)) != null)
                                         {
-                                            flag = true;
-                                            result.Add(true);
-                                            break;
+                                            if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                            {
+                                                flag = true;
+                                                result.Add(true);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                flag = false;
+                                            }
                                         }
                                         else
                                         {
@@ -807,11 +875,18 @@ namespace AmitTextile.Controllers
                                 {
                                     for (int i = 0; i < Filter[charact].Count; i++)
                                     {
-                                        if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                        if ((object)(x.Charachteristics.FirstOrDefault(x => x.Name == charact)) != null)
                                         {
-                                            flag = true;
-                                            result.Add(true);
-                                            break;
+                                            if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                            {
+                                                flag = true;
+                                                result.Add(true);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                flag = false;
+                                            }
                                         }
                                         else
                                         {
@@ -846,11 +921,18 @@ namespace AmitTextile.Controllers
                                 {
                                     for (int i = 0; i < Filter[charact].Count; i++)
                                     {
-                                        if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                        if ((object)(x.Charachteristics.FirstOrDefault(x => x.Name == charact)) != null)
                                         {
-                                            flag = true;
-                                            result.Add(true);
-                                            break;
+                                            if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                            {
+                                                flag = true;
+                                                result.Add(true);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                flag = false;
+                                            }
                                         }
                                         else
                                         {
@@ -892,11 +974,18 @@ namespace AmitTextile.Controllers
                                 {
                                     for (int i = 0; i < Filter[charact].Count; i++)
                                     {
-                                        if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                        if ((object)(x.Charachteristics.FirstOrDefault(x => x.Name == charact)) != null)
                                         {
-                                            flag = true;
-                                            result.Add(true);
-                                            break;
+                                            if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                            {
+                                                flag = true;
+                                                result.Add(true);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                flag = false;
+                                            }
                                         }
                                         else
                                         {
@@ -942,12 +1031,18 @@ namespace AmitTextile.Controllers
                                 {
                                     for (int i = 0; i < Filter[charact].Count; i++)
                                     {
-                                        if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value ==
-                                            Filter[charact][i])
+                                        if ((object)(x.Charachteristics.FirstOrDefault(x => x.Name == charact)) != null)
                                         {
-                                            flag = true;
-                                            result.Add(true);
-                                            break;
+                                            if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                            {
+                                                flag = true;
+                                                result.Add(true);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                flag = false;
+                                            }
                                         }
                                         else
                                         {
@@ -985,11 +1080,18 @@ namespace AmitTextile.Controllers
                                 {
                                     for (int i = 0; i < Filter[charact].Count; i++)
                                     {
-                                        if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                        if ((object)(x.Charachteristics.FirstOrDefault(x => x.Name == charact)) != null)
                                         {
-                                            flag = true;
-                                            result.Add(true);
-                                            break;
+                                            if (x.Charachteristics.FirstOrDefault(x => x.Name == charact).Value == Filter[charact][i])
+                                            {
+                                                flag = true;
+                                                result.Add(true);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                flag = false;
+                                            }
                                         }
                                         else
                                         {
@@ -1259,7 +1361,6 @@ namespace AmitTextile.Controllers
                     { parentCommentQuestions = parentCommentQuestions, Section = "CommentsQuestions",Fio = Fio, PageViewModel  = model , Textile = textile, PagesCount = newList});
             }
         }
-
         [HttpPost]
         public async Task<IActionResult> PostCommentReview(string Datetime, string Message, string Stars, string TextileId, string Advantages, string Drawbacks, string Fio)
         {
@@ -1464,6 +1565,7 @@ namespace AmitTextile.Controllers
             order.ItemOrders = itemorders;
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
+            
             return RedirectToAction("Index", "Home");
         }
 

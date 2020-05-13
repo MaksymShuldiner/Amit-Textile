@@ -165,7 +165,7 @@
                                         <a href="@ViewBag.ProfileUrl">Личные данные <i class="fas fa-chevron-right"></i></a>
                                     </li>
                                     <li class="authOption leave">
-                                        <a href="@Url.Action("LogOff","Admin")">Выход</a>
+                                        <a href="@Url.Action("LogOff","Profile")">Выход</a>
                                     </li>
                                 </ul>
                             </div>
@@ -432,14 +432,24 @@
                                         <span class="itemCost">@(Model.Textile.Textile.Price + " ₴")</span>
                                     }
                                     <button class="fav">
-                                        <a href="#" value="0" class="toFavourite selected">
-                                            <i class="far fa-heart"></i>
-                                        </a>
-                                        <a href="#" class="toFavourite" value="1"><i class="fas fa-heart"></i></a>
+                                        @if (Model.Textile.isFavourite)
+                                        {
+                                            <p class=" toFavourite" value="0">
+                                                <i class="far fa-heart"></i>
+                                            </p>
+                                            <p class=" toFavourite selected" value="1"><i class="fas fa-heart"></i></p>
+                                        }
+                                        else
+                                        {
+                                            <p class=" toFavourite selected" value="0">
+                                                <i class="far fa-heart"></i>
+                                            </p>
+                                            <p class=" toFavourite" value="1"><i class="fas fa-heart"></i></p>
+                                        }
                                     </button>
                                 </div>
                                 <button class="buyItem">
-                                    <a href="#">
+                                    <a href="@Url.Action("AddToCart","Cart", new {TextileId = Model.Textile.Textile.TextileId})">
                                         <i class="fas fa-shopping-cart"></i> Купить
                                     </a>
                                 </button>

@@ -10,8 +10,6 @@ namespace AmitTextile.Domain
 
         public ICollection<CharachteristicValues> Charachteristics { get; set; }
 
-        
-
         public decimal CostWithWholeCost { get; set; }
         public string Name { get; set; }
         [ForeignKey("TextileId")]

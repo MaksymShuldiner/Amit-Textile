@@ -2478,3 +2478,29 @@ textarea {
             font-size:20px;
             max-width:70%;
         }
+        .close2 {
+            position: absolute;
+            right: 0px;
+            top: -10px;
+            background: none;
+            border: none;
+            font-size: 25px;
+            transition: 0.3s all ease;
+            color: #A9A9A9;
+            z-index: 20;
+        }
+        .close2:hover {
+            color: #FFA500;
+            transition: 0.3s all ease;
+        }
+
+        .close2 > a {
+            color: #A9A9A9;
+            transition: 0.3s all ease;
+        }
+
+        .close2 > a:hover {
+            text-decoration: none;
+            color: #FFA500;
+            transition: 0.3s all ease;
+        }

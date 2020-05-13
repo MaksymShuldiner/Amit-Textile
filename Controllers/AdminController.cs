@@ -21,18 +21,19 @@ namespace AmitTextile.Controllers
         private UserManager<User> _userManager;
         private AmitDbContext _context;
         private EmailService _emailService;
+
+        
         public AdminController(UserManager<User> userManager, AmitDbContext context, EmailService emailService)
         {
             _userManager = userManager;
             _emailService = emailService;
             _context = context;
         }
-
         public async Task<IActionResult> Main()
         {
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
-
-            if (User.IsInRole("admin"))
+            ViewBag.Orders = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Admin/Orders";
+            if (!User.IsInRole("admin"))
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -219,7 +220,7 @@ namespace AmitTextile.Controllers
             {
                 ViewBag.Fio = _userManager.FindByNameAsync(User.Identity.Name).Result.Fio;
             }
-            if (User.IsInRole("admin"))
+            if (!User.IsInRole("admin"))
             {
                 return RedirectToAction("Index", "Home");
             }
