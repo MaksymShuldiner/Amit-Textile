@@ -20,35 +20,34 @@ namespace AmitTextile.Services
             
         }
 
-        public async Task Execute(string subject, string to, string plainTextContent, string html)
-        {
-            var apiKey = Data.ApiKey;
-            var client = new SendGridClient(apiKey);
-            var from = new EmailAddress(Data.Gmail);
-            var toEmail = new EmailAddress(to);
-            var msg = MailHelper.CreateSingleEmail(from, toEmail, subject, plainTextContent, html);
-            var response = await client.SendEmailAsync(msg);
-        }
         //public async Task Execute(string subject, string to, string plainTextContent, string html)
         //{
-        //    var emailMessage = new MimeMessage();
-
-        //    emailMessage.From.Add(new MailboxAddress("Администрация сайта", "max.shuldiner777@gmail.com"));
-        //    emailMessage.To.Add(new MailboxAddress("", "shuldiner@gmail.com"));
-        //    emailMessage.Subject = subject;
-        //    emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
-        //    {
-        //        Text = plainTextContent
-        //    };
-
-        //    using (var client = new SmtpClient())
-        //    {
-        //        await client.ConnectAsync("smtp.sendgrid.net", 25, false);
-        //        await client.AuthenticateAsync("apikey", "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");
-        //        await client.SendAsync(emailMessage);
-        //        await client.DisconnectAsync(true);
-        //    }
+        //    var apiKey = Data.ApiKey;
+        //    var client = new SendGridClient(apiKey);
+        //    var from = new EmailAddress(Data.Gmail);
+        //    var toEmail = new EmailAddress(to);
+        //    var msg = MailHelper.CreateSingleEmail(from, toEmail, subject, plainTextContent, html);
+        //    var response = await client.SendEmailAsync(msg);
+        //    int x = 5;
         //}
+        public async Task Execute(string subject, string to, string plainTextContent, string html)
+        {
+            var emailMessage = new MimeMessage();
+            emailMessage.From.Add(new MailboxAddress("Администрация сайта", Data.UserNameForSmtp));
+            emailMessage.To.Add(new MailboxAddress("", to));
+            emailMessage.Subject = subject;
+            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = html
+            };
+            using (var client = new SmtpClient())
+            {
+                await client.ConnectAsync("smtp.gmail.com", 587, false);
+                await client.AuthenticateAsync(Data.UserNameForSmtp, Data.PasswordForSmtp);
+                await client.SendAsync(emailMessage);
+                await client.DisconnectAsync(true);
+            }
+        }
 
 
     }

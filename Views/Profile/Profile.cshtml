@@ -353,19 +353,19 @@
         </form>
     </div>
     <div class="hidden">
-        <form id="changeInform">
+        <form id="changeInform" method="post" action="/Profile/ResetInfo" >
             <label for="Uname">
                 ФИО
             </label><br>
-            <input class="Uname" type="text" /><br>
+            <input class="Uname" type="text" name="Fio" value="@Model.Fio" required pattern="^(\s*)?((([а-яА-ЯёЁіІїЇa-zA-Z]+)(\s+))(([а-яА-ЯёЁіІїЇa-zA-Z]+)(\s+))(([а-яА-ЯёЁіІїЇa-zA-Z]+)(\s*)?))$" title="Введите фамилию имя и отчество через пробелы" /><br>
             <label for="phone">
                 Номер телефона
             </label><br>
-            <input type="text" class="phone" /><br>
+            <input type="tel" class="phone" value="@Model.PhoneNumber" name="PhoneNumber" pattern="^(\s*)?(\+)?(\s*)?([- _():=+]?\d[- _():=+]?){12}(\s*)?$" title="Введите телефон содержащий код страны и который включает в себя 12 цифр, можно использовать пробел, _():=+ как разделители"/><br>
             <label for="adress">
                 Адрес доставки
             </label><br>
-            <input type="text" class="adress" />
+            <input type="text" class="adress" value="@Model.Address" name="Address" pattern="^[а-яА-ЯёЁіІїЇa-zA-Z0-9 ./]+$" title="Можно вводить адрес используя кириллицу, латиницу, цифры знаки . и /"/>
             <div>
                 <span class="decline">Отменить</span>
                 <input class="saveCh" type="submit" value="Сохранить" />

@@ -144,7 +144,92 @@ namespace AmitTextile.Controllers
         [HttpGet("NotFilters")]
         public async Task<IActionResult> GetFilters()
         {
-            return Ok(await _context.Charachteristics.Include(x => x.Values).Where(x=>!_context.FilterCharachteristicses.Any(y=>x.CharachteristicId==y.CharachteristicId)).ToListAsync());
+            return Ok(await _context.Charachteristics.Include(x => x.Values).Where(x=>!_context.FilterCharachteristicses.Any(y=>x.CharachteristicId==y.CharachteristicId) && x.Values.Count>0).ToListAsync());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteCommentQuestion(string parentIdQuestionId)
+        {
+            if (!User.IsInRole("admin"))
+            {
+                if (Request.Headers["Referer"].ToString() != null)
+                {
+                    return RedirectToAction(Request.Headers["Referer"]);
+                }
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ParentCommentQuestion quest =
+                    await _context.ParentCommentQuestions.SingleOrDefaultAsync(x =>
+                        x.ParentCommentQuestionId == Guid.Parse(parentIdQuestionId));
+                if (quest!=null)
+                {
+                    _context.ParentCommentQuestions.Remove(quest);
+                    await _context.SaveChangesAsync();
+                }
+                if (Request.Headers["Referer"].ToString() != null)
+                {
+                    return RedirectToAction(Request.Headers["Referer"]);
+                }
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> DeleteParentCommentReview(string reviewId)
+        {
+            if (!User.IsInRole("admin"))
+            {
+                if (Request.Headers["Referer"].ToString() != null)
+                {
+                    return RedirectToAction(Request.Headers["Referer"]);
+                }
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ParentCommentReview quest =
+                    await _context.ParentCommentReviews.SingleOrDefaultAsync(x =>
+                        x.ParentCommentReviewId == Guid.Parse(reviewId));
+                if (quest != null)
+                {
+                    _context.ParentCommentReviews.Remove(quest);
+                    await _context.SaveChangesAsync();
+                }
+                if (Request.Headers["Referer"].ToString() != null)
+                {
+                    return RedirectToAction(Request.Headers["Referer"]);
+                }
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> DeleteChildQuestion(string Id)
+        {
+            if (!User.IsInRole("admin"))
+            {
+                if (Request.Headers["Referer"].ToString() != null)
+                {
+                    return RedirectToAction(Request.Headers["Referer"]);
+                }
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ChildCommentQuestion quest =
+                    await _context.ChildCommentQuestions.SingleOrDefaultAsync(x =>
+                        x.ChildCommentQuestionId == Guid.Parse(Id));
+                if (quest != null)
+                {
+                    _context.ChildCommentQuestions.Remove(quest);
+                    await _context.SaveChangesAsync();
+                }
+                if (Request.Headers["Referer"].ToString() != null)
+                {
+                    return RedirectToAction(Request.Headers["Referer"]);
+                }
+                return RedirectToAction("Index", "Home");
+            }
         }
         [HttpPost]
         public async Task<IActionResult> CreateCharachteristic(CharachteristicsAddModel model)

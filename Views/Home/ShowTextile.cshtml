@@ -487,35 +487,39 @@
             </div>
             @foreach (var x in Model.parentCommentReviews)
             {
-                <div class="commentPosted">
-                    <div class="commentInfo">
-                        <span class="commentUserName">
-                            @x.Fio
-                        </span>
-                        <span class="commentDate">
-                            @x.DatePosted.ToString();
-                        </span>
-                    </div>
-                    <div class="commentTextContainer">
-                        <input class="postedCommentRating" name="postedCommentRating" value="@x.Stars.ToString().Replace(",",".")">
-                        <br>
-                        <div class="commentText">
-                            <span>@x.Text</span>
-                        </div>
-                        <br><br><label for="pros">Достоинства:</label><br>
-                        <div class="pros">
-                            <p>
-                                @x.Advantages
-                            </p>
-                        </div>
-                        <label for="cons">Недостатки:</label>
-                        <div class="cons">
-                            <p>
-                                @x.DrawBacks
-                            </p>
-                        </div>
-                    </div>
-                </div>
+    <div class="commentPosted">
+        <div class="commentInfo">
+            <span class="commentUserName">
+                @x.Fio
+            </span>
+            <span class="commentDate">
+                @x.DatePosted.ToString();
+                @if (User.IsInRole("admin"))
+                {
+                    <button type="button" class="close2"><a href="#"><i class="fas fa-times-circle"></i></a></button>   
+                }
+            </span>
+        </div>
+        <div class="commentTextContainer">
+            <input class="postedCommentRating" name="postedCommentRating" value="@x.Stars.ToString().Replace(",",".")">
+            <br>
+            <div class="commentText">
+                <span>@x.Text</span>
+            </div>
+            <br><br><label for="pros">Достоинства:</label><br>
+            <div class="pros">
+                <p>
+                    @x.Advantages
+                </p>
+            </div>
+            <label for="cons">Недостатки:</label>
+            <div class="cons">
+                <p>
+                    @x.DrawBacks
+                </p>
+            </div>
+        </div>
+    </div>
             }
             <div class="navButtons navBcomments">
                 <ul>

@@ -165,7 +165,7 @@ header {
     position: relative;
     top: 20px;
     background-color: #101010;
-    z-index: 10;
+    z-index: 98;
     opacity: 0;
 }
 
@@ -2503,4 +2503,7 @@ textarea {
             text-decoration: none;
             color: #FFA500;
             transition: 0.3s all ease;
+        }
+        .slider__item > img{
+            width : 100%;
         }

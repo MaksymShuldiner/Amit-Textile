@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using AmitTextile.ValidationAttributes;
 
 namespace AmitTextile.Models
 {
@@ -10,6 +11,7 @@ namespace AmitTextile.Models
         [EmailAddress(ErrorMessage = "Некорректный адрес")]
         public string Email { get; set; }
         
+        [Fio(ErrorMessage = "Введите фамилию имя и отчество через пробелы")]
         public string Fio { get; set; }
         [Required(ErrorMessage = "Пароль не может быть пустым")]
         [DataType(DataType.Password)]

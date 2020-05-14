@@ -31,6 +31,10 @@ namespace AmitTextile.Controllers
 
         public async Task<IActionResult> ShowFavourite(int page = 1)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.ShowFav = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Profile/ShowFavourite";
             ViewBag.ProfileUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Profile/Profile";
             if (User.Identity.IsAuthenticated)
@@ -116,6 +120,10 @@ namespace AmitTextile.Controllers
         [HttpGet]
         public async Task<IActionResult> DeleteFavourite(string TextileId)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             string Url = Request.Headers["Referer"].ToString();
             User user = await _context.Users.Include(x => x.UserChosenTextiles)
                 .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name);
@@ -136,6 +144,10 @@ namespace AmitTextile.Controllers
         [HttpGet]
         public async Task<IActionResult> LogOff()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
@@ -171,11 +183,15 @@ namespace AmitTextile.Controllers
         }
         public async Task<IActionResult> Profile()
         {
-            ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             if (User.Identity.IsAuthenticated)
             {
                 ViewBag.Fio = _userManager.FindByNameAsync(User.Identity.Name).Result.Fio;
             }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             ViewBag.ProfileUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Profile/Profile";
             List<Item> Items = new List<Item>();
             if (User.Identity.IsAuthenticated)
@@ -370,7 +386,7 @@ namespace AmitTextile.Controllers
             user.PhoneNumber = model.PhoneNumber;
             _context.Update(user);
             await _context.SaveChangesAsync();
-            return Ok(Request.Headers["Referer"].ToString());
+            return Redirect($"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Profile/Profile");
         }
 
         [HttpPost("ResetPassForAnons")]
