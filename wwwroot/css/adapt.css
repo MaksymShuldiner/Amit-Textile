@@ -213,7 +213,7 @@
             width: 100%;
         }
 
-        .item_image > img {
+        .item_image img {
             height: 125px;
         }
         .item{
@@ -361,7 +361,7 @@
             height: auto;
         }
 
-        .item_image > img {
+        .item_image img {
             height: auto;
         }
         .logo_container{ 

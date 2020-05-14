@@ -211,7 +211,7 @@ header {
 .notFirstItem{
     border-left:none;
 }
-.item_image > img {
+.item_image img {
     width: 100%;
     padding-bottom: 15px;
     height: 160px;
@@ -557,7 +557,7 @@ footer {
         border: none;
     }
 
-.catItemImgHolder > img {
+.catItemImgHolder img {
     width: 100%;
 }
 
@@ -694,7 +694,7 @@ footer {
 .mrg {
     margin-bottom: 60px;
 }
-.listImgContainer > img {
+.listImgContainer img {
     width: 100%;
 }
 
@@ -858,7 +858,7 @@ footer {
     color: white;
 }
 
-.listImgContainer > img {
+.listImgContainer img {
     width: 100%;
 }
 

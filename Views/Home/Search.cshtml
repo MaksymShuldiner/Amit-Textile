@@ -209,7 +209,9 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="listImgContainer lic">
-                                                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(x.Textile.MainImage.ByteImg))" alt="awd">
+                                                            <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId">
+                                                                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(x.Textile.MainImage.ByteImg))" alt="awd">
+                                                            </a>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -348,7 +350,9 @@
                                                 <button data="@x.ItemId" class="close1"><i class="fas fa-times-circle"></i></button>
                                                 <div class="col-md-4">
                                                     <div class="listImgContainer">
-                                                        <img src="data:image/jpeg;base64,@(Convert.ToBase64String(x.Textile.MainImage.ByteImg))" alt="awd">
+                                                        <a href="@ViewBag.BookUrl?TextileId=@x.Textile.TextileId">
+                                                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(x.Textile.MainImage.ByteImg))" alt="awd">
+                                                        </a>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
