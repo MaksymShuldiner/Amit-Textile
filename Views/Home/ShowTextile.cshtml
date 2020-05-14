@@ -819,15 +819,15 @@
             <div class="hidden">
                 <form id="order" action="@Url.Action("MakeOrder","Home")" method="post">
                     <label>ФИО</label><br />
-                    <input name="Fio" type="text" class="orderFio" /><br />
+                    <input name="Fio" type="text" class="orderFio" required pattern="^(\s*)?((([а-яА-ЯёЁіІїЇa-zA-Z]+)(\s+))(([а-яА-ЯёЁіІїЇa-zA-Z]+)(\s+))(([а-яА-ЯёЁіІїЇa-zA-Z]+)(\s*)?))$" title="Введите фамилию имя и отчество через пробелы"/><br />
                     <label>Email</label><br />
                     <input type="email" name="Email" class="orderEmail" /><br />
                     <label>Номер телефона</label><br />
-                    <input type="text" class="orderPhone" name="PhoneNumber" />
+                    <input type="text" class="orderPhone" name="PhoneNumber" pattern="^(\s*)?(\+)?(\s*)?([- _():=+]?\d[- _():=+]?){12}(\s*)?$" title="Введите телефон содержащий код страны и который включает в себя 12 цифр, можно использовать пробел, _():=+ как разделители"/>
                     <label>Выберите метод оплаты</label><br />
                     <div class="paymentMethod">
                         <input type="radio" class="payment byCard" name="isPaidByCash" /><label>&nbsp &nbsp Оплата картой</label><br />
-                        <input type="radio" class="payment byCash" name="isPaidByCash" /><label>&nbsp &nbsp Оплата наличными</label><br />
+                        <input type="radio" class="payment byCash" name="isPaidByCash" checked="checked" /><label>&nbsp &nbsp Оплата наличными</label><br />
                     </div>
                     <label>Ваш город</label><br />
                     <input type="text" class="city" name="Address" /><br />
