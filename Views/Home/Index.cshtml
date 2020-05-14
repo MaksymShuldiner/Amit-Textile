@@ -1,4 +1,5 @@
 ﻿@using AmitTextile.Domain
+@using Microsoft.AspNetCore.Http
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -128,6 +129,9 @@
                     <a href="#cartPopup" class="sideOption" data-fancybox="3"> Корзина <i class="fas fa-shopping-cart"></i></a>
                 </li>
                 <li>
+                    <a href="@ViewBag.AdminPanel" class="sideOption"> Админ-панель <i class="fas fa-tools"></i></a>
+                </li>
+                <li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <a class="favouriteList sideOption" href="@Url.Action("ShowFavourite", "Profile")" title="Избранные товары"><span>Избранное</span> <i class="fas fa-heart"></i></a>
@@ -160,6 +164,10 @@
                     </form>
                 </div>
                 <div class="col-md-5 cart_container">
+                    @if (User.IsInRole("admin"))
+                    {
+                        <a href="@ViewBag.AdminPanel" class="favouriteList"><i class="fas fa-tools"></i></a>
+                    }
                     @if (User.Identity.IsAuthenticated)
                     {
                         <a class="favouriteList" href="@Url.Action("ShowFavourite", "Profile")" title="Избранные товары"><i class="fas fa-heart"></i></a>
@@ -168,14 +176,15 @@
                     {
                         <a class="favouriteList" href="#login" title="Избранные товары" data-fancybox="dsf"><i class="fas fa-heart"></i></a>
                     }
-                    @{
+                    @if (!User.IsInRole("admin"))
+                    {
+                        
                         int count3 = 0;
                         foreach (var x in ViewBag.Items)
                         {
                             count3 += x.ItemsAmount;
                         }
-                    }
-                    <div class="cart">
+                        <div class="cart">
                         <a href="#cartPopup" data-fancybox="2"><i class="fas fa-shopping-cart"></i></a>
                         @if (ViewBag.Items.Count > 0)
                         {
@@ -195,6 +204,7 @@
                             </div>
                         }
                     </div>
+                    }
                     <span class="first">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span><br><span class="nFirst">+38-(000)-000-00-00</span>
                     @if (!User.Identity.IsAuthenticated)
                     {
@@ -210,7 +220,7 @@
                                         <a href="@ViewBag.ProfileUrl">Личные данные <i class="fas fa-chevron-right"></i></a>
                                     </li>
                                     <li class="authOption leave">
-                                        <a href="@Url.Action("LogOff","Profile")">Выход</a>
+                                        <a href="@Url.Action("LogOff", "Profile")">Выход</a>
                                     </li>
                                 </ul>
                             </div>
@@ -236,18 +246,12 @@
     <div class="content">
         <div class="slider">
             <div class="slider__wrapper">
-                <div class="slider__item">
-                    <div style="height: 250px; background: orange;">1</div>
-                </div>
-                <div class="slider__item">
-                    <div style="height: 250px; background: green;">2</div>
-                </div>
-                <div class="slider__item">
-                    <div style="height: 250px; background: violet;">3</div>
-                </div>
-                <div class="slider__item">
-                    <div style="height: 250px; background: coral;">4</div>
-                </div>
+                @foreach (var x in ViewBag.SliderImgs)
+                {
+                    <div style="height: 250px" class="slider__item">
+                        <img src="data:image/jpeg;base64,@x" alt="awd">
+                    </div>
+                }
             </div>
             <a class="slider__control slider__control_left" href="#" role="button"></a>
             <a class="slider__control slider__control_right" href="#" role="button"></a>
@@ -513,9 +517,9 @@
                     setTimeout(tgl, 10000);
                 },
                 error: function (e) {
-                    let errorArr = e.responseText.split('');
+                    let errorArr = e.responseJSON;
                     if (errorArr[0] != undefined) {
-                        for (let i = 1; i < errorArr.length - 1; i++) {
+                        for (let i = 0; i < errorArr.length; i++) {
                             if (errorArr[i] != ",") {
                                 $('#resetMail').append('<span class="error">' + errorArr[i] + '<br><br></span>');
                             }

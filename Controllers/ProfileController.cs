@@ -31,6 +31,11 @@ namespace AmitTextile.Controllers
 
         public async Task<IActionResult> ShowFavourite(int page = 1)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ViewBag.ShowFav = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Profile/ShowFavourite";
             ViewBag.ProfileUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Profile/Profile";
             if (User.Identity.IsAuthenticated)
             {
@@ -115,6 +120,10 @@ namespace AmitTextile.Controllers
         [HttpGet]
         public async Task<IActionResult> DeleteFavourite(string TextileId)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             string Url = Request.Headers["Referer"].ToString();
             User user = await _context.Users.Include(x => x.UserChosenTextiles)
                 .FirstOrDefaultAsync(x => x.UserName == User.Identity.Name);
@@ -126,11 +135,19 @@ namespace AmitTextile.Controllers
                 await _userManager.UpdateAsync(user);
                 await _context.SaveChangesAsync();
             }
+            if (Url == "")
+            {
+                Url = this.Url.Action("Index","Home");
+            }
             return Redirect(Url);
         }
         [HttpGet]
         public async Task<IActionResult> LogOff()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
@@ -147,7 +164,7 @@ namespace AmitTextile.Controllers
                 string name = User.Identity.Name;
                 User user = await _userManager.FindByNameAsync(name);
                
-                if ((DateTime.Now - user.LastTimeEmailForPassSent).Hours > 6)
+                if ((DateTime.Now - user.LastTimeEmailForPassSent).TotalHours > 6)
                 {
                     user.LastTimeEmailForPassSent = DateTime.Now;
                     _context.Users.Update(user);
@@ -166,11 +183,15 @@ namespace AmitTextile.Controllers
         }
         public async Task<IActionResult> Profile()
         {
-            ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             if (User.Identity.IsAuthenticated)
             {
                 ViewBag.Fio = _userManager.FindByNameAsync(User.Identity.Name).Result.Fio;
             }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
             ViewBag.ProfileUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Profile/Profile";
             List<Item> Items = new List<Item>();
             if (User.Identity.IsAuthenticated)
@@ -252,7 +273,7 @@ namespace AmitTextile.Controllers
                 string code = HttpUtility.HtmlDecode(model.Code);
                 if (user != null)
                 {
-                    if (((DateTime.Now) - (_userManager.FindByNameAsync(model.Name).Result.LastTimePassChanged)).Days >
+                    if (((DateTime.Now) - (_userManager.FindByNameAsync(model.Name).Result.LastTimePassChanged)).TotalDays >
                         1)
                     {
                         var result = await _userManager.ResetPasswordAsync(user, code, model.Password);
@@ -260,7 +281,7 @@ namespace AmitTextile.Controllers
                         {
                             user.LastTimePassChanged = DateTime.Now;
                             _context.Users.Update(user);
-                            _context.SaveChangesAsync();
+                            await _context.SaveChangesAsync();
                             await _signInManager.SignOutAsync();
                             return Ok();
                         }
@@ -273,10 +294,6 @@ namespace AmitTextile.Controllers
                     {
                         errors.Add("К сожалению пароль можно восстановить только раз в день ");
                     }
-                }
-                else
-                {
-                    errors.Add("Неверная ссылка для восстановления пароля");
                 }
             }
             else
@@ -299,7 +316,7 @@ namespace AmitTextile.Controllers
             {
                 string name = User.Identity.Name;
                 User user = await _userManager.FindByNameAsync(name);
-            if ((DateTime.Now - user.LastTimeEmailForEmailSent).Hours > 5)
+            if ((DateTime.Now - user.LastTimeEmailForEmailSent).TotalHours > 5)
             {
                 if (_context.Users.Any(x => x.Email == model.Email))
                 {
@@ -369,7 +386,7 @@ namespace AmitTextile.Controllers
             user.PhoneNumber = model.PhoneNumber;
             _context.Update(user);
             await _context.SaveChangesAsync();
-            return Ok(Request.Headers["Referer"].ToString());
+            return Redirect($"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Profile/Profile");
         }
 
         [HttpPost("ResetPassForAnons")]
@@ -383,7 +400,7 @@ namespace AmitTextile.Controllers
             }
             if (ModelState.IsValid)
             {
-                if ((DateTime.Now - user.LastTimeEmailForPassSent).Hours > 5)
+                if ((DateTime.Now - user.LastTimeEmailForPassSent).TotalHours > 5)
                 {
                     user.LastTimeEmailForPassSent = DateTime.Now;
                     _context.Users.Update(user);

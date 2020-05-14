@@ -12,6 +12,10 @@ namespace AmitTextile.Domain
 
         public string Id { get; set; }
 
+        public Image Image { get; set; }
+
+        public Guid? ImageId { get; set; }
+
         public Category Category { get; set; }
 
         [ForeignKey("Category")] 

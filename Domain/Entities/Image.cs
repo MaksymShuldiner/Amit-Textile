@@ -6,7 +6,8 @@ namespace AmitTextile.Domain
     public class Image
     {
         public Guid ImageId { get; set; }
-
+        
+        public ChildCategory ChildCategory { get; set; }
         public string Name { get; set; }
 
         public byte[] ByteImg { get; set; }

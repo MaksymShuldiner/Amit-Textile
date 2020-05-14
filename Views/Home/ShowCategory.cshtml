@@ -1,6 +1,7 @@
 ﻿@using AmitTextile.Domain
 @model AmitTextile.Models.CategoriesViewModel
 
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -167,7 +168,7 @@
                                         <a href="@ViewBag.ProfileUrl">Личные данные <i class="fas fa-chevron-right"></i></a>
                                     </li>
                                     <li class="authOption leave">
-                                        <a href="@Url.Action("LogOff","Admin")">Выход</a>
+                                        <a href="@Url.Action("LogOff","Profile")">Выход</a>
                                     </li>
                                 </ul>
                             </div>
@@ -257,7 +258,7 @@
                                     <a href="@Url.Action("ShowChildCategory", "Home", new { ChildCatId = x.ChildCategoryId, CookieValue=Model.CookieValue })">
                                         <li class="catItem">
                                             <div class="catItemImgHolder">
-                                                <img class="catItemImgHolder" src="../images/img1.jpg" alt="CategoryImage">
+                                                <img class="catItemImgHolder" src="data:image/jpeg;base64,@(Convert.ToBase64String(x.Image.ByteImg))" alt="CategoryImage">
                                             </div>
                                             <div class="catItemNameHolder">
                                                 <span>@x.Name</span>

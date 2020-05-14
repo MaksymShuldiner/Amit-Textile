@@ -129,14 +129,8 @@
         }
         parent.jQuery.fancybox.getInstance().close();
     });
-    $('.decline').click(function () {
-        let input = $(this).parent().parent().find('input');
-        for (let i = 0; i < input.length; i++) {
-            if ($(input[i]).attr('type') == "text" && !$(input[i]).hasClass('userNameField')) {
-                input[i].value = "";
-            }
-        }
-            parent.jQuery.fancybox.getInstance().close();
+    $('.decline').click(function (){
+        parent.jQuery.fancybox.getInstance().close();
         });
     $('.postedCommentRating').rating({ displayOnly: true, size: 's', language: "ru" });
     $('#commentS').click(function () {

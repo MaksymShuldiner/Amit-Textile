@@ -6,6 +6,10 @@
 
         public string Gmail { get; set; }
 
-       
+        public string UserNameForSmtp { get; set; }
+
+
+        public string PasswordForSmtp { get; set; }
+
     }
 }

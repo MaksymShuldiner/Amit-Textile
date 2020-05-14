@@ -21,18 +21,19 @@ namespace AmitTextile.Controllers
         private UserManager<User> _userManager;
         private AmitDbContext _context;
         private EmailService _emailService;
+
+        
         public AdminController(UserManager<User> userManager, AmitDbContext context, EmailService emailService)
         {
             _userManager = userManager;
             _emailService = emailService;
             _context = context;
         }
-
         public async Task<IActionResult> Main()
         {
             ViewBag.Url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Home/ShowCategory";
-
-            if (User.IsInRole("admin"))
+            ViewBag.Orders = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/Admin/Orders";
+            if (!User.IsInRole("admin"))
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -143,7 +144,92 @@ namespace AmitTextile.Controllers
         [HttpGet("NotFilters")]
         public async Task<IActionResult> GetFilters()
         {
-            return Ok(await _context.Charachteristics.Include(x => x.Values).Where(x=>!_context.FilterCharachteristicses.Any(y=>x.CharachteristicId==y.CharachteristicId)).ToListAsync());
+            return Ok(await _context.Charachteristics.Include(x => x.Values).Where(x=>!_context.FilterCharachteristicses.Any(y=>x.CharachteristicId==y.CharachteristicId) && x.Values.Count>0).ToListAsync());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteCommentQuestion(string parentIdQuestionId)
+        {
+            if (!User.IsInRole("admin"))
+            {
+                if (Request.Headers["Referer"].ToString() != null)
+                {
+                    return RedirectToAction(Request.Headers["Referer"]);
+                }
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ParentCommentQuestion quest =
+                    await _context.ParentCommentQuestions.SingleOrDefaultAsync(x =>
+                        x.ParentCommentQuestionId == Guid.Parse(parentIdQuestionId));
+                if (quest!=null)
+                {
+                    _context.ParentCommentQuestions.Remove(quest);
+                    await _context.SaveChangesAsync();
+                }
+                if (Request.Headers["Referer"].ToString() != null)
+                {
+                    return RedirectToAction(Request.Headers["Referer"]);
+                }
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> DeleteParentCommentReview(string reviewId)
+        {
+            if (!User.IsInRole("admin"))
+            {
+                if (Request.Headers["Referer"].ToString() != null)
+                {
+                    return RedirectToAction(Request.Headers["Referer"]);
+                }
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ParentCommentReview quest =
+                    await _context.ParentCommentReviews.SingleOrDefaultAsync(x =>
+                        x.ParentCommentReviewId == Guid.Parse(reviewId));
+                if (quest != null)
+                {
+                    _context.ParentCommentReviews.Remove(quest);
+                    await _context.SaveChangesAsync();
+                }
+                if (Request.Headers["Referer"].ToString() != null)
+                {
+                    return RedirectToAction(Request.Headers["Referer"]);
+                }
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> DeleteChildQuestion(string Id)
+        {
+            if (!User.IsInRole("admin"))
+            {
+                if (Request.Headers["Referer"].ToString() != null)
+                {
+                    return RedirectToAction(Request.Headers["Referer"]);
+                }
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ChildCommentQuestion quest =
+                    await _context.ChildCommentQuestions.SingleOrDefaultAsync(x =>
+                        x.ChildCommentQuestionId == Guid.Parse(Id));
+                if (quest != null)
+                {
+                    _context.ChildCommentQuestions.Remove(quest);
+                    await _context.SaveChangesAsync();
+                }
+                if (Request.Headers["Referer"].ToString() != null)
+                {
+                    return RedirectToAction(Request.Headers["Referer"]);
+                }
+                return RedirectToAction("Index", "Home");
+            }
         }
         [HttpPost]
         public async Task<IActionResult> CreateCharachteristic(CharachteristicsAddModel model)
@@ -165,10 +251,26 @@ namespace AmitTextile.Controllers
             return RedirectToAction("Main", "Admin");
         }
         [HttpPost]
-        public async Task<IActionResult> CreateChildCategory(string name)
+        public async Task<IActionResult> CreateChildCategory(string name, IFormFile file)
         {
-            Guid Id = new Guid();
-            ChildCategory category = new ChildCategory() {ChildCategoryId = Guid.NewGuid(), Name = name };
+            Guid Id = Guid.NewGuid();
+            ChildCategory category = new ChildCategory() {ChildCategoryId = Guid.NewGuid(), Name = name, ImageId = Id};
+            Image image2 = null;
+            if (file != null)
+            {
+                byte[] imageData1 = null;
+                using (var binaryReader = new BinaryReader(file.OpenReadStream()))
+                {
+                    imageData1 = binaryReader.ReadBytes((int)file.Length);
+                }
+                image2 = new Image()
+                {
+                    Name = file.FileName,
+                    ByteImg = imageData1,
+                    ImageId = Id
+                };
+            }
+            await _context.Images.AddAsync(image2);
             await  _context.ChildCategories.AddAsync(category);
             await _context.SaveChangesAsync();
             return RedirectToAction("Main", "Admin");
@@ -219,7 +321,7 @@ namespace AmitTextile.Controllers
             {
                 ViewBag.Fio = _userManager.FindByNameAsync(User.Identity.Name).Result.Fio;
             }
-            if (User.IsInRole("admin"))
+            if (!User.IsInRole("admin"))
             {
                 return RedirectToAction("Index", "Home");
             }
