@@ -489,6 +489,7 @@
             {
     <div class="commentPosted">
         <div class="commentInfo">
+            <a class="removeComment" href="#"><i class="fas fa-times"></i></a>
             <span class="commentUserName">
                 @x.Fio
             </span>
@@ -496,9 +497,10 @@
                 @x.DatePosted.ToString();
                 @if (User.IsInRole("admin"))
                 {
-                    <button type="button" class="close2"><a href="#"><i class="fas fa-times-circle"></i></a></button>   
+                    <button type="button" class="close2"><a href="#"><i class="fas fa-times-circle"></i></a></button>
                 }
             </span>
+
         </div>
         <div class="commentTextContainer">
             <input class="postedCommentRating" name="postedCommentRating" value="@x.Stars.ToString().Replace(",",".")">
@@ -600,6 +602,7 @@
                 int count = 0;
                 <div class="commentPosted questionPosted">
                     <div class="commentInfo">
+                        <a class="removeComment" href="#"><i class="fas fa-times"></i></a>
                         <span class="commentUserName">
                             @x.Fio
                         </span>
@@ -617,6 +620,7 @@
                         <div class="replyToQuestion">
                             <div class="reply">
                                 <div class="replyInfo">
+                                    <a class="removeComment" href="#"><i class="fas fa-times"></i></a>
                                     <span class="commentUserName">
                                         @y.Fio
                                     </span>

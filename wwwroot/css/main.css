@@ -1233,6 +1233,7 @@ textarea {
     font-size: 14px;
     color: white;
     margin-top: 5px;
+    margin-right:15px;
 }
 
 .commentPosted {
@@ -1274,7 +1275,7 @@ textarea {
 
 .replyButton {
     float: right;
-    margin-left: 5%;
+    margin-right:10px;
     margin-top: 2px;
     transition: 0.3s all ease;
 }
@@ -2506,4 +2507,14 @@ textarea {
         }
         .slider__item > img{
             width : 100%;
+        }
+        .removeComment{
+            color:#696969;
+            float:right;
+            margin-bottom:25px;
+            transition:0.3s all ease;
+        }
+        .removeComment:hover{
+            color:#d3d3d3;
+            transition:0.3s all ease;
         }
